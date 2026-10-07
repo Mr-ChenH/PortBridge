@@ -1,0 +1,15 @@
+********* Start testing of UiTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : UiTest::initTestCase()
+QWARN  : UiTest::udpDirectSendUsesEditedTargetWithoutConfigurationTraffic() setGeometry: Unable to set geometry 1800x1250+8+31 (frame: 1816x1289+0+0) on QWidgetWindow/"mainWindowWindow" on "\\.\DISPLAY33". Resulting geometry: 1800x1061+8+31 (frame: 1816x1100+0+0) margins: 8, 31, 8, 8 minimum size: 1100x760 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1391, y=989)))
+QWARN  : UiTest::udpDirectSendUsesEditedTargetWithoutConfigurationTraffic() qt.qpa.fonts: DirectWrite: CreateFontFaceFromHDC() failed (指示输入文件 (例如字体文件) 中的错误。) for QFontDef(Family="Fixedsys", stylename=Regular, pointsize=9, pixelsize=16, styleHint=7, weight=500, stretch=100, hintingPreference=0) LOGFONT("Fixedsys", lfWidth=0, lfHeight=-16) dpi=96
+PASS   : UiTest::udpDirectSendUsesEditedTargetWithoutConfigurationTraffic()
+QWARN  : UiTest::textPreviewColorsFormattingAndCompleteAsciiPages() setGeometry: Unable to set geometry 1800x1250+8+31 (frame: 1816x1289+0+0) on QWidgetWindow/"mainWindowWindow" on "\\.\DISPLAY33". Resulting geometry: 1800x1061+8+31 (frame: 1816x1100+0+0) margins: 8, 31, 8, 8 minimum size: 1100x760 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1391, y=989)))
+PASS   : UiTest::textPreviewColorsFormattingAndCompleteAsciiPages()
+QWARN  : UiTest::profileBrowsingKeepsUdpBindingAndReceivesInBackground() setGeometry: Unable to set geometry 1800x1250+8+31 (frame: 1816x1289+0+0) on QWidgetWindow/"mainWindowWindow" on "\\.\DISPLAY33". Resulting geometry: 1800x1061+8+31 (frame: 1816x1100+0+0) margins: 8, 31, 8, 8 minimum size: 1100x760 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1391, y=989)))
+PASS   : UiTest::profileBrowsingKeepsUdpBindingAndReceivesInBackground()
+QWARN  : UiTest::nativeAuditScreenshotsAndLayout() setGeometry: Unable to set geometry 1800x1250+8+31 (frame: 1816x1289+0+0) on QWidgetWindow/"mainWindowWindow" on "\\.\DISPLAY33". Resulting geometry: 1800x1061+8+31 (frame: 1816x1100+0+0) margins: 8, 31, 8, 8 minimum size: 1100x760 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1391, y=989)))
+PASS   : UiTest::nativeAuditScreenshotsAndLayout()
+PASS   : UiTest::cleanupTestCase()
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 3333ms
+********* Finished testing of UiTest *********

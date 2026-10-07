@@ -1,0 +1,22 @@
+{
+  "src/main.cpp": "960c184dd0bab3125e55250f3a97bdf8916bea17cb1b1e79f181fd9bad8bc86b",
+  "src/network/network_engine.cpp": "2edbe3b32404e6746c2a33c707f7b2c4e726c329b77209f6a666032e34b88feb",
+  "src/session/configuration.cpp": "2451a922e72fed452f12e8f65c89b2b4aebc8fe7de047f5483049f844bb62422",
+  "src/session/recorder.cpp": "075c8b225902879c9641a4844ac0082f546765504138f4b4742b2b7acc3f0ed1",
+  "src/session/serial_engine.cpp": "3f68e5fe06e8c69344eb1b339dff2439feb6f18194385653c898e3a53813b54b",
+  "src/session/session_controller.cpp": "62982a15232ba7b8ebfb7e7b859d93120838bf87d217ffc25dd1467ffa303acb",
+  "src/ui/main_window.cpp": "d4e53471002ee93f0657526936c8393417ba8f8764d4e34b75de84adb77b0f30",
+  "src/ui/record_model.cpp": "b8be00fd9a4cc9328743499a46f47743cb3492c05075ef79ab37e52d9f9c120f",
+  "src/network/buffer_pool.hpp": "fe0e9ff06c158271aabb7f7dc943b710d201c6ae6fa6d76b30f4f470b6068bd9",
+  "src/network/udp_receive.hpp": "a42cf5f453733545ad3406f788111ce9d6cb49ef601b9aec8b1a927857e2eab3",
+  "src/session/recorder.hpp": "e3d6df9ec68084a1feb120ce94af51257f40a56c07d579c0a2f708230f370a27",
+  "src/session/serial_engine.hpp": "305d2a8b3a6499bdf1c51c71a75c50f4fb7073d7ec2648df095df9fbd541413d",
+  "src/session/session_private.hpp": "ab12de0197d7fd4767628df751009387332bad294785ffee642c9cdfdeb1a316",
+  "src/ui/background_job.hpp": "a850a7d4516cda53ac3d566e1b14d31f716eb9fbe6d3f9bdbe5dd8b9a8bffe89",
+  "src/ui/design_widgets.hpp": "c4e1bbcd005347e3b91bbdf8767d703282d67f62f7739e2f2d7be414c278995d",
+  "src/ui/main_window.hpp": "fe51ef9aad0a2e40156dc9a5b2934eae24881cf119c7631afc5ebc0900cecb10",
+  "src/ui/record_model.hpp": "0475421767c329c8b35f066e66a3d1655b6b0657f040fe7d8f4b1d96c8143a43",
+  "include/portbridge/network_engine.hpp": "1428c28956f023118a8ee0944fee10a7cd2d8f6de3799a1a454ba37ace5fe6b3",
+  "include/portbridge/session_controller.hpp": "17086c3f4fc2fc694c2b39c04dd35b0e68c87bc636a691c9a82cd8b7a80989d8",
+  "include/portbridge/types.hpp": "365ee06f65fb9a4b6815c4df58c5458acd3bf429747683b99d325dd50be643b7"
+}

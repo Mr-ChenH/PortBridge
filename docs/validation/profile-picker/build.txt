@@ -1,0 +1,8 @@
+[0/2] Re-checking globbed directories...
+[1/10] Automatic MOC for target portbridge_ui
+[2/9] Building CXX object CMakeFiles/portbridge_ui.dir/src/ui/main_window.cpp.obj
+[3/9] Linking CXX static library libportbridge_ui.a
+[4/9] Linking CXX executable PortBridge.exe
+[5/9] Automatic MOC for target test_ui
+[6/8] Building CXX object CMakeFiles/test_ui.dir/tests/test_ui.cpp.obj
+[7/8] Linking CXX executable test_ui.exe

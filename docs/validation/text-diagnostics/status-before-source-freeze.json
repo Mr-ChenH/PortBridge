@@ -1,0 +1,16 @@
+{
+  "state": "failed",
+  "steps": [
+    {
+      "step": "build",
+      "exit": 0,
+      "seconds": 43.963
+    },
+    {
+      "step": "ctest",
+      "exit": 0,
+      "seconds": 70.286
+    }
+  ],
+  "error": "Sources changed during verification"
+}

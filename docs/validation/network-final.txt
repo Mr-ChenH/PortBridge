@@ -1,0 +1,9 @@
+PASS Retained payload outlives pool without pinning free cache; safe buffer reuse
+PASS TCP arbitrary splits and retained-block backpressure
+PASS Four TCP clients directed/broadcast/selective disconnect
+PASS UDP empty/large/multiple origins and consumer drops
+PASS UDP absent peer keeps binding, independent receive, and completed TX
+PASS Bounded admission and completed TX not retried
+PASS Retired TCP block cannot enter replacement UDP generation
+PASS Cancel/deadline/refusal/repeated stop/destruction
+PASS all network loopback tests (localhost; no hardware throughput claim)

@@ -1,0 +1,16 @@
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.7s)
+-- Build files have been written to: C:/Users/threeTeeth/workSpace/github/PortBridge/build/release
+[0/2] Re-checking globbed directories...
+[1/14] Automatic MOC for target portbridge_ui
+[2/13] Automatic MOC for target test_session
+[3/12] Building CXX object CMakeFiles/test_session.dir/tests/test_session.cpp.obj
+[4/12] Linking CXX executable test_session.exe
+[5/12] Building CXX object CMakeFiles/portbridge_ui.dir/src/ui/main_window.cpp.obj
+[6/12] Linking CXX static library libportbridge_ui.a
+[7/12] Linking CXX executable PortBridge.exe
+[8/12] Automatic MOC for target test_ui
+[9/11] Building CXX object CMakeFiles/test_ui.dir/tests/test_ui.cpp.obj
+[10/11] Linking CXX executable test_ui.exe
+Built: C:\Users\threeTeeth\workSpace\github\PortBridge\build\release\PortBridge.exe

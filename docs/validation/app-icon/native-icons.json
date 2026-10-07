@@ -1,0 +1,31 @@
+{
+  "exe_large": {
+    "size": 32,
+    "opaque_pixel_max_difference": 0
+  },
+  "exe_small": {
+    "size": 16,
+    "opaque_pixel_max_difference": 0
+  },
+  "window_large": {
+    "size": 32,
+    "opaque_pixel_max_difference": 0
+  },
+  "window_small": {
+    "size": 16,
+    "opaque_pixel_max_difference": 0
+  },
+  "native_exe_resource_sizes": [
+    16,
+    20,
+    24,
+    32,
+    40,
+    48,
+    64,
+    128,
+    256
+  ],
+  "window_icons_match_artwork": true,
+  "exe_icons_match_artwork": true
+}

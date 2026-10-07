@@ -1,0 +1,22 @@
+{
+  "build/audit-independent/bench_classification.cpp": "3fa3cf38f49f7c767c4b2ed9cd9d1572fdf46bdc3d0cb936aad102a28d8b87c2",
+  "build/audit-independent/CMakeLists.txt": "8e0a120f72e211fce944f72ab257412fce4fe59e23b3ce1a639680340dd0889e",
+  "build/audit-independent/independent_session.cpp": "3e771962196f3dd81e28bf591223365cd6b4873fa5bfe5743f943e5c55cd030a",
+  "build/audit-independent/verify.py": "eea253b9fead1d9a9137c56a59fffff5978608dfaf21361b8964c83e42adfb26",
+  "include/portbridge/network_engine.hpp": "1428c28956f023118a8ee0944fee10a7cd2d8f6de3799a1a454ba37ace5fe6b3",
+  "include/portbridge/session_controller.hpp": "17086c3f4fc2fc694c2b39c04dd35b0e68c87bc636a691c9a82cd8b7a80989d8",
+  "include/portbridge/types.hpp": "365ee06f65fb9a4b6815c4df58c5458acd3bf429747683b99d325dd50be643b7",
+  "src/network/buffer_pool.hpp": "fe0e9ff06c158271aabb7f7dc943b710d201c6ae6fa6d76b30f4f470b6068bd9",
+  "src/network/network_engine.cpp": "2edbe3b32404e6746c2a33c707f7b2c4e726c329b77209f6a666032e34b88feb",
+  "src/network/udp_receive.hpp": "a42cf5f453733545ad3406f788111ce9d6cb49ef601b9aec8b1a927857e2eab3",
+  "src/session/configuration.cpp": "2451a922e72fed452f12e8f65c89b2b4aebc8fe7de047f5483049f844bb62422",
+  "src/session/recorder.cpp": "075c8b225902879c9641a4844ac0082f546765504138f4b4742b2b7acc3f0ed1",
+  "src/session/recorder.hpp": "e3d6df9ec68084a1feb120ce94af51257f40a56c07d579c0a2f708230f370a27",
+  "src/session/serial_engine.cpp": "3f68e5fe06e8c69344eb1b339dff2439feb6f18194385653c898e3a53813b54b",
+  "src/session/serial_engine.hpp": "305d2a8b3a6499bdf1c51c71a75c50f4fb7073d7ec2648df095df9fbd541413d",
+  "src/session/session_controller.cpp": "62982a15232ba7b8ebfb7e7b859d93120838bf87d217ffc25dd1467ffa303acb",
+  "src/session/session_private.hpp": "ab12de0197d7fd4767628df751009387332bad294785ffee642c9cdfdeb1a316",
+  "tests/test_network.cpp": "2574137356847db7128948908ed10f28eed8e7b2f37b59f41a2344fd6caaac42",
+  "tests/test_session.cpp": "986db84afcd42acdedc9bd8056d8b051e46f92e5e80bdd6fea780c90c9f2deb5",
+  "tools/network_bench.cpp": "f19c0cf3e972b8ff817d4a73afe2f36f87c463d4d1560097e14c4a2b868d01fb"
+}

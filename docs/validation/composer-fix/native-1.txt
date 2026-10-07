@@ -1,0 +1,18 @@
+********* Start testing of UiTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : UiTest::initTestCase()
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=0 window=1440x1000 default=1109x205 expanded=1109x514
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=1 window=1440x1000 default=1109x204 expanded=1109x513
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=2 window=1440x1000 default=1109x204 expanded=1109x513
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=3 window=1440x1000 default=1109x168 expanded=1109x477
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=0 window=1100x760 default=769x114 expanded=769x274
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=1 window=1100x760 default=769x113 expanded=769x273
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=2 window=1100x760 default=769x113 expanded=769x273
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=3 window=1100x760 default=769x96 expanded=769x237
+PASS   : UiTest::sharedComposerSupportsMultilineResizeAndExpansion()
+PASS   : UiTest::composerSizePreferenceRestoresWithoutExpandedStartup()
+PASS   : UiTest::udpDirectSendUsesEditedTargetWithoutConfigurationTraffic()
+PASS   : UiTest::nativeAuditScreenshotsAndLayout()
+PASS   : UiTest::cleanupTestCase()
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 7555ms
+********* Finished testing of UiTest *********

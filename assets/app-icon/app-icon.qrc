@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/icons">
+    <file alias="portbridge.ico">portbridge.ico</file>
+  </qresource>
+</RCC>

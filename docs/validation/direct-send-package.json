@@ -1,0 +1,10 @@
+{
+  "revision": "direct-send-1",
+  "startup_exit": {
+    "dark": 0,
+    "light": 0
+  },
+  "application_matches_release": true,
+  "environment": "Windows system PATH only; all QT* variables removed; cwd deployed directory",
+  "clean_windows_validated": false
+}

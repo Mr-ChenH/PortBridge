@@ -1,0 +1,77 @@
+Test project C:/Users/threeTeeth/workSpace/github/PortBridge/build/release
+    Start 1: network
+1/3 Test #1: network ..........................   Passed    1.62 sec
+    Start 2: session
+2/3 Test #2: session ..........................***Failed    3.94 sec
+CMake Error at C:/Users/threeTeeth/workSpace/github/PortBridge/cmake/RunQtTest.cmake:19 (message):
+  Qt Test failed (Access violation).
+
+  ********* Start testing of SessionTest *********
+
+  Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64
+  shared (dynamic) release build; by GCC 13.1.0), windows 11
+
+  PASS : SessionTest::initTestCase()
+
+  PASS : SessionTest::codec()
+
+  PASS : SessionTest::profilesAndCommands()
+
+  PASS : SessionTest::configSizePreservesPriorFile()
+
+  PASS : SessionTest::periodicFiniteAndStop()
+
+  PASS : SessionTest::captureRotationAndDecoder()
+
+  PASS : SessionTest::captureQueueDurationAndFailures()
+
+  PASS : SessionTest::displayPauseSequenceAndOverflow()
+
+
+
+
+
+
+
+
+    Start 3: ui
+3/3 Test #3: ui ...............................***Failed    0.93 sec
+CMake Error at C:/Users/threeTeeth/workSpace/github/PortBridge/cmake/RunQtTest.cmake:19 (message):
+  Qt Test failed (Access violation).
+
+  ********* Start testing of UiTest *********
+
+  Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64
+  shared (dynamic) release build; by GCC 13.1.0), windows 11
+
+  PASS : UiTest::initTestCase()
+
+  PASS : UiTest::startupAndAccessibility()
+
+  PASS : UiTest::navigationAndModeControlsStayInSync()
+
+
+
+
+
+
+
+
+
+33% tests passed, 2 tests failed out of 3
+
+Total Test time (real) =   6.50 sec
+
+The following tests FAILED:
+	  2 - session (Failed)
+	  3 - ui (Failed)
+Errors while running CTest
+CTest failed with code 8; inspect C:\Users\threeTeeth\workSpace\github\PortBridge\build\release\test-reports and Testin
+g\Temporary\LastTest.log
+ËùÔÚÎ»ÖÃ C:\Users\threeTeeth\workSpace\github\PortBridge\scripts\test.ps1:15 ×Ö·û: 28
++ ... DE -ne 0) { throw "CTest failed with code $LASTEXITCODE; inspect $bui ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (CTest failed wi...ry\LastTest.log:String) [], RuntimeException
+    + FullyQualifiedErrorId : CTest failed with code 8; inspect C:\Users\threeTeeth\workSpace\github\PortBridge\build\ 
+   release\test-reports and Testing\Temporary\LastTest.log
+ 

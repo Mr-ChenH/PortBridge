@@ -1,0 +1,13 @@
+********* Start testing of IndependentUi *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : IndependentUi::initTestCase()
+PASS   : IndependentUi::importedPeriodicIntervalLimitsSurviveLoadAndNameEdit()
+PASS   : IndependentUi::nativeTrafficInspectorRatioTruncationAndProfileClear()
+PASS   : IndependentUi::newProfilePreservesValidUnsavedPortAndInspectorDeselects()
+PASS   : IndependentUi::sampleWorkerOwnsSnapshotAfterProfileSwitchAndClose()
+PASS   : IndependentUi::catalogMetadataRefreshAndCaptureWorkerCancellationAfterClose()
+QWARN  : IndependentUi::continuousActualSendStopsAndPreferencesStayInert() qt.qpa.fonts: DirectWrite: CreateFontFaceFromHDC() failed (指示输入文件 (例如字体文件) 中的错误。) for QFontDef(Family="Fixedsys", stylename=Regular, pointsize=9, pixelsize=16, styleHint=7, weight=400, stretch=100, hintingPreference=0) LOGFONT("Fixedsys", lfWidth=0, lfHeight=-16) dpi=96
+PASS   : IndependentUi::continuousActualSendStopsAndPreferencesStayInert()
+PASS   : IndependentUi::cleanupTestCase()
+Totals: 8 passed, 0 failed, 0 skipped, 0 blacklisted, 7287ms
+********* Finished testing of IndependentUi *********

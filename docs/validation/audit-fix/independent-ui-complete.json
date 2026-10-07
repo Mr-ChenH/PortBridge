@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "runs": [
+    {
+      "scale": "1",
+      "returncode": 0
+    },
+    {
+      "scale": "1.25",
+      "returncode": 0
+    },
+    {
+      "scale": "1.5",
+      "returncode": 0
+    }
+  ]
+}

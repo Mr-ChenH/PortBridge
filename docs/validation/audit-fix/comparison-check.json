@@ -1,0 +1,10 @@
+{
+  "views": 8,
+  "baselines": 2,
+  "compared_states": 16,
+  "images_loaded": true,
+  "layout_toggle_passed": true,
+  "narrow_width": 390,
+  "no_page_horizontal_overflow": true,
+  "errors": []
+}

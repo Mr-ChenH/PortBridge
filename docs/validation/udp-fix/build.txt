@@ -1,0 +1,4 @@
+[0/2] Re-checking globbed directories...
+[1/5] Automatic MOC for target test_session
+[2/4] Building CXX object CMakeFiles/test_session.dir/tests/test_session.cpp.obj
+[3/4] Linking CXX executable test_session.exe

@@ -1,0 +1,24 @@
+********* Start testing of Audit *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : Audit::initTestCase()
+PASS   : Audit::visualStates()
+PASS   : Audit::startupAndSmallLightScreenshots()
+QINFO  : Audit::continuousPeriodicAccessible() UI periodic range 0 1000000 API uses count=0 for continuous
+PASS   : Audit::continuousPeriodicAccessible()
+QINFO  : Audit::priorSequenceDoesNotLeakIntoTcpProfile() profile "TCP CLIENT" analysis UI checked false statistics enabled false missing display "Î´Öª / Î´ÆôÓÃ" rx 0
+PASS   : Audit::priorSequenceDoesNotLeakIntoTcpProfile()
+QINFO  : Audit::newProfilePreservesPreviousEdits() previous profile port after add 34567
+PASS   : Audit::newProfilePreservesPreviousEdits()
+QINFO  : Audit::refreshCatalogFindsExternalFile() disk pbc files 2 UI files 2
+PASS   : Audit::refreshCatalogFindsExternalFile()
+QINFO  : Audit::selectionInspectorClearsOnProfileSwitch() new table rows 0 current valid false old bytes length 0 copy enabled false
+PASS   : Audit::selectionInspectorClearsOnProfileSwitch()
+QINFO  : Audit::savedPreferencesRestore() restored autoScroll/display/high/recordQueue/interval/count false 1 true 77 333 17
+PASS   : Audit::savedPreferencesRestore()
+QINFO  : Audit::errorSurvivesStatisticsReset() banner after switch false ""
+PASS   : Audit::errorSurvivesStatisticsReset()
+PASS   : Audit::continuousPeriodicActuallySendsAndStops()
+PASS   : Audit::populatedCommandsAndDialogs()
+PASS   : Audit::cleanupTestCase()
+Totals: 13 passed, 0 failed, 0 skipped, 0 blacklisted, 9843ms
+********* Finished testing of Audit *********

@@ -1,0 +1,2 @@
+// Native Explorer/shortcut icon, independent of Qt resource loading.
+1 ICON "@CMAKE_CURRENT_SOURCE_DIR@/assets/app-icon/portbridge.ico"

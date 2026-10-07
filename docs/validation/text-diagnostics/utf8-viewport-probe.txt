@@ -1,0 +1,8 @@
+********* Start testing of UiTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : UiTest::initTestCase()
+FAIL!  : UiTest::utf8InspectorShowsSentChineseAndCompletePagedCharacters() 'scroll->viewport()->rect().contains(QRect(text->mapTo(scroll->viewport(),QPoint()),text->size()))' returned FALSE. (UTF8 16,165 208x146 viewport 240x182)
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_ui.cpp(180) : failure location
+PASS   : UiTest::cleanupTestCase()
+Totals: 2 passed, 1 failed, 0 skipped, 0 blacklisted, 17420ms
+********* Finished testing of UiTest *********

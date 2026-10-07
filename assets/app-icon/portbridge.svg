@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="surface" x1="24" y1="12" x2="236" y2="256" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#263D42"/><stop offset="0.55" stop-color="#152529"/><stop offset="1" stop-color="#101A20"/>
+    </linearGradient>
+    <linearGradient id="bridge" x1="64" y1="80" x2="192" y2="176" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C1FFE5"/><stop offset="0.5" stop-color="#85DEC4"/><stop offset="1" stop-color="#5BC6AB"/>
+    </linearGradient>
+    <linearGradient id="transmit" x1="180" y1="166" x2="203" y2="191" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD098"/><stop offset="1" stop-color="#FF9945"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="54" fill="url(#surface)"/>
+  <rect x="9" y="9" width="238" height="238" rx="53" fill="none" stroke="#B9FFE4" stroke-opacity="0.14" stroke-width="2"/>
+  <path d="M64 176V84H110V128H146V84H192V176" fill="none" stroke="#070F13" stroke-opacity="0.4" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 4)"/>
+  <path d="M64 176V84H110V128H146V84H192V176" fill="none" stroke="url(#bridge)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="64" cy="176" r="16" fill="#AEF3D6"/>
+  <circle cx="64" cy="176" r="5" fill="#18352F"/>
+  <circle cx="192" cy="176" r="16" fill="url(#transmit)"/>
+  <circle cx="192" cy="176" r="5" fill="#663A23"/>
+</svg>

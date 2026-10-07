@@ -1,0 +1,19 @@
+[0/2] Re-checking globbed directories...
+[1/21] Automatic MOC for target portbridge_session
+[2/21] Building CXX object CMakeFiles/portbridge_session.dir/portbridge_session_autogen/mocs_compilation.cpp.obj
+[3/21] Building CXX object CMakeFiles/portbridge_session.dir/src/session/serial_engine.cpp.obj
+[4/21] Building CXX object CMakeFiles/portbridge_session.dir/src/session/configuration.cpp.obj
+[5/21] Building CXX object CMakeFiles/portbridge_session.dir/src/session/recorder.cpp.obj
+[6/21] Building CXX object CMakeFiles/portbridge_session.dir/src/session/session_controller.cpp.obj
+[7/21] Linking CXX static library libportbridge_session.a
+[8/21] Automatic MOC for target test_session
+[9/20] Building CXX object CMakeFiles/portbridge_ui.dir/src/ui/record_model.cpp.obj
+[10/20] Building CXX object CMakeFiles/test_session.dir/tests/test_session.cpp.obj
+[11/20] Linking CXX executable test_session.exe
+[12/20] Building CXX object CMakeFiles/portbridge_ui.dir/src/ui/main_window.cpp.obj
+[13/20] Linking CXX static library libportbridge_ui.a
+[14/20] Automatic MOC for target test_ui
+[15/19] Building CXX object CMakeFiles/PortBridge.dir/src/main.cpp.obj
+[16/19] Linking CXX executable PortBridge.exe
+[17/19] Building CXX object CMakeFiles/test_ui.dir/tests/test_ui.cpp.obj
+[18/19] Linking CXX executable test_ui.exe

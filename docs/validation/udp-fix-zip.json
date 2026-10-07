@@ -1,0 +1,15 @@
+{
+  "archive": "PortBridge-0.1.0-windows-x64.zip",
+  "revision": "udp-fix-1",
+  "sha256": "6594cae0bb8731c513cb13f4da373c3bffe6938f1e27491b5f329e9d256a4d86",
+  "archive_bytes": 36105731,
+  "files_hashed": 269,
+  "source_inputs_verified": 46,
+  "zip_integrity": true,
+  "all_extracted_hashes_match": true,
+  "startup_exit": 0,
+  "extracted_application_matches_release": true,
+  "tcp_completed_received": 500,
+  "environment": "Windows system PATH only; all QT* removed; cwd extracted folder",
+  "clean_windows_validated": false
+}

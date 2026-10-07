@@ -1,0 +1,109 @@
+Test project C:/Users/threeTeeth/workSpace/github/PortBridge/build/release
+    Start 1: network
+1/3 Test #1: network ..........................   Passed    1.50 sec
+    Start 2: session
+2/3 Test #2: session ..........................***Failed   43.47 sec
+CMake Error at C:/Users/threeTeeth/workSpace/github/PortBridge/cmake/RunQtTest.cmake:19 (message):
+  Qt Test failed (2).
+
+  ********* Start testing of SessionTest *********
+
+  Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64
+  shared (dynamic) release build; by GCC 13.1.0), windows 11
+
+  PASS : SessionTest::initTestCase()
+
+  PASS : SessionTest::codec()
+
+  PASS : SessionTest::profilesAndCommands()
+
+  PASS : SessionTest::configSizePreservesPriorFile()
+
+  PASS : SessionTest::periodicFiniteAndStop()
+
+  PASS : SessionTest::captureRotationAndDecoder()
+
+  PASS : SessionTest::captureQueueDurationAndFailures()
+
+  PASS : SessionTest::displayPauseSequenceAndOverflow()
+
+  FAIL! : SessionTest::normalDisplayByteBoundAndSwitch()
+  'peer.engine.send(payload)' returned FALSE.  ()
+
+  C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_session.cpp(164)
+  : failure location
+
+  PASS : SessionTest::captureCatalogBoundKeepsFilesAndReloads()
+
+  PASS : SessionTest::captureCompletenessPublicationObserver()
+
+  PASS : SessionTest::tcpCaptureBackpressureAndStableClientIds()
+
+  PASS : SessionTest::sequenceLittleEndianOffsetAndLargeGap()
+
+  PASS : SessionTest::sequenceWrapAndSourceEviction()
+
+  PASS : SessionTest::retainedCapacityAdmission()
+
+  PASS :
+  SessionTest::udpReceiveOnlyResolutionErrorAndStreamSequenceRejected()
+
+  PASS : SessionTest::systemEventsAreReconstructableAndDoNotCountTraffic()
+
+  PASS : SessionTest::commandPeriodicCompatibilityAndValidation()
+
+  PASS : SessionTest::offlineSelectionIsolatesCallbacksAndWriter()
+
+  PASS :
+  SessionTest::offlineSelectionFencesLateWriterFailureAcrossNextCapture()
+
+  FAIL! : SessionTest::catalogRefreshReconcilesAndProtectsActiveCapture()
+  '([&] { for (const auto& c : session.captures()) if (qpath(c.path) ==
+  active) return c.complete && c.records == 1 && c.metadataAvailable &&
+  c.transportSummary == "UDP"; return false; })()' returned FALSE.  ()
+
+  C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_session.cpp(379)
+  : failure location
+
+  PASS : SessionTest::captureMetadataCompatibilityAndTransportSummary()
+
+  PASS : SessionTest::reentrantStartupSelectionAndReplacementReleaseOldPort()
+
+  PASS : SessionTest::finalizedSequenceDenominatorAndSaturation()
+
+  PASS : SessionTest::truncationIsObservableNonterminalAndScoped()
+
+  PASS : SessionTest::serialOpenErrorIsObservable()
+
+  PASS : SessionTest::cleanupTestCase()
+
+  Totals: 25 passed, 2 failed, 0 skipped, 0 blacklisted, 43374ms
+
+  ********* Finished testing of SessionTest *********
+
+
+
+
+
+
+
+
+    Start 3: ui
+3/3 Test #3: ui ...............................   Passed   16.64 sec
+
+67% tests passed, 1 tests failed out of 3
+
+Total Test time (real) =  61.62 sec
+
+The following tests FAILED:
+	  2 - session (Failed)
+Errors while running CTest
+CTest failed with code 8; inspect C:\Users\threeTeeth\workSpace\github\PortBridge\build\release\test-reports and Testin
+g\Temporary\LastTest.log
+ËùÔÚÎ»ÖÃ C:\Users\threeTeeth\workSpace\github\PortBridge\scripts\test.ps1:15 ×Ö·û: 28
++ ... DE -ne 0) { throw "CTest failed with code $LASTEXITCODE; inspect $bui ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (CTest failed wi...ry\LastTest.log:String) [], RuntimeException
+    + FullyQualifiedErrorId : CTest failed with code 8; inspect C:\Users\threeTeeth\workSpace\github\PortBridge\build\ 
+   release\test-reports and Testing\Temporary\LastTest.log
+ 

@@ -1,0 +1,10 @@
+{
+  "scales": [
+    1,
+    1.25,
+    1.5
+  ],
+  "qt_results_each": 5,
+  "failed": 0,
+  "source_stable": true
+}

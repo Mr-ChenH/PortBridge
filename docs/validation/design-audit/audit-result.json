@@ -1,0 +1,24 @@
+{
+  "revision": "ui-refinement-2",
+  "source_manifest_verified": true,
+  "source_inputs_verified": 32,
+  "mismatches": [],
+  "deployed_exe_sha256": "61a8fc1e5c4e00d4ae54fd8a58ca4231682212ab85af00cef048caf670041961",
+  "release_exe_matches": true,
+  "ctest": {
+    "passed_executables": 3,
+    "failed": 0,
+    "seconds": 48.27,
+    "session_qtest_outcomes": 19,
+    "ui_qtest_outcomes": 21
+  },
+  "focused_audit": {
+    "passed": 4,
+    "failed": 7,
+    "seconds": 10.136,
+    "expected_failures_reproduce_open_findings": true
+  },
+  "physical_hardware_validated": false,
+  "product_source_changed": false,
+  "packaged_release_changed": false
+}

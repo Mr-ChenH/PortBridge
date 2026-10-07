@@ -1,0 +1,11 @@
+[0/2] Re-checking globbed directories...
+[1/5] Automatic MOC for target test_ui
+[2/4] Building CXX object CMakeFiles/test_ui.dir/tests/test_ui.cpp.obj
+[3/4] Linking CXX executable test_ui.exe
+Test project C:/Users/threeTeeth/workSpace/github/PortBridge/build/release
+    Start 3: ui
+1/1 Test #3: ui ...............................   Passed   20.14 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  20.15 sec

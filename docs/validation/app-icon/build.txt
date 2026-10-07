@@ -1,0 +1,17 @@
+[0/2] Re-checking globbed directories...
+[1/2] Re-running CMake...
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.3s)
+-- Generating done (0.2s)
+-- Build files have been written to: C:/Users/threeTeeth/workSpace/github/PortBridge/build/release
+[0/4] Re-checking globbed directories...
+[1/22] Automatic MOC for target portbridge_session
+[2/20] Automatic MOC for target portbridge_ui
+[3/18] Automatic MOC for target test_session
+[4/16] Automatic MOC for target PortBridge
+[5/15] Automatic MOC for target test_ui
+[6/13] Automatic RCC for assets/app-icon/app-icon.qrc
+[7/13] Building CXX object CMakeFiles/PortBridge.dir/PortBridge_autogen/AA254MUKJ2/qrc_app-icon.cpp.obj
+[8/13] Building RC object CMakeFiles/PortBridge.dir/portbridge-icon.rc.obj
+[9/13] Building CXX object CMakeFiles/PortBridge.dir/src/main.cpp.obj
+[10/13] Linking CXX executable PortBridge.exe

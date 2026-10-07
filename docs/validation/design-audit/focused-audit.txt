@@ -1,0 +1,35 @@
+********* Start testing of Audit *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : Audit::initTestCase()
+PASS   : Audit::visualStates()
+QINFO  : Audit::continuousPeriodicAccessible() UI periodic range 1 1000000 API uses count=0 for continuous
+FAIL!  : Audit::continuousPeriodicAccessible() 'count->minimum()==0' returned FALSE. (FR-016: continuous periodic mode cannot be selected in UI)
+C:/Users/threeTeeth/workSpace/github/PortBridge/build/design-audit/audit.cpp(40) : failure location
+QINFO  : Audit::priorSequenceDoesNotLeakIntoTcpProfile() profile "TCP CLIENT" analysis UI checked false statistics enabled true missing display "1" rx 16
+FAIL!  : Audit::priorSequenceDoesNotLeakIntoTcpProfile() 'get<QLabel>(w,"sequenceMetric")->text()!=QStringLiteral("1")' returned FALSE. (UDP sequence result appears under newly selected TCP profile)
+C:/Users/threeTeeth/workSpace/github/PortBridge/build/design-audit/audit.cpp(41) : failure location
+QINFO  : Audit::newProfilePreservesPreviousEdits() previous profile port after add 9001
+FAIL!  : Audit::newProfilePreservesPreviousEdits() Compared values are not the same
+   Actual   (get<QSpinBox>(w,"remotePort")->value()): 9001
+   Expected (34567)                                 : 34567
+C:/Users/threeTeeth/workSpace/github/PortBridge/build/design-audit/audit.cpp(42) : failure location
+QINFO  : Audit::refreshCatalogFindsExternalFile() disk pbc files 2 UI files 1
+FAIL!  : Audit::refreshCatalogFindsExternalFile() Compared values are not the same
+   Actual   (get<QListWidget>(w,"captureList")->count()): 1
+   Expected (2)                                         : 2
+C:/Users/threeTeeth/workSpace/github/PortBridge/build/design-audit/audit.cpp(43) : failure location
+QINFO  : Audit::selectionInspectorClearsOnProfileSwitch() new table rows 0 current valid false old bytes length 132 copy enabled true
+FAIL!  : Audit::selectionInspectorClearsOnProfileSwitch() 'get<QPlainTextEdit>(w,"byteInspector")->toPlainText().isEmpty()' returned FALSE. (New profile has no records but inspector still shows previous UDP bytes)
+C:/Users/threeTeeth/workSpace/github/PortBridge/build/design-audit/audit.cpp(44) : failure location
+QINFO  : Audit::savedPreferencesRestore() restored autoScroll/display/high/recordQueue/interval/count true 0 false 128 1000 10
+FAIL!  : Audit::savedPreferencesRestore() Compared values are not the same
+   Actual   (get<QSpinBox>(w,"recordQueueMiB")->value()): 128
+   Expected (77)                                        : 77
+C:/Users/threeTeeth/workSpace/github/PortBridge/build/design-audit/audit.cpp(45) : failure location
+QINFO  : Audit::errorSurvivesStatisticsReset() banner after switch true "UDP payload exceeds IPv4 maximum 65507 bytes"
+FAIL!  : Audit::errorSurvivesStatisticsReset() '!get<QLabel>(w,"runtimeBanner")->isVisible()' returned FALSE. (Error from previous UDP send stays visible in new TCP server profile)
+C:/Users/threeTeeth/workSpace/github/PortBridge/build/design-audit/audit.cpp(46) : failure location
+PASS   : Audit::populatedCommandsAndDialogs()
+PASS   : Audit::cleanupTestCase()
+Totals: 4 passed, 7 failed, 0 skipped, 0 blacklisted, 10136ms
+********* Finished testing of Audit *********

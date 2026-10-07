@@ -1,0 +1,15 @@
+{
+  "archive": "PortBridge-0.1.0-windows-x64.zip",
+  "revision": "app-icon-1",
+  "sha256": "fad935d4ed177779328fe9762f5276a72a9938f7df1b66c69b0c365612886164",
+  "archive_bytes": 66371633,
+  "files_hashed": 644,
+  "source_inputs_verified": 67,
+  "zip_integrity": true,
+  "all_extracted_hashes_match": true,
+  "startup_exit": 0,
+  "extracted_application_matches_release": true,
+  "tcp_completed_received": 500,
+  "environment": "Windows system PATH only; all QT* removed; cwd extracted folder",
+  "clean_windows_validated": false
+}

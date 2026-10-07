@@ -1,0 +1,12 @@
+********* Start testing of UiTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : UiTest::initTestCase()
+QWARN  : UiTest::udpBindAndCloseDoNotCreateMessagesOrDatagrams() qt.qpa.fonts: DirectWrite: CreateFontFaceFromHDC() failed (指示输入文件 (例如字体文件) 中的错误。) for QFontDef(Family="Fixedsys", stylename=Regular, pointsize=9, pixelsize=16, styleHint=7, weight=500, stretch=100, hintingPreference=0) LOGFONT("Fixedsys", lfWidth=0, lfHeight=-16) dpi=96
+PASS   : UiTest::udpBindAndCloseDoNotCreateMessagesOrDatagrams()
+QWARN  : UiTest::udpDirectSendUsesEditedTargetWithoutConfigurationTraffic() setGeometry: Unable to set geometry 2160x1500+8+32 (frame: 2176x1539+0+1) on QWidgetWindow/"mainWindowWindow" on "\\.\DISPLAY33". Resulting geometry: 1924x1140+8+32 (frame: 1940x1179+0+1) margins: 8, 31, 8, 8 minimum size: 1100x760 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1666, y=1179)))
+PASS   : UiTest::udpDirectSendUsesEditedTargetWithoutConfigurationTraffic()
+QWARN  : UiTest::profileBrowsingKeepsUdpBindingAndReceivesInBackground() setGeometry: Unable to set geometry 2160x1500+8+32 (frame: 2176x1539+0+1) on QWidgetWindow/"mainWindowWindow" on "\\.\DISPLAY33". Resulting geometry: 1924x1140+8+32 (frame: 1940x1179+0+1) margins: 8, 31, 8, 8 minimum size: 1100x760 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1666, y=1179)))
+PASS   : UiTest::profileBrowsingKeepsUdpBindingAndReceivesInBackground()
+PASS   : UiTest::cleanupTestCase()
+Totals: 5 passed, 0 failed, 0 skipped, 0 blacklisted, 3335ms
+********* Finished testing of UiTest *********

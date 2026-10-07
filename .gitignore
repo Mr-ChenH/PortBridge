@@ -1,0 +1,9 @@
+/build/
+/.deps/
+/dist/
+/.pi/
+*.user
+*.capture
+*.pbcap
+*.pbidx
+*.log

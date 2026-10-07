@@ -1,0 +1,2 @@
+Test project C:/Users/threeTeeth/workSpace/github/PortBridge/build/release
+    Start 3: ui

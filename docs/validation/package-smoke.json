@@ -1,0 +1,23 @@
+{
+  "runtime": "Windows native",
+  "environment": "PATH Windows system directories only; all QT* variables removed",
+  "startup": [
+    {
+      "theme": "dark",
+      "exit_code": 0,
+      "image": "native-windows-dark.png",
+      "image_exists": true,
+      "stderr": ""
+    },
+    {
+      "theme": "light",
+      "exit_code": 0,
+      "image": "native-windows-light.png",
+      "image_exists": true,
+      "stderr": ""
+    }
+  ],
+  "udp_frames_completed_received": 500,
+  "application_matches_release": true,
+  "clean_machine_validated": false
+}

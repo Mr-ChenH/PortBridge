@@ -1,0 +1,16 @@
+{
+  "state": "passed",
+  "steps": [
+    {
+      "step": "build",
+      "exit": 0,
+      "seconds": 20.572
+    },
+    {
+      "step": "ctest",
+      "exit": 0,
+      "seconds": 66.471
+    }
+  ],
+  "source_stable": true
+}

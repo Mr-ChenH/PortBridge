@@ -1,0 +1,12 @@
+********* Start testing of IndependentUi *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : IndependentUi::initTestCase()
+PASS   : IndependentUi::importedPeriodicIntervalLimitsSurviveLoadAndNameEdit()
+PASS   : IndependentUi::nativeTrafficInspectorRatioTruncationAndProfileClear()
+PASS   : IndependentUi::newProfilePreservesValidUnsavedPortAndInspectorDeselects()
+PASS   : IndependentUi::sampleWorkerOwnsSnapshotAfterProfileSwitchAndClose()
+PASS   : IndependentUi::catalogMetadataRefreshAndCaptureWorkerCancellationAfterClose()
+PASS   : IndependentUi::continuousActualSendStopsAndPreferencesStayInert()
+PASS   : IndependentUi::cleanupTestCase()
+Totals: 8 passed, 0 failed, 0 skipped, 0 blacklisted, 6045ms
+********* Finished testing of IndependentUi *********

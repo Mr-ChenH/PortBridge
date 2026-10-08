@@ -1,0 +1,17 @@
+********* Start testing of UiTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : UiTest::initTestCase()
+QWARN  : UiTest::captureExportRunsInBackgroundAndCancelsAtomically() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::captureExportRunsInBackgroundAndCancelsAtomically() This plugin does not support propagateSizeHints()
+FAIL!  : UiTest::captureExportRunsInBackgroundAndCancelsAtomically() 'closing->property("captureExportActive").toBool()' returned FALSE. ()
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_ui.cpp(309) : failure location
+QWARN  : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not support propagateSizeHints()
+FAIL!  : UiTest::profilesCrudAndVersionedUiFiles() 'dialog' returned FALSE. ()
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_ui.cpp(73) : failure location
+QWARN  : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not support propagateSizeHints()
+PASS   : UiTest::cleanupTestCase()
+Totals: 2 passed, 2 failed, 0 skipped, 0 blacklisted, 3947ms
+********* Finished testing of UiTest *********

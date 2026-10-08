@@ -1,0 +1,297 @@
+Test project C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+    Start 1: network
+1/8 Test #1: network ..........................   Passed    1.66 sec
+    Start 2: session
+2/8 Test #2: session ..........................   Passed   41.80 sec
+    Start 3: ui
+3/8 Test #3: ui ...............................***Failed   31.34 sec
+CMake Error at C:/Users/threeTeeth/workSpace/github/PortBridge/cmake/RunQtTest.cmake:19 (message):
+  Qt Test failed (2).
+
+  ********* Start testing of UiTest *********
+
+  Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64
+  shared (dynamic) release build; by GCC 13.1.0), windows 11
+
+  PASS : UiTest::initTestCase()
+
+  PASS : UiTest::startupAndAccessibility()
+
+  QINFO : UiTest::sharedComposerSupportsMultilineResizeAndExpansion()
+  Composer protocol=0 window=1440x1000 default=1109x205 expanded=1109x514
+
+  QINFO : UiTest::sharedComposerSupportsMultilineResizeAndExpansion()
+  Composer protocol=1 window=1440x1000 default=1109x204 expanded=1109x513
+
+  QINFO : UiTest::sharedComposerSupportsMultilineResizeAndExpansion()
+  Composer protocol=2 window=1440x1000 default=1109x204 expanded=1109x513
+
+  QINFO : UiTest::sharedComposerSupportsMultilineResizeAndExpansion()
+  Composer protocol=3 window=1440x1000 default=1109x168 expanded=1109x477
+
+  QINFO : UiTest::sharedComposerSupportsMultilineResizeAndExpansion()
+  Composer protocol=0 window=1100x760 default=769x114 expanded=769x274
+
+  QINFO : UiTest::sharedComposerSupportsMultilineResizeAndExpansion()
+  Composer protocol=1 window=1100x760 default=769x113 expanded=769x273
+
+  QINFO : UiTest::sharedComposerSupportsMultilineResizeAndExpansion()
+  Composer protocol=2 window=1100x760 default=769x113 expanded=769x273
+
+  QINFO : UiTest::sharedComposerSupportsMultilineResizeAndExpansion()
+  Composer protocol=3 window=1100x760 default=769x96 expanded=769x237
+
+  PASS : UiTest::sharedComposerSupportsMultilineResizeAndExpansion()
+
+  PASS : UiTest::composerSizePreferenceRestoresWithoutExpandedStartup()
+
+  QWARN : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This
+  plugin does not support raise()
+
+  QWARN : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This
+  plugin does not support grabbing the keyboard
+
+  QWARN : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This
+  plugin does not support raise()
+
+  QWARN : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This
+  plugin does not support grabbing the keyboard
+
+  QWARN : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This
+  plugin does not support raise()
+
+  QWARN : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This
+  plugin does not support grabbing the keyboard
+
+  QWARN : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This
+  plugin does not support raise()
+
+  QWARN : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This
+  plugin does not support grabbing the keyboard
+
+  PASS : UiTest::profilePickerSearchAndReturnPreserveRunningUdp()
+
+  QWARN : UiTest::profilePickerBoundsLongNamesAndKeyboardSearch() This plugin
+  does not support raise()
+
+  QWARN : UiTest::profilePickerBoundsLongNamesAndKeyboardSearch() This plugin
+  does not support grabbing the keyboard
+
+  PASS : UiTest::profilePickerBoundsLongNamesAndKeyboardSearch()
+
+  PASS : UiTest::navigationAndModeControlsStayInSync()
+
+  PASS : UiTest::profileBrowsingKeepsUdpBindingAndReceivesInBackground()
+
+  PASS : UiTest::textPreviewColorsFormattingAndCompleteAsciiPages()
+
+  PASS : UiTest::utf8InspectorShowsSentChineseAndCompletePagedCharacters()
+
+  PASS : UiTest::udpBindAndCloseDoNotCreateMessagesOrDatagrams()
+
+  PASS : UiTest::udpDirectSendUsesEditedTargetWithoutConfigurationTraffic()
+
+  PASS : UiTest::udpRecordInspectorFitsDesignedWidth()
+
+  PASS : UiTest::strictHexAndBytePreview()
+
+  PASS : UiTest::modesPauseClearResetAndActualBytes()
+
+  PASS : UiTest::finitePeriodicFreezesConfigurationAndStops()
+
+  QWARN : UiTest::commandsAddEditLoadDeleteAndPersist() This plugin does not
+  support propagateSizeHints()
+
+  QWARN : UiTest::commandsAddEditLoadDeleteAndPersist() This plugin does not
+  support propagateSizeHints()
+
+  QWARN : UiTest::commandsAddEditLoadDeleteAndPersist() This plugin does not
+  support propagateSizeHints()
+
+  QWARN : UiTest::commandsAddEditLoadDeleteAndPersist() This plugin does not
+  support propagateSizeHints()
+
+  PASS : UiTest::commandsAddEditLoadDeleteAndPersist()
+
+  PASS : UiTest::serverTargetsBroadcastAndStatefulText()
+
+  PASS : UiTest::recordingUsesActualStorageAndFiles()
+
+  QWARN : UiTest::captureExportRunsInBackgroundAndCancelsAtomically() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : UiTest::captureExportRunsInBackgroundAndCancelsAtomically() This
+  plugin does not support propagateSizeHints()
+
+  FAIL! : UiTest::captureExportRunsInBackgroundAndCancelsAtomically()
+  'closing->property("captureExportActive").toBool()' returned FALSE.  ()
+
+  C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_ui.cpp(309) :
+  failure location
+
+  PASS : UiTest::backgroundCompletionHasBoundedSafeTeardown()
+
+  PASS : UiTest::rawModelBoundsDecoderAndFilters()
+
+  QWARN : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not
+  support propagateSizeHints()
+
+  FAIL! : UiTest::profilesCrudAndVersionedUiFiles() 'dialog' returned FALSE.
+  ()
+
+  C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_ui.cpp(73) :
+  failure location
+
+  QWARN : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not
+  support propagateSizeHints()
+
+  QWARN : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not
+  support propagateSizeHints()
+
+  QWARN : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not
+  support propagateSizeHints()
+
+  QWARN : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not
+  support propagateSizeHints()
+
+  QWARN : UiTest::displayedSampleExportReadsOriginalBytes() This plugin does
+  not support propagateSizeHints()
+
+  PASS : UiTest::displayedSampleExportReadsOriginalBytes()
+
+  QWARN : UiTest::exactImportedProfileValuesSurviveCloseAndExplicitEdits()
+  This plugin does not support propagateSizeHints()
+
+  PASS : UiTest::exactImportedProfileValuesSurviveCloseAndExplicitEdits()
+
+  PASS : UiTest::statisticsResetPreservesDecoderButRealRecordGapResetsIt()
+
+  PASS : UiTest::selectingLiveServerClientRefreshesDisconnectImmediately()
+
+  QWARN : UiTest::sequenceUdpProfileTransportEditPersistsAndRestarts() This
+  plugin does not support propagateSizeHints()
+
+  PASS : UiTest::sequenceUdpProfileTransportEditPersistsAndRestarts()
+
+  QWARN : UiTest::profileActivationClearsAllScopedStateAcrossCrud() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : UiTest::profileActivationClearsAllScopedStateAcrossCrud() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : UiTest::profileActivationClearsAllScopedStateAcrossCrud() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : UiTest::profileActivationClearsAllScopedStateAcrossCrud() This
+  plugin does not support propagateSizeHints()
+
+  PASS : UiTest::profileActivationClearsAllScopedStateAcrossCrud()
+
+  PASS : UiTest::inspectorClearsOnFilterResetRemovalAndDeselection()
+
+  PASS : UiTest::continuousPeriodicSurvivesBrowsingAndStopsOnReplacement()
+
+  PASS : UiTest::allPreferencesRestoreWithoutStartingWork()
+
+  QWARN :
+  UiTest::captureRefreshSeesExternalFilesPreservesSelectionAndDeletes() This
+  plugin does not support propagateSizeHints()
+
+  QWARN :
+  UiTest::captureRefreshSeesExternalFilesPreservesSelectionAndDeletes() This
+  plugin does not support propagateSizeHints()
+
+  PASS :
+  UiTest::captureRefreshSeesExternalFilesPreservesSelectionAndDeletes()
+
+  QWARN : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This
+  plugin does not support propagateSizeHints()
+
+  PASS : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs()
+
+  PASS : UiTest::txRateAndIndependentTruncationMetricFollowRealStatistics()
+
+  QWARN : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange() This
+  plugin does not support propagateSizeHints()
+
+  PASS : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange()
+
+  QWARN : UiTest::sampleExportCancellationImmutableSnapshotAndClose() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : UiTest::sampleExportCancellationImmutableSnapshotAndClose() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : UiTest::sampleExportCancellationImmutableSnapshotAndClose() This
+  plugin does not support propagateSizeHints()
+
+  PASS : UiTest::sampleExportCancellationImmutableSnapshotAndClose()
+
+  PASS : UiTest::nativeAuditScreenshotsAndLayout()
+
+  PASS : UiTest::preferencesRestoreWithoutAutoConnect()
+
+  PASS : UiTest::cleanupTestCase()
+
+  Totals: 38 passed, 2 failed, 0 skipped, 0 blacklisted, 31166ms
+
+  ********* Finished testing of UiTest *********
+
+
+
+
+
+
+
+
+    Start 4: workflow
+4/8 Test #4: workflow .........................   Passed    2.37 sec
+    Start 5: workflow_ui
+5/8 Test #5: workflow_ui ......................   Passed   18.59 sec
+    Start 6: workflow_protocol
+6/8 Test #6: workflow_protocol ................   Passed    8.21 sec
+    Start 7: workflow_integration
+7/8 Test #7: workflow_integration .............   Passed    7.14 sec
+    Start 8: workflow_e2e
+8/8 Test #8: workflow_e2e .....................   Passed   10.44 sec
+
+88% tests passed, 1 tests failed out of 8
+
+Total Test time (real) = 121.76 sec
+
+The following tests FAILED:
+	  3 - ui (Failed)
+Errors while running CTest
+CTest failed with code 8; inspect C:\Users\threeTeeth\workSpace\github\PortBridge\build\workflow-product\test-reports a
+nd Testing\Temporary\LastTest.log
+ËùÔÚÎ»ÖÃ C:\Users\threeTeeth\workSpace\github\PortBridge\scripts\test.ps1:15 ×Ö·û: 28
++ ... DE -ne 0) { throw "CTest failed with code $LASTEXITCODE; inspect $bui ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (CTest failed wi...ry\LastTest.log:String) [], RuntimeException
+    + FullyQualifiedErrorId : CTest failed with code 8; inspect C:\Users\threeTeeth\workSpace\github\PortBridge\build\ 
+   workflow-product\test-reports and Testing\Temporary\LastTest.log
+ 

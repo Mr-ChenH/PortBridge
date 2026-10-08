@@ -1,6 +1,7 @@
 #pragma once
 #include <QMainWindow>
 #include <memory>
+class QCloseEvent;
 namespace portbridge {
 class SessionController;
 class MainWindow : public QMainWindow {
@@ -8,6 +9,8 @@ class MainWindow : public QMainWindow {
 public:
     explicit MainWindow(SessionController* controller, QWidget* parent = nullptr);
     ~MainWindow() override;
+protected:
+    void closeEvent(QCloseEvent*) override;
 private:
     struct Impl;
     std::unique_ptr<Impl> d;

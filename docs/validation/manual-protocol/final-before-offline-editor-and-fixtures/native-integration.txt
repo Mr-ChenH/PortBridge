@@ -1,0 +1,14 @@
+********* Start testing of WorkflowIntegrationTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : WorkflowIntegrationTest::initTestCase()
+PASS   : WorkflowIntegrationTest::protocolContractValidation()
+PASS   : WorkflowIntegrationTest::runnerRejectsRawHttpWsOverlap()
+PASS   : WorkflowIntegrationTest::navigationShellThemeAndIdleShortcutDoNotSend()
+PASS   : WorkflowIntegrationTest::borrowConfirmationPreservesRecordingAndBlocksManualCommandSend()
+PASS   : WorkflowIntegrationTest::httpConfirmationRetainsOrStopsRawAndRecords()
+PASS   : WorkflowIntegrationTest::mainCloseCancelPreservesFlowAndAcceptStopsActivity()
+PASS   : WorkflowIntegrationTest::mainCloseSaveDestinationCancelPreservesAndSaveStops()
+PASS   : WorkflowIntegrationTest::multipleOwnedResourcesKeepBackgroundIdentityAndCleanup()
+PASS   : WorkflowIntegrationTest::cleanupTestCase()
+Totals: 10 passed, 0 failed, 0 skipped, 0 blacklisted, 15260ms
+********* Finished testing of WorkflowIntegrationTest *********

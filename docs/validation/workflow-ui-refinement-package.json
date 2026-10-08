@@ -1,0 +1,12 @@
+{
+  "revision": "workflow-ui-2",
+  "startup_exit": {
+    "dark/workspace": 0,
+    "dark/workflow": 0,
+    "light/workspace": 0,
+    "light/workflow": 0
+  },
+  "application_matches_build": true,
+  "environment": "Windows system PATH only; QT* removed; deployed cwd",
+  "clean_windows_validated": false
+}

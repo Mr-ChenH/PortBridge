@@ -7,3 +7,5 @@
 *.pbcap
 *.pbidx
 *.log
+__pycache__/
+*.py[cod]

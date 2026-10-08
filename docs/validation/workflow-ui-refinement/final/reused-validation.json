@@ -1,0 +1,14 @@
+{
+  "foundation": "../final-before-preview-budget-fix/result.json",
+  "changed_inputs": [
+    "src/ui/workflow_page.cpp",
+    "tests/test_workflow_ui.cpp",
+    "CMakeLists.txt"
+  ],
+  "unchanged_backend_executables": {
+    "test_network.exe": "6c163a48a5170627da904bfe9f33f4968842115b973df52f0b133536f6cab330",
+    "test_session.exe": "d1614cb59d49ade6013f75df24f6d4c245319959d68075732a4d48d648bd3399",
+    "test_workflow.exe": "c717d4bc912ae7a42b8f609cf772565bd6c6aba61abd560f8afa5d18850bed27",
+    "test_workflow_protocol.exe": "62f3c5dbe2187d9064598e9933ac1fc2b4e98f43cf4f63d591b99e817420b5d7"
+  }
+}

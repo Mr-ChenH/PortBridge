@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "http",
+  "name": "本地 HTTP JSON 请求示例",
+  "credentialsMasked": true,
+  "params": {
+    "url": "http://127.0.0.1:8080/echo",
+    "method": "POST",
+    "headers": {"Content-Type": "application/json; charset=utf-8"},
+    "body": "{\"message\":\"中文与UTF-8\"}",
+    "timeoutMs": 5000,
+    "connectTimeoutMs": 3000,
+    "maxResponseBytes": 1048576
+  },
+  "editor": {
+    "baseUrl": "http://127.0.0.1:8080/echo",
+    "query": [],
+    "headers": [],
+    "authKind": 0,
+    "bodyKind": 2,
+    "body": "{\"message\":\"中文与UTF-8\"}"
+  }
+}

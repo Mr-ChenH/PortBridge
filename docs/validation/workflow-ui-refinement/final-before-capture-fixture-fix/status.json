@@ -1,0 +1,16 @@
+{
+  "state": "failed",
+  "steps": [
+    {
+      "step": "build",
+      "exit": 0,
+      "seconds": 32.131
+    },
+    {
+      "step": "ctest",
+      "exit": 1,
+      "seconds": 122.112
+    }
+  ],
+  "error": "ctest failed"
+}

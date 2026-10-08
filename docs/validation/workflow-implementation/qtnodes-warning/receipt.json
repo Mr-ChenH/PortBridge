@@ -1,0 +1,30 @@
+{
+  "qt": "6.8.3",
+  "compiler": "MinGW GCC 13.1.0",
+  "optimization": "-O3",
+  "diagnosticsSuppressed": false,
+  "runtimeIterationsPerVariant": 200000,
+  "patchedFiles": 4,
+  "patchHunks": 6,
+  "affectedTranslationUnitsBuiltAcrossTwoPasses": true,
+  "fullProductUiTested": false,
+  "undefinedBehaviorSanitizerRun": false,
+  "files": [
+    {
+      "path": "include/QtNodes/internal/AbstractGraphModel.hpp",
+      "sha256": "99ee5d38c180fa98581ca9014f1c2b2e475ba4007ed677bd772853d26fd52d40"
+    },
+    {
+      "path": "src/DefaultConnectionPainter.cpp",
+      "sha256": "f856d9590ef9513d084ff5389c2a926cce5efd584f3f5d7f84fa19967fd9cfbf"
+    },
+    {
+      "path": "src/DefaultNodePainter.cpp",
+      "sha256": "7a0276bd4b8870e7423cb7a4c46734f4a473add926b60dc402228067d3817d6f"
+    },
+    {
+      "path": "src/DataFlowGraphModel.cpp",
+      "sha256": "4e09045c621654002bc9d44d47c294d588a869b2d83be63261ea72ba96376c0b"
+    }
+  ]
+}

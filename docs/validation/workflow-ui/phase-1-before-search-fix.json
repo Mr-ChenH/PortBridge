@@ -1,0 +1,9 @@
+{
+  "stage": "phase-1-before-search-fix",
+  "success": false,
+  "failedCheck": "node search",
+  "query": "WebSocket",
+  "assertion": "Expected one matching palette node; assertion failed.",
+  "causeFromSource": "Search included category text HTTP / WebSocket and therefore also matched HTTP and Close Connection nodes.",
+  "fix": "Search matches node names and protocol tags. Final phase-1 receipt confirms one result."
+}

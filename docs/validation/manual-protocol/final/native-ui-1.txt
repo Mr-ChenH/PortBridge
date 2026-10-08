@@ -1,0 +1,52 @@
+********* Start testing of UiTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : UiTest::initTestCase()
+PASS   : UiTest::startupAndAccessibility()
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=0 window=1440x1000 default=1109x182 expanded=1109x478
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=1 window=1440x1000 default=1109x181 expanded=1109x477
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=2 window=1440x1000 default=1109x181 expanded=1109x477
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=3 window=1440x1000 default=1109x144 expanded=1109x441
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=0 window=1100x760 default=769x96 expanded=769x238
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=1 window=1100x760 default=769x96 expanded=769x237
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=2 window=1100x760 default=769x96 expanded=769x237
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=3 window=1100x760 default=769x96 expanded=769x201
+PASS   : UiTest::sharedComposerSupportsMultilineResizeAndExpansion()
+PASS   : UiTest::composerSizePreferenceRestoresWithoutExpandedStartup()
+PASS   : UiTest::profilePickerSearchAndReturnPreserveRunningUdp()
+PASS   : UiTest::profilePickerBoundsLongNamesAndKeyboardSearch()
+PASS   : UiTest::navigationAndModeControlsStayInSync()
+PASS   : UiTest::profileBrowsingKeepsUdpBindingAndReceivesInBackground()
+PASS   : UiTest::textPreviewColorsFormattingAndCompleteAsciiPages()
+PASS   : UiTest::utf8InspectorShowsSentChineseAndCompletePagedCharacters()
+PASS   : UiTest::udpBindAndCloseDoNotCreateMessagesOrDatagrams()
+PASS   : UiTest::udpDirectSendUsesEditedTargetWithoutConfigurationTraffic()
+PASS   : UiTest::udpRecordInspectorFitsDesignedWidth()
+PASS   : UiTest::strictHexAndBytePreview()
+PASS   : UiTest::modesPauseClearResetAndActualBytes()
+PASS   : UiTest::finitePeriodicFreezesConfigurationAndStops()
+PASS   : UiTest::commandsAddEditLoadDeleteAndPersist()
+PASS   : UiTest::serverTargetsBroadcastAndStatefulText()
+PASS   : UiTest::recordingUsesActualStorageAndFiles()
+PASS   : UiTest::captureExportRunsInBackgroundAndCancelsAtomically()
+PASS   : UiTest::backgroundCompletionHasBoundedSafeTeardown()
+PASS   : UiTest::rawModelBoundsDecoderAndFilters()
+PASS   : UiTest::profilesCrudAndVersionedUiFiles()
+PASS   : UiTest::displayedSampleExportReadsOriginalBytes()
+PASS   : UiTest::exactImportedProfileValuesSurviveCloseAndExplicitEdits()
+PASS   : UiTest::statisticsResetPreservesDecoderButRealRecordGapResetsIt()
+PASS   : UiTest::selectingLiveServerClientRefreshesDisconnectImmediately()
+PASS   : UiTest::sequenceUdpProfileTransportEditPersistsAndRestarts()
+PASS   : UiTest::profileActivationClearsAllScopedStateAcrossCrud()
+PASS   : UiTest::inspectorClearsOnFilterResetRemovalAndDeselection()
+PASS   : UiTest::continuousPeriodicSurvivesBrowsingAndStopsOnReplacement()
+PASS   : UiTest::allPreferencesRestoreWithoutStartingWork()
+PASS   : UiTest::captureRefreshSeesExternalFilesPreservesSelectionAndDeletes()
+PASS   : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs()
+PASS   : UiTest::txRateAndIndependentTruncationMetricFollowRealStatistics()
+PASS   : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange()
+PASS   : UiTest::sampleExportCancellationImmutableSnapshotAndClose()
+PASS   : UiTest::nativeAuditScreenshotsAndLayout()
+PASS   : UiTest::preferencesRestoreWithoutAutoConnect()
+PASS   : UiTest::cleanupTestCase()
+Totals: 40 passed, 0 failed, 0 skipped, 0 blacklisted, 72298ms
+********* Finished testing of UiTest *********

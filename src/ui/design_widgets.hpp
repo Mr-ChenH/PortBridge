@@ -18,7 +18,7 @@
 namespace portbridge::design {
 enum class Icon { Brand, Workspace, Folder, Terminal, Network, Chip, Sun, Moon, Plug,
                   Plus, Edit, Trash, Save, Import, Export, Search, Pause, Reset, Copy,
-                  Right, Up, Down, Send, Record, Stop, Menu, Check, More };
+                  Right, Up, Down, Send, Record, Stop, Menu, Check, More, Workflow };
 inline QFont font(int pixels, bool mono = false, bool bold = false) {
     QFont f; f.setFamilies(mono ? QStringList{"Cascadia Code", "Consolas", "Microsoft YaHei UI"}
                               : QStringList{"Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei"});
@@ -34,6 +34,7 @@ inline void drawIcon(QPainter& p, const QRectF& rect, Icon icon, const QColor& c
     case Icon::Workspace: box(3,4,18,16);line(3,9,21,9);line(9,9,9,20);break;
     case Icon::Folder: {QPainterPath path;path.moveTo(3,7);path.lineTo(9,7);path.lineTo(11,10);path.lineTo(21,10);path.lineTo(21,20);path.lineTo(3,20);path.closeSubpath();p.drawPath(path);break;}
     case Icon::Terminal: line(4,6,10,12);line(10,12,4,18);line(13,18,20,18);break;
+    case Icon::Workflow: box(3,3,6,6);box(15,15,6,6);line(9,6,18,6);line(18,6,18,15);line(6,9,6,18);line(6,18,15,18);break;
     case Icon::Network: box(9,2,6,5);box(2,17,6,5);box(16,17,6,5);line(12,7,12,12);line(5,12,19,12);line(5,12,5,17);line(19,12,19,17);break;
     case Icon::Chip: box(6,6,12,12);for(int n=8;n<=16;n+=4){line(n,3,n,6);line(n,18,n,21);line(3,n,6,n);line(18,n,21,n);}break;
     case Icon::Sun: p.drawEllipse(QPointF(12,12),4,4);for(int n=0;n<8;++n){p.save();p.translate(12,12);p.rotate(n*45);line(0,7,0,10);p.restore();}break;

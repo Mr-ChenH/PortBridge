@@ -1,0 +1,20 @@
+********* Start testing of WorkflowE2eTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : WorkflowE2eTest::initTestCase()
+PASS   : WorkflowE2eTest::canonicalLoginThroughPageButtonsPauseAndResults()
+PASS   : WorkflowE2eTest::jsonBodySubstitutionPreservesQuotesObjectsAndTypes()
+PASS   : WorkflowE2eTest::jsonHeaderTextSubstitutionPreservesQuotes(json-header-text)
+PASS   : WorkflowE2eTest::jsonHeaderTextSubstitutionPreservesQuotes(whole-object-variable)
+PASS   : WorkflowE2eTest::tokenCannotInjectNewHeadersInCanonicalTemplate(crlf-token)
+PASS   : WorkflowE2eTest::tokenCannotInjectNewHeadersInCanonicalTemplate(lf-token)
+PASS   : WorkflowE2eTest::http401AnyRetainsResponseAndMissingTokenFailsBeforeWs()
+PASS   : WorkflowE2eTest::oversizedHttpHeadersBodiesAndWsFailAndRelease(http-body)
+PASS   : WorkflowE2eTest::oversizedHttpHeadersBodiesAndWsFailAndRelease(http-header)
+PASS   : WorkflowE2eTest::oversizedHttpHeadersBodiesAndWsFailAndRelease(ws-message)
+PASS   : WorkflowE2eTest::secureCombinedLoginTrustAndWrongHost(untrusted-http-ca)
+PASS   : WorkflowE2eTest::secureCombinedLoginTrustAndWrongHost(wrong-http-host)
+PASS   : WorkflowE2eTest::secureCombinedLoginTrustAndWrongHost(wrong-wss-host)
+PASS   : WorkflowE2eTest::secureCombinedLoginTrustAndWrongHost(untrusted-wss-ca)
+PASS   : WorkflowE2eTest::cleanupTestCase()
+Totals: 16 passed, 0 failed, 0 skipped, 0 blacklisted, 4207ms
+********* Finished testing of WorkflowE2eTest *********

@@ -1,0 +1,10 @@
+{
+  "stage": "phase-2-before-responsive-fix",
+  "success": false,
+  "failedCheck": "viewport does not overflow 390",
+  "reproducedViewport": {"width": 390, "height": 844},
+  "documentScrollWidth": 391,
+  "documentScrollHeight": 844,
+  "cause": "Collapsed zero-width inspector column retained a 1px border. Overlay-open layout in phase 1 did not expose this case.",
+  "runtimeChecksBeforeFailure": "Success, timeout, HTTP 401 response preservation, cancellation, pause/resume, assertion failure, JSON extraction failure, save/restore, UDP, graph validation and log resizing passed."
+}

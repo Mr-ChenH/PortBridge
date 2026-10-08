@@ -1,5 +1,11 @@
 # PortBridge UI 设计规范
 
+正式工作流沿用本规范的深浅主题、字体、分隔条和状态语义，增加第四导航及原生QtNodes画布。具体节点库/参数/结果/日志与小窗口折叠规则见 [工作流UI设计](12-workflow-ui-design.md)；真实实现/修复前后与设计原型对照见 [原生对照](../validation/workflow-implementation/comparison.html)。软件125/150%记录实际窗口/画布/DPR，不替代物理WindowsDPI验收。
+
+## HTTP / WebSocket 手动工作台（http-ws-1）
+
+在既有主题与导航内增加36DIP模式栏，手动协议页隐藏原始连接侧栏并改用200DIP独立方案库。保留名称/URL/动作的明确层级，参数/请求头/认证/Body/设置可浏览，活动期间锁定握手配置。请求与结果可拖动分隔，WS消息可离线准备。状态、空态、分页范围及历史省略均使用真实值；默认结果视图、复制和导出采用有界凭据遮蔽。原生100/125/150%及1024紧凑界面和部署1280/1440截图见 [手动协议界面浏览](../validation/manual-protocol/gallery.html)，完整规则见 [14-manual-protocol-design.md](14-manual-protocol-design.md)。
+
 ## 1. 设计目标
 
 面向设备联调的桌面工作台：连接参数随时可见，数据与原始字节联动，发送与记录状态清楚。高速场景用有限显示样本、吞吐和丢失诊断提供可判断的信息。

@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "checks": [
+    "8 nodes / 7 connections",
+    "actual node pointer drag",
+    "undo drag",
+    "HTTP field changes summary",
+    "undo parameter",
+    "node search",
+    "actual palette drag and drop",
+    "delete selected connection",
+    "actual output-to-input connection",
+    "empty template",
+    "undo template",
+    "no page overflow 1440",
+    "no page overflow 1280",
+    "no page overflow 1024",
+    "no page overflow 390",
+    "no JavaScript errors"
+  ],
+  "errors": []
+}

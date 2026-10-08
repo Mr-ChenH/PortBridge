@@ -1,0 +1,12 @@
+********* Start testing of WorkflowE2eTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : WorkflowE2eTest::initTestCase()
+PASS   : WorkflowE2eTest::jsonHeaderTextSubstitutionPreservesQuotes(json-header-text)
+PASS   : WorkflowE2eTest::jsonHeaderTextSubstitutionPreservesQuotes(whole-object-variable)
+PASS   : WorkflowE2eTest::tokenCannotInjectNewHeadersInCanonicalTemplate(crlf-token)
+PASS   : WorkflowE2eTest::tokenCannotInjectNewHeadersInCanonicalTemplate(lf-token)
+PASS   : WorkflowE2eTest::unsolicitedPeerCloseRetainsUtf8ReasonAndCanRouteError(terminal-failure)
+PASS   : WorkflowE2eTest::unsolicitedPeerCloseRetainsUtf8ReasonAndCanRouteError(explicit-error-edge)
+PASS   : WorkflowE2eTest::cleanupTestCase()
+Totals: 8 passed, 0 failed, 0 skipped, 0 blacklisted, 1093ms
+********* Finished testing of WorkflowE2eTest *********

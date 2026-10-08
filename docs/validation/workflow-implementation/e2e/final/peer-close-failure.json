@@ -1,0 +1,143 @@
+{
+    "fixtureOnly": true,
+    "logs": [
+        {
+            "detail": "已固定本次配置并开始运行。",
+            "nodeId": "n1",
+            "status": "成功"
+        },
+        {
+            "detail": "HTTP 200 已收到响应。",
+            "nodeId": "n2",
+            "status": "成功"
+        },
+        {
+            "detail": "已提取 JSON 字段。",
+            "nodeId": "n3",
+            "status": "成功"
+        },
+        {
+            "detail": "WebSocket 握手已完成。",
+            "nodeId": "n4",
+            "status": "成功"
+        },
+        {
+            "detail": "WebSocket 对端关闭（代码 4001）：订阅令牌失效",
+            "nodeId": "n5",
+            "status": "失败"
+        }
+    ],
+    "results": {
+        "n1": {
+            "detail": "已固定本次配置并开始运行。",
+            "elapsedMs": 0,
+            "output": {
+                "runId": "3da46bc6-7e18-454f-8d17-37db4c1223fc"
+            },
+            "state": 2
+        },
+        "n2": {
+            "detail": "HTTP 200 已收到响应。",
+            "elapsedMs": 42,
+            "output": {
+                "body": {
+                    "count": 7,
+                    "enabled": true,
+                    "token": "e2e-token"
+                },
+                "bodyBase64": "eyJ0b2tlbiI6ImUyZS10b2tlbiIsImVuYWJsZWQiOnRydWUsImNvdW50Ijo3fQ==",
+                "bodyBytes": 46,
+                "bodyText": "{\"token\":\"e2e-token\",\"enabled\":true,\"count\":7}",
+                "elapsedMs": 37,
+                "headers": {
+                    "connection": "close",
+                    "content-length": "46",
+                    "content-type": "application/json",
+                    "x-e2e": "actual-server"
+                },
+                "status": 200
+            },
+            "state": 2
+        },
+        "n3": {
+            "detail": "已提取 JSON 字段。",
+            "elapsedMs": 0,
+            "output": {
+                "value": "e2e-token",
+                "variable": "token"
+            },
+            "state": 2
+        },
+        "n4": {
+            "detail": "WebSocket 握手已完成。",
+            "elapsedMs": 59,
+            "output": {
+                "connected": true,
+                "subprotocol": ""
+            },
+            "state": 2
+        },
+        "n5": {
+            "detail": "WebSocket 对端关闭（代码 4001）：订阅令牌失效",
+            "elapsedMs": 87,
+            "output": {
+                "closed": true,
+                "peerCode": 4001,
+                "peerInitiated": true,
+                "peerReason": "订阅令牌失效"
+            },
+            "state": 3
+        },
+        "n6": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "n7": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "n8": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "recovery": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 0
+        }
+    },
+    "runId": "3da46bc6-7e18-454f-8d17-37db4c1223fc",
+    "state": 4,
+    "variables": {
+        "httpResponse": {
+            "body": {
+                "count": 7,
+                "enabled": true,
+                "token": "e2e-token"
+            },
+            "bodyBase64": "eyJ0b2tlbiI6ImUyZS10b2tlbiIsImVuYWJsZWQiOnRydWUsImNvdW50Ijo3fQ==",
+            "bodyBytes": 46,
+            "bodyText": "{\"token\":\"e2e-token\",\"enabled\":true,\"count\":7}",
+            "elapsedMs": 37,
+            "headers": {
+                "connection": "close",
+                "content-length": "46",
+                "content-type": "application/json",
+                "x-e2e": "actual-server"
+            },
+            "status": 200
+        },
+        "token": "e2e-token"
+    }
+}

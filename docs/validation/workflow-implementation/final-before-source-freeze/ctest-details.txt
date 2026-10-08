@@ -1,0 +1,409 @@
+Start testing: Oct 08 05:52 中国标准时间
+----------------------------------------------------------
+1/8 Testing: network
+1/8 Test: network
+Command: "C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test_network.exe"
+Directory: C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+"network" start time: Oct 08 05:52 中国标准时间
+Output:
+----------------------------------------------------------
+PASS Retained payload outlives pool without pinning free cache; safe buffer reuse
+PASS TCP arbitrary splits and retained-block backpressure
+PASS Four TCP clients directed/broadcast/selective disconnect
+PASS UDP empty/large/multiple origins and consumer drops
+PASS UDP live target switch preserves binding, queued targets and receive after resolution failure
+PASS UDP explicit targets require no apply step; configuration emits no datagrams
+PASS UDP simulated message_size via production helper discards prefix and receives next real datagram
+PASS UDP absent peer keeps binding, independent receive, and completed TX
+PASS Bounded admission and completed TX not retried
+PASS Retired TCP block cannot enter replacement UDP generation
+PASS Cancel/deadline/refusal/repeated stop/destruction
+PASS all network loopback tests (localhost; no hardware throughput claim)
+<end of output>
+Test time =   1.63 sec
+----------------------------------------------------------
+Test Passed.
+"network" end time: Oct 08 05:52 中国标准时间
+"network" time elapsed: 00:00:01
+----------------------------------------------------------
+
+2/8 Testing: session
+2/8 Test: session
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DTEST_EXECUTABLE=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test_session.exe" "-DTEST_LOG=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test-reports/session.txt" "-P" "C:/Users/threeTeeth/workSpace/github/PortBridge/cmake/RunQtTest.cmake"
+Directory: C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+"session" start time: Oct 08 05:52 中国标准时间
+Output:
+----------------------------------------------------------
+-- ********* Start testing of SessionTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : SessionTest::initTestCase()
+PASS   : SessionTest::codec()
+PASS   : SessionTest::profilesAndCommands()
+PASS   : SessionTest::configSizePreservesPriorFile()
+PASS   : SessionTest::periodicFiniteAndStop()
+PASS   : SessionTest::captureRotationAndDecoder()
+PASS   : SessionTest::captureQueueDurationAndFailures()
+PASS   : SessionTest::displayPauseSequenceAndOverflow()
+PASS   : SessionTest::normalDisplayByteBoundAndSwitch()
+PASS   : SessionTest::captureCatalogBoundKeepsFilesAndReloads()
+PASS   : SessionTest::captureCompletenessPublicationObserver()
+PASS   : SessionTest::tcpCaptureBackpressureAndStableClientIds()
+PASS   : SessionTest::sequenceLittleEndianOffsetAndLargeGap()
+PASS   : SessionTest::sequenceWrapAndSourceEviction()
+PASS   : SessionTest::retainedCapacityAdmission()
+PASS   : SessionTest::udpReceiveOnlyResolutionErrorAndStreamSequenceRejected()
+PASS   : SessionTest::systemEventsAreReconstructableAndDoNotCountTraffic()
+PASS   : SessionTest::commandPeriodicCompatibilityAndValidation()
+PASS   : SessionTest::offlineSelectionIsolatesCallbacksAndWriter()
+PASS   : SessionTest::offlineSelectionFencesLateWriterFailureAcrossNextCapture()
+PASS   : SessionTest::catalogRefreshReconcilesAndProtectsActiveCapture()
+PASS   : SessionTest::captureMetadataCompatibilityAndTransportSummary()
+PASS   : SessionTest::reentrantStartupSelectionAndReplacementReleaseOldPort()
+PASS   : SessionTest::finalizedSequenceDenominatorAndSaturation()
+PASS   : SessionTest::truncationIsObservableNonterminalAndScoped()
+PASS   : SessionTest::serialOpenErrorIsObservable()
+PASS   : SessionTest::cleanupTestCase()
+Totals: 27 passed, 0 failed, 0 skipped, 0 blacklisted, 41930ms
+********* Finished testing of SessionTest *********
+
+<end of output>
+Test time =  41.98 sec
+----------------------------------------------------------
+Test Passed.
+"session" end time: Oct 08 05:53 中国标准时间
+"session" time elapsed: 00:00:41
+----------------------------------------------------------
+
+3/8 Testing: ui
+3/8 Test: ui
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DTEST_EXECUTABLE=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test_ui.exe" "-DTEST_LOG=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test-reports/ui.txt" "-P" "C:/Users/threeTeeth/workSpace/github/PortBridge/cmake/RunQtTest.cmake"
+Directory: C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+"ui" start time: Oct 08 05:53 中国标准时间
+Output:
+----------------------------------------------------------
+-- ********* Start testing of UiTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : UiTest::initTestCase()
+PASS   : UiTest::startupAndAccessibility()
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=0 window=1440x1000 default=1109x205 expanded=1109x514
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=1 window=1440x1000 default=1109x204 expanded=1109x513
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=2 window=1440x1000 default=1109x204 expanded=1109x513
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=3 window=1440x1000 default=1109x168 expanded=1109x477
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=0 window=1100x760 default=769x114 expanded=769x274
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=1 window=1100x760 default=769x113 expanded=769x273
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=2 window=1100x760 default=769x113 expanded=769x273
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=3 window=1100x760 default=769x96 expanded=769x237
+PASS   : UiTest::sharedComposerSupportsMultilineResizeAndExpansion()
+PASS   : UiTest::composerSizePreferenceRestoresWithoutExpandedStartup()
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support raise()
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support grabbing the keyboard
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support raise()
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support grabbing the keyboard
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support raise()
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support grabbing the keyboard
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support raise()
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support grabbing the keyboard
+PASS   : UiTest::profilePickerSearchAndReturnPreserveRunningUdp()
+QWARN  : UiTest::profilePickerBoundsLongNamesAndKeyboardSearch() This plugin does not support raise()
+QWARN  : UiTest::profilePickerBoundsLongNamesAndKeyboardSearch() This plugin does not support grabbing the keyboard
+PASS   : UiTest::profilePickerBoundsLongNamesAndKeyboardSearch()
+PASS   : UiTest::navigationAndModeControlsStayInSync()
+PASS   : UiTest::profileBrowsingKeepsUdpBindingAndReceivesInBackground()
+PASS   : UiTest::textPreviewColorsFormattingAndCompleteAsciiPages()
+PASS   : UiTest::utf8InspectorShowsSentChineseAndCompletePagedCharacters()
+PASS   : UiTest::udpBindAndCloseDoNotCreateMessagesOrDatagrams()
+PASS   : UiTest::udpDirectSendUsesEditedTargetWithoutConfigurationTraffic()
+PASS   : UiTest::udpRecordInspectorFitsDesignedWidth()
+PASS   : UiTest::strictHexAndBytePreview()
+PASS   : UiTest::modesPauseClearResetAndActualBytes()
+PASS   : UiTest::finitePeriodicFreezesConfigurationAndStops()
+QWARN  : UiTest::commandsAddEditLoadDeleteAndPersist() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandsAddEditLoadDeleteAndPersist() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandsAddEditLoadDeleteAndPersist() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandsAddEditLoadDeleteAndPersist() This plugin does not support propagateSizeHints()
+PASS   : UiTest::commandsAddEditLoadDeleteAndPersist()
+PASS   : UiTest::serverTargetsBroadcastAndStatefulText()
+PASS   : UiTest::recordingUsesActualStorageAndFiles()
+QWARN  : UiTest::captureExportRunsInBackgroundAndCancelsAtomically() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::captureExportRunsInBackgroundAndCancelsAtomically() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::captureExportRunsInBackgroundAndCancelsAtomically() This plugin does not support propagateSizeHints()
+PASS   : UiTest::captureExportRunsInBackgroundAndCancelsAtomically()
+PASS   : UiTest::backgroundCompletionHasBoundedSafeTeardown()
+PASS   : UiTest::rawModelBoundsDecoderAndFilters()
+QWARN  : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not support propagateSizeHints()
+PASS   : UiTest::profilesCrudAndVersionedUiFiles()
+QWARN  : UiTest::displayedSampleExportReadsOriginalBytes() This plugin does not support propagateSizeHints()
+PASS   : UiTest::displayedSampleExportReadsOriginalBytes()
+QWARN  : UiTest::exactImportedProfileValuesSurviveCloseAndExplicitEdits() This plugin does not support propagateSizeHints()
+PASS   : UiTest::exactImportedProfileValuesSurviveCloseAndExplicitEdits()
+PASS   : UiTest::statisticsResetPreservesDecoderButRealRecordGapResetsIt()
+PASS   : UiTest::selectingLiveServerClientRefreshesDisconnectImmediately()
+QWARN  : UiTest::sequenceUdpProfileTransportEditPersistsAndRestarts() This plugin does not support propagateSizeHints()
+PASS   : UiTest::sequenceUdpProfileTransportEditPersistsAndRestarts()
+QWARN  : UiTest::profileActivationClearsAllScopedStateAcrossCrud() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profileActivationClearsAllScopedStateAcrossCrud() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profileActivationClearsAllScopedStateAcrossCrud() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profileActivationClearsAllScopedStateAcrossCrud() This plugin does not support propagateSizeHints()
+PASS   : UiTest::profileActivationClearsAllScopedStateAcrossCrud()
+PASS   : UiTest::inspectorClearsOnFilterResetRemovalAndDeselection()
+PASS   : UiTest::continuousPeriodicSurvivesBrowsingAndStopsOnReplacement()
+PASS   : UiTest::allPreferencesRestoreWithoutStartingWork()
+QWARN  : UiTest::captureRefreshSeesExternalFilesPreservesSelectionAndDeletes() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::captureRefreshSeesExternalFilesPreservesSelectionAndDeletes() This plugin does not support propagateSizeHints()
+PASS   : UiTest::captureRefreshSeesExternalFilesPreservesSelectionAndDeletes()
+QWARN  : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This plugin does not support propagateSizeHints()
+PASS   : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs()
+PASS   : UiTest::txRateAndIndependentTruncationMetricFollowRealStatistics()
+QWARN  : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange() This plugin does not support propagateSizeHints()
+PASS   : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange()
+QWARN  : UiTest::sampleExportCancellationImmutableSnapshotAndClose() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::sampleExportCancellationImmutableSnapshotAndClose() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::sampleExportCancellationImmutableSnapshotAndClose() This plugin does not support propagateSizeHints()
+PASS   : UiTest::sampleExportCancellationImmutableSnapshotAndClose()
+PASS   : UiTest::nativeAuditScreenshotsAndLayout()
+PASS   : UiTest::preferencesRestoreWithoutAutoConnect()
+PASS   : UiTest::cleanupTestCase()
+Totals: 40 passed, 0 failed, 0 skipped, 0 blacklisted, 36565ms
+********* Finished testing of UiTest *********
+
+<end of output>
+Test time =  36.71 sec
+----------------------------------------------------------
+Test Passed.
+"ui" end time: Oct 08 05:54 中国标准时间
+"ui" time elapsed: 00:00:36
+----------------------------------------------------------
+
+4/8 Testing: workflow
+4/8 Test: workflow
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DTEST_EXECUTABLE=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test_workflow.exe" "-DTEST_LOG=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test-reports/workflow.txt" "-P" "C:/Users/threeTeeth/workSpace/github/PortBridge/cmake/RunQtTest.cmake"
+Directory: C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+"workflow" start time: Oct 08 05:54 中国标准时间
+Output:
+----------------------------------------------------------
+-- ********* Start testing of WorkflowTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : WorkflowTest::initTestCase()
+PASS   : WorkflowTest::templatesAndRoundtrip()
+PASS   : WorkflowTest::strictSchemaAndValidation()
+PASS   : WorkflowTest::variablesBranchLoopAndImmutablePlan()
+PASS   : WorkflowTest::extractionAndErrorBranches()
+PASS   : WorkflowTest::pauseCancellationDeadlineAndBounds()
+PASS   : WorkflowTest::udpFastReplyPausedAndSourceFilter()
+PASS   : WorkflowTest::tcpSplitCoalescedDelimiterFixedAndHeader()
+PASS   : WorkflowTest::rawObserverCapacityEpochAndNoDisplayCoupling()
+PASS   : WorkflowTest::sessionReplacementStopsRunAndOwnedCleanup()
+PASS   : WorkflowTest::workflowObserverOverflowAndSampledDisplay()
+PASS   : WorkflowTest::ownedReplacementDoesNotStopReplacement()
+PASS   : WorkflowTest::tcpDisconnectAndAssemblyOverflow()
+PASS   : WorkflowTest::cleanupTestCase()
+Totals: 14 passed, 0 failed, 0 skipped, 0 blacklisted, 2222ms
+********* Finished testing of WorkflowTest *********
+
+<end of output>
+Test time =   2.32 sec
+----------------------------------------------------------
+Test Passed.
+"workflow" end time: Oct 08 05:54 中国标准时间
+"workflow" time elapsed: 00:00:02
+----------------------------------------------------------
+
+5/8 Testing: workflow_ui
+5/8 Test: workflow_ui
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DTEST_EXECUTABLE=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test_workflow_ui.exe" "-DTEST_LOG=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test-reports/workflow_ui.txt" "-P" "C:/Users/threeTeeth/workSpace/github/PortBridge/cmake/RunQtTest.cmake"
+Directory: C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+"workflow_ui" start time: Oct 08 05:54 中国标准时间
+Output:
+----------------------------------------------------------
+-- ********* Start testing of WorkflowUiTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : WorkflowUiTest::initTestCase()
+PASS   : WorkflowUiTest::silentTemplatesAndRoundtrip()
+PASS   : WorkflowUiTest::importRejectsPrototypeAndUnknown()
+PASS   : WorkflowUiTest::paletteSearchNativeDropAndUndo()
+PASS   : WorkflowUiTest::mouseMovePortConnectAndDelete()
+PASS   : WorkflowUiTest::canonicalHttpAndWsParameterMutation()
+QWARN  : WorkflowUiTest::validationFocusAndNativeTemplates() This plugin does not support propagateSizeHints()
+PASS   : WorkflowUiTest::validationFocusAndNativeTemplates()
+PASS   : WorkflowUiTest::runnerSnapshotLogsVariablesAndRedaction()
+PASS   : WorkflowUiTest::pauseStopRejectionAndMutationLock()
+PASS   : WorkflowUiTest::realUdpRunnerAndTimeoutResult()
+QWARN  : WorkflowUiTest::keyboardPaletteAndDirtyPrompt() This plugin does not support propagateSizeHints()
+QWARN  : WorkflowUiTest::keyboardPaletteAndDirtyPrompt() This plugin does not support propagateSizeHints()
+PASS   : WorkflowUiTest::keyboardPaletteAndDirtyPrompt()
+QWARN  : WorkflowUiTest::keyboardPortConnectionAndControlPorts() This plugin does not support propagateSizeHints()
+PASS   : WorkflowUiTest::keyboardPortConnectionAndControlPorts()
+PASS   : WorkflowUiTest::boundedPreviewAndStaticCredentialExport()
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(5000-character-token) This plugin does not support propagateSizeHints()
+PASS   : WorkflowUiTest::longCredentialPreviewClipboardAndExport(5000-character-token)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(encoded-chunk-boundary) This plugin does not support propagateSizeHints()
+PASS   : WorkflowUiTest::longCredentialPreviewClipboardAndExport(encoded-chunk-boundary)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(numeric-token) This plugin does not support propagateSizeHints()
+PASS   : WorkflowUiTest::longCredentialPreviewClipboardAndExport(numeric-token)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(boolean-token) This plugin does not support propagateSizeHints()
+PASS   : WorkflowUiTest::longCredentialPreviewClipboardAndExport(boolean-token)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(null-token) This plugin does not support propagateSizeHints()
+PASS   : WorkflowUiTest::longCredentialPreviewClipboardAndExport(null-token)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(array-token) This plugin does not support propagateSizeHints()
+PASS   : WorkflowUiTest::longCredentialPreviewClipboardAndExport(array-token)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(object-token) This plugin does not support propagateSizeHints()
+PASS   : WorkflowUiTest::longCredentialPreviewClipboardAndExport(object-token)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(escaped-key) This plugin does not support propagateSizeHints()
+PASS   : WorkflowUiTest::longCredentialPreviewClipboardAndExport(escaped-key)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(large-body-credential) This plugin does not support propagateSizeHints()
+PASS   : WorkflowUiTest::longCredentialPreviewClipboardAndExport(large-body-credential)
+PASS   : WorkflowUiTest::realHttpErrorResponseRemainsReviewable()
+PASS   : WorkflowUiTest::realWebSocketTextAndBinaryResults()
+PASS   : WorkflowUiTest::layoutsThemesAndScreenshot()
+PASS   : WorkflowUiTest::cleanupTestCase()
+Totals: 26 passed, 0 failed, 0 skipped, 0 blacklisted, 22586ms
+********* Finished testing of WorkflowUiTest *********
+
+<end of output>
+Test time =  22.71 sec
+----------------------------------------------------------
+Test Passed.
+"workflow_ui" end time: Oct 08 05:54 中国标准时间
+"workflow_ui" time elapsed: 00:00:22
+----------------------------------------------------------
+
+6/8 Testing: workflow_protocol
+6/8 Test: workflow_protocol
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DTEST_EXECUTABLE=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test_workflow_protocol.exe" "-DTEST_LOG=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test-reports/workflow_protocol.txt" "-P" "C:/Users/threeTeeth/workSpace/github/PortBridge/cmake/RunQtTest.cmake"
+Directory: C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+"workflow_protocol" start time: Oct 08 05:54 中国标准时间
+Output:
+----------------------------------------------------------
+-- ********* Start testing of ProtocolTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : ProtocolTest::initTestCase()
+PASS   : ProtocolTest::httpStatusAndBody()
+PASS   : ProtocolTest::httpCapsDeadlinesCancelAndReuse()
+PASS   : ProtocolTest::webSocketTextBinaryFragmentAndClose()
+PASS   : ProtocolTest::webSocketFailuresAndLimits()
+PASS   : ProtocolTest::unsolicitedPeerCloseMetadataBeforeState()
+PASS   : ProtocolTest::qtWebSocketCloseInterop(ws-requested)
+PASS   : ProtocolTest::qtWebSocketCloseInterop(ws-peer)
+PASS   : ProtocolTest::qtWebSocketCloseInterop(wss-requested)
+PASS   : ProtocolTest::qtWebSocketCloseInterop(wss-peer)
+PASS   : ProtocolTest::qtWebSocketCloseInterop(ws-abrupt)
+PASS   : ProtocolTest::qtWebSocketCloseInterop(wss-abrupt)
+PASS   : ProtocolTest::boundedHandoffCancelAndReuse()
+PASS   : ProtocolTest::maximumHttpAndWebSocketPayloads()
+PASS   : ProtocolTest::cancellationAdmissionAndConfigurationBudgets()
+PASS   : ProtocolTest::httpsAndWssTrustAndHostname()
+PASS   : ProtocolTest::cleanupTestCase()
+Totals: 17 passed, 0 failed, 0 skipped, 0 blacklisted, 6829ms
+********* Finished testing of ProtocolTest *********
+
+<end of output>
+Test time =   7.51 sec
+----------------------------------------------------------
+Test Passed.
+"workflow_protocol" end time: Oct 08 05:54 中国标准时间
+"workflow_protocol" time elapsed: 00:00:07
+----------------------------------------------------------
+
+7/8 Testing: workflow_integration
+7/8 Test: workflow_integration
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DTEST_EXECUTABLE=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test_workflow_integration.exe" "-DTEST_LOG=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test-reports/workflow_integration.txt" "-P" "C:/Users/threeTeeth/workSpace/github/PortBridge/cmake/RunQtTest.cmake"
+Directory: C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+"workflow_integration" start time: Oct 08 05:54 中国标准时间
+Output:
+----------------------------------------------------------
+-- ********* Start testing of WorkflowIntegrationTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : WorkflowIntegrationTest::initTestCase()
+PASS   : WorkflowIntegrationTest::protocolContractValidation()
+PASS   : WorkflowIntegrationTest::runnerRejectsRawHttpWsOverlap()
+QWARN  : WorkflowIntegrationTest::navigationShellThemeAndIdleShortcutDoNotSend() This plugin does not support propagateSizeHints()
+QWARN  : WorkflowIntegrationTest::navigationShellThemeAndIdleShortcutDoNotSend() This plugin does not support propagateSizeHints()
+QWARN  : WorkflowIntegrationTest::navigationShellThemeAndIdleShortcutDoNotSend() This plugin does not support propagateSizeHints()
+PASS   : WorkflowIntegrationTest::navigationShellThemeAndIdleShortcutDoNotSend()
+QWARN  : WorkflowIntegrationTest::borrowConfirmationPreservesRecordingAndBlocksManualCommandSend() This plugin does not support propagateSizeHints()
+QWARN  : WorkflowIntegrationTest::borrowConfirmationPreservesRecordingAndBlocksManualCommandSend() This plugin does not support propagateSizeHints()
+QWARN  : WorkflowIntegrationTest::borrowConfirmationPreservesRecordingAndBlocksManualCommandSend() This plugin does not support propagateSizeHints()
+QWARN  : WorkflowIntegrationTest::borrowConfirmationPreservesRecordingAndBlocksManualCommandSend() This plugin does not support propagateSizeHints()
+PASS   : WorkflowIntegrationTest::borrowConfirmationPreservesRecordingAndBlocksManualCommandSend()
+QWARN  : WorkflowIntegrationTest::httpConfirmationRetainsOrStopsRawAndRecords() This plugin does not support propagateSizeHints()
+QWARN  : WorkflowIntegrationTest::httpConfirmationRetainsOrStopsRawAndRecords() This plugin does not support propagateSizeHints()
+PASS   : WorkflowIntegrationTest::httpConfirmationRetainsOrStopsRawAndRecords()
+QWARN  : WorkflowIntegrationTest::mainCloseCancelPreservesFlowAndAcceptStopsActivity() This plugin does not support propagateSizeHints()
+QWARN  : WorkflowIntegrationTest::mainCloseCancelPreservesFlowAndAcceptStopsActivity() This plugin does not support propagateSizeHints()
+PASS   : WorkflowIntegrationTest::mainCloseCancelPreservesFlowAndAcceptStopsActivity()
+QWARN  : WorkflowIntegrationTest::mainCloseSaveDestinationCancelPreservesAndSaveStops() This plugin does not support propagateSizeHints()
+QWARN  : WorkflowIntegrationTest::mainCloseSaveDestinationCancelPreservesAndSaveStops() This plugin does not support propagateSizeHints()
+QWARN  : WorkflowIntegrationTest::mainCloseSaveDestinationCancelPreservesAndSaveStops() This plugin does not support propagateSizeHints()
+QWARN  : WorkflowIntegrationTest::mainCloseSaveDestinationCancelPreservesAndSaveStops() This plugin does not support propagateSizeHints()
+PASS   : WorkflowIntegrationTest::mainCloseSaveDestinationCancelPreservesAndSaveStops()
+PASS   : WorkflowIntegrationTest::multipleOwnedResourcesKeepBackgroundIdentityAndCleanup()
+PASS   : WorkflowIntegrationTest::cleanupTestCase()
+Totals: 10 passed, 0 failed, 0 skipped, 0 blacklisted, 7489ms
+********* Finished testing of WorkflowIntegrationTest *********
+
+<end of output>
+Test time =   7.64 sec
+----------------------------------------------------------
+Test Passed.
+"workflow_integration" end time: Oct 08 05:54 中国标准时间
+"workflow_integration" time elapsed: 00:00:07
+----------------------------------------------------------
+
+8/8 Testing: workflow_e2e
+8/8 Test: workflow_e2e
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DTEST_EXECUTABLE=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test_workflow_e2e.exe" "-DTEST_LOG=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test-reports/workflow_e2e.txt" "-P" "C:/Users/threeTeeth/workSpace/github/PortBridge/cmake/RunQtTest.cmake"
+Directory: C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+"workflow_e2e" start time: Oct 08 05:54 中国标准时间
+Output:
+----------------------------------------------------------
+-- ********* Start testing of WorkflowE2eTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : WorkflowE2eTest::initTestCase()
+PASS   : WorkflowE2eTest::canonicalLoginThroughPageButtonsPauseAndResults()
+PASS   : WorkflowE2eTest::jsonBodySubstitutionPreservesQuotesObjectsAndTypes()
+PASS   : WorkflowE2eTest::jsonHeaderTextSubstitutionPreservesQuotes(json-header-text)
+PASS   : WorkflowE2eTest::jsonHeaderTextSubstitutionPreservesQuotes(whole-object-variable)
+PASS   : WorkflowE2eTest::tokenCannotInjectNewHeadersInCanonicalTemplate(crlf-token)
+PASS   : WorkflowE2eTest::tokenCannotInjectNewHeadersInCanonicalTemplate(lf-token)
+PASS   : WorkflowE2eTest::http401AnyRetainsResponseAndMissingTokenFailsBeforeWs()
+PASS   : WorkflowE2eTest::binarySendWaitRoundTripsLosslessly()
+PASS   : WorkflowE2eTest::oversizedHttpHeadersBodiesAndWsFailAndRelease(http-body)
+PASS   : WorkflowE2eTest::oversizedHttpHeadersBodiesAndWsFailAndRelease(http-header)
+PASS   : WorkflowE2eTest::oversizedHttpHeadersBodiesAndWsFailAndRelease(ws-message)
+PASS   : WorkflowE2eTest::pageStopRetiresQueuedReplyAndNewRunRemainsIndependent()
+PASS   : WorkflowE2eTest::unsolicitedPeerCloseRetainsUtf8ReasonAndCanRouteError(terminal-failure)
+PASS   : WorkflowE2eTest::unsolicitedPeerCloseRetainsUtf8ReasonAndCanRouteError(explicit-error-edge)
+PASS   : WorkflowE2eTest::unsolicitedPeerCloseSignalPrecedesStateAndReentrantDestructionIsSafe()
+PASS   : WorkflowE2eTest::abruptSocketLossDoesNotBecomeSuccessfulClose(ws-no-close-frame)
+PASS   : WorkflowE2eTest::abruptSocketLossDoesNotBecomeSuccessfulClose(wss-no-close-frame)
+PASS   : WorkflowE2eTest::secureCombinedLoginTrustAndWrongHost(trusted-ca)
+PASS   : WorkflowE2eTest::secureCombinedLoginTrustAndWrongHost(untrusted-http-ca)
+PASS   : WorkflowE2eTest::secureCombinedLoginTrustAndWrongHost(wrong-http-host)
+PASS   : WorkflowE2eTest::secureCombinedLoginTrustAndWrongHost(wrong-wss-host)
+PASS   : WorkflowE2eTest::secureCombinedLoginTrustAndWrongHost(untrusted-wss-ca)
+PASS   : WorkflowE2eTest::secureCombinedLoginTrustAndWrongHost(trusted-unicode-ca-path)
+PASS   : WorkflowE2eTest::cleanupTestCase()
+Totals: 25 passed, 0 failed, 0 skipped, 0 blacklisted, 10863ms
+********* Finished testing of WorkflowE2eTest *********
+
+<end of output>
+Test time =  11.01 sec
+----------------------------------------------------------
+Test Passed.
+"workflow_e2e" end time: Oct 08 05:54 中国标准时间
+"workflow_e2e" time elapsed: 00:00:11
+----------------------------------------------------------
+
+End testing: Oct 08 05:54 中国标准时间

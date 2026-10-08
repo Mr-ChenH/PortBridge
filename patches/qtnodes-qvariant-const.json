@@ -1,0 +1,58 @@
+{
+  "upstreamCommit": "7c6341a66a8e46b8988140b9e60d892b6a3560b3",
+  "reason": "Use const QVariant extraction rather than rvalue moving path; avoid GCC 13 array-bounds diagnostics without warning suppression.",
+  "files": [
+    {
+      "path": "include/QtNodes/internal/AbstractGraphModel.hpp",
+      "beforeSha256": "da127d5302a30a6f746e742889a57d28f04a752c7db512bfab3ea1b366a7f3f8",
+      "afterSha256": "99ee5d38c180fa98581ca9014f1c2b2e475ba4007ed677bd772853d26fd52d40",
+      "edits": [
+        {
+          "old": "    template<typename T>\n    T nodeData(NodeId nodeId, NodeRole role) const\n    {\n        return nodeData(nodeId, role).value<T>();\n    }\n\n    virtual NodeFlags nodeFlags(NodeId nodeId) const\n",
+          "new": "    template<typename T>\n    T nodeData(NodeId nodeId, NodeRole role) const\n    {\n        const QVariant value = nodeData(nodeId, role);\n        return value.value<T>();\n    }\n\n    virtual NodeFlags nodeFlags(NodeId nodeId) const\n"
+        },
+        {
+          "old": "    template<typename T>\n    T portData(NodeId nodeId, PortType portType, PortIndex index, PortRole role) const\n    {\n        return portData(nodeId, portType, index, role).value<T>();\n    }\n\n    virtual bool setPortData(NodeId nodeId,\n",
+          "new": "    template<typename T>\n    T portData(NodeId nodeId, PortType portType, PortIndex index, PortRole role) const\n    {\n        const QVariant value = portData(nodeId, portType, index, role);\n        return value.value<T>();\n    }\n\n    virtual bool setPortData(NodeId nodeId,\n"
+        }
+      ]
+    },
+    {
+      "path": "src/DefaultConnectionPainter.cpp",
+      "beforeSha256": "f878484b677a8553dcebe53cd54ff87f00bde6d502ab3b485defbd51ffbe0952",
+      "afterSha256": "f856d9590ef9513d084ff5389c2a926cce5efd584f3f5d7f84fa19967fd9cfbf",
+      "edits": [
+        {
+          "old": "\n        auto const cId = cgo.connectionId();\n\n        auto dataTypeOut = graphModel\n                               .portData(cId.outNodeId,\n                                         PortType::Out,\n                                         cId.outPortIndex,\n                                         PortRole::DataType)\n                               .value<NodeDataType>();\n\n        auto dataTypeIn\n            = graphModel.portData(cId.inNodeId, PortType::In, cId.inPortIndex, PortRole::DataType)\n                  .value<NodeDataType>();\n\n        useGradientColor = (dataTypeOut.id != dataTypeIn.id);\n\n",
+          "new": "\n        auto const cId = cgo.connectionId();\n\n        const QVariant outVariant = graphModel.portData(cId.outNodeId,\n                                                       PortType::Out,\n                                                       cId.outPortIndex,\n                                                       PortRole::DataType);\n        const QVariant inVariant = graphModel.portData(cId.inNodeId, PortType::In,\n                                                      cId.inPortIndex, PortRole::DataType);\n        const auto dataTypeOut = outVariant.value<NodeDataType>();\n        const auto dataTypeIn = inVariant.value<NodeDataType>();\n\n        useGradientColor = (dataTypeOut.id != dataTypeIn.id);\n\n"
+        }
+      ]
+    },
+    {
+      "path": "src/DefaultNodePainter.cpp",
+      "beforeSha256": "526eef81f0c9e6025a20304cdb2ca9344cd3a90cd75be3f26cdac6ef5fdec5ac",
+      "afterSha256": "7a0276bd4b8870e7423cb7a4c46734f4a473add926b60dc402228067d3817d6f",
+      "edits": [
+        {
+          "old": "        for (PortIndex portIndex = 0; portIndex < n; ++portIndex) {\n            QPointF p = geometry.portPosition(nodeId, portType, portIndex);\n\n            auto const &dataType = model.portData(nodeId, portType, portIndex, PortRole::DataType)\n                                       .value<NodeDataType>();\n\n            double r = 1.0;\n\n",
+          "new": "        for (PortIndex portIndex = 0; portIndex < n; ++portIndex) {\n            QPointF p = geometry.portPosition(nodeId, portType, portIndex);\n\n            const QVariant typeVariant = model.portData(nodeId, portType, portIndex, PortRole::DataType);\n            const auto dataType = typeVariant.value<NodeDataType>();\n\n            double r = 1.0;\n\n"
+        },
+        {
+          "old": "            auto const &connected = model.connections(nodeId, portType, portIndex);\n\n            if (!connected.empty()) {\n                auto const &dataType = model\n                                           .portData(nodeId, portType, portIndex, PortRole::DataType)\n                                           .value<NodeDataType>();\n\n                auto const &connectionStyle = StyleCollection::connectionStyle();\n                if (connectionStyle.useDataDefinedColors()) {\n",
+          "new": "            auto const &connected = model.connections(nodeId, portType, portIndex);\n\n            if (!connected.empty()) {\n                const QVariant typeVariant = model.portData(nodeId, portType, portIndex, PortRole::DataType);\n                const auto dataType = typeVariant.value<NodeDataType>();\n\n                auto const &connectionStyle = StyleCollection::connectionStyle();\n                if (connectionStyle.useDataDefinedColors()) {\n"
+        }
+      ]
+    },
+    {
+      "path": "src/DataFlowGraphModel.cpp",
+      "beforeSha256": "beb38409f98b8bc5c77c2c9e70dd40383ccc4937bc8e964765842f408fa39b34",
+      "afterSha256": "4e09045c621654002bc9d44d47c294d588a869b2d83be63261ea72ba96376c0b",
+      "edits": [
+        {
+          "old": "    };\n\n    auto getDataType = [&](PortType const portType) {\n        return portData(getNodeId(portType, connectionId),\n                        portType,\n                        getPortIndex(portType, connectionId),\n                        PortRole::DataType)\n            .value<NodeDataType>();\n    };\n\n    auto portVacant = [&](PortType const portType) {\n",
+          "new": "    };\n\n    auto getDataType = [&](PortType const portType) {\n        const QVariant value = portData(getNodeId(portType, connectionId),\n                                        portType,\n                                        getPortIndex(portType, connectionId),\n                                        PortRole::DataType);\n        return value.value<NodeDataType>();\n    };\n\n    auto portVacant = [&](PortType const portType) {\n"
+        }
+      ]
+    }
+  ]
+}

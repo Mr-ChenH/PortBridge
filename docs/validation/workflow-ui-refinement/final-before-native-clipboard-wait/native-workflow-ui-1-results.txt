@@ -1,0 +1,149 @@
+********* Start testing of WorkflowUiTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : WorkflowUiTest::initTestCase()
+PASS   : WorkflowUiTest::silentTemplatesAndRoundtrip()
+PASS   : WorkflowUiTest::importRejectsPrototypeAndUnknown()
+PASS   : WorkflowUiTest::paletteSearchNativeDropAndUndo()
+PASS   : WorkflowUiTest::mouseMovePortConnectAndDelete()
+PASS   : WorkflowUiTest::canonicalHttpAndWsParameterMutation()
+PASS   : WorkflowUiTest::designParameterHierarchyAndValidationReveal()
+PASS   : WorkflowUiTest::validationFocusAndNativeTemplates()
+PASS   : WorkflowUiTest::runnerSnapshotLogsVariablesAndRedaction()
+PASS   : WorkflowUiTest::pauseStopRejectionAndMutationLock()
+PASS   : WorkflowUiTest::realUdpRunnerAndTimeoutResult()
+PASS   : WorkflowUiTest::keyboardPaletteAndDirtyPrompt()
+PASS   : WorkflowUiTest::keyboardPortConnectionAndControlPorts()
+PASS   : WorkflowUiTest::boundedPreviewAndStaticCredentialExport()
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(5000-character-token) OleSetClipboard: Failed to set mime data (text/plain, text/html, text/markdown, application/vnd.oasis.opendocument.text) on clipboard: COM error 0x800401d0: OpenClipboard ??? (操作成功完成。)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(5000-character-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(5000-character-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(5000-character-token) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(5000-character-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(5000-character-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(5000-character-token) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(5000-character-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(5000-character-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(5000-character-token) qt.qpa.mime: Unable to obtain clipboard.
+FAIL!  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(5000-character-token) Compared values are not the same
+   Actual   (QApplication::clipboard()->text()): ""
+   Expected (text)                             : "{\n    \"connection\": \"close\",\n    \"content-length\": \"5037\",\n    \"content-type\": \"application/json\",\n    \"set-cookie\": \"[\u5DF2\u906E\u853D]\"\n}\n"
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_workflow_ui.cpp(616) : failure location
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(encoded-chunk-boundary) OleSetClipboard: Failed to set mime data (text/plain, text/html, text/markdown, application/vnd.oasis.opendocument.text) on clipboard: COM error 0x800401d0: OpenClipboard ??? (操作成功完成。)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(encoded-chunk-boundary) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(encoded-chunk-boundary) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(encoded-chunk-boundary) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(encoded-chunk-boundary) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(encoded-chunk-boundary) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(encoded-chunk-boundary) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(encoded-chunk-boundary) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(encoded-chunk-boundary) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(encoded-chunk-boundary) qt.qpa.mime: Unable to obtain clipboard.
+FAIL!  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(encoded-chunk-boundary) Compared values are not the same
+   Actual   (QApplication::clipboard()->text()): ""
+   Expected (text)                             : "{\n    \"padding\": \"ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp"...
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_workflow_ui.cpp(616) : failure location
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(numeric-token) OleSetClipboard: Failed to set mime data (text/plain, text/html, text/markdown, application/vnd.oasis.opendocument.text) on clipboard: COM error 0x800401d0: OpenClipboard ??? (操作成功完成。)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(numeric-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(numeric-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(numeric-token) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(numeric-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(numeric-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(numeric-token) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(numeric-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(numeric-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(numeric-token) qt.qpa.mime: Unable to obtain clipboard.
+FAIL!  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(numeric-token) Compared values are not the same
+   Actual   (QApplication::clipboard()->text()): ""
+   Expected (text)                             : "{\n    \"connection\": \"close\",\n    \"content-length\": \"36\",\n    \"content-type\": \"application/json\",\n    \"set-cookie\": \"[\u5DF2\u906E\u853D]\"\n}\n"
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_workflow_ui.cpp(616) : failure location
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(boolean-token) OleSetClipboard: Failed to set mime data (text/plain, text/html, text/markdown, application/vnd.oasis.opendocument.text) on clipboard: COM error 0x800401d0: OpenClipboard ??? (操作成功完成。)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(boolean-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(boolean-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(boolean-token) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(boolean-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(boolean-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(boolean-token) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(boolean-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(boolean-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(boolean-token) qt.qpa.mime: Unable to obtain clipboard.
+FAIL!  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(boolean-token) Compared values are not the same
+   Actual   (QApplication::clipboard()->text()): ""
+   Expected (text)                             : "{\n    \"padding\": \"\",\n    \"token\": \"[\u5DF2\u906E\u853D]\"\n}\n"
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_workflow_ui.cpp(616) : failure location
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(null-token) OleSetClipboard: Failed to set mime data (text/plain, text/html, text/markdown, application/vnd.oasis.opendocument.text) on clipboard: COM error 0x800401d0: OpenClipboard ??? (操作成功完成。)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(null-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(null-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(null-token) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(null-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(null-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(null-token) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(null-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(null-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(null-token) qt.qpa.mime: Unable to obtain clipboard.
+FAIL!  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(null-token) Compared values are not the same
+   Actual   (QApplication::clipboard()->text()): ""
+   Expected (text)                             : "{\n    \"connection\": \"close\",\n    \"content-length\": \"27\",\n    \"content-type\": \"application/json\",\n    \"set-cookie\": \"[\u5DF2\u906E\u853D]\"\n}\n"
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_workflow_ui.cpp(616) : failure location
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(array-token) OleSetClipboard: Failed to set mime data (text/plain, text/html, text/markdown, application/vnd.oasis.opendocument.text) on clipboard: COM error 0x800401d0: OpenClipboard ??? (操作成功完成。)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(array-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(array-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(array-token) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(array-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(array-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(array-token) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(array-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(array-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(array-token) qt.qpa.mime: Unable to obtain clipboard.
+FAIL!  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(array-token) Compared values are not the same
+   Actual   (QApplication::clipboard()->text()): ""
+   Expected (text)                             : "{\n    \"connection\": \"close\",\n    \"content-length\": \"65\",\n    \"content-type\": \"application/json\",\n    \"set-cookie\": \"[\u5DF2\u906E\u853D]\"\n}\n"
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_workflow_ui.cpp(616) : failure location
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(object-token) OleSetClipboard: Failed to set mime data (text/plain, text/html, text/markdown, application/vnd.oasis.opendocument.text) on clipboard: COM error 0x800401d0: OpenClipboard ??? (操作成功完成。)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(object-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(object-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(object-token) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(object-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(object-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(object-token) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(object-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(object-token) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(object-token) qt.qpa.mime: Unable to obtain clipboard.
+FAIL!  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(object-token) Compared values are not the same
+   Actual   (QApplication::clipboard()->text()): ""
+   Expected (text)                             : "{\n    \"connection\": \"close\",\n    \"content-length\": \"60\",\n    \"content-type\": \"application/json\",\n    \"set-cookie\": \"[\u5DF2\u906E\u853D]\"\n}\n"
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_workflow_ui.cpp(616) : failure location
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(escaped-key) OleSetClipboard: Failed to set mime data (text/plain, text/html, text/markdown, application/vnd.oasis.opendocument.text) on clipboard: COM error 0x800401d0: OpenClipboard ??? (操作成功完成。)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(escaped-key) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(escaped-key) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(escaped-key) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(escaped-key) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(escaped-key) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(escaped-key) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(escaped-key) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(escaped-key) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(escaped-key) qt.qpa.mime: Unable to obtain clipboard.
+FAIL!  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(escaped-key) Compared values are not the same
+   Actual   (QApplication::clipboard()->text()): ""
+   Expected (text)                             : "{\n    \"connection\": \"close\",\n    \"content-length\": \"41\",\n    \"content-type\": \"application/json\",\n    \"set-cookie\": \"[\u5DF2\u906E\u853D]\"\n}\n"
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_workflow_ui.cpp(616) : failure location
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(large-body-credential) OleSetClipboard: Failed to set mime data (text/plain, text/html, text/markdown, application/vnd.oasis.opendocument.text) on clipboard: COM error 0x800401d0: OpenClipboard ??? (操作成功完成。)
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(large-body-credential) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(large-body-credential) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(large-body-credential) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(large-body-credential) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(large-body-credential) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(large-body-credential) qt.qpa.mime: Unable to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(large-body-credential) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(large-body-credential) qt.qpa.mime: Retrying to obtain clipboard.
+QWARN  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(large-body-credential) qt.qpa.mime: Unable to obtain clipboard.
+FAIL!  : WorkflowUiTest::longCredentialPreviewClipboardAndExport(large-body-credential) Compared values are not the same
+   Actual   (QApplication::clipboard()->text()): ""
+   Expected (text)                             : "{\n    \"connection\": \"close\",\n    \"content-length\": \"305048\",\n    \"content-type\": \"application/json\",\n    \"set-cookie\": \"[\u5DF2\u906E\u853D]\"\n}\n"
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_workflow_ui.cpp(616) : failure location
+PASS   : WorkflowUiTest::realHttpErrorResponseRemainsReviewable()
+PASS   : WorkflowUiTest::realWebSocketTextAndBinaryResults()
+PASS   : WorkflowUiTest::logPreferenceTracksExplicitCollapseAfterParentHidden()
+PASS   : WorkflowUiTest::layoutsThemesAndScreenshot()
+PASS   : WorkflowUiTest::cleanupTestCase()
+Totals: 19 passed, 9 failed, 0 skipped, 0 blacklisted, 25987ms
+********* Finished testing of WorkflowUiTest *********

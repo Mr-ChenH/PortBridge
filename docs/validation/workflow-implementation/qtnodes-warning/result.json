@@ -1,0 +1,14 @@
+{
+  "rvalue": {
+    "buildExit": 0,
+    "arrayBoundsWarnings": 4,
+    "runExit": 0,
+    "iterations": 200000
+  },
+  "const-value": {
+    "buildExit": 0,
+    "arrayBoundsWarnings": 0,
+    "runExit": 0,
+    "iterations": 200000
+  }
+}

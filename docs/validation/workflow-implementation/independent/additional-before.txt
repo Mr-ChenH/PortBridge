@@ -1,0 +1,14 @@
+********* Start testing of Independent *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : Independent::initTestCase()
+PASS   : Independent::tcpFragmentsAndCoalescedFrames(delimiter)
+PASS   : Independent::tcpFragmentsAndCoalescedFrames(fixed)
+PASS   : Independent::tcpFragmentsAndCoalescedFrames(lengthHeader)
+PASS   : Independent::tcpServerFiltersIndependentStreamsAndDisconnect()
+PASS   : Independent::udpSilentLifecycleAdmissionAndReplacementEpoch()
+PASS   : Independent::observerOverflowExplicitFailure()
+FAIL!  : Independent::longCredentialBase64PreviewAndExportMasked() '!shown.contains(QString::fromLatin1(body.toBase64()))' returned FALSE. (HTTP raw base64 preview exposes a >4096-character token)
+C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-independent-review/probe/independent.cpp(54) : failure location
+PASS   : Independent::cleanupTestCase()
+Totals: 8 passed, 1 failed, 0 skipped, 0 blacklisted, 2122ms
+********* Finished testing of Independent *********

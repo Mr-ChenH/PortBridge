@@ -1,7 +1,11 @@
 #include "ui/main_window.hpp"
+#include <QCloseEvent>
+#include "ui/protocol_debug_page.hpp"
+#include "ui/workflow_page.hpp"
 #include "ui/record_model.hpp"
 #include "ui/byte_text_preview.hpp"
 #include "ui/background_job.hpp"
+#include "ui/connection_dialog.hpp"
 #include "ui/design_widgets.hpp"
 #include <QStyleFactory>
 #include <QFrame>
@@ -138,8 +142,11 @@ struct MainWindow::Impl : QObject {
     QSpinBox* bytePage=nullptr;
     std::uint64_t inspectedOrdinal=0;
     design::Assets assets;
-    QPushButton* navigation[3]{};
-    QPushButton* railNavigation[3]{};
+    QPushButton* navigation[4]{};
+    QPushButton* railNavigation[4]{};
+    WorkflowPage* workflowPage=nullptr;
+    QVector<ConnectionConfig> workflowOwnedConfigs;
+    QByteArray communicationShellState;
     QPushButton *ordinaryMode=nullptr,*fastMode=nullptr;
     QLabel *eyebrow=nullptr,*profileCount=nullptr,*interfaceInfo=nullptr,*healthTitle=nullptr,*healthDetail=nullptr,*transportTag=nullptr;
     QProgressBar* queueMeter=nullptr;
@@ -168,7 +175,11 @@ struct MainWindow::Impl : QObject {
     QList<int> composerSplitSizes;
     QToolButton* expandComposer=nullptr;
     QWidget* trendPanel=nullptr;
-    QStackedWidget *pages=nullptr,*transportForms=nullptr;
+    QStackedWidget *pages=nullptr,*transportForms=nullptr,*workspaceModes=nullptr;
+    QJsonObject initialWorkflowDocument;
+    ProtocolDebugPage *httpPage=nullptr,*webSocketPage=nullptr;
+    QPushButton* workspaceModeButtons[3]{};
+    int workspaceMode=0;
     QListWidget *profileList=nullptr,*commandList=nullptr,*captureList=nullptr;
     design::ProfilePicker* profilePicker=nullptr;
     QMenu* profilesPopup=nullptr;
@@ -271,13 +282,16 @@ struct MainWindow::Impl : QObject {
         detail::finishBackgroundThread(deleteThread,deleteJob,std::chrono::seconds(1));
         detail::finishBackgroundThread(sampleThread,sampleJob,std::chrono::seconds(1));
         detail::finishBackgroundThread(storageThread,storageJob,std::chrono::seconds(1));
+        if(httpPage)httpPage->session()->cancel();
+        if(webSocketPage)webSocketPage->session()->cancel();
+        if(workflowPage)workflowPage->runner()->stop();
         if(parkedController)parkedController->stop();
         c->stopPeriodic(); c->stopRecording(); c->stop();
         QString error;
         ConnectionConfig cfg; if (readConfig(&cfg,&error) && profileIndex >= 0 && profileIndex < profiles.size()) profiles[profileIndex]=cfg;
         saveProfiles(profiles,&error); saveCommands(commands,&error);
         settings.setValue("ui/profile",profileIndex); settings.setValue("ui/dark",dark);
-        settings.setValue("ui/geometry",q->saveGeometry()); settings.setValue("ui/size",q->size()); settings.setValue("ui/shell",shell->saveState()); settings.setValue("ui/data",dataSplitter->saveState());
+        settings.setValue("ui/geometry",q->saveGeometry()); settings.setValue("ui/size",q->size()); settings.setValue("ui/shell",q->findChild<QWidget*>("connectionSidebar")->isHidden()&&!communicationShellState.isEmpty()?communicationShellState:shell->saveState()); settings.setValue("ui/data",dataSplitter->saveState());
         if(expandComposer->isChecked())setComposerExpanded(false);
         settings.setValue("ui/workspaceSplit",workspaceSplitter->saveState());
         settings.setValue("capture/directory",recordDirectory->text()); settings.setValue("capture/rotation",rotation->value()); settings.setValue("capture/duration",duration->value());
@@ -286,8 +300,22 @@ struct MainWindow::Impl : QObject {
         settings.setValue("send/interval",interval->value()); settings.setValue("send/count",count->value());
         settings.sync();
     }
+    bool prepareManualProtocol(ProtocolDebugSession* target,QString* error);
+    bool prepareWorkflowRun(const WorkflowDocument& document,QString* error);
+    void synchronizeWorkflowResource();
+    bool workflowOwnsUi() const { return workflowPage&&workflowPage->runner()->active(); }
+    bool protectWorkflowProfiles(bool wholeList=false) {
+        if(!workflowOwnsUi())return false;
+        const auto selected=workflowConnectionConfigToJson(profiles[profileIndex]);
+        const bool reserved=workflowPage->runner()->usesSession(activityController())&&profileIndex==(parkedController?parkedProfile:profileIndex);
+        const bool planned=std::any_of(workflowOwnedConfigs.begin(),workflowOwnedConfigs.end(),[&](const ConnectionConfig& config){return workflowConnectionConfigToJson(config)==selected;});
+        if(!wholeList&&!reserved&&!planned)return false;
+        showError(QStringLiteral("工作流运行中，不能修改其活动或预留方案；可继续浏览、编辑其他方案，或停止流程后导入。"));return true;
+    }
+    SessionController* activityController() const { return parkedController?parkedController:c; }
     void build();
     QWidget* buildSidebar();
+    QWidget* buildManualWorkspace();
     QWidget* buildWorkspace();
     QWidget* buildInspector();
     QWidget* buildComposer();
@@ -371,34 +399,154 @@ void MainWindow::Impl::build() {
     auto* mark=named(new QLabel,"brandMark");mark->setFixedSize(30,32);nav->addWidget(mark);nav->addSpacing(9);
     auto* brand=label(QStringLiteral("PortBridge"),"brandLabel");nav->addWidget(brand);nav->addSpacing(14);
     auto* version=label(QStringLiteral("/  LAB"),"brandVersion");version->setProperty("muted",true);nav->addWidget(version);nav->addSpacing(38);
-    const QString names[]={QStringLiteral("调试工作台"),QStringLiteral("采集文件"),QStringLiteral("命令库")};
-    const char* ids[]={"workspaceNavigation","capturesNavigation","commandsNavigation"};
-    for(int i=0;i<3;++i){auto* b=button(names[i],ids[i]);b->setCheckable(true);b->setProperty("navigation",true);b->setFixedHeight(60);navigation[i]=b;nav->addWidget(b);if(i!=2)nav->addSpacing(24);QObject::connect(b,&QPushButton::clicked,q,[this,i]{navigate(i);});}
+    const QString names[]={QStringLiteral("调试工作台"),QStringLiteral("采集文件"),QStringLiteral("命令库"),QStringLiteral("工作流")};
+    const char* ids[]={"workspaceNavigation","capturesNavigation","commandsNavigation","workflowNavigation"};
+    for(int i=0;i<4;++i){auto* b=button(names[i],ids[i]);b->setCheckable(true);b->setProperty("navigation",true);b->setFixedHeight(60);navigation[i]=b;nav->addWidget(b);if(i!=3)nav->addSpacing(24);QObject::connect(b,&QPushButton::clicked,q,[this,i]{navigate(i);});}
     nav->addStretch();auto* scope=label(QStringLiteral("●  一个活动会话 · 本地调试"),"headerScope");scope->setProperty("muted",true);nav->addWidget(scope);nav->addSpacing(16);
     auto* menu=named(new QToolButton,"operationsMenu");menu->setToolTip(QStringLiteral("操作与快捷键"));menu->setAccessibleName(menu->toolTip());menu->setProperty("iconOnly",true);menu->setFixedSize(28,28);menu->setPopupMode(QToolButton::InstantPopup);nav->addWidget(menu);nav->addSpacing(7);
     themeButton=button(QStringLiteral("浅色主题"),"themeButton");themeButton->setFixedSize(28,28);themeButton->setProperty("iconOnly",true);nav->addWidget(themeButton);outer->addWidget(header);
     auto* body=new QWidget;auto* bodyLayout=new QHBoxLayout(body);bodyLayout->setContentsMargins(0,0,0,0);bodyLayout->setSpacing(0);
     auto* rail=named(new QWidget,"activityRail");rail->setFixedWidth(54);auto* rl=new QVBoxLayout(rail);rl->setContentsMargins(9,16,9,14);rl->setSpacing(15);
-    for(int i=0;i<3;++i){auto* b=button(names[i],("railNavigation"+QByteArray::number(i)).constData());b->setText({});b->setToolTip(names[i]);b->setCheckable(true);b->setProperty("rail",true);b->setFixedSize(36,36);b->setIconSize(QSize(20,20));railNavigation[i]=b;rl->addWidget(b);QObject::connect(b,&QPushButton::clicked,q,[this,i]{navigate(i);});}
+    for(int i=0;i<4;++i){auto* b=button(names[i],("railNavigation"+QByteArray::number(i)).constData());b->setText({});b->setToolTip(names[i]);b->setCheckable(true);b->setProperty("rail",true);b->setFixedSize(36,36);b->setIconSize(QSize(20,20));railNavigation[i]=b;rl->addWidget(b);QObject::connect(b,&QPushButton::clicked,q,[this,i]{navigate(i);});}
     rl->addStretch();auto* avatar=label(QStringLiteral("PB"),"railAvatar");avatar->setAlignment(Qt::AlignCenter);avatar->setFixedSize(28,28);rl->addWidget(avatar,0,Qt::AlignHCenter);bodyLayout->addWidget(rail);
     shell=named(new QSplitter(Qt::Horizontal),"mainSplitter");shell->setHandleWidth(1);shell->addWidget(buildSidebar());
-    pages=named(new QStackedWidget,"mainPages");pages->addWidget(buildWorkspace());pages->addWidget(buildCaptures());pages->addWidget(buildCommands());shell->addWidget(pages);shell->setChildrenCollapsible(false);
+    pages=named(new QStackedWidget,"mainPages");pages->addWidget(buildManualWorkspace());pages->addWidget(buildCaptures());pages->addWidget(buildCommands());
+    workflowPage=new WorkflowPage(q);initialWorkflowDocument=workflowPage->document().toJson();pages->addWidget(workflowPage);
+    workflowPage->setSessionProvider([this]{return activityController();});
+    workflowPage->setProfilesProvider([this]{return profiles;});
+    workflowPage->setRunPreparation([this](const WorkflowDocument& document,QString* error){return prepareWorkflowRun(document,error);});
+    QObject::connect(workflowPage->runner(),&WorkflowRunner::stateChanged,q,[this]{updateState();});
+    QObject::connect(workflowPage->runner(),&WorkflowRunner::resourceChanged,q,[this]{synchronizeWorkflowResource();updateState();});
+    shell->addWidget(pages);shell->setChildrenCollapsible(false);
     shell->setStretchFactor(0,0);shell->setStretchFactor(1,1);shell->setSizes({232,1154});bodyLayout->addWidget(shell,1);outer->addWidget(body,1);q->setCentralWidget(central);
     QObject::connect(themeButton,&QPushButton::clicked,q,[this]{dark=!dark;applyTheme();});navigate(0);
     footer=label({},"statusSummary");q->statusBar()->setFixedHeight(28);q->statusBar()->setSizeGripEnabled(false);q->statusBar()->addWidget(footer,1);
     auto* operations=q->menuBar()->addMenu(QStringLiteral("操作(&O)"));menu->setMenu(operations);q->menuBar()->hide();
     auto action=[this,operations](const QString& text,const QKeySequence& shortcut,auto fn){auto* a=new QAction(text,q);a->setShortcut(shortcut);q->addAction(a);operations->addAction(a);QObject::connect(a,&QAction::triggered,q,fn);};
-    action(QStringLiteral("搜索显示样本"),QKeySequence("Ctrl+K"),[this]{navigate(0);filter->setFocus();filter->selectAll();});
-    action(QStringLiteral("发送 / 停止周期"),QKeySequence("Ctrl+Return"),[this]{send();});
+    action(QStringLiteral("搜索样本 / 聚焦请求URL"),QKeySequence("Ctrl+K"),[this]{navigate(0);if(workspaceMode==1)httpPage->focusUrl();else if(workspaceMode==2)webSocketPage->focusUrl();else{filter->setFocus();filter->selectAll();}});
+    action(QStringLiteral("发送当前内容 / 取消HTTP / 停止周期"),QKeySequence("Ctrl+Return"),[this]{send();});
     action(QStringLiteral("开始 / 停止记录"),QKeySequence("Ctrl+Shift+R"),[this]{toggleRecording();});
-    action(QStringLiteral("停止周期 / 取消连接"),QKeySequence(Qt::Key_Escape),[this]{if(c->periodicActive())c->stopPeriodic();else if(c->connecting())c->stop();updateState();});
-    action(QStringLiteral("复制选中原始 HEX"),QKeySequence::Copy,[this]{if(table->hasFocus()&&table->selectionModel()->hasSelection()){const auto* r=model->record(proxy->mapToSource(table->currentIndex()).row());if(r)QApplication::clipboard()->setText(hexBytes(recordBytes(*r)));}});
+    action(QStringLiteral("停止周期 / 取消连接或请求"),QKeySequence(Qt::Key_Escape),[this]{if(pages->currentIndex()==0&&workspaceMode>0){auto* session=(workspaceMode==1?httpPage:webSocketPage)->session();if(session->active()&&!session->connected())session->cancel();}else if(c->periodicActive())c->stopPeriodic();else if(c->connecting())c->stop();updateState();});
+    auto* copyAction=new QAction(QStringLiteral("复制选中原始 HEX"),table);copyAction->setShortcut(QKeySequence::Copy);copyAction->setShortcutContext(Qt::WidgetShortcut);table->addAction(copyAction);operations->addAction(copyAction);
+    QObject::connect(copyAction,&QAction::triggered,q,[this]{if(table->selectionModel()->hasSelection()){const auto* r=model->record(proxy->mapToSource(table->currentIndex()).row());if(r)QApplication::clipboard()->setText(hexBytes(recordBytes(*r)));}});
 }
 void MainWindow::Impl::navigate(int index) {
     if(!pages) return;
     if(index==1) refreshCaptures(true);
+    auto* side=q->findChild<QWidget*>("connectionSidebar");
+    const bool hideSide=index==3||(index==0&&workspaceMode!=0);
+    if(hideSide&&!side->isHidden()){communicationShellState=shell->saveState();side->hide();}
+    else if(!hideSide&&side->isHidden()){side->show();if(!communicationShellState.isEmpty())shell->restoreState(communicationShellState);}
+    q->setMinimumSize(hideSide?QSize(1024,768):QSize(1100,760));
     pages->setCurrentIndex(index);
-    for(int i=0;i<3;++i){navigation[i]->setChecked(i==index);railNavigation[i]->setChecked(i==index);railNavigation[i]->setIcon(design::icon(i==0?design::Icon::Workspace:i==1?design::Icon::Folder:design::Icon::Terminal,QColor(i==index?(dark?"#85dec4":"#176e58"):(dark?"#8b9a9f":"#5e7379")),20));}
+    for(int i=0;i<4;++i){navigation[i]->setChecked(i==index);railNavigation[i]->setChecked(i==index);railNavigation[i]->setIcon(design::icon(i==0?design::Icon::Workspace:i==1?design::Icon::Folder:i==2?design::Icon::Terminal:design::Icon::Workflow,QColor(i==index?(dark?"#85dec4":"#176e58"):(dark?"#8b9a9f":"#5e7379")),20));}
+}
+
+bool MainWindow::Impl::prepareManualProtocol(ProtocolDebugSession* target,QString* error) {
+    if(error)error->clear();
+    auto* raw=activityController();const bool rawActive=target&&(raw->connected()||raw->connecting()||raw->recording()||raw->periodicActive());
+    const bool flowActive=workflowOwnsUi();
+    auto* http=httpPage?httpPage->session():nullptr;auto* ws=webSocketPage?webSocketPage->session():nullptr;
+    const bool httpActive=http&&http!=target&&http->active(),wsActive=ws&&ws!=target&&ws->active();
+    if(!rawActive&&!flowActive&&!httpActive&&!wsActive)return true;
+    const auto rawEpoch=raw->sessionEpoch();const auto rawConfig=workflowConnectionConfigToJson(raw->config());
+    const auto httpEpoch=http?http->epoch():0,wsEpoch=ws?ws->epoch():0;
+    const auto httpPhase=http?http->phase():ProtocolDebugSession::Phase::Idle,wsPhase=ws?ws->phase():ProtocolDebugSession::Phase::Idle;
+    const auto flowId=workflowPage?workflowPage->runner()->runId():QString();
+    QMessageBox confirm(q);confirm.setObjectName("manualProtocolResourceConfirmation");confirm.setWindowTitle(QStringLiteral("切换活动通信"));
+    confirm.setText(QStringLiteral("发起新的通信前，需要结束当前活动。浏览和编辑页面不会结束活动。"));
+    QStringList activities;if(rawActive)activities<<QStringLiteral("通信方案：%1（连接、周期发送和原始记录将停止）").arg(fromStd(raw->config().name));if(flowActive)activities<<QStringLiteral("正在运行的工作流");if(httpActive)activities<<QStringLiteral("正在等待响应的HTTP请求");if(wsActive)activities<<QStringLiteral("WebSocket连接或握手");confirm.setInformativeText(activities.join('\n'));
+    auto* proceed=confirm.addButton(QStringLiteral("结束旧活动并继续"),QMessageBox::AcceptRole);auto* keep=confirm.addButton(QStringLiteral("保留当前活动"),QMessageBox::RejectRole);confirm.setDefaultButton(keep);confirm.exec();
+    if(confirm.clickedButton()!=proceed){if(error)*error=QStringLiteral("已保留当前活动，新的通信未开始。");return false;}
+    if(raw!=activityController()||raw->sessionEpoch()!=rawEpoch||workflowConnectionConfigToJson(raw->config())!=rawConfig||(http&&http->epoch()!=httpEpoch)||(ws&&ws->epoch()!=wsEpoch)||(http&&http->phase()!=httpPhase)||(ws&&ws->phase()!=wsPhase)||workflowOwnsUi()!=flowActive||(workflowPage&&workflowPage->runner()->runId()!=flowId)){
+        if(error)*error=QStringLiteral("确认期间活动状态已变更；保留现状，请重新操作。");
+        return false;
+    }
+    if(flowActive)workflowPage->runner()->stop();
+    if(httpActive)http->cancel();
+    if(wsActive)ws->cancel();
+    if(rawActive){raw->stopPeriodic();raw->stopRecording();raw->stop();}
+    updateState();return true;
+}
+
+bool MainWindow::Impl::prepareWorkflowRun(const WorkflowDocument& document,QString* error) {
+    if(error)error->clear();
+    if(workflowOwnsUi()){if(error)*error=QStringLiteral("已有工作流正在执行。");return false;}
+    const auto issues=document.validate();
+    if(!issues.isEmpty()){if(error)*error=issues.front().message;return false;}
+    bool borrowed=false,hasWs=false,hasHttp=false;std::optional<ConnectionConfig> ownedConfig;
+    QVector<ConnectionConfig> ownedSnapshots;
+    for(const auto& node:document.nodes){
+        hasWs|=node.type==QStringLiteral("ws");hasHttp|=node.type==QStringLiteral("http");
+        if(node.type!=QStringLiteral("raw"))continue;
+        const auto ownership=node.parameters.value("ownership").toString(QStringLiteral("borrow"));
+        if(ownership==QStringLiteral("owned")||ownership==QStringLiteral("流程建立并释放")){
+            ConnectionConfig config;QString why;
+            if(!workflowConnectionConfigFromJson(node.parameters.value("config").toObject(),&config,&why)){if(error)*error=why;return false;}
+            if(!ownedConfig)ownedConfig=config;
+            ownedSnapshots.push_back(config);
+        }else borrowed=true;
+    }
+    auto* active=activityController();
+    if(borrowed&&(hasWs||hasHttp||ownedConfig)){if(error)*error=QStringLiteral("借用连接的流程不能同时切换到其他持久资源；请使用流程建立的连接并显式关闭后切换。");return false;}
+    if(borrowed&&!active->connected()){if(error)*error=QStringLiteral("此流程需要借用已连接的调试会话，请先在工作台建立连接。");return false;}
+    if(borrowed)for(const auto& node:document.nodes)if(node.type==QStringLiteral("raw")&&node.parameters.value("config").isObject()){
+        ConnectionConfig expected;QString why;
+        if(!workflowConnectionConfigFromJson(node.parameters.value("config").toObject(),&expected,&why)||workflowConnectionConfigToJson(expected)!=workflowConnectionConfigToJson(active->config())){
+            if(error)*error=QStringLiteral("借用的活动会话与工作流配置快照不一致，原任务已保留。");
+            return false;
+        }
+    }
+    if(!prepareManualProtocol(nullptr,error))return false;
+    const auto activityEpoch=active->sessionEpoch();
+    const auto activitySnapshot=workflowConnectionConfigToJson(active->config());
+    const bool occupied=active->connected()||active->connecting();
+    const bool replace=occupied&&(hasWs||hasHttp||ownedConfig.has_value());
+    const bool stopPeriodic=borrowed&&active->periodicActive();
+    if(replace||stopPeriodic){
+        QMessageBox confirm(q);confirm.setObjectName("workflowResourceConfirmation");confirm.setWindowTitle(QStringLiteral("工作流资源计划"));
+        confirm.setIcon(QMessageBox::Information);
+        confirm.setText(replace?QStringLiteral("运行此流程将停止当前连接、周期发送和记录，再建立流程所需的资源。"):
+                              QStringLiteral("流程将借用当前连接，需要先停止周期发送。已有连接和记录会保留。"));
+        confirm.setInformativeText(QStringLiteral("当前方案：%1\n周期发送：%2 · 原始记录：%3")
+            .arg(fromStd(active->config().name),active->periodicActive()?QStringLiteral("运行中"):QStringLiteral("未开启"),active->recording()?QStringLiteral("记录中"):QStringLiteral("未开启")));
+        auto* proceed=confirm.addButton(replace?QStringLiteral("停止旧任务并运行"):QStringLiteral("停止周期并运行"),QMessageBox::AcceptRole);
+        auto* cancel=confirm.addButton(QStringLiteral("保留当前任务"),QMessageBox::RejectRole);confirm.setDefaultButton(cancel);confirm.exec();
+        if(confirm.clickedButton()!=proceed){if(error)*error=QStringLiteral("已保留当前任务，流程未启动。");return false;}
+        if(active!=activityController()||active->sessionEpoch()!=activityEpoch||workflowConnectionConfigToJson(active->config())!=activitySnapshot){if(error)*error=QStringLiteral("确认期间活动会话已变更，原任务已保留；请重新运行并确认。");return false;}
+        active->stopPeriodic();if(replace){active->stopRecording();active->stop();}
+    }
+    if(ownedConfig){
+        const auto snapshot=workflowConnectionConfigToJson(*ownedConfig);int index=-1;
+        for(int i=0;i<profiles.size();++i)if(workflowConnectionConfigToJson(profiles[i])==snapshot){index=i;break;}
+        if(index<0){profiles.push_back(*ownedConfig);index=profiles.size()-1;}
+        activateProfile(index);
+    }
+    workflowOwnedConfigs=std::move(ownedSnapshots);
+    updateState();return true;
+}
+
+void MainWindow::Impl::synchronizeWorkflowResource() {
+    if(!workflowOwnsUi()||workflowOwnedConfigs.isEmpty())return;
+    auto* active=activityController();
+    if(!workflowPage->runner()->usesSession(active)||(!active->connected()&&!active->connecting()))return;
+    const auto actual=active->config();const auto snapshot=workflowConnectionConfigToJson(actual);
+    const bool owned=std::any_of(workflowOwnedConfigs.begin(),workflowOwnedConfigs.end(),[&](const ConnectionConfig& config){return workflowConnectionConfigToJson(config)==snapshot;});
+    if(!owned)return;
+    const int activityIndex=parkedController?parkedProfile:profileIndex;
+    if(activityIndex>=0&&activityIndex<profiles.size()&&workflowConnectionConfigToJson(profiles[activityIndex])==snapshot)return;
+    int index=-1;for(int i=0;i<profiles.size();++i)if(workflowConnectionConfigToJson(profiles[i])==snapshot){index=i;break;}
+    if(index<0){profiles.push_back(actual);index=profiles.size()-1;}
+    active->clearDisplay();
+    // Owned resource transitions occur on the captured controller. Keep the
+    // parked model with that controller, but retire the previous resource's text.
+    if(parkedController){
+        parkedProfile=index;parkedModel->clear();parkedDocument->clear();parkedOrdinal=0;parkedOmitted=0;parkedError.clear();
+        refreshProfiles();
+    }else{
+        profileIndex=index;model->clear();streamView->clear();lastDisplaySequence=0;streamOmittedCharacters=0;trend->clear();
+        refreshProfiles();applyConfig(actual);settings.setValue("ui/profile",index);
+    }
 }
 
 QWidget* MainWindow::Impl::buildSidebar() {
@@ -467,13 +615,24 @@ QWidget* MainWindow::Impl::buildSidebar() {
     auto* note=label(QStringLiteral("一个活动通信会话\n浏览方案保持当前通信"));note->setWordWrap(true);note->setProperty("muted",true);note->setProperty("small",true);note->setToolTip(QStringLiteral("浏览方案不停止通信；启动另一方案会替换当前会话。UDP绑定不表示对端在线。"));l->addWidget(note);
     QObject::connect(profileList,&QListWidget::currentRowChanged,q,[this](int i){if(!loading)selectProfile(i);});
     QObject::connect(add,&QPushButton::clicked,q,[this]{editProfile(true);});QObject::connect(edit,&QPushButton::clicked,q,[this]{editProfile(false);});
-    QObject::connect(remove,&QPushButton::clicked,q,[this]{if(profiles.size()<=1){showError(QStringLiteral("至少保留一个连接方案。"));return;}const int removed=profileIndex;profiles.removeAt(removed);if(parkedController&&removed<parkedProfile)--parkedProfile;activateProfile(std::min(removed,int(profiles.size())-1),parkedController!=nullptr);persistProfiles();});
+    QObject::connect(remove,&QPushButton::clicked,q,[this]{if(protectWorkflowProfiles())return;if(profiles.size()<=1){showError(QStringLiteral("至少保留一个连接方案。"));return;}const int removed=profileIndex;profiles.removeAt(removed);if(parkedController&&removed<parkedProfile)--parkedProfile;activateProfile(std::min(removed,int(profiles.size())-1),parkedController!=nullptr);persistProfiles();});
     QObject::connect(save,&QPushButton::clicked,q,[this]{ConnectionConfig cfg;QString error;if(!readConfig(&cfg,&error)){connectionError->setText(error);return;}profiles[profileIndex]=cfg;refreshProfiles();persistProfiles();});
-    QObject::connect(imp,&QPushButton::clicked,q,[this]{const auto path=QFileDialog::getOpenFileName(q,QStringLiteral("导入版本化连接方案"),{},"JSON (*.json)");if(path.isEmpty())return;QVector<ConnectionConfig> loaded;QString error;if(!importProfiles(path,&loaded,&error)||loaded.isEmpty()){showError(error.isEmpty()?QStringLiteral("导入文件没有连接方案。"):error);return;}profiles=loaded;activateProfile(0);persistProfiles();});
+    QObject::connect(imp,&QPushButton::clicked,q,[this]{if(protectWorkflowProfiles(true))return;const auto path=QFileDialog::getOpenFileName(q,QStringLiteral("导入版本化连接方案"),{},"JSON (*.json)");if(path.isEmpty())return;QVector<ConnectionConfig> loaded;QString error;if(!importProfiles(path,&loaded,&error)||loaded.isEmpty()){showError(error.isEmpty()?QStringLiteral("导入文件没有连接方案。"):error);return;}profiles=loaded;activateProfile(0);persistProfiles();});
     QObject::connect(exp,&QPushButton::clicked,q,[this]{const auto path=QFileDialog::getSaveFileName(q,QStringLiteral("导出版本化连接方案"),"profiles.json","JSON (*.json)");if(path.isEmpty())return;ConnectionConfig cfg;QString error;if(!readConfig(&cfg,&error)){showError(error);return;}auto saved=profiles;saved[profileIndex]=cfg;if(!exportProfiles(path,saved,&error))showError(error);});
     QObject::connect(refresh,&QPushButton::clicked,q,[this]{enumerate();});
-    QObject::connect(connectButton,&QPushButton::clicked,q,[this]{if(c->connected()||c->connecting()){c->stopPeriodic();c->stopRecording();c->stop();}else{ConnectionConfig cfg;QString error;if(!readConfig(&cfg,&error)){connectionError->setText(error);return;}connectionError->clear();banner->hide();profiles[profileIndex]=cfg;if(parkedController)activateProfile(profileIndex);c->start(cfg);}updateState();});
+    QObject::connect(connectButton,&QPushButton::clicked,q,[this]{if(c->connected()||c->connecting()){if(workflowPage->runner()->active())workflowPage->runner()->stop();c->stopPeriodic();c->stopRecording();c->stop();}else{ConnectionConfig cfg;QString error;if(!readConfig(&cfg,&error)){connectionError->setText(error);return;}if(!prepareManualProtocol(nullptr,&error)){connectionError->setText(error);return;}connectionError->clear();banner->hide();profiles[profileIndex]=cfg;if(parkedController)activateProfile(profileIndex);c->start(cfg);}updateState();});
     return side;
+}
+
+QWidget* MainWindow::Impl::buildManualWorkspace() {
+    auto* root=named(new QWidget,"manualWorkspacePage");auto* layout=new QVBoxLayout(root);layout->setContentsMargins(0,0,0,0);layout->setSpacing(0);
+    auto* modes=named(new QWidget,"workspaceProtocolBar");modes->setFixedHeight(36);auto* row=new QHBoxLayout(modes);row->setContentsMargins(16,4,16,4);row->setSpacing(6);
+    const QString names[]={QStringLiteral("通信调试"),QStringLiteral("HTTP"),QStringLiteral("WebSocket")};const char* ids[]={"rawWorkspaceMode","httpWorkspaceMode","webSocketWorkspaceMode"};
+    for(int i=0;i<3;++i){auto* b=button(names[i],ids[i]);b->setCheckable(true);b->setChecked(i==0);b->setProperty("segment",true);b->setFixedHeight(28);row->addWidget(b);workspaceModeButtons[i]=b;QObject::connect(b,&QPushButton::clicked,q,[this,i]{workspaceMode=i;workspaceModes->setCurrentIndex(i);for(int j=0;j<3;++j)workspaceModeButtons[j]->setChecked(j==i);navigate(0);updateState();});}
+    row->addStretch();auto* create=button(QStringLiteral("新建连接"),"createConnection");create->setProperty("textAction",true);create->setFixedHeight(28);row->addWidget(create);QObject::connect(create,&QPushButton::clicked,q,[this]{editProfile(true);});auto* note=label(QStringLiteral("编辑不通信 · 仅显式发送 / 连接"));note->setProperty("muted",true);row->addWidget(note);layout->addWidget(modes);
+    workspaceModes=named(new QStackedWidget,"workspaceProtocolPages");workspaceModes->addWidget(buildWorkspace());httpPage=new ProtocolDebugPage(ProtocolDebugSession::Mode::Http,&settings,q);webSocketPage=new ProtocolDebugPage(ProtocolDebugSession::Mode::WebSocket,&settings,q);workspaceModes->addWidget(httpPage);workspaceModes->addWidget(webSocketPage);layout->addWidget(workspaceModes,1);
+    for(auto* page:{httpPage,webSocketPage}){auto* session=page->session();session->setStartGuard([this,session](QString* error){return prepareManualProtocol(session,error);});QObject::connect(session,&ProtocolDebugSession::changed,q,[this]{stateDirty=true;});}
+    return root;
 }
 
 QWidget* MainWindow::Impl::buildWorkspace() {
@@ -740,8 +899,11 @@ QMenu::item {padding:7px 20px;} QMenu::item:selected {background:@selection;} QT
     q->findChild<QToolButton*>("operationsMenu")->setIcon(design::icon(design::Icon::Menu,QColor(muted)));
     q->findChild<QToolButton*>("advancedSettings")->setIcon(design::icon(q->findChild<QToolButton*>("advancedSettings")->isChecked()?design::Icon::Down:design::Icon::Right,QColor(muted),12));
     sendButton->setIcon(design::icon(c->periodicActive()?design::Icon::Stop:design::Icon::Send,QColor(dark?"#142721":"#ffffff"),14));recordButton->setIcon(design::icon(c->recording()?design::Icon::Stop:design::Icon::Record,QColor(dark?"#142721":"#ffffff"),14));connectButton->setIcon(design::icon(design::Icon::Plug,QColor(dark?"#142721":"#ffffff"),15));
-    for(int i=0;i<3;++i)railNavigation[i]->setIcon(design::icon(i==0?design::Icon::Workspace:i==1?design::Icon::Folder:design::Icon::Terminal,QColor(railNavigation[i]->isChecked()?accent:muted),20));
+    for(int i=0;i<4;++i)railNavigation[i]->setIcon(design::icon(i==0?design::Icon::Workspace:i==1?design::Icon::Folder:i==2?design::Icon::Terminal:design::Icon::Workflow,QColor(railNavigation[i]->isChecked()?accent:muted),20));
     profilesPopup->setProperty("darkTheme",dark);profilesPopup->setPalette(q->palette());profilePicker->update();
+    if(httpPage)httpPage->setDarkTheme(dark);
+    if(webSocketPage)webSocketPage->setDarkTheme(dark);
+    if(workflowPage)workflowPage->setDarkTheme(dark);
     trend->theme(dark);profileList->viewport()->update();table->viewport()->update();recolorText();inspect();settings.setValue("ui/dark",dark);
 }
 void MainWindow::Impl::applyConfig(const ConnectionConfig& cfg) {
@@ -796,14 +958,25 @@ void MainWindow::Impl::selectProfile(int index) {
     activateProfile(index,true);
 }
 void MainWindow::Impl::editProfile(bool add) {
-    QDialog dialog(q);dialog.setObjectName("profileDialog");dialog.setWindowTitle(add?QStringLiteral("新建连接方案"):QStringLiteral("编辑连接方案"));dialog.resize(420,280);auto* l=new QVBoxLayout(&dialog);auto* f=new QFormLayout;f->setRowWrapPolicy(QFormLayout::WrapAllRows);f->setVerticalSpacing(10);auto* name=named(new QLineEdit(add?QString():fromStd(profiles[profileIndex].name)),"profileName");name->setPlaceholderText(QStringLiteral("例如：设备联调"));auto* kind=combo({QStringLiteral("串口"),QStringLiteral("TCP 客户端"),QStringLiteral("TCP 服务端"),QStringLiteral("UDP")},"profileKind");kind->setCurrentIndex(add?3:int(profiles[profileIndex].kind));buddy(f,QStringLiteral("名称"),name);buddy(f,QStringLiteral("通信方式"),kind);l->addLayout(f);auto* error=label({},"profileDialogError");error->setProperty("error",true);l->addWidget(error);auto* buttons=new QDialogButtonBox(QDialogButtonBox::Save|QDialogButtonBox::Cancel);chineseButtons(buttons,QStringLiteral("保存方案"));l->addWidget(buttons);
-    QObject::connect(buttons,&QDialogButtonBox::rejected,&dialog,&QDialog::reject);QObject::connect(buttons,&QDialogButtonBox::accepted,&dialog,[&]{if(name->text().trimmed().isEmpty()){error->setText(QStringLiteral("方案名称不能为空。"));return;}dialog.accept();});if(dialog.exec()!=QDialog::Accepted)return;
+    if(!add&&protectWorkflowProfiles())return;
+    design::ConnectionDialog dialog(q,add,add?3:int(profiles[profileIndex].kind),add?QString():fromStd(profiles[profileIndex].name),dark);
+    auto* name=dialog.name;auto* kind=dialog.kind;
+    QObject::connect(dialog.buttons,&QDialogButtonBox::accepted,&dialog,[&]{
+        if(name->text().trimmed().isEmpty()){dialog.showError(QStringLiteral("请填写方案名称。"));name->setFocus();return;}
+        if(kind->currentIndex()>=4){
+            auto* page=kind->currentIndex()==4?httpPage:webSocketPage;QString error;
+            if(!page->createSavedRequest(name->text(),dialog.url->text(),&error)){dialog.showError(error);return;}
+        }
+        dialog.accept();
+    });
+    if(dialog.exec()!=QDialog::Accepted)return;
+    if(kind->currentIndex()>=4){workspaceModeButtons[kind->currentIndex()==4?1:2]->click();(kind->currentIndex()==4?httpPage:webSocketPage)->focusUrl();return;}
     // Read before creating another profile: valid unsaved edits belong to the old profile.
     ConnectionConfig prior;QString priorError;if(readConfig(&prior,&priorError))profiles[profileIndex]=prior;
     ConnectionConfig cfg=add?ConnectionConfig():profiles[profileIndex];if(add)cfg.localAddress="127.0.0.1";
     cfg.name=toStd(name->text().trimmed());cfg.kind=TransportKind(kind->currentIndex());if(cfg.kind!=TransportKind::Udp)cfg.sequenceAnalysis=false;
     const int selected=add?int(profiles.size()):profileIndex;if(add)profiles.push_back(cfg);else profiles[selected]=cfg;
-    activateProfile(selected,add||parkedController!=nullptr);persistProfiles();
+    activateProfile(selected,add||parkedController!=nullptr);persistProfiles();if(add)workspaceModeButtons[0]->click();
 }
 void MainWindow::Impl::persistProfiles() {QString error;if(!saveProfiles(profiles,&error))showError(error);else q->statusBar()->showMessage(QStringLiteral("连接方案已保存；下次启动不会自动连接。"),5000);}
 void MainWindow::Impl::refreshCommands() {
@@ -853,9 +1026,16 @@ void MainWindow::Impl::validateSend() {
             !udpReady?QStringLiteral("填写目标 IP/域名和端口。"):
             QStringLiteral("点击发送即发往此目标；编辑不发送。"));
     }
-    sendButton->setEnabled(c->periodicActive()||(c->connected()&&payloadValid&&target&&udpReady&&(udp||!payload.isEmpty())));
+    const bool leased=workflowPage&&workflowPage->runner()->active();
+    sendButton->setEnabled(!leased&&(c->periodicActive()||(c->connected()&&payloadValid&&target&&udpReady&&(udp||!payload.isEmpty()))));
 }
 void MainWindow::Impl::send() {
+    if(workspaceMode>0){if(pages->currentIndex()==0)(workspaceMode==1?httpPage:webSocketPage)->triggerSend();return;}
+    if((httpPage&&httpPage->session()->active())||(webSocketPage&&webSocketPage->session()->active())){showError(QStringLiteral("协议调试仍有活动，请明确结束或启动新的通信会话后发送。"));return;}
+    // The application shortcut also fires while a graph field has focus. An
+    // idle workflow editor must never send the hidden workbench composer.
+    if(pages->currentIndex()==3){showError(QStringLiteral("工作流页面不会触发工作台发送；请返回工作台明确发送。"));return;}
+    if(workflowPage&&workflowPage->runner()->active()){showError(QStringLiteral("工作流运行中，请先停止流程再手动发送。"));return;}
     if(c->periodicActive()){c->stopPeriodic();updateState();return;}validateSend();if(!sendButton->isEnabled())return;
     std::optional<Endpoint> udpTarget;
     if(c->config().kind==TransportKind::Udp){udpTarget=Endpoint{toStd(remoteAddress->text().trimmed()),std::uint16_t(remotePort->value())};profiles[profileIndex].remoteAddress=udpTarget->address;profiles[profileIndex].remotePort=udpTarget->port;}
@@ -993,7 +1173,11 @@ void MainWindow::Impl::snapshot() {
     q->findChild<QWidget*>("diagnosticsPanel")->setAccessibleDescription(diagnostics->text());
     metricNotes[3]->setText(stats.recordedBytes?QStringLiteral("累计已记录 %1 · %2 失败").arg(bytesLabel(stats.recordedBytes)).arg(stats.recordingFailures):QStringLiteral("开启后保存原始字节与索引"));
     q->findChild<QPushButton*>("dataViewTab0")->setText(QStringLiteral("数据样本  %1").arg(proxy->rowCount()));
-    footer->setText(QStringLiteral("%1  |  RX %2 B · TX %3 B  |  %4  |  周期已发 %5").arg(state->text()).arg(stats.rxBytes).arg(stats.txBytes).arg(c->recording()?QStringLiteral("原始记录中"):QStringLiteral("原始记录未开启")).arg(c->periodicSent()));
+    if(httpPage&&httpPage->session()->active())footer->setText(QStringLiteral("HTTP手动调试  |  ")+httpPage->summary());
+    else if(webSocketPage&&webSocketPage->session()->active())footer->setText(QStringLiteral("WebSocket手动调试  |  ")+webSocketPage->summary());
+    else if(workflowPage&&workflowPage->runner()->active())footer->setText(QStringLiteral("工作流运行中  |  %1").arg(workflowPage->runner()->resourceSummary()));
+    else if(pages->currentIndex()==0&&workspaceMode>0&&!activityController()->connected()&&!activityController()->connecting())footer->setText((workspaceMode==1?QStringLiteral("HTTP手动调试  |  "):QStringLiteral("WebSocket手动调试  |  "))+(workspaceMode==1?httpPage:webSocketPage)->summary());
+    else footer->setText(QStringLiteral("%1  |  RX %2 B · TX %3 B  |  %4  |  周期已发 %5").arg(state->text()).arg(stats.rxBytes).arg(stats.txBytes).arg(c->recording()?QStringLiteral("原始记录中"):QStringLiteral("原始记录未开启")).arg(c->periodicSent()));
     if(parkedController)footer->setText(footer->text()+QStringLiteral("  |  后台 %1 · %2 · RX %3 B").arg(fromStd(profiles[parkedProfile].name),parkedController->connected()?endpointText(parkedController->localEndpoint()):QStringLiteral("已停止")).arg(parkedController->statistics().rxBytes));
     capacity->setText(QStringLiteral("按当前 RX+TX：%1 / 小时\n时长预计：%2").arg(bytesLabel((stats.rxBytesPerSecond+stats.txBytesPerSecond)*3600)).arg(duration->value()?bytesLabel((stats.rxBytesPerSecond+stats.txBytesPerSecond)*duration->value()):QStringLiteral("手动停止，时长未知")));
     if(stats.applicationDroppedRecords||stats.recordingFailures){banner->setText(QStringLiteral("管线异常：应用丢弃 %1 条；记录失败 %2。检查接收诊断和实际采集完整性。").arg(stats.applicationDroppedRecords).arg(stats.recordingFailures));banner->show();}
@@ -1161,4 +1345,20 @@ void MainWindow::Impl::pollExport() {
 
 MainWindow::MainWindow(SessionController* controller,QWidget* parent):QMainWindow(parent),d(std::make_unique<Impl>(this,controller)){}
 MainWindow::~MainWindow()=default;
+void MainWindow::closeEvent(QCloseEvent* event) {
+    // A parent close never guarantees delivery of a child closeEvent. Keep
+    // the draft and current operation intact until the user's decision.
+    const bool untouchedExample=d->workflowPage&&d->workflowPage->document().toJson()==d->initialWorkflowDocument&&!d->workflowPage->runner()->active();
+    if(d->workflowPage&&!untouchedExample&&!d->workflowPage->confirmLeave()){event->ignore();return;}
+    if((d->httpPage&&d->httpPage->session()->active())||(d->webSocketPage&&d->webSocketPage->session()->active())||d->httpPage->dirty()||d->webSocketPage->dirty()){
+        QMessageBox confirm(this);confirm.setObjectName("manualProtocolExitConfirmation");confirm.setWindowTitle(QStringLiteral("退出协议调试"));confirm.setText(QStringLiteral("退出会取消HTTP请求、释放WebSocket连接，并放弃未保存的协议编辑。已保存方案保留；不会自动保存凭据。"));
+        auto* leave=confirm.addButton(QStringLiteral("退出并释放活动"),QMessageBox::AcceptRole);auto* keep=confirm.addButton(QStringLiteral("保留当前窗口"),QMessageBox::RejectRole);confirm.setDefaultButton(keep);confirm.exec();if(confirm.clickedButton()!=leave){event->ignore();return;}
+    }
+    if(d->httpPage)d->httpPage->session()->cancel();
+    if(d->webSocketPage)d->webSocketPage->session()->cancel();
+    if(d->workflowPage)d->workflowPage->runner()->stop();
+    if(d->parkedController)d->parkedController->stop();
+    d->c->stopPeriodic();d->c->stopRecording();d->c->stop();
+    QMainWindow::closeEvent(event);
+}
 }

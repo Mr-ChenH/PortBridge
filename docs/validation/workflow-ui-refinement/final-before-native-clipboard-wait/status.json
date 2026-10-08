@@ -1,0 +1,26 @@
+{
+  "state": "failed",
+  "steps": [
+    {
+      "step": "build",
+      "exit": 0,
+      "seconds": 14.103
+    },
+    {
+      "step": "ctest-affected-ui",
+      "exit": 0,
+      "seconds": 55.048
+    },
+    {
+      "step": "native-integration",
+      "exit": 0,
+      "seconds": 8.568
+    },
+    {
+      "step": "native-workflow-ui-1",
+      "exit": 9,
+      "seconds": 26.085
+    }
+  ],
+  "error": "native-workflow-ui-1 failed"
+}

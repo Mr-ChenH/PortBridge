@@ -1,0 +1,49 @@
+{
+  "state": "passed",
+  "steps": [
+    {
+      "step": "build",
+      "exit": 0,
+      "seconds": 5.542
+    },
+    {
+      "step": "ctest",
+      "exit": 1,
+      "seconds": 128.013
+    },
+    {
+      "step": "session-focused-replay",
+      "exit": 0,
+      "seconds": 0.317
+    },
+    {
+      "step": "ctest-session-replay",
+      "exit": 0,
+      "seconds": 42.781
+    },
+    {
+      "step": "native-integration",
+      "exit": 0,
+      "seconds": 13.366
+    },
+    {
+      "step": "native-workflow-ui-1",
+      "exit": 0,
+      "seconds": 19.323
+    },
+    {
+      "step": "native-workflow-ui-1.25",
+      "exit": 0,
+      "seconds": 19.042
+    },
+    {
+      "step": "native-workflow-ui-1.5",
+      "exit": 0,
+      "seconds": 22.665
+    }
+  ],
+  "source_stable": true,
+  "source_inputs": 66,
+  "verification_mode": "seven suites passed in frozen full run; session focused and full-suite unchanged replay; native integration and three UI scales",
+  "known_session_wait_failure_preserved": true
+}

@@ -1,0 +1,550 @@
+QtNodes const QVariant extraction patch verified.
+Pinned QtNodes 3.0.16 ready: C:\Users\threeTeeth\workSpace\github\PortBridge\.deps\workflow-research\nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3
+Pinned protocol sources/static TLS ready: C:\Users\threeTeeth\workSpace\github\PortBridge\.deps\workflow
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Found OpenSSL: C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow/openssl-install/lib64/libcrypto.a (found suitable exact version "3.5.4")
+-- Looking for if_nametoindex
+-- Looking for if_nametoindex - found
+-- Using CMake version 4.1.2
+-- curl version=[8.16.0]
+-- CMake platform flags: WIN32 GCC MINGW
+-- Performing Test HAVE_WIN32_WINNT
+-- Performing Test HAVE_WIN32_WINNT - Success
+-- Found _WIN32_WINNT=0x0a00
+-- Performing Test MINGW64_VERSION
+-- Performing Test MINGW64_VERSION - Success
+-- Found MINGW64_VERSION=11.0
+-- Picky compiler options: -Werror-implicit-function-declaration -W -Wall -pedantic -Wbad-function-cast -Wconversion -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Waddress -Wattributes -Wcast-align -Wcast-qual -Wdeclaration-after-statement -Wdiv-by-zero -Wempty-body -Wendif-labels -Wfloat-equal -Wformat-security -Wignored-qualifiers -Wmissing-field-initializers -Wmissing-noreturn -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wold-style-definition -Wredundant-decls -Wstrict-prototypes -Wtype-limits -Wunreachable-code -Wunused-parameter -Wvla -Wclobbered -Wmissing-parameter-type -Wold-style-declaration -Wpragmas -Wstrict-aliasing=3 -ftree-vrp -Wjump-misses-init -Wno-pedantic-ms-format -Wdouble-promotion -Wformat=2 -Wtrampolines -Warray-bounds=2 -Wduplicated-cond -Wnull-dereference -fdelete-null-pointer-checks -Wshift-negative-value -Wshift-overflow=2 -Wunused-const-variable -Walloc-zero -Wduplicated-branches -Wformat-truncation=2 -Wimplicit-fallthrough -Wrestrict -Warith-conversion -Wenum-conversion -Warray-compare -Wenum-int-mismatch -Wxor-used-as-pow
+-- Found Cares (via pkg-config):  (found version "")
+-- Found OpenSSL: C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow/openssl-install/lib64/libcrypto.a (found version "3.5.4")
+-- Protocols: http https
+-- Features: alt-svc AsynchDNS HSTS HTTPS-proxy IPv6 Largefile NTLM SSL threadsafe TLS-SRP UnixSockets
+-- Enabled SSL backends: OpenSSL v3+
+-- CXX standard of parent project: 17
+-- CXX standard: 17
+-- C++ Requests CMake Options
+-- =======================================================
+--   CPR_GENERATE_COVERAGE: OFF
+--   CPR_CURL_NOSIGNAL: ON
+--   CURL_VERBOSE_LOGGING: OFF
+--   CPR_USE_SYSTEM_GTEST: OFF
+--   CPR_USE_SYSTEM_CURL: OFF
+--   CPR_USE_EXISTING_CURL_TARGET: ON
+--   CPR_CURL_USE_LIBPSL: OFF
+--   CPR_USE_SYSTEM_LIB_PSL: OFF
+--   CPR_ENABLE_CURL_HTTP_ONLY: ON
+--   CPR_ENABLE_SSL: ON
+--   CPR_FORCE_OPENSSL_BACKEND: ON
+--   CPR_FORCE_WINSSL_BACKEND: OFF
+--   CPR_FORCE_DARWINSSL_BACKEND: OFF
+--   CPR_FORCE_MBEDTLS_BACKEND: OFF
+--   CPR_ENABLE_LINTING: OFF
+--   CPR_ENABLE_CPPCHECK: OFF
+--   CPR_BUILD_TESTS: OFF
+--   CPR_BUILD_TESTS_SSL: OFF
+--   CPR_BUILD_TESTS_PROXY: OFF
+--   CPR_BUILD_VERSION_OUTPUT_ONLY: OFF
+--   CPR_SKIP_CA_BUNDLE_SEARCH: OFF
+--   CPR_USE_BOOST_FILESYSTEM: OFF
+--   CPR_DEBUG_SANITIZER_FLAG_THREAD: OFF
+--   CPR_DEBUG_SANITIZER_FLAG_ADDR: OFF
+--   CPR_DEBUG_SANITIZER_FLAG_LEAK: OFF
+--   CPR_DEBUG_SANITIZER_FLAG_UB: OFF
+--   CPR_DEBUG_SANITIZER_FLAG_ALL: OFF
+-- =======================================================
+-- Disabled SSL backend auto detect since either CPR_FORCE_OPENSSL_BACKEND, CPR_FORCE_DARWINSSL_BACKEND, CPR_FORCE_MBEDTLS_BACKEND, or CPR_FORCE_WINSSL_BACKEND is enabled.
+-- Using OpenSSL.
+-- cpr skipping management of curl dependency (CPR_USE_EXISTING_CURL_TARGET is set to ON).
+-- QT_VERSION: 6.8.3, QT_DIR: C:/Qt/6.8.3/mingw_64/lib/cmake/Qt6
+-- Configuring done (2.7s)
+-- Generating done (0.4s)
+-- Build files have been written to: C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+[0/2] Re-checking globbed directories...
+[1/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_android.c.obj
+[2/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_cancel.c.obj
+[3/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_addrinfo_localhost.c.obj
+[4/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_addrinfo2hostent.c.obj
+[5/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_close_sockets.c.obj
+[6/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_data.c.obj
+[7/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_cookie.c.obj
+[8/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_destroy.c.obj
+[9/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_conn.c.obj
+[10/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_free_hostent.c.obj
+[11/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_freeaddrinfo.c.obj
+[12/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_free_string.c.obj
+[13/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_getaddrinfo.c.obj
+[14/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_getenv.c.obj
+[15/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_gethostbyaddr.c.obj
+[16/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_gethostbyname.c.obj
+[17/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_getnameinfo.c.obj
+[18/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_library_init.c.obj
+[19/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_hosts_file.c.obj
+[20/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_init.c.obj
+[21/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_metrics.c.obj
+[22/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_parse_into_addrinfo.c.obj
+[23/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_options.c.obj
+[24/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_qcache.c.obj
+[25/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_process.c.obj
+[26/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_query.c.obj
+[27/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_search.c.obj
+[28/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_send.c.obj
+[29/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_set_socket_functions.c.obj
+[30/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_socket.c.obj
+[31/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_sortaddrinfo.c.obj
+[32/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_sysconfig_mac.c.obj
+[33/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_strerror.c.obj
+[34/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_sysconfig.c.obj
+[35/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_sysconfig_files.c.obj
+[36/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_timeout.c.obj
+[37/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_sysconfig_win.c.obj
+[38/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_update_servers.c.obj
+[39/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/ares_version.c.obj
+[40/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/inet_ntop.c.obj
+[41/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/inet_net_pton.c.obj
+[42/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/windows_port.c.obj
+[43/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/dsa/ares_array.c.obj
+[44/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/dsa/ares_htable_asvp.c.obj
+[45/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/dsa/ares_htable.c.obj
+[46/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/dsa/ares_htable_dict.c.obj
+[47/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/dsa/ares_htable_strvp.c.obj
+[48/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/dsa/ares_htable_szvp.c.obj
+[49/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/dsa/ares_htable_vpstr.c.obj
+[50/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/dsa/ares_htable_vpvp.c.obj
+[51/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/dsa/ares_llist.c.obj
+[52/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/event/ares_event_configchg.c.obj
+[53/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/dsa/ares_slist.c.obj
+[54/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/event/ares_event_epoll.c.obj
+[55/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/event/ares_event_kqueue.c.obj
+[56/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/event/ares_event_poll.c.obj
+[57/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/event/ares_event_select.c.obj
+[58/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/event/ares_event_thread.c.obj
+[59/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/event/ares_event_wake_pipe.c.obj
+[60/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/event/ares_event_win32.c.obj
+[61/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_create_query.c.obj
+[62/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_expand_name.c.obj
+[63/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_expand_string.c.obj
+[64/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_fds.c.obj
+[65/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_getsock.c.obj
+[66/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_parse_a_reply.c.obj
+[67/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_parse_aaaa_reply.c.obj
+[68/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_parse_caa_reply.c.obj
+[69/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_parse_mx_reply.c.obj
+[70/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_parse_naptr_reply.c.obj
+[71/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_parse_ns_reply.c.obj
+[72/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_parse_ptr_reply.c.obj
+[73/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_parse_soa_reply.c.obj
+[74/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_parse_srv_reply.c.obj
+[75/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_parse_txt_reply.c.obj
+[76/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/legacy/ares_parse_uri_reply.c.obj
+[77/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/record/ares_dns_mapping.c.obj
+[78/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/record/ares_dns_multistring.c.obj
+[79/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/record/ares_dns_name.c.obj
+[80/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/record/ares_dns_parse.c.obj
+[81/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/record/ares_dns_write.c.obj
+[82/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/record/ares_dns_record.c.obj
+[83/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/str/ares_str.c.obj
+[84/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/str/ares_strsplit.c.obj
+[85/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/str/ares_buf.c.obj
+[86/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/util/ares_iface_ips.c.obj
+[87/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/util/ares_threads.c.obj
+[88/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/util/ares_timeval.c.obj
+[89/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/util/ares_math.c.obj
+[90/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/util/ares_rand.c.obj
+[91/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/amigaos.c.obj
+[92/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/altsvc.c.obj
+[93/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/asyn-ares.c.obj
+[94/394] Building C object workflow-deps/cares/src/lib/CMakeFiles/c-ares.dir/util/ares_uri.c.obj
+[95/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/asyn-base.c.obj
+[96/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/asyn-thrdd.c.obj
+[97/394] Linking C static library workflow-deps\cares\src\lib\libcares.a
+[98/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/bufq.c.obj
+[99/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/bufref.c.obj
+[100/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/cf-h2-proxy.c.obj
+[101/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/cf-h1-proxy.c.obj
+[102/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/cf-haproxy.c.obj
+[103/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/cf-https-connect.c.obj
+[104/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/cf-ip-happy.c.obj
+[105/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/cf-socket.c.obj
+[106/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/cfilters.c.obj
+[107/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/connect.c.obj
+[108/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/conncache.c.obj
+[109/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/content_encoding.c.obj
+[110/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/cookie.c.obj
+[111/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_addrinfo.c.obj
+[112/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/cshutdn.c.obj
+[113/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_des.c.obj
+[114/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_endian.c.obj
+[115/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_fnmatch.c.obj
+[116/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_get_line.c.obj
+[117/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_gethostname.c.obj
+[118/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_gssapi.c.obj
+[119/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_memrchr.c.obj
+[120/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_range.c.obj
+[121/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_ntlm_core.c.obj
+[122/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_rtmp.c.obj
+[123/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_sasl.c.obj
+[124/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_sspi.c.obj
+[125/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_sha512_256.c.obj
+[126/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_threads.c.obj
+[127/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curl_trc.c.obj
+[128/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/cw-pause.c.obj
+[129/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/dict.c.obj
+[130/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/cw-out.c.obj
+[131/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/doh.c.obj
+[132/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/easygetopt.c.obj
+[133/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/dynhds.c.obj
+[134/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/easy.c.obj
+[135/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/easyoptions.c.obj
+[136/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/fake_addrinfo.c.obj
+[137/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/escape.c.obj
+[138/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/file.c.obj
+[139/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/fileinfo.c.obj
+[140/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/fopen.c.obj
+[141/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/ftp.c.obj
+[142/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/ftplistparser.c.obj
+[143/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/formdata.c.obj
+[144/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/getenv.c.obj
+[145/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/getinfo.c.obj
+[146/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/gopher.c.obj
+[147/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/hash.c.obj
+[148/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/headers.c.obj
+[149/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/hmac.c.obj
+[150/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/hostip4.c.obj
+[151/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/hostip.c.obj
+[152/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/hostip6.c.obj
+[153/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/hsts.c.obj
+[154/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/http1.c.obj
+[155/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/http2.c.obj
+[156/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/http.c.obj
+[157/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/http_aws_sigv4.c.obj
+[158/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/http_chunks.c.obj
+[159/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/http_digest.c.obj
+[160/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/http_negotiate.c.obj
+[161/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/http_ntlm.c.obj
+[162/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/httpsrr.c.obj
+[163/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/http_proxy.c.obj
+[164/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/idn.c.obj
+[165/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/if2ip.c.obj
+[166/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/krb5.c.obj
+[167/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/imap.c.obj
+[168/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/ldap.c.obj
+[169/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/llist.c.obj
+[170/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/macos.c.obj
+[171/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/md4.c.obj
+[172/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/md5.c.obj
+[173/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/memdebug.c.obj
+[174/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/mqtt.c.obj
+[175/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/mime.c.obj
+[176/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/mprintf.c.obj
+[177/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/multi_ev.c.obj
+[178/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/multi.c.obj
+[179/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/netrc.c.obj
+[180/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/noproxy.c.obj
+[181/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/openldap.c.obj
+[182/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/pingpong.c.obj
+[183/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/pop3.c.obj
+[184/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/parsedate.c.obj
+[185/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/progress.c.obj
+[186/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/psl.c.obj
+[187/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/rename.c.obj
+[188/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/rand.c.obj
+[189/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/rtsp.c.obj
+[190/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/request.c.obj
+[191/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/select.c.obj
+[192/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/sendf.c.obj
+[193/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/sha256.c.obj
+[194/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/setopt.c.obj
+[195/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/share.c.obj
+[196/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/slist.c.obj
+[197/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/smb.c.obj
+[198/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/smtp.c.obj
+[199/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/socketpair.c.obj
+[200/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/socks.c.obj
+[201/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/socks_gssapi.c.obj
+[202/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/socks_sspi.c.obj
+[203/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/speedcheck.c.obj
+[204/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/splay.c.obj
+[205/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/strcase.c.obj
+[206/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/strdup.c.obj
+[207/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/strequal.c.obj
+[208/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/system_win32.c.obj
+[209/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/strerror.c.obj
+[210/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/telnet.c.obj
+[211/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/tftp.c.obj
+[212/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/uint-bset.c.obj
+[213/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/uint-hash.c.obj
+[214/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/transfer.c.obj
+[215/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/uint-spbset.c.obj
+[216/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/uint-table.c.obj
+[217/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/version.c.obj
+[218/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/urlapi.c.obj
+[219/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/ws.c.obj
+[220/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vauth/cleartext.c.obj
+[221/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/url.c.obj
+[222/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vauth/cram.c.obj
+[223/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vauth/digest_sspi.c.obj
+[224/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vauth/digest.c.obj
+[225/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vauth/gsasl.c.obj
+[226/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vauth/krb5_gssapi.c.obj
+[227/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vauth/krb5_sspi.c.obj
+[228/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vauth/ntlm_sspi.c.obj
+[229/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vauth/ntlm.c.obj
+[230/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vauth/oauth2.c.obj
+[231/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vauth/spnego_gssapi.c.obj
+[232/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vauth/spnego_sspi.c.obj
+[233/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vauth/vauth.c.obj
+[234/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vtls/cipher_suite.c.obj
+[235/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vtls/gtls.c.obj
+[236/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vtls/hostcheck.c.obj
+[237/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vtls/keylog.c.obj
+[238/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vtls/mbedtls.c.obj
+[239/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vtls/mbedtls_threadlock.c.obj
+[240/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vtls/rustls.c.obj
+[241/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vtls/schannel.c.obj
+[242/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vtls/schannel_verify.c.obj
+[243/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vtls/openssl.c.obj
+[244/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vtls/vtls_scache.c.obj
+[245/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vtls/vtls_spack.c.obj
+[246/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vtls/vtls.c.obj
+[247/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vtls/wolfssl.c.obj
+[248/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vtls/x509asn1.c.obj
+[249/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vquic/curl_ngtcp2.c.obj
+[250/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vquic/curl_osslq.c.obj
+[251/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vquic/curl_quiche.c.obj
+[252/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vquic/vquic-tls.c.obj
+[253/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vquic/vquic.c.obj
+[254/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vssh/libssh.c.obj
+[255/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vssh/libssh2.c.obj
+[256/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vssh/curl_path.c.obj
+[257/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/vssh/wolfssh.c.obj
+[258/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curlx/base64.c.obj
+[259/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curlx/dynbuf.c.obj
+[260/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curlx/inet_ntop.c.obj
+[261/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curlx/inet_pton.c.obj
+[262/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curlx/multibyte.c.obj
+[263/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curlx/nonblock.c.obj
+[264/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curlx/timediff.c.obj
+[265/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curlx/strparse.c.obj
+[266/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curlx/timeval.c.obj
+[267/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curlx/version_win32.c.obj
+[268/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curlx/wait.c.obj
+[269/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curlx/warnless.c.obj
+[270/394] Building C object workflow-deps/curl/lib/CMakeFiles/libcurl_object.dir/curlx/winapi.c.obj
+[271/394] Linking C static library workflow-deps\curl\lib\libcurl.a
+[272/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/async.cpp.obj
+[273/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/accept_encoding.cpp.obj
+[274/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/cert_info.cpp.obj
+[275/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/callback.cpp.obj
+[276/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/auth.cpp.obj
+[277/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/connection_pool.cpp.obj
+[278/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/cprtypes.cpp.obj
+[279/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/cookies.cpp.obj
+[280/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/curl_container.cpp.obj
+[281/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/file.cpp.obj
+[282/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/curlholder.cpp.obj
+[283/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/error.cpp.obj
+[284/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/multipart.cpp.obj
+[285/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/proxies.cpp.obj
+[286/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/parameters.cpp.obj
+[287/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/payload.cpp.obj
+[288/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/sse.cpp.obj
+[289/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/threadpool.cpp.obj
+[290/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/proxyauth.cpp.obj
+[291/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/unix_socket.cpp.obj
+[292/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/timeout.cpp.obj
+[293/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/response.cpp.obj
+[294/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/util.cpp.obj
+[295/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/redirect.cpp.obj
+[296/394] Building CXX object CMakeFiles/portbridge_network.dir/src/network/network_engine.cpp.obj
+[297/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/curlmultiholder.cpp.obj
+[298/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/ssl_ctx.cpp.obj
+[299/394] Linking CXX static library libportbridge_network.a
+[300/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/interceptor.cpp.obj
+[301/394] Automatic MOC for target portbridge_session
+[302/394] Automatic MOC for target QtNodes
+[303/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/session.cpp.obj
+[304/394] Building CXX object CMakeFiles/portbridge_session.dir/portbridge_session_autogen/mocs_compilation.cpp.obj
+[305/394] Building CXX object CMakeFiles/portbridge_session.dir/src/session/serial_engine.cpp.obj
+[306/394] Building CXX object workflow-deps/cpr/cpr/CMakeFiles/cpr.dir/multiperform.cpp.obj
+[307/394] Linking CXX static library workflow-deps\cpr\cpr\libcpr.a
+[308/394] Automatic MOC for target portbridge_workflow_protocol
+[309/394] Building CXX object CMakeFiles/portbridge_session.dir/src/session/configuration.cpp.obj
+[310/394] Automatic RCC for resources/resources.qrc
+[311/394] Building CXX object CMakeFiles/portbridge_workflow_protocol.dir/portbridge_workflow_protocol_autogen/mocs_compilation.cpp.obj
+[312/394] Building CXX object CMakeFiles/portbridge_session.dir/src/session/recorder.cpp.obj
+[313/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/AbstractGraphModel.cpp.obj
+[314/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/QtNodes_autogen/mocs_compilation.cpp.obj
+[315/394] Building CXX object CMakeFiles/portbridge_session.dir/src/session/session_controller.cpp.obj
+[316/394] Linking CXX static library libportbridge_session.a
+[317/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/AbstractNodeGeometry.cpp.obj
+[318/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/ConnectionGraphicsObject.cpp.obj
+[319/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/ConnectionState.cpp.obj
+[320/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/BasicGraphicsScene.cpp.obj
+[321/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/ConnectionStyle.cpp.obj
+[322/394] Building CXX object CMakeFiles/portbridge_workflow_protocol.dir/src/protocol/workflow_protocol.cpp.obj
+In file included from C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/workflow_protocol.cpp:1:
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp: In function 'void portbridge::protocol::finished(const std::shared_ptr<Mailbox>&, const Request&, QString, QJsonObject, QString, qsizetype)':
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp:86:14: warning: missing initializer for member 'portbridge::protocol::Event::acknowledge' [-Wmissing-field-initializers]
+   86 |     box->push({Event::Finished, r.token, std::move(id), std::move(error), std::move(result), {}, false, cost});
+      |     ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp: In function 'void portbridge::protocol::state(const std::shared_ptr<Mailbox>&, const Request&, bool)':
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp:91:14: warning: missing initializer for member 'portbridge::protocol::Event::acknowledge' [-Wmissing-field-initializers]
+   91 |     box->push({Event::State, r.token, {}, {}, {}, {}, false, 256});
+      |     ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[323/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/DefaultConnectionPainter.cpp.obj
+[324/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/DataFlowGraphicsScene.cpp.obj
+[325/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/DataFlowGraphModel.cpp.obj
+[326/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/DefaultHorizontalNodeGeometry.cpp.obj
+[327/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/Definitions.cpp.obj
+[328/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/DefaultNodePainter.cpp.obj
+[329/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/DefaultVerticalNodeGeometry.cpp.obj
+[330/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/GraphicsViewStyle.cpp.obj
+[331/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/NodeConnectionInteraction.cpp.obj
+[332/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/NodeDelegateModel.cpp.obj
+[333/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/NodeDelegateModelRegistry.cpp.obj
+[334/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/NodeState.cpp.obj
+[335/394] Building CXX object CMakeFiles/portbridge_workflow_protocol.dir/src/protocol/http_client.cpp.obj
+In file included from C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/http_client.cpp:1:
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp: In function 'void portbridge::protocol::finished(const std::shared_ptr<Mailbox>&, const Request&, QString, QJsonObject, QString, qsizetype)':
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp:86:14: warning: missing initializer for member 'portbridge::protocol::Event::acknowledge' [-Wmissing-field-initializers]
+   86 |     box->push({Event::Finished, r.token, std::move(id), std::move(error), std::move(result), {}, false, cost});
+      |     ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp: In function 'void portbridge::protocol::state(const std::shared_ptr<Mailbox>&, const Request&, bool)':
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp:91:14: warning: missing initializer for member 'portbridge::protocol::Event::acknowledge' [-Wmissing-field-initializers]
+   91 |     box->push({Event::State, r.token, {}, {}, {}, {}, false, 256});
+      |     ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[336/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/GraphicsView.cpp.obj
+[337/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/NodeStyle.cpp.obj
+[338/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/StyleCollection.cpp.obj
+[339/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/UndoCommands.cpp.obj
+[340/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/QtNodes_autogen/3YJK5W5UP7/qrc_resources.cpp.obj
+[341/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/locateNode.cpp.obj
+[342/394] Building CXX object third-party/qtnodes/CMakeFiles/QtNodes.dir/src/NodeGraphicsObject.cpp.obj
+[343/394] Linking CXX static library lib\libQtNodes.a
+[344/394] Automatic MOC for target test_session
+[345/394] Building CXX object CMakeFiles/test_session.dir/test_session_autogen/mocs_compilation.cpp.obj
+[346/394] Building CXX object CMakeFiles/portbridge_bench.dir/tools/network_bench.cpp.obj
+[347/394] Linking CXX executable portbridge_bench.exe
+[348/394] Building CXX object CMakeFiles/test_network.dir/tests/test_network.cpp.obj
+[349/394] Linking CXX executable test_network.exe
+[350/394] Building CXX object CMakeFiles/test_session.dir/tests/test_session.cpp.obj
+[351/394] Linking CXX executable test_session.exe
+[352/394] Building CXX object CMakeFiles/portbridge_workflow_protocol.dir/src/protocol/ws_plain.cpp.obj
+In file included from C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:2,
+                 from C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_plain.cpp:1:
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp: In function 'void portbridge::protocol::finished(const std::shared_ptr<Mailbox>&, const Request&, QString, QJsonObject, QString, qsizetype)':
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp:86:14: warning: missing initializer for member 'portbridge::protocol::Event::acknowledge' [-Wmissing-field-initializers]
+   86 |     box->push({Event::Finished, r.token, std::move(id), std::move(error), std::move(result), {}, false, cost});
+      |     ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp: In function 'void portbridge::protocol::state(const std::shared_ptr<Mailbox>&, const Request&, bool)':
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp:91:14: warning: missing initializer for member 'portbridge::protocol::Event::acknowledge' [-Wmissing-field-initializers]
+   91 |     box->push({Event::State, r.token, {}, {}, {}, {}, false, 256});
+      |     ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp: In instantiation of 'void portbridge::protocol::Ws<Layer>::fail(QString) [with Layer = boost::beast::basic_stream<boost::asio::ip::tcp, boost::asio::any_io_executor, boost::beast::unlimited_rate_policy>]':
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:167:30:   required from 'void portbridge::protocol::Ws<Layer>::start() [with Layer = boost::beast::basic_stream<boost::asio::ip::tcp, boost::asio::any_io_executor, boost::beast::unlimited_rate_policy>]'
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:163:10:   required from here
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:75:19: warning: missing initializer for member 'portbridge::protocol::Event::acknowledge' [-Wmissing-field-initializers]
+   75 |         box_->push({Event::Error, r_.token, {}, error, {}, {}, false, 256});
+      |         ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp: In instantiation of 'void portbridge::protocol::Ws<Layer>::read() [with Layer = boost::beast::basic_stream<boost::asio::ip::tcp, boost::asio::any_io_executor, boost::beast::unlimited_rate_policy>]':
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:105:20:   required from 'void portbridge::protocol::Ws<Layer>::upgrade() [with Layer = boost::beast::basic_stream<boost::asio::ip::tcp, boost::asio::any_io_executor, boost::beast::unlimited_rate_policy>]'
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:117:16:   required from 'void portbridge::protocol::Ws<Layer>::tlsHandshake() [with Layer = boost::beast::basic_stream<boost::asio::ip::tcp, boost::asio::any_io_executor, boost::beast::unlimited_rate_policy>]'
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:176:171:   required from 'void portbridge::protocol::Ws<Layer>::start() [with Layer = boost::beast::basic_stream<boost::asio::ip::tcp, boost::asio::any_io_executor, boost::beast::unlimited_rate_policy>]'
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:163:10:   required from here
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:135:19: warning: missing initializer for member 'portbridge::protocol::Event::acknowledge' [-Wmissing-field-initializers]
+  135 |             Event event{Event::Message, s->r_.token, {}, {}, {}, QByteArray(data.data(), qsizetype(data.size())), s->stream_.got_binary(), qsizetype(data.size()) + 256};
+      |                   ^~~~~
+[353/394] Building CXX object CMakeFiles/portbridge_workflow_protocol.dir/src/protocol/ws_tls.cpp.obj
+In file included from C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:2,
+                 from C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_tls.cpp:1:
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp: In function 'void portbridge::protocol::finished(const std::shared_ptr<Mailbox>&, const Request&, QString, QJsonObject, QString, qsizetype)':
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp:86:14: warning: missing initializer for member 'portbridge::protocol::Event::acknowledge' [-Wmissing-field-initializers]
+   86 |     box->push({Event::Finished, r.token, std::move(id), std::move(error), std::move(result), {}, false, cost});
+      |     ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp: In function 'void portbridge::protocol::state(const std::shared_ptr<Mailbox>&, const Request&, bool)':
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/protocol_internal.hpp:91:14: warning: missing initializer for member 'portbridge::protocol::Event::acknowledge' [-Wmissing-field-initializers]
+   91 |     box->push({Event::State, r.token, {}, {}, {}, {}, false, 256});
+      |     ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp: In instantiation of 'void portbridge::protocol::Ws<Layer>::fail(QString) [with Layer = boost::beast::ssl_stream<boost::beast::basic_stream<boost::asio::ip::tcp, boost::asio::any_io_executor, boost::beast::unlimited_rate_policy> >]':
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:167:30:   required from 'void portbridge::protocol::Ws<Layer>::start() [with Layer = boost::beast::ssl_stream<boost::beast::basic_stream<boost::asio::ip::tcp, boost::asio::any_io_executor, boost::beast::unlimited_rate_policy> >]'
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:163:10:   required from here
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:75:19: warning: missing initializer for member 'portbridge::protocol::Event::acknowledge' [-Wmissing-field-initializers]
+   75 |         box_->push({Event::Error, r_.token, {}, error, {}, {}, false, 256});
+      |         ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp: In instantiation of 'void portbridge::protocol::Ws<Layer>::read() [with Layer = boost::beast::ssl_stream<boost::beast::basic_stream<boost::asio::ip::tcp, boost::asio::any_io_executor, boost::beast::unlimited_rate_policy> >]':
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:105:20:   required from 'void portbridge::protocol::Ws<Layer>::upgrade() [with Layer = boost::beast::ssl_stream<boost::beast::basic_stream<boost::asio::ip::tcp, boost::asio::any_io_executor, boost::beast::unlimited_rate_policy> >]'
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:115:126:   required from 'void portbridge::protocol::Ws<Layer>::tlsHandshake() [with Layer = boost::beast::ssl_stream<boost::beast::basic_stream<boost::asio::ip::tcp, boost::asio::any_io_executor, boost::beast::unlimited_rate_policy> >]'
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:176:171:   required from 'void portbridge::protocol::Ws<Layer>::start() [with Layer = boost::beast::ssl_stream<boost::beast::basic_stream<boost::asio::ip::tcp, boost::asio::any_io_executor, boost::beast::unlimited_rate_policy> >]'
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:163:10:   required from here
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/protocol/ws_client.hpp:135:19: warning: missing initializer for member 'portbridge::protocol::Event::acknowledge' [-Wmissing-field-initializers]
+  135 |             Event event{Event::Message, s->r_.token, {}, {}, {}, QByteArray(data.data(), qsizetype(data.size())), s->stream_.got_binary(), qsizetype(data.size()) + 256};
+      |                   ^~~~~
+[354/394] Linking CXX static library libportbridge_workflow_protocol.a
+[355/394] Automatic MOC for target portbridge_workflow
+[356/394] Automatic MOC for target test_workflow_protocol
+[357/394] Building CXX object CMakeFiles/test_workflow_protocol.dir/test_workflow_protocol_autogen/mocs_compilation.cpp.obj
+[358/394] Building CXX object CMakeFiles/portbridge_workflow.dir/portbridge_workflow_autogen/mocs_compilation.cpp.obj
+[359/394] Building CXX object CMakeFiles/portbridge_workflow.dir/src/workflow/workflow_runner.cpp.obj
+[360/394] Building CXX object CMakeFiles/test_workflow_protocol.dir/tests/test_workflow_protocol.cpp.obj
+[361/394] Linking CXX executable test_workflow_protocol.exe
+[362/394] Building CXX object CMakeFiles/portbridge_workflow.dir/src/workflow/workflow_document.cpp.obj
+[363/394] Linking CXX static library libportbridge_workflow.a
+[364/394] Automatic MOC for target portbridge_ui
+[365/394] Automatic MOC for target test_workflow
+[366/394] Building CXX object CMakeFiles/portbridge_ui.dir/portbridge_ui_autogen/mocs_compilation.cpp.obj
+[367/394] Building CXX object CMakeFiles/portbridge_ui.dir/src/ui/record_model.cpp.obj
+[368/394] Building CXX object CMakeFiles/test_workflow.dir/test_workflow_autogen/mocs_compilation.cpp.obj
+[369/394] Building CXX object CMakeFiles/portbridge_ui.dir/src/ui/workflow_graph_model.cpp.obj
+[370/394] Building CXX object CMakeFiles/portbridge_ui.dir/src/ui/workflow_page.cpp.obj
+FAILED: CMakeFiles/portbridge_ui.dir/src/ui/workflow_page.cpp.obj 
+C:\Qt\Tools\mingw1310_64\bin\g++.exe -DMINGW_HAS_SECURE_API=1 -DNODE_EDITOR_STATIC -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_SERIALPORT_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64 -IC:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/portbridge_ui_autogen/include -IC:/Users/threeTeeth/workSpace/github/PortBridge/include -IC:/Users/threeTeeth/workSpace/github/PortBridge/src -IC:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/include -isystem C:/Qt/6.8.3/mingw_64/include/QtCore -isystem C:/Qt/6.8.3/mingw_64/include -isystem C:/Qt/6.8.3/mingw_64/mkspecs/win32-g++ -isystem C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/qtserialport-install/include/QtSerialPort -isystem C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/qtserialport-install/include -isystem C:/Qt/6.8.3/mingw_64/include/QtWidgets -isystem C:/Qt/6.8.3/mingw_64/include/QtGui -isystem C:/Qt/6.8.3/mingw_64/include/QtOpenGL -isystem C:/Qt/6.8.3/mingw_64/include/QtNetwork -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -finput-charset=UTF-8 -MD -MT CMakeFiles/portbridge_ui.dir/src/ui/workflow_page.cpp.obj -MF CMakeFiles\portbridge_ui.dir\src\ui\workflow_page.cpp.obj.d -o CMakeFiles/portbridge_ui.dir/src/ui/workflow_page.cpp.obj -c C:/Users/threeTeeth/workSpace/github/PortBridge/src/ui/workflow_page.cpp
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/ui/workflow_page.cpp: In lambda function:
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/ui/workflow_page.cpp:160:331: error: no matching function for call to 'QJsonObject::value(const QString&, QJsonValue)'
+  160 |         for(const auto& spec:QList<QPair<QString,QString>>{{"delimiter",QStringLiteral("分隔符（默认 HEX 0A）")},{"length",QStringLiteral("固定帧长度 / 字节")},{"headerBytes",QStringLiteral("长度字段宽度 / 1–4 字节")},{"offset",QStringLiteral("长度字段偏移 / 字节")}}){label(spec.second);auto* e=new QLineEdit(jsonText(frame.value(spec.first,spec.first=="delimiter"?QJsonValue("0A"):spec.first=="length"?QJsonValue(8):spec.first=="headerBytes"?QJsonValue(2):QJsonValue(0))));e->setObjectName("workflowFraming_"+spec.first);e->setAccessibleName(spec.second);e->setEnabled(!locked);layout->addWidget(e);connect(e,&QLineEdit::editingFinished,q,[this,e,mode,key=spec.first,id=node.id]{auto* n=model->node(model->graphId(id));if(!n)return;auto f=n->parameters.value("framing").toObject();f["mode"]=mode->currentData().toString();if(key=="delimiter"){f[key]=e->text();f["delimiterFormat"]="HEX";}else{bool ok=false;auto number=e->text().toInt(&ok);if(!ok){message(QStringLiteral("分帧长度和偏移必须是整数。"));return;}f[key]=number;}setParameter("framing",f,id);});}
+      |                                                                                                                                                                                                                                                                                                                                ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from C:/Qt/6.8.3/mingw_64/include/QtCore/QJsonObject:1,
+                 from C:/Users/threeTeeth/workSpace/github/PortBridge/include/portbridge/workflow.hpp:4,
+                 from C:/Users/threeTeeth/workSpace/github/PortBridge/src/ui/workflow_page.hpp:2,
+                 from C:/Users/threeTeeth/workSpace/github/PortBridge/src/ui/workflow_page.cpp:1:
+C:/Qt/6.8.3/mingw_64/include/QtCore/qjsonobject.h:55:16: note: candidate: 'QJsonValue QJsonObject::value(const QString&) const'
+   55 |     QJsonValue value(const QString &key) const;
+      |                ^~~~~
+C:/Qt/6.8.3/mingw_64/include/QtCore/qjsonobject.h:55:16: note:   candidate expects 1 argument, 2 provided
+C:/Qt/6.8.3/mingw_64/include/QtCore/qjsonobject.h:58:16: note: candidate: 'QJsonValue QJsonObject::value(QStringView) const'
+   58 |     QJsonValue value(QStringView key) const;
+      |                ^~~~~
+C:/Qt/6.8.3/mingw_64/include/QtCore/qjsonobject.h:58:16: note:   candidate expects 1 argument, 2 provided
+C:/Qt/6.8.3/mingw_64/include/QtCore/qjsonobject.h:59:16: note: candidate: 'QJsonValue QJsonObject::value(QLatin1StringView) const'
+   59 |     QJsonValue value(QLatin1StringView key) const;
+      |                ^~~~~
+C:/Qt/6.8.3/mingw_64/include/QtCore/qjsonobject.h:59:16: note:   candidate expects 1 argument, 2 provided
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/ui/workflow_page.cpp: In lambda function:
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/ui/workflow_page.cpp:160:853: error: 'e' is not captured
+  160 |         for(const auto& spec:QList<QPair<QString,QString>>{{"delimiter",QStringLiteral("分隔符（默认 HEX 0A）")},{"length",QStringLiteral("固定帧长度 / 字节")},{"headerBytes",QStringLiteral("长度字段宽度 / 1–4 字节")},{"offset",QStringLiteral("长度字段偏移 / 字节")}}){label(spec.second);auto* e=new QLineEdit(jsonText(frame.value(spec.first,spec.first=="delimiter"?QJsonValue("0A"):spec.first=="length"?QJsonValue(8):spec.first=="headerBytes"?QJsonValue(2):QJsonValue(0))));e->setObjectName("workflowFraming_"+spec.first);e->setAccessibleName(spec.second);e->setEnabled(!locked);layout->addWidget(e);connect(e,&QLineEdit::editingFinished,q,[this,e,mode,key=spec.first,id=node.id]{auto* n=model->node(model->graphId(id));if(!n)return;auto f=n->parameters.value("framing").toObject();f["mode"]=mode->currentData().toString();if(key=="delimiter"){f[key]=e->text();f["delimiterFormat"]="HEX";}else{bool ok=false;auto number=e->text().toInt(&ok);if(!ok){message(QStringLiteral("分帧长度和偏移必须是整数。"));return;}f[key]=number;}setParameter("framing",f,id);});}
+      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ^
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/ui/workflow_page.cpp:160:680: note: the lambda has no capture-default
+  160 |         for(const auto& spec:QList<QPair<QString,QString>>{{"delimiter",QStringLiteral("分隔符（默认 HEX 0A）")},{"length",QStringLiteral("固定帧长度 / 字节")},{"headerBytes",QStringLiteral("长度字段宽度 / 1–4 字节")},{"offset",QStringLiteral("长度字段偏移 / 字节")}}){label(spec.second);auto* e=new QLineEdit(jsonText(frame.value(spec.first,spec.first=="delimiter"?QJsonValue("0A"):spec.first=="length"?QJsonValue(8):spec.first=="headerBytes"?QJsonValue(2):QJsonValue(0))));e->setObjectName("workflowFraming_"+spec.first);e->setAccessibleName(spec.second);e->setEnabled(!locked);layout->addWidget(e);connect(e,&QLineEdit::editingFinished,q,[this,e,mode,key=spec.first,id=node.id]{auto* n=model->node(model->graphId(id));if(!n)return;auto f=n->parameters.value("framing").toObject();f["mode"]=mode->currentData().toString();if(key=="delimiter"){f[key]=e->text();f["delimiterFormat"]="HEX";}else{bool ok=false;auto number=e->text().toInt(&ok);if(!ok){message(QStringLiteral("分帧长度和偏移必须是整数。"));return;}f[key]=number;}setParameter("framing",f,id);});}
+      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ^
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/ui/workflow_page.cpp:160:295: note: '<typeprefixerror>e' declared here
+  160 |         for(const auto& spec:QList<QPair<QString,QString>>{{"delimiter",QStringLiteral("分隔符（默认 HEX 0A）")},{"length",QStringLiteral("固定帧长度 / 字节")},{"headerBytes",QStringLiteral("长度字段宽度 / 1–4 字节")},{"offset",QStringLiteral("长度字段偏移 / 字节")}}){label(spec.second);auto* e=new QLineEdit(jsonText(frame.value(spec.first,spec.first=="delimiter"?QJsonValue("0A"):spec.first=="length"?QJsonValue(8):spec.first=="headerBytes"?QJsonValue(2):QJsonValue(0))));e->setObjectName("workflowFraming_"+spec.first);e->setAccessibleName(spec.second);e->setEnabled(!locked);layout->addWidget(e);connect(e,&QLineEdit::editingFinished,q,[this,e,mode,key=spec.first,id=node.id]{auto* n=model->node(model->graphId(id));if(!n)return;auto f=n->parameters.value("framing").toObject();f["mode"]=mode->currentData().toString();if(key=="delimiter"){f[key]=e->text();f["delimiterFormat"]="HEX";}else{bool ok=false;auto number=e->text().toInt(&ok);if(!ok){message(QStringLiteral("分帧长度和偏移必须是整数。"));return;}f[key]=number;}setParameter("framing",f,id);});}
+      |                                                                                                                                                                                                                                                                                                       ^
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/ui/workflow_page.cpp:160:922: error: 'e' is not captured
+  160 |         for(const auto& spec:QList<QPair<QString,QString>>{{"delimiter",QStringLiteral("分隔符（默认 HEX 0A）")},{"length",QStringLiteral("固定帧长度 / 字节")},{"headerBytes",QStringLiteral("长度字段宽度 / 1–4 字节")},{"offset",QStringLiteral("长度字段偏移 / 字节")}}){label(spec.second);auto* e=new QLineEdit(jsonText(frame.value(spec.first,spec.first=="delimiter"?QJsonValue("0A"):spec.first=="length"?QJsonValue(8):spec.first=="headerBytes"?QJsonValue(2):QJsonValue(0))));e->setObjectName("workflowFraming_"+spec.first);e->setAccessibleName(spec.second);e->setEnabled(!locked);layout->addWidget(e);connect(e,&QLineEdit::editingFinished,q,[this,e,mode,key=spec.first,id=node.id]{auto* n=model->node(model->graphId(id));if(!n)return;auto f=n->parameters.value("framing").toObject();f["mode"]=mode->currentData().toString();if(key=="delimiter"){f[key]=e->text();f["delimiterFormat"]="HEX";}else{bool ok=false;auto number=e->text().toInt(&ok);if(!ok){message(QStringLiteral("分帧长度和偏移必须是整数。"));return;}f[key]=number;}setParameter("framing",f,id);});}
+      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/ui/workflow_page.cpp:160:680: note: the lambda has no capture-default
+  160 |         for(const auto& spec:QList<QPair<QString,QString>>{{"delimiter",QStringLiteral("分隔符（默认 HEX 0A）")},{"length",QStringLiteral("固定帧长度 / 字节")},{"headerBytes",QStringLiteral("长度字段宽度 / 1–4 字节")},{"offset",QStringLiteral("长度字段偏移 / 字节")}}){label(spec.second);auto* e=new QLineEdit(jsonText(frame.value(spec.first,spec.first=="delimiter"?QJsonValue("0A"):spec.first=="length"?QJsonValue(8):spec.first=="headerBytes"?QJsonValue(2):QJsonValue(0))));e->setObjectName("workflowFraming_"+spec.first);e->setAccessibleName(spec.second);e->setEnabled(!locked);layout->addWidget(e);connect(e,&QLineEdit::editingFinished,q,[this,e,mode,key=spec.first,id=node.id]{auto* n=model->node(model->graphId(id));if(!n)return;auto f=n->parameters.value("framing").toObject();f["mode"]=mode->currentData().toString();if(key=="delimiter"){f[key]=e->text();f["delimiterFormat"]="HEX";}else{bool ok=false;auto number=e->text().toInt(&ok);if(!ok){message(QStringLiteral("分帧长度和偏移必须是整数。"));return;}f[key]=number;}setParameter("framing",f,id);});}
+      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ^
+C:/Users/threeTeeth/workSpace/github/PortBridge/src/ui/workflow_page.cpp:160:295: note: '<typeprefixerror>e' declared here
+  160 |         for(const auto& spec:QList<QPair<QString,QString>>{{"delimiter",QStringLiteral("分隔符（默认 HEX 0A）")},{"length",QStringLiteral("固定帧长度 / 字节")},{"headerBytes",QStringLiteral("长度字段宽度 / 1–4 字节")},{"offset",QStringLiteral("长度字段偏移 / 字节")}}){label(spec.second);auto* e=new QLineEdit(jsonText(frame.value(spec.first,spec.first=="delimiter"?QJsonValue("0A"):spec.first=="length"?QJsonValue(8):spec.first=="headerBytes"?QJsonValue(2):QJsonValue(0))));e->setObjectName("workflowFraming_"+spec.first);e->setAccessibleName(spec.second);e->setEnabled(!locked);layout->addWidget(e);connect(e,&QLineEdit::editingFinished,q,[this,e,mode,key=spec.first,id=node.id]{auto* n=model->node(model->graphId(id));if(!n)return;auto f=n->parameters.value("framing").toObject();f["mode"]=mode->currentData().toString();if(key=="delimiter"){f[key]=e->text();f["delimiterFormat"]="HEX";}else{bool ok=false;auto number=e->text().toInt(&ok);if(!ok){message(QStringLiteral("分帧长度和偏移必须是整数。"));return;}f[key]=number;}setParameter("framing",f,id);});}
+      |                                                                                                                                                                                                                                                                                                       ^
+[371/394] Building CXX object CMakeFiles/test_workflow.dir/tests/test_workflow.cpp.obj
+[372/394] Building CXX object CMakeFiles/portbridge_ui.dir/src/ui/main_window.cpp.obj
+ninja: build stopped: subcommand failed.
+cmake exited with code 1
+����λ�� C:\Users\threeTeeth\workSpace\github\PortBridge\scripts\build.ps1:18 �ַ�: 32
++ ... STEXITCODE -ne 0) { throw "$Command exited with code $LASTEXITCODE" }
++                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (cmake exited with code 1:String) [], RuntimeException
+    + FullyQualifiedErrorId : cmake exited with code 1
+ 

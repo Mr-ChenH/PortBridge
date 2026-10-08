@@ -1,0 +1,70 @@
+In file included from C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_pair.h:61,
+                 from C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/utility:69,
+                 from C:/Qt/6.8.3/mingw_64/include/QtCore/qcompilerdetection.h:866,
+                 from C:/Qt/6.8.3/mingw_64/include/QtCore/qgenericatomic.h:8,
+                 from C:/Qt/6.8.3/mingw_64/include/QtCore/qatomic_cxx11.h:8,
+                 from C:/Qt/6.8.3/mingw_64/include/QtCore/qbasicatomic.h:8,
+                 from C:/Qt/6.8.3/mingw_64/include/QtCore/qatomic.h:8,
+                 from C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:7,
+                 from C:/Qt/6.8.3/mingw_64/include/QtCore/QVariant:1,
+                 from build\workflow-warning-probe\extract.cpp:1:
+In function '_Tp std::__exchange(_Tp&, _Up&&) [with _Tp = char16_t*; _Up = std::nullptr_t]',
+    inlined from '_Tp std::exchange(_Tp&, _Up&&) [with _Tp = char16_t*; _Up = std::nullptr_t]' at C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/utility:100:29,
+    inlined from 'QArrayDataPointer<T>::QArrayDataPointer(QArrayDataPointer<T>&&) [with T = char16_t]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qarraydatapointer.h:79:28,
+    inlined from 'QString::QString(QString&&)' at C:/Qt/6.8.3/mingw_64/include/QtCore/qstring.h:182:12,
+    inlined from 'Pair::Pair(Pair&&)' at build\workflow-warning-probe\extract.cpp:4:8,
+    inlined from 'T qvariant_cast(QVariant&&) [with T = Pair]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:774:67,
+    inlined from 'T QVariant::value() && [with T = Pair]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:529:47,
+    inlined from 'Pair extract(int)' at build\workflow-warning-probe\extract.cpp:10:52:
+C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/move.h:159:11: warning: array subscript 4 is outside array bounds of 'QVariant [1]' [-Warray-bounds=]
+  159 |       _Tp __old_val = std::move(__obj);
+      |           ^~~~~~~~~
+build\workflow-warning-probe\extract.cpp: In function 'Pair extract(int)':
+build\workflow-warning-probe\extract.cpp:10:36: note: at offset 32 into object '<anonymous>' of size 32
+   10 | Pair extract(int n) { return source(n).value<Pair>(); }
+      |                              ~~~~~~^~~
+In function '_Tp std::__exchange(_Tp&, _Up&&) [with _Tp = char16_t*; _Up = std::nullptr_t]',
+    inlined from '_Tp std::exchange(_Tp&, _Up&&) [with _Tp = char16_t*; _Up = std::nullptr_t]' at C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/utility:100:29,
+    inlined from 'QArrayDataPointer<T>::QArrayDataPointer(QArrayDataPointer<T>&&) [with T = char16_t]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qarraydatapointer.h:79:28,
+    inlined from 'QString::QString(QString&&)' at C:/Qt/6.8.3/mingw_64/include/QtCore/qstring.h:182:12,
+    inlined from 'Pair::Pair(Pair&&)' at build\workflow-warning-probe\extract.cpp:4:8,
+    inlined from 'T qvariant_cast(QVariant&&) [with T = Pair]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:774:67,
+    inlined from 'T QVariant::value() && [with T = Pair]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:529:47,
+    inlined from 'Pair extract(int)' at build\workflow-warning-probe\extract.cpp:10:52:
+C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/move.h:160:13: warning: array subscript 4 is outside array bounds of 'QVariant [1]' [-Warray-bounds=]
+  160 |       __obj = std::forward<_Up>(__new_val);
+      |       ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+build\workflow-warning-probe\extract.cpp: In function 'Pair extract(int)':
+build\workflow-warning-probe\extract.cpp:10:36: note: at offset 32 into object '<anonymous>' of size 32
+   10 | Pair extract(int n) { return source(n).value<Pair>(); }
+      |                              ~~~~~~^~~
+In function '_Tp std::__exchange(_Tp&, _Up&&) [with _Tp = long long int; _Up = int]',
+    inlined from '_Tp std::exchange(_Tp&, _Up&&) [with _Tp = long long int; _Up = int]' at C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/utility:100:29,
+    inlined from 'QArrayDataPointer<T>::QArrayDataPointer(QArrayDataPointer<T>&&) [with T = char16_t]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qarraydatapointer.h:80:29,
+    inlined from 'QString::QString(QString&&)' at C:/Qt/6.8.3/mingw_64/include/QtCore/qstring.h:182:12,
+    inlined from 'Pair::Pair(Pair&&)' at build\workflow-warning-probe\extract.cpp:4:8,
+    inlined from 'T qvariant_cast(QVariant&&) [with T = Pair]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:774:67,
+    inlined from 'T QVariant::value() && [with T = Pair]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:529:47,
+    inlined from 'Pair extract(int)' at build\workflow-warning-probe\extract.cpp:10:52:
+C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/move.h:159:11: warning: array subscript 5 is outside array bounds of 'QVariant [1]' [-Warray-bounds=]
+  159 |       _Tp __old_val = std::move(__obj);
+      |           ^~~~~~~~~
+build\workflow-warning-probe\extract.cpp: In function 'Pair extract(int)':
+build\workflow-warning-probe\extract.cpp:10:36: note: at offset 40 into object '<anonymous>' of size 32
+   10 | Pair extract(int n) { return source(n).value<Pair>(); }
+      |                              ~~~~~~^~~
+In function '_Tp std::__exchange(_Tp&, _Up&&) [with _Tp = long long int; _Up = int]',
+    inlined from '_Tp std::exchange(_Tp&, _Up&&) [with _Tp = long long int; _Up = int]' at C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/utility:100:29,
+    inlined from 'QArrayDataPointer<T>::QArrayDataPointer(QArrayDataPointer<T>&&) [with T = char16_t]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qarraydatapointer.h:80:29,
+    inlined from 'QString::QString(QString&&)' at C:/Qt/6.8.3/mingw_64/include/QtCore/qstring.h:182:12,
+    inlined from 'Pair::Pair(Pair&&)' at build\workflow-warning-probe\extract.cpp:4:8,
+    inlined from 'T qvariant_cast(QVariant&&) [with T = Pair]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:774:67,
+    inlined from 'T QVariant::value() && [with T = Pair]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:529:47,
+    inlined from 'Pair extract(int)' at build\workflow-warning-probe\extract.cpp:10:52:
+C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/move.h:160:13: warning: array subscript 5 is outside array bounds of 'QVariant [1]' [-Warray-bounds=]
+  160 |       __obj = std::forward<_Up>(__new_val);
+      |       ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+build\workflow-warning-probe\extract.cpp: In function 'Pair extract(int)':
+build\workflow-warning-probe\extract.cpp:10:36: note: at offset 40 into object '<anonymous>' of size 32
+   10 | Pair extract(int n) { return source(n).value<Pair>(); }
+      |                              ~~~~~~^~~

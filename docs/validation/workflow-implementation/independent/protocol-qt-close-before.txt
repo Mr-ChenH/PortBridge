@@ -1,0 +1,15 @@
+********* Start testing of ProtocolTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : ProtocolTest::initTestCase()
+PASS   : ProtocolTest::qtWebSocketCloseInterop(ws-requested)
+FAIL!  : ProtocolTest::qtWebSocketCloseInterop(ws-peer) 'closed.size() == 1' returned FALSE. (WebSocket receive/protocol error (10053))
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_workflow_protocol.cpp(247) : failure location
+FAIL!  : ProtocolTest::qtWebSocketCloseInterop(wss-requested) 'closed.size() == 1' returned FALSE. (WebSocket close failed (10053))
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_workflow_protocol.cpp(247) : failure location
+FAIL!  : ProtocolTest::qtWebSocketCloseInterop(wss-peer) 'closed.size() == 1' returned FALSE. (WebSocket receive/protocol error (10053))
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_workflow_protocol.cpp(247) : failure location
+PASS   : ProtocolTest::qtWebSocketCloseInterop(ws-abrupt)
+PASS   : ProtocolTest::qtWebSocketCloseInterop(wss-abrupt)
+PASS   : ProtocolTest::cleanupTestCase()
+Totals: 5 passed, 3 failed, 0 skipped, 0 blacklisted, 973ms
+********* Finished testing of ProtocolTest *********

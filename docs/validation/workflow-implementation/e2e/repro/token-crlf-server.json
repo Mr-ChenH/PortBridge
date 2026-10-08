@@ -1,0 +1,12 @@
+{
+    "headers": {
+        "authorization": "Bearer good",
+        "connection": "Upgrade",
+        "host": "127.0.0.1:51847",
+        "sec-websocket-key": "nkLf2oN8SVY8SI46cUuNAA==",
+        "sec-websocket-version": "13",
+        "upgrade": "websocket",
+        "x-injected": "yes"
+    },
+    "wsConnections": 1
+}

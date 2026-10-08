@@ -1,0 +1,16 @@
+{
+  "state": "failed",
+  "steps": [
+    {
+      "step": "build",
+      "exit": 0,
+      "seconds": 25.974
+    },
+    {
+      "step": "ctest-affected-ui",
+      "exit": 8,
+      "seconds": 69.145
+    }
+  ],
+  "error": "ctest-affected-ui failed"
+}

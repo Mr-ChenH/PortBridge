@@ -1,0 +1,12 @@
+{
+    "received": {
+        "count": 7,
+        "device": "bench\"\\line\n中文",
+        "enabled": true,
+        "message": "prefix bench\"\\line\n中文",
+        "nested": {
+            "name": "nested",
+            "valid": true
+        }
+    }
+}

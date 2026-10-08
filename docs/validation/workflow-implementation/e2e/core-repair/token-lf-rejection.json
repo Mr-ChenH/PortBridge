@@ -1,0 +1,128 @@
+{
+    "fixtureOnly": true,
+    "logs": [
+        {
+            "detail": "已固定本次配置并开始运行。",
+            "nodeId": "n1",
+            "status": "成功"
+        },
+        {
+            "detail": "HTTP 200 已收到响应。",
+            "nodeId": "n2",
+            "status": "成功"
+        },
+        {
+            "detail": "已提取 JSON 字段。",
+            "nodeId": "n3",
+            "status": "成功"
+        },
+        {
+            "detail": "请求头的值不能包含回车、换行或空字符。",
+            "nodeId": "n4",
+            "status": "失败"
+        }
+    ],
+    "results": {
+        "n1": {
+            "detail": "已固定本次配置并开始运行。",
+            "elapsedMs": 0,
+            "output": {
+                "runId": "cd560c8c-26cc-4c14-8b8f-efb696d7474f"
+            },
+            "state": 2
+        },
+        "n2": {
+            "detail": "HTTP 200 已收到响应。",
+            "elapsedMs": 30,
+            "output": {
+                "body": {
+                    "token": "good\nX-Injected: yes"
+                },
+                "bodyBase64": "eyJ0b2tlbiI6Imdvb2RcblgtSW5qZWN0ZWQ6IHllcyJ9",
+                "bodyBytes": 33,
+                "bodyText": "{\"token\":\"good\\nX-Injected: yes\"}",
+                "elapsedMs": 12,
+                "headers": {
+                    "connection": "close",
+                    "content-length": "33",
+                    "content-type": "application/json",
+                    "x-e2e": "actual-server"
+                },
+                "status": 200
+            },
+            "state": 2
+        },
+        "n3": {
+            "detail": "已提取 JSON 字段。",
+            "elapsedMs": 0,
+            "output": {
+                "value": "good\nX-Injected: yes",
+                "variable": "token"
+            },
+            "state": 2
+        },
+        "n4": {
+            "detail": "请求头的值不能包含回车、换行或空字符。",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 3
+        },
+        "n5": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "n6": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "n7": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "n8": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "recovery": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 0
+        }
+    },
+    "runId": "cd560c8c-26cc-4c14-8b8f-efb696d7474f",
+    "state": 4,
+    "variables": {
+        "httpResponse": {
+            "body": {
+                "token": "good\nX-Injected: yes"
+            },
+            "bodyBase64": "eyJ0b2tlbiI6Imdvb2RcblgtSW5qZWN0ZWQ6IHllcyJ9",
+            "bodyBytes": 33,
+            "bodyText": "{\"token\":\"good\\nX-Injected: yes\"}",
+            "elapsedMs": 12,
+            "headers": {
+                "connection": "close",
+                "content-length": "33",
+                "content-type": "application/json",
+                "x-e2e": "actual-server"
+            },
+            "status": 200
+        },
+        "token": "good\nX-Injected: yes"
+    }
+}

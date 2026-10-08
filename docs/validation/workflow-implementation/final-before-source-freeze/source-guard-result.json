@@ -1,0 +1,36 @@
+{
+  "state": "failed",
+  "steps": [
+    {
+      "step": "build",
+      "exit": 0,
+      "seconds": 157.356
+    },
+    {
+      "step": "ctest",
+      "exit": 0,
+      "seconds": 132.058
+    },
+    {
+      "step": "native-integration",
+      "exit": 0,
+      "seconds": 5.309
+    },
+    {
+      "step": "native-workflow-ui-1",
+      "exit": 0,
+      "seconds": 19.136
+    },
+    {
+      "step": "native-workflow-ui-1.25",
+      "exit": 0,
+      "seconds": 16.107
+    },
+    {
+      "step": "native-workflow-ui-1.5",
+      "exit": 0,
+      "seconds": 16.295
+    }
+  ],
+  "error": "Sources changed during verification"
+}

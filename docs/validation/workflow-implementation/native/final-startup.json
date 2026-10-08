@@ -1,0 +1,18 @@
+{
+  "final-dark-1440x1000": {
+    "exit": 0,
+    "stderr": ""
+  },
+  "final-light-1440x1000": {
+    "exit": 0,
+    "stderr": ""
+  },
+  "final-dark-1024x768": {
+    "exit": 0,
+    "stderr": ""
+  },
+  "final-light-1280x900": {
+    "exit": 0,
+    "stderr": ""
+  }
+}

@@ -1,0 +1,38 @@
+********* Start testing of WorkflowE2eTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : WorkflowE2eTest::initTestCase()
+FAIL!  : WorkflowE2eTest::tokenCannotInjectNewHeadersInCanonicalTemplate(crlf-token) 'runner.state() == WorkflowRunState::Failed' returned FALSE. (Canonical token substitution injected another request header and still completed)
+C:\Users\threeTeeth\workSpace\github\PortBridge\tests\test_workflow_e2e.cpp(175) : failure location
+FAIL!  : WorkflowE2eTest::tokenCannotInjectNewHeadersInCanonicalTemplate(lf-token) 'runner.state() == WorkflowRunState::Failed' returned FALSE. (Canonical token substitution injected another request header and still completed)
+C:\Users\threeTeeth\workSpace\github\PortBridge\tests\test_workflow_e2e.cpp(175) : failure location
+FAIL!  : WorkflowE2eTest::unsolicitedPeerCloseRetainsUtf8ReasonAndCanRouteError(terminal-failure) Compared values are not the same
+   Actual   (result.output["peerCode"].toInt()): 0
+   Expected (4001)                             : 4001
+C:\Users\threeTeeth\workSpace\github\PortBridge\tests\test_workflow_e2e.cpp(210) : failure location
+FAIL!  : WorkflowE2eTest::unsolicitedPeerCloseRetainsUtf8ReasonAndCanRouteError(explicit-error-edge) Compared values are not the same
+   Actual   (runner.state())                                                  : 4
+   Expected (recover ? WorkflowRunState::Completed : WorkflowRunState::Failed): 3
+C:\Users\threeTeeth\workSpace\github\PortBridge\tests\test_workflow_e2e.cpp(210) : failure location
+FAIL!  : WorkflowE2eTest::unsolicitedPeerCloseSignalPrecedesStateAndReentrantDestructionIsSafe() 'closed.size() == 1' returned FALSE. (WebSocket receive/protocol error (10053))
+C:\Users\threeTeeth\workSpace\github\PortBridge\tests\test_workflow_e2e.cpp(221) : failure location
+FAIL!  : WorkflowE2eTest::secureCombinedLoginTrustAndWrongHost(trusted-ca) 'runner.state() == WorkflowRunState::Completed' returned FALSE. (n1: 已固定本次配置并开始运行。
+n2: HTTP 200 已收到响应。
+n3: 已提取 JSON 字段。
+n4: WebSocket 握手已完成。
+n5: 已匹配业务响应。
+n6: 条件通过。
+n7: WebSocket close failed (10053)
+)
+C:\Users\threeTeeth\workSpace\github\PortBridge\tests\test_workflow_e2e.cpp(234) : failure location
+FAIL!  : WorkflowE2eTest::secureCombinedLoginTrustAndWrongHost(trusted-unicode-ca-path) 'runner.state() == WorkflowRunState::Completed' returned FALSE. (n1: 已固定本次配置并开始运行。
+n2: HTTP 200 已收到响应。
+n3: 已提取 JSON 字段。
+n4: WebSocket 握手已完成。
+n5: 已匹配业务响应。
+n6: 条件通过。
+n7: WebSocket close failed (10053)
+)
+C:\Users\threeTeeth\workSpace\github\PortBridge\tests\test_workflow_e2e.cpp(234) : failure location
+PASS   : WorkflowE2eTest::cleanupTestCase()
+Totals: 2 passed, 7 failed, 0 skipped, 0 blacklisted, 2116ms
+********* Finished testing of WorkflowE2eTest *********

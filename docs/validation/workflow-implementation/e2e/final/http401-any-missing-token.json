@@ -1,0 +1,122 @@
+{
+    "fixtureOnly": true,
+    "logs": [
+        {
+            "detail": "已固定本次配置并开始运行。",
+            "nodeId": "n1",
+            "status": "成功"
+        },
+        {
+            "detail": "HTTP 401 已收到响应。",
+            "nodeId": "n2",
+            "status": "成功"
+        },
+        {
+            "detail": "缺少 JSON 字段：$.token",
+            "nodeId": "n3",
+            "status": "失败"
+        }
+    ],
+    "results": {
+        "n1": {
+            "detail": "已固定本次配置并开始运行。",
+            "elapsedMs": 0,
+            "output": {
+                "runId": "dc27a713-4ae8-497d-9250-6c32a2979d53"
+            },
+            "state": 2
+        },
+        "n2": {
+            "detail": "HTTP 401 已收到响应。",
+            "elapsedMs": 57,
+            "output": {
+                "body": {
+                    "error": "unauthorized",
+                    "retryable": false
+                },
+                "bodyBase64": "eyJlcnJvciI6InVuYXV0aG9yaXplZCIsInJldHJ5YWJsZSI6ZmFsc2V9",
+                "bodyBytes": 42,
+                "bodyText": "{\"error\":\"unauthorized\",\"retryable\":false}",
+                "elapsedMs": 47,
+                "headers": {
+                    "connection": "close",
+                    "content-length": "42",
+                    "content-type": "application/json",
+                    "x-e2e": "actual-server"
+                },
+                "status": 401
+            },
+            "state": 2
+        },
+        "n3": {
+            "detail": "缺少 JSON 字段：$.token",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 3
+        },
+        "n4": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "n5": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "n6": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "n7": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "n8": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "recovery": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 0
+        }
+    },
+    "runId": "dc27a713-4ae8-497d-9250-6c32a2979d53",
+    "state": 4,
+    "variables": {
+        "httpResponse": {
+            "body": {
+                "error": "unauthorized",
+                "retryable": false
+            },
+            "bodyBase64": "eyJlcnJvciI6InVuYXV0aG9yaXplZCIsInJldHJ5YWJsZSI6ZmFsc2V9",
+            "bodyBytes": 42,
+            "bodyText": "{\"error\":\"unauthorized\",\"retryable\":false}",
+            "elapsedMs": 47,
+            "headers": {
+                "connection": "close",
+                "content-length": "42",
+                "content-type": "application/json",
+                "x-e2e": "actual-server"
+            },
+            "status": 401
+        }
+    }
+}

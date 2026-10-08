@@ -1,6 +1,6 @@
 # PortBridge
 
-Qt/C++ 串口与 TCP/UDP 调试工作台。正式桌面界面采用 Qt Widgets，网络采用独立 Asio I/O 核心；原始记录、显示样本及统计分开处理。
+Qt/C++ 通信调试、HTTP/WebSocket 与原生工作流工作台。正式桌面界面采用 Qt Widgets；串口/TCP/UDP 使用既有独立收发核心，HTTP 使用 cpr/libcurl，WebSocket 使用 Boost.Beast。手动协议工作台和工作流复用真实协议实现，原始记录、显示样本及统计分开处理。
 
 ## Windows 构建
 
@@ -10,11 +10,12 @@ Qt/C++ 串口与 TCP/UDP 调试工作台。正式桌面界面采用 Qt Widgets�
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build.ps1
 ```
 
-脚本仅修改本进程 PATH，使用匹配工具链；首次获取固定 Asio，缺少 Qt SerialPort 时从匹配的 Qt 6.8.3 源码构建至 .deps/。网络不可用时提前准备依赖目录或已安装的 SerialPort 模块。
+脚本仅修改本进程 PATH，使用匹配工具链；首次获取固定 Asio，缺少 Qt SerialPort 时从匹配的 Qt 6.8.3 源码构建至 .deps/。原生工作流另外准备固定 QtNodes、cpr/libcurl、Boost、OpenSSL 和 c-ares，下载校验 SHA256，静态构建协议依赖。QtNodes 的 const QVariant 提取补丁也按原始/修改后哈希验证，构建不关闭编译诊断。首次 OpenSSL 构建需要 Git for Windows bash/Perl 和脚本准备的本地构建模块；不修改系统 Perl。网络不可用时提前准备已校验的依赖缓存。
 
 ```powershell
 scripts/build.ps1 -QtRoot C:\Qt\6.8.3\mingw_64 -MingwRoot C:\Qt\Tools\mingw1310_64 -NinjaRoot C:\Qt\Tools\Ninja
 scripts/build.ps1 -Configuration Debug
+scripts/build.ps1 -BuildDirectory build/workflow-product -Parallel 4
 ```
 
 构建后程序位于 build/release/PortBridge.exe。开发运行时 PATH 需包含 Qt、配套 MinGW 和 .deps/qtserialport-install/bin；部署版本可以直接运行。
@@ -27,7 +28,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/deploy.ps1
 
 应用图标采用深色圆角底、薄荷绿桥接线和橙色端点，提供 16–256 像素九种 Windows ICO 尺寸，嵌入 EXE 文件资源及 Qt 窗口资源。资源管理器、快捷方式、标题栏和任务栏可使用同一图标，无需外部图片文件；图稿位于 `assets/app-icon/`，离线再生成可运行 `python scripts/generate-icon.py`（需要 PySide6、Pillow）。
 
-修复版直接运行 `dist/PortBridge-profile-picker-1/PortBridge.exe`（原 `dist/PortBridge/PortBridge.exe` 运行时被占用，保留当前会话）。部署目录包含 Qt 运行时、平台插件、编译器运行库及必要的串口模块。实际可分发验证结果见验收报告。
+当前版本直接运行 `dist/PortBridge-connection-ui-1/PortBridge.exe`。上一 `dist/PortBridge-http-ws-1/PortBridge.exe`、`dist/PortBridge-workflow-ui-2/PortBridge.exe`、`dist/PortBridge-workflow-1/PortBridge.exe`、`dist/PortBridge-profile-picker-1/PortBridge.exe` 和被用户占用的历史版本保持保留。部署目录包含 Qt 运行时、平台插件、编译器运行库及必要的串口模块。实际可分发验证结果见验收报告。
 
 ## 操作
 
@@ -48,11 +49,33 @@ UDP 工作台把“本地接收绑定”和发送区的“UDP 发送目标”分
 
 周期计数表示已接受的请求；TX 字节表示本地写出完成，均不保证业务确认。停止周期不再创建后续请求，已入系统/网络栈的数据可能完成；断开取消应用管理的旧连接队列。操作系统 DNS/文件调用若长时间阻塞，退出采用有界等待与独立状态保留，不把未完成记录标为完整。
 
+## HTTP / WebSocket 手动调试
+
+在工作台上方点击“新建连接”，或使用原始连接侧栏加号，选择串口、TCP客户端、TCP服务端、UDP、HTTP或WebSocket卡片。HTTP/WS填写名称和地址后，“创建并打开”会保存到对应方案库并打开页面，不自动通信。深浅主题对话框和实际验证见 [创建入口优化](docs/reviews/connection-creation.md) 与 [真实对话框](docs/validation/connection-creation/gallery.html)。
+
+在“调试工作台”上方选择HTTP或WebSocket；“通信调试”继续使用原有串口/TCP/UDP方案。HTTP支持七种方法、启用/禁用参数与请求头、Bearer/Basic认证、原文/JSON/urlencoded Body，以及真实状态码、耗时、Body/JSON/Headers/HEX和有界历史。HEAD只读取响应头，不发送Body；3xx不自动跟随，4xx/5xx也保留真实响应。WebSocket支持ws/wss握手、请求头与子协议、UTF-8/HEX完整消息、主动推送、关闭码/原因、暂停显示和历史预算。
+
+先编辑、保存或载入，再明确发送/连接。WebSocket消息可在离线时准备，连接不会自动发送它。开始另一类通信需要明确处理旧活动；拒绝或确认期间活动状态改变，会保留现状。默认方案、结果预览、复制与预览导出遮蔽凭据；原始结果不被改写。TLS保持证书/主机名校验。完整说明见 [操作指南](docs/manual-protocol-guide.md)、[设计与调研](docs/project-factory/14-manual-protocol-design.md)、[本轮实施验证](docs/reviews/manual-protocol.md) 和 [真实界面](docs/validation/manual-protocol/gallery.html)。本地请求示例在 `docs/examples/`，载入不会启动服务或通信。
+
+## 原生工作流
+
+上一工作流UI修订位于 `dist/PortBridge-workflow-ui-2/PortBridge.exe`，本轮按交互设计重新整理节点库、工具条、参数常用/高级分层、HTTP响应、日志与紧凑布局，修复日志折叠误保存、无描述流程残留旧说明及Body裁切。新增结果视图保持有界预览与凭据遮罩，原生工作流UI28/28在Qt软件100/125/150%通过；最终修改复验4个相关UI套件，4个未改后端套件依据此前冻结回归及源码/可执行文件哈希复用。此前 `workflow-1` 已完成正式协议/核心实施与交叉独立审核，其历史证据保持保留。点击第四导航“工作流”，从节点库拖入或双击添加节点，拖动端口连接，在右侧填写协议参数；检查后主动运行。编辑、模板替换、导入和程序启动都不建立连接或发送业务数据。
+
+支持原始连接/发送/等待、HTTP 请求、WS 连接与完整文本/二进制消息、JSON 提取、断言、变量、日志、真实条件分支及有限循环。保存/导入采用版本化 `.pbflow.json`；设计原型导出带 `prototypeOnly`，正式程序拒绝作为运行文档加载。源方案使用明确配置快照，流程不永久绑定列表下标或模糊名称。
+
+运行前显示必要资源替换计划。借用已活动连接保留连接和记录，周期发送须明确停止；流程自建资源在完成/停止后只清理所属代际。raw/HTTP/WS 顺序使用，持久资源切换先显式关闭。暂停只阻止下一步骤，当前操作及超时继续；停止不能撤回系统或对端已经接受的数据。raw 发送节点报告入队接受，WS 发送报告本地写出，两者都不代表对端业务确认。
+
+原始回复匹配使用独立有界观察，显示暂停/高速抽样不影响它；UDP按数据报匹配，TCP/串口等待需要明确分帧，TCP服务端还需指定来源客户端。HTTP收到401/500时保留状态/响应头/内容，期待状态和下游断言决定是否失败。超限、取消、证书错误及关闭原因在结果与日志中体现。当前原始 `.pbc` 采集仍记录串口/TCP/UDP；HTTP/WS结果由流程结果与日志提供。
+
+图模型最多256节点/512边；HTTP/WS单消息或响应内容上限8 MiB，操作超时上限60秒，运行还有步骤、变量、日志、总时长与观察队列限额。参数和大型结果采用有界预览，历史有字节预算。子流程封装和多持久会话并行为后续范围。HTTP/WS手动调试已在本轮独立工作台实现。实现依据见 [实施计划](docs/project-factory/13-workflow-implementation-plan.md)，UI设计见 [工作流设计](docs/project-factory/12-workflow-ui-design.md)。
+
 ## 测试与压力工具
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test.ps1 -Suite ui
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test.ps1 -BuildDirectory build/workflow-product -Suite protocol_debug
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test.ps1 -BuildDirectory build/workflow-product -Suite workflow_e2e
 ```
 
 Qt Test 日志写入 build/release/test-reports/，CTest 失败时直接展示断言与超时信息。网络测试使用实际 localhost sockets，界面测试使用真实 Widgets、实际回环数据与临时文件。
@@ -71,13 +94,15 @@ build/release/portbridge_bench.exe --mode send --protocol udp --host 192.168.1.2
 build/release/PortBridge.exe --review-settings build/review-settings/manual --theme dark --size 1440x960 --screenshot docs/screenshots/manual.png
 ```
 
-在上述开发运行 PATH 条件下执行；--review-settings 使用独立配置目录，--screenshot 保存真实原生启动界面并退出。最新版本为 `app-icon-1`，图标设计与 EXE/窗口加载验证见 [应用图标报告](docs/reviews/app-icon.md)。此前 `text-diagnostics-1` 的中文 UTF-8 字节详情与接收诊断整理见 [文本与诊断修复报告](docs/reviews/text-diagnostics.md)。此前 `udp-lifecycle-1` 的 UDP 绑定/关闭不生成数据消息见 [生命周期消息修复报告](docs/reviews/udp-lifecycle.md)。此前 `composer-fix-1` 的四种通信方式全宽多行编辑、拖动调整与展开见 [发送区优化报告](docs/reviews/composer-fix.md)。此前 `direct-send-1` 的明显收发配色、UDP 无需应用直接发送见 [本轮修复报告](docs/reviews/direct-send.md)。此前会话浏览、文本格式化和完整 ASCII 查看见 [交互修复报告](docs/reviews/interaction-fix.md)。此前 UDP 配置修复与验证见 [UDP 修复报告](docs/reviews/udp-fix.md)。上一轮 `audit-fix-1` 的原生截图及可切换设计/修复前基准的 [对照页面](docs/validation/audit-fix/comparison.html) 位于 `docs/validation/audit-fix/`；完整结果见 [审核修复验收](docs/reviews/audit-fix-acceptance.md)。`docs/screenshots/ui-refinement/` 与 native-windows-* 图片保留为历史证据。
+在上述开发运行 PATH 条件下执行；--review-settings 使用独立配置目录，--screenshot 保存真实原生启动界面并退出。最新版本为 `connection-ui-1`；开发构建可用 `build/workflow-product/PortBridge.exe --page http` 或 `--page websocket` 静默打开协议工作台。原生工作流开发构建可用 `build/workflow-product/PortBridge.exe --page workflow --review-settings build/review-settings/workflow --theme dark --size 1440x1000 --screenshot docs/screenshots/workflow.png` 查看。`--page` 只选择页面，不运行任务。此前 `app-icon-1` 的图标设计与 EXE/窗口加载验证见 [应用图标报告](docs/reviews/app-icon.md)。此前 `text-diagnostics-1` 的中文 UTF-8 字节详情与接收诊断整理见 [文本与诊断修复报告](docs/reviews/text-diagnostics.md)。此前 `udp-lifecycle-1` 的 UDP 绑定/关闭不生成数据消息见 [生命周期消息修复报告](docs/reviews/udp-lifecycle.md)。此前 `composer-fix-1` 的四种通信方式全宽多行编辑、拖动调整与展开见 [发送区优化报告](docs/reviews/composer-fix.md)。此前 `direct-send-1` 的明显收发配色、UDP 无需应用直接发送见 [本轮修复报告](docs/reviews/direct-send.md)。此前会话浏览、文本格式化和完整 ASCII 查看见 [交互修复报告](docs/reviews/interaction-fix.md)。此前 UDP 配置修复与验证见 [UDP 修复报告](docs/reviews/udp-fix.md)。上一轮 `audit-fix-1` 的原生截图及可切换设计/修复前基准的 [对照页面](docs/validation/audit-fix/comparison.html) 位于 `docs/validation/audit-fix/`；完整结果见 [审核修复验收](docs/reviews/audit-fix-acceptance.md)。`docs/screenshots/ui-refinement/` 与 native-windows-* 图片保留为历史证据。
 
 连接配置由选中的方案决定协议，标题右侧显示只读协议标识；更改协议通过新建/编辑方案完成。连接按钮紧跟基础参数，TCP 客户端优先显示目标地址/端口。检查器分开显示 OFFSET/HEX、范围及 ASCII；诊断按接收、截断、队列、记录和显示等位置区分实际计数。命令/采集页提供行内操作，更多功能保留在菜单；主题、显示偏好、队列预算及周期参数可恢复，启动始终不连接、不记录、不发送。
 
 ## 原型与设计
 
 浏览器设计原型仍位于 docs/project-factory/prototype/index.html，全部流量为模拟，不是正式应用。正式组件与行为依据 docs/project-factory/02-requirements.md、04-ui-design.md、05-technical-design.md。
+
+工作流设计/模拟原型位于 `docs/project-factory/workflow-prototype/`，真实产品依据 [原生工作流设计](docs/project-factory/12-workflow-ui-design.md) 和 [实施计划](docs/project-factory/13-workflow-implementation-plan.md)。[本轮设计/优化前/优化后对照](docs/validation/workflow-ui-refinement/comparison.html) 和 [UI再审核报告](docs/reviews/workflow-ui-refinement.md) 记录当前界面、真实HTTP/WS结果、凭据遮罩、失败复验及源码冻结范围。[上一版原生实现对照](docs/validation/workflow-implementation/comparison.html) 可直接离线打开；此前 [整体验收](docs/reviews/workflow-acceptance.md)、[独立核心/UI审核](docs/reviews/workflow-independent-review.md)、[独立协议组合审核](docs/reviews/workflow-protocol-independent.md) 记录范围与未验证条件。
 
 ## 验证范围
 

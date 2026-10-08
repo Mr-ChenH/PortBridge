@@ -1,0 +1,9 @@
+[0/2] Re-checking globbed directories...
+[1/10] Automatic MOC for target portbridge_ui
+[2/9] Building CXX object CMakeFiles/portbridge_ui.dir/src/ui/workflow_page.cpp.obj
+[3/9] Linking CXX static library libportbridge_ui.a
+[4/9] Linking CXX executable PortBridge.exe
+[5/9] Linking CXX executable test_workflow_integration.exe
+[6/9] Linking CXX executable test_workflow_ui.exe
+[7/9] Linking CXX executable test_ui.exe
+[8/9] Linking CXX executable test_workflow_e2e.exe

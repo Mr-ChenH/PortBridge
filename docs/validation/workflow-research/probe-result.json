@@ -1,0 +1,15 @@
+{
+    "connections": 1,
+    "http_local_response": true,
+    "https_wss_connection_tested": false,
+    "mouse_drag_moves_node": true,
+    "node_position_json_roundtrip": true,
+    "nodes": 2,
+    "qt_version": "6.8.3",
+    "qtnodes_tag": "3.0.16",
+    "screenshot": true,
+    "ssl_backend": "openssl",
+    "ssl_supported": true,
+    "success": true,
+    "websocket_text_roundtrip": true
+}

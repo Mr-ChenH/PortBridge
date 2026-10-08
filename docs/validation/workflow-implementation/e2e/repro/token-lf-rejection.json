@@ -1,0 +1,190 @@
+{
+    "fixtureOnly": true,
+    "logs": [
+        {
+            "detail": "已固定本次配置并开始运行。",
+            "nodeId": "n1",
+            "status": "成功"
+        },
+        {
+            "detail": "HTTP 200 已收到响应。",
+            "nodeId": "n2",
+            "status": "成功"
+        },
+        {
+            "detail": "已提取 JSON 字段。",
+            "nodeId": "n3",
+            "status": "成功"
+        },
+        {
+            "detail": "WebSocket 握手已完成。",
+            "nodeId": "n4",
+            "status": "成功"
+        },
+        {
+            "detail": "已匹配业务响应。",
+            "nodeId": "n5",
+            "status": "成功"
+        },
+        {
+            "detail": "条件通过。",
+            "nodeId": "n6",
+            "status": "成功"
+        },
+        {
+            "detail": "WebSocket 已关闭。",
+            "nodeId": "n7",
+            "status": "成功"
+        },
+        {
+            "detail": "流程已完成。",
+            "nodeId": "n8",
+            "status": "成功"
+        }
+    ],
+    "results": {
+        "n1": {
+            "detail": "已固定本次配置并开始运行。",
+            "elapsedMs": 0,
+            "output": {
+                "runId": "d0b1d543-7e1f-4418-98f6-c37238179fe4"
+            },
+            "state": 2
+        },
+        "n2": {
+            "detail": "HTTP 200 已收到响应。",
+            "elapsedMs": 60,
+            "output": {
+                "body": {
+                    "token": "good\nX-Injected: yes"
+                },
+                "bodyBase64": "eyJ0b2tlbiI6Imdvb2RcblgtSW5qZWN0ZWQ6IHllcyJ9",
+                "bodyBytes": 33,
+                "bodyText": "{\"token\":\"good\\nX-Injected: yes\"}",
+                "elapsedMs": 45,
+                "headers": {
+                    "connection": "close",
+                    "content-length": "33",
+                    "content-type": "application/json",
+                    "x-e2e": "actual-server"
+                },
+                "status": 200
+            },
+            "state": 2
+        },
+        "n3": {
+            "detail": "已提取 JSON 字段。",
+            "elapsedMs": 0,
+            "output": {
+                "value": "good\nX-Injected: yes",
+                "variable": "token"
+            },
+            "state": 2
+        },
+        "n4": {
+            "detail": "WebSocket 握手已完成。",
+            "elapsedMs": 57,
+            "output": {
+                "connected": true,
+                "subprotocol": ""
+            },
+            "state": 2
+        },
+        "n5": {
+            "detail": "已匹配业务响应。",
+            "elapsedMs": 32,
+            "output": {
+                "binary": false,
+                "bytesBase64": "eyJkZXZpY2UiOnsic3RhdGUiOiJyZWFkeSJ9LCJlbmFibGVkIjp0cnVlLCJwYWRkaW5nIjoiIiwic2VxIjo0MiwidHlwZSI6InN0YXR1cyIsInZhbHVlcyI6WzEsInR5cGVkIl19",
+                "device": {
+                    "state": "ready"
+                },
+                "enabled": true,
+                "length": 102,
+                "padding": "",
+                "seq": 42,
+                "text": "{\"device\":{\"state\":\"ready\"},\"enabled\":true,\"padding\":\"\",\"seq\":42,\"type\":\"status\",\"values\":[1,\"typed\"]}",
+                "type": "status",
+                "values": [
+                    1,
+                    "typed"
+                ]
+            },
+            "state": 2
+        },
+        "n6": {
+            "detail": "条件通过。",
+            "elapsedMs": 0,
+            "output": {
+                "actual": "ready",
+                "expected": "ready",
+                "matched": true
+            },
+            "state": 2
+        },
+        "n7": {
+            "detail": "WebSocket 已关闭。",
+            "elapsedMs": 32,
+            "output": {
+                "closed": true,
+                "code": 1000,
+                "peerCode": 1000,
+                "peerReason": "流程完成",
+                "reason": "流程完成"
+            },
+            "state": 2
+        },
+        "n8": {
+            "detail": "流程已完成。",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 2
+        },
+        "recovery": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 0
+        }
+    },
+    "runId": "d0b1d543-7e1f-4418-98f6-c37238179fe4",
+    "state": 3,
+    "variables": {
+        "httpResponse": {
+            "body": {
+                "token": "good\nX-Injected: yes"
+            },
+            "bodyBase64": "eyJ0b2tlbiI6Imdvb2RcblgtSW5qZWN0ZWQ6IHllcyJ9",
+            "bodyBytes": 33,
+            "bodyText": "{\"token\":\"good\\nX-Injected: yes\"}",
+            "elapsedMs": 45,
+            "headers": {
+                "connection": "close",
+                "content-length": "33",
+                "content-type": "application/json",
+                "x-e2e": "actual-server"
+            },
+            "status": 200
+        },
+        "message": {
+            "binary": false,
+            "bytesBase64": "eyJkZXZpY2UiOnsic3RhdGUiOiJyZWFkeSJ9LCJlbmFibGVkIjp0cnVlLCJwYWRkaW5nIjoiIiwic2VxIjo0MiwidHlwZSI6InN0YXR1cyIsInZhbHVlcyI6WzEsInR5cGVkIl19",
+            "device": {
+                "state": "ready"
+            },
+            "enabled": true,
+            "length": 102,
+            "padding": "",
+            "seq": 42,
+            "text": "{\"device\":{\"state\":\"ready\"},\"enabled\":true,\"padding\":\"\",\"seq\":42,\"type\":\"status\",\"values\":[1,\"typed\"]}",
+            "type": "status",
+            "values": [
+                1,
+                "typed"
+            ]
+        },
+        "token": "good\nX-Injected: yes"
+    }
+}

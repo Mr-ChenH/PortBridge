@@ -1,0 +1,46 @@
+[New Thread 4400.0x6d4c]
+[New Thread 4400.0x9990]
+[New Thread 4400.0x896c]
+[New Thread 4400.0x3fcc]
+[New Thread 4400.0x33ac]
+[New Thread 4400.0x39a4]
+[New Thread 4400.0x7d28]
+[New Thread 4400.0x86d8]
+[New Thread 4400.0x7bb0]
+[New Thread 4400.0x1b88]
+[Thread 4400.0x39a4 exited with code 0]
+[Thread 4400.0x7d28 exited with code 0]
+[Thread 4400.0x33ac exited with code 0]
+[Thread 4400.0x3fcc exited with code 0]
+[New Thread 4400.0x8e20]
+[New Thread 4400.0x98d4]
+[New Thread 4400.0x1d78]
+[New Thread 4400.0x7b3c]
+[New Thread 4400.0x5834]
+[New Thread 4400.0x9b8c]
+[New Thread 4400.0x479c]
+[New Thread 4400.0x9268]
+[New Thread 4400.0x1d00]
+[New Thread 4400.0x6288]
+[New Thread 4400.0x9a68]
+
+Thread 1 received signal SIGSEGV, Segmentation fault.
+0x00007ff6e9e2cb2a in portbridge::ProtocolDebugPage::Impl::captureSecrets() ()
+#0  0x00007ff6e9e2cb2a in portbridge::ProtocolDebugPage::Impl::captureSecrets() ()
+#1  0x00007ff6e9e2d089 in QtPrivate::QCallableObject<portbridge::ProtocolDebugPage::Impl::build()::{lambda()#15}, QtPrivate::List<>, void>::impl(int, QtPrivate::QSlotObjectBase*, QObject*, void**, bool*) ()
+#2  0x00007ffbd0acbfae in z_adler32_combine () from C:\Qt\6.8.3\mingw_64\bin\Qt6Core.dll
+#3  0x00007ffbd0acbfae in z_adler32_combine () from C:\Qt\6.8.3\mingw_64\bin\Qt6Core.dll
+#4  0x00007ff6e9e38852 in portbridge::ProtocolDebugSession::~ProtocolDebugSession() ()
+#5  0x00007ff6e9e38a7d in portbridge::ProtocolDebugSession::~ProtocolDebugSession() ()
+#6  0x00007ffbd07c54bf in QObjectPrivate::deleteChildren() () from C:\Qt\6.8.3\mingw_64\bin\Qt6Core.dll
+#7  0x00007ffb9c5b2b39 in QWidget::~QWidget() () from C:\Qt\6.8.3\mingw_64\bin\Qt6Widgets.dll
+#8  0x00007ff6e9dd1c88 in ProtocolDebugTest::webSocketPagePausesOnlyDisplay() [clone .isra.0] ()
+#9  0x00007ffbd0797ebf in QMetaMethodInvoker::invokeImpl(QMetaMethod, void*, Qt::ConnectionType, long long, void const* const*, char const* const*, QtPrivate::QMetaTypeInterface const* const*) () from C:\Qt\6.8.3\mingw_64\bin\Qt6Core.dll
+#10 0x00007ffbd0799387 in QMetaMethod::invokeImpl(QMetaMethod, void*, Qt::ConnectionType, long long, void const* const*, char const* const*, QtPrivate::QMetaTypeInterface const* const*) () from C:\Qt\6.8.3\mingw_64\bin\Qt6Core.dll
+#11 0x00007ffbcc95e274 in QTestPrivate::parseBlackList() () from C:\Qt\6.8.3\mingw_64\bin\Qt6Test.dll
+#12 0x00007ffbcc9661d5 in QTest::qInit(QObject*, int, char**) () from C:\Qt\6.8.3\mingw_64\bin\Qt6Test.dll
+#13 0x00007ffbcc966feb in QTest::qInit(QObject*, int, char**) () from C:\Qt\6.8.3\mingw_64\bin\Qt6Test.dll
+#14 0x00007ffbcc967837 in QTest::qInit(QObject*, int, char**) () from C:\Qt\6.8.3\mingw_64\bin\Qt6Test.dll
+#15 0x00007ffbcc9683d1 in QTest::qRun() () from C:\Qt\6.8.3\mingw_64\bin\Qt6Test.dll
+#16 0x00007ffbcc968635 in QTest::qExec(QObject*, int, char**) () from C:\Qt\6.8.3\mingw_64\bin\Qt6Test.dll
+#17 0x00007ff6ea625849 in main ()

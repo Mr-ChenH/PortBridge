@@ -1,0 +1,23 @@
+{
+  "success": true,
+  "checks": [
+    "readable initial zoom 1440",
+    "selected node visible 1440",
+    "no overflow 1440",
+    "readable initial zoom 1280",
+    "selected node visible 1280",
+    "no overflow 1280",
+    "readable initial zoom 1024",
+    "selected node visible 1024",
+    "no overflow 1024",
+    "readable initial zoom 390",
+    "selected node visible 390",
+    "no overflow 390",
+    "explicit fit offers whole-graph overview",
+    "first click opens narrow inspector",
+    "first click opens narrow palette",
+    "failed node centered in compact viewport",
+    "no JavaScript errors"
+  ],
+  "errors": []
+}

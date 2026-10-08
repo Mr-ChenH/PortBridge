@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "kind": "webSocket",
+  "name": "本地 WebSocket 消息示例",
+  "credentialsMasked": true,
+  "params": {
+    "url": "ws://127.0.0.1:8081/echo",
+    "headers": {},
+    "subprotocol": "",
+    "timeoutMs": 5000,
+    "connectTimeoutMs": 3000,
+    "maxMessageBytes": 1048576
+  },
+  "editor": {
+    "baseUrl": "ws://127.0.0.1:8081/echo",
+    "query": [],
+    "headers": [],
+    "authKind": 0,
+    "messageKind": 0,
+    "message": "{\"event\":\"ping\",\"payload\":\"中文消息\"}"
+  }
+}

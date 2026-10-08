@@ -26,6 +26,15 @@ using CaptureExportProgress = std::function<bool(std::uint64_t processedBytes, s
 bool exportCapture(const QString& capturePath, const QString& outputPath, QString* error = nullptr,
                    const CaptureExportProgress& progress = {});
 
+// Independent receive observation: polled on the QObject thread, never coupled
+// to display sampling. Payload storage is shared; queue charge includes capacity
+// and metadata. A sticky error means evidence was lost and the observer is fenced.
+struct RawObservation {
+    std::uint64_t epoch = 0;
+    std::vector<DataRecord> records;
+    std::vector<TransportEvent> events;
+    QString error;
+};
 class SessionController : public QObject {
     Q_OBJECT
 public:
@@ -51,6 +60,11 @@ public:
     Endpoint localEndpoint() const;
     std::vector<ClientInfo> clients() const;
     void disconnectClient(std::uint64_t id);
+    std::uint64_t sessionEpoch() const;
+    // At most four observers; 256 bytes..64 MiB each. Zero indicates rejection.
+    std::uint64_t observeRaw(std::size_t queueBytes, QString* error = nullptr);
+    RawObservation takeRawObservation(std::uint64_t observerId);
+    void removeRawObserver(std::uint64_t observerId);
     void setHighSpeed(bool enabled);
     bool highSpeed() const;
     void setDisplayPaused(bool paused);

@@ -1,0 +1,47 @@
+{
+  "controlledQtScreenScale": "1",
+  "controlledQtGlobalScale": "1",
+  "physicalWindowsDPIValidated": false,
+  "screenshots": [
+    {
+      "theme": "dark",
+      "requestedDIP": "1440x1000",
+      "pngPixels": [
+        1440,
+        1000
+      ],
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "theme": "light",
+      "requestedDIP": "1440x1000",
+      "pngPixels": [
+        1440,
+        1000
+      ],
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "theme": "dark",
+      "requestedDIP": "1024x768",
+      "pngPixels": [
+        1024,
+        768
+      ],
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "theme": "light",
+      "requestedDIP": "1280x900",
+      "pngPixels": [
+        1280,
+        900
+      ],
+      "exit": 0,
+      "stderr": ""
+    }
+  ]
+}

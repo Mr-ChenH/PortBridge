@@ -1,0 +1,51 @@
+{
+  "revision": "http-ws-1",
+  "stage": "complete",
+  "state": "failed",
+  "source_stable": true,
+  "inputs": 72,
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 51.619
+    },
+    {
+      "name": "ctest-all",
+      "exitCode": 0,
+      "seconds": 155.449
+    },
+    {
+      "name": "native-protocol-1",
+      "exitCode": 0,
+      "seconds": 22.491
+    },
+    {
+      "name": "native-protocol-1.25",
+      "exitCode": 0,
+      "seconds": 26.769
+    },
+    {
+      "name": "native-protocol-1.5",
+      "exitCode": 1,
+      "seconds": 25.019
+    },
+    {
+      "name": "native-ui-1.5",
+      "exitCode": 1,
+      "seconds": 53.739
+    },
+    {
+      "name": "native-workflow-ui-1.5",
+      "exitCode": 0,
+      "seconds": 28.049
+    },
+    {
+      "name": "native-integration",
+      "exitCode": 0,
+      "seconds": 8.268
+    }
+  ],
+  "physical_dpi_validated": false,
+  "physical_2_5g_validated": false
+}

@@ -3,6 +3,7 @@ param(
     [string]$MingwRoot = 'C:\Qt\Tools\mingw1310_64',
     [string]$NinjaRoot = 'C:\Qt\Tools\Ninja',
     [ValidateSet('Release','Debug')][string]$Configuration = 'Release',
+    [string]$BuildDirectory = '',
     [ValidateRange(1,32)][int]$Parallel = 4,
     [switch]$SkipTests
 )
@@ -41,7 +42,11 @@ if (!(Test-Path "$QtRoot\lib\cmake\Qt6SerialPort\Qt6SerialPortConfig.cmake") -an
     Invoke-Native 'cmake' @('--install',$serialBuild)
 }
 $serialConfigRoot = if (Test-Path "$QtRoot\lib\cmake\Qt6SerialPort\Qt6SerialPortConfig.cmake") { "$QtRoot\lib\cmake\Qt6SerialPort" } else { "$serialInstall\lib\cmake\Qt6SerialPort" }
-$buildRoot = Join-Path $projectRoot ("build\" + $Configuration.ToLowerInvariant())
+$buildRoot = if (!$BuildDirectory) { Join-Path $projectRoot ("build\" + $Configuration.ToLowerInvariant()) } elseif ([IO.Path]::IsPathRooted($BuildDirectory)) { $BuildDirectory } else { Join-Path $projectRoot $BuildDirectory }
+& (Join-Path $PSScriptRoot 'setup-qtnodes.ps1')
+$workflowSetup = Join-Path $PSScriptRoot 'setup-workflow-deps.ps1'
+if (Test-Path $workflowSetup) { & $workflowSetup -QtRoot $QtRoot -MingwRoot $MingwRoot -Parallel $Parallel }
+else { throw 'Workflow dependency setup is missing: scripts/setup-workflow-deps.ps1' }
 Invoke-Native 'cmake' @('-S',$projectRoot,'-B',$buildRoot,'-G','Ninja',"-DCMAKE_BUILD_TYPE=$Configuration","-DCMAKE_PREFIX_PATH=$QtRoot;$serialInstall","-DQt6SerialPort_DIR=$serialConfigRoot","-DCMAKE_CXX_COMPILER=$MingwRoot\bin\g++.exe",'-DBUILD_TESTING=ON')
 Invoke-Native 'cmake' @('--build',$buildRoot,'--parallel',"$Parallel")
 if (!$SkipTests) { Invoke-Native 'ctest' @('--test-dir',$buildRoot,'--output-on-failure') }

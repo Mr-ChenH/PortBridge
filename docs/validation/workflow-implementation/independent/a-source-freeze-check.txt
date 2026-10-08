@@ -1,0 +1,12 @@
+src/protocol/http_client.cpp: OK
+src/protocol/workflow_protocol.cpp: OK
+src/protocol/ws_plain.cpp: OK
+src/protocol/ws_tls.cpp: OK
+src/protocol/protocol_internal.hpp: OK
+src/protocol/ws_client.hpp: OK
+include/portbridge/workflow_protocol.hpp: OK
+cmake/WorkflowDependencies.cmake: OK
+scripts/setup-workflow-deps.ps1: OK
+src/workflow/workflow_runner.cpp: OK
+src/workflow/workflow_messages.hpp: OK
+tests/test_workflow_e2e.cpp: OK

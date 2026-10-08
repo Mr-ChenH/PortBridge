@@ -1,0 +1,17 @@
+{
+  "verified": true,
+  "suites": [
+    "network",
+    "session",
+    "workflow",
+    "workflow_protocol"
+  ],
+  "executable_sha256": {
+    "network": "6c163a48a5170627da904bfe9f33f4968842115b973df52f0b133536f6cab330",
+    "session": "d1614cb59d49ade6013f75df24f6d4c245319959d68075732a4d48d648bd3399",
+    "workflow": "c717d4bc912ae7a42b8f609cf772565bd6c6aba61abd560f8afa5d18850bed27",
+    "workflow_protocol": "62f3c5dbe2187d9064598e9933ac1fc2b4e98f43cf4f63d591b99e817420b5d7"
+  },
+  "evidence": "../manual-protocol/final/result.json",
+  "scope": "No backend source or backend test executable changed; reuse their prior passing results."
+}

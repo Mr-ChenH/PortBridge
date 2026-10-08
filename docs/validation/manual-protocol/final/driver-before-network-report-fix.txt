@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\threeTeeth\workSpace\github\PortBridge\.pi\manual-protocol-repair-final.py", line 24, in <module>
+    for n in reused:shutil.copy2(old/(n+'.txt'),out/(n+'.txt'))
+                    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\shutil.py", line 514, in copy2
+    _winapi.CopyFile2(src_, dst_, flags)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] 系统找不到指定的文件。

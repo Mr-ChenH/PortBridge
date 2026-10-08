@@ -72,6 +72,18 @@ if (Test-Path "$projectRoot\.deps\qtserialport\LICENSES") {
     Copy-Item "$projectRoot\.deps\qtserialport\LICENSES\*" $serialLicenses -Recurse -Force
     Copy-Item "$projectRoot\.deps\qtserialport\LICENSES\LGPL-3.0-only.txt" "$licenseRoot\Qt-LGPL-3.0.txt" -Force
 }
+$workflowLicenseRoot = Join-Path $projectRoot '.deps\workflow\licenses'
+if (!(Test-Path $workflowLicenseRoot)) { throw 'Workflow dependency licenses missing; run setup-workflow-deps.ps1.' }
+Copy-Item "$workflowLicenseRoot\*" $licenseRoot -Force
+$qtNodesLicense = Join-Path $projectRoot '.deps\workflow-research\nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3\LICENSE.rst'
+Copy-Item $qtNodesLicense (Join-Path $licenseRoot 'QtNodes-BSD-3-Clause.txt') -Force
+Copy-Item (Join-Path $projectRoot 'patches\qtnodes-qvariant-const.patch') (Join-Path $licenseRoot 'QtNodes-PortBridge.patch') -Force
+$protocolDeployment = Get-Content -Raw (Join-Path $projectRoot '.deps\workflow\deployment-manifest.json') | ConvertFrom-Json
+$publicDependencies = [ordered]@{
+    staticDependencies = $protocolDeployment.staticDependencies
+    artifacts = @($protocolDeployment.artifacts | ForEach-Object { @{name=[IO.Path]::GetFileName($_.path);sha256=$_.sha256} })
+}
+[IO.File]::WriteAllText((Join-Path $licenseRoot 'protocol-dependencies.json'), ($publicDependencies | ConvertTo-Json -Depth 5), [Text.UTF8Encoding]::new($false))
 foreach ($component in @('gcc', 'winpthreads', 'mingw-w64')) {
     $componentSource = Join-Path $MingwRoot "licenses\$component"
     if (Test-Path $componentSource) {

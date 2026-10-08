@@ -1,0 +1,10 @@
+********* Start testing of ProtocolDebugTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : ProtocolDebugTest::initTestCase()
+QWARN  : ProtocolDebugTest::mainWindowResourceConfirmPreservesAndReplaces() This plugin does not support propagateSizeHints()
+QWARN  : ProtocolDebugTest::mainWindowResourceConfirmPreservesAndReplaces() This plugin does not support propagateSizeHints()
+QWARN  : ProtocolDebugTest::mainWindowResourceConfirmPreservesAndReplaces() This plugin does not support propagateSizeHints()
+PASS   : ProtocolDebugTest::mainWindowResourceConfirmPreservesAndReplaces()
+PASS   : ProtocolDebugTest::cleanupTestCase()
+Totals: 3 passed, 0 failed, 0 skipped, 0 blacklisted, 2938ms
+********* Finished testing of ProtocolDebugTest *********

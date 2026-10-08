@@ -1,0 +1,18 @@
+{
+  "revision": "http-ws-1",
+  "startup_exit": {
+    "dark/http": 0,
+    "dark/websocket": 0,
+    "dark/workspace": 0,
+    "dark/workflow": 0,
+    "light/http": 0,
+    "light/websocket": 0,
+    "light/workspace": 0,
+    "light/workflow": 0,
+    "http/1280x900": 0,
+    "websocket/1280x900": 0
+  },
+  "application_matches_build": true,
+  "environment": "Windows system PATH only; QT* removed; deployed cwd",
+  "clean_windows_validated": false
+}

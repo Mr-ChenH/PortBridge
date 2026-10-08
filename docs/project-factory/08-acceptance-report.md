@@ -1,6 +1,14 @@
 # PortBridge 0.1.0 软件实施与验收报告
 
-> 当前修订为 **profile-picker-1**：连接方案改为当前卡片和按需搜索弹窗，后台活动方案提供一键返回；搜索、真实点击和键盘选择均保持 UDP 绑定、接收与记录。最新证据见 [方案选择优化报告](../reviews/profile-picker.md)。以下为历史交付记录。
+> 当前修订为 **connection-ui-1**：统一新建连接入口加入HTTP/WS，并改为六种类型卡片、协议地址、就地校验与深浅主题。创建保存到对应方案库并打开页面，不自动通信；未保存草稿与当前活动保持保护。五个受影响套件复跑，四个未改后端套件按生产源码和可执行文件SHA256复用，73项输入冻结；原生Qt软件100/125/150%检查实际创建和布局。见 [实施报告](../reviews/connection-creation.md) 与 [真实对话框](../validation/connection-creation/gallery.html)。新目录 `dist/PortBridge-connection-ui-1/`，上一http-ws-1保留。
+
+> 上一修订为 **http-ws-1**：调试工作台新增独立HTTP/WS手动入口、请求方案、真实结果/消息、默认凭据遮蔽及单活动资源确认，复用cpr/libcurl和Boost.Beast。72项来源冻结；完整9套件通过后仅修正两个原生测试夹具，最终复跑受影响UI/协议套件，其他七套件按源码与测试可执行文件SHA256复用并注明。HTTP/WS38项原生Qt软件100/125/150%、原始UI40项100%及工作流/集成保持验证记录；原始UI150%桌面可用区域不足的失败保留为环境限制，不计通过。新目录 `dist/PortBridge-http-ws-1/`，上一workflow-ui-2保留。见 [实施验收](../reviews/manual-protocol.md)、[操作指南](../manual-protocol-guide.md)、[真实界面](../validation/manual-protocol/gallery.html) 和 [最终机器记录](../validation/manual-protocol/final/result.json)。物理/干净系统和历史未定位问题边界不变。
+
+> 上一修订为 **workflow-ui-2**：按交互设计重新审核并优化节点库、画布标识、工具条、参数折叠/按需字段、HTTP/WS结果和日志布局；修复日志折叠误保存、旧说明残留及Body裁切。66项源码输入冻结，最终4个相关UI套件通过，4个未改后端套件用此前冻结结果及源码/可执行文件哈希复用；主窗口10/10，原生UI28/28在Qt软件100/125/150%通过。新增结果视图的九类凭据、Body/Headers/完整结果复制及真实18,020B二进制往返已检查。历史UDP连接等待复验失败与未定位边界保留，未冒称本轮修复或新增独立代理审核。见 [UI再审核报告](../reviews/workflow-ui-refinement.md) 与 [设计/优化前/优化后](../validation/workflow-ui-refinement/comparison.html)。
+
+> 此前 **workflow-1**：新增正式 QtNodes 原生工作流页、独立异步执行器、真实 cpr/libcurl HTTP 和 Boost.Beast WS/TLS，16类节点及分支/有限循环、可靠回复、暂停停止、结果/变量/日志和资源所有权整合。三唯一agent交叉审核修复闭环；冻结CTest8/8、主窗口10/10、原生UI26/26在Qt软件100/125/150%通过，65输入哈希不变。完整记录见 [工作流验收](../reviews/workflow-acceptance.md) 和 [设计/原生对照](../validation/workflow-implementation/comparison.html)。物理串口、两机2.5G、物理WindowsDPI/干净系统边界继续未验证。
+
+> **profile-picker-1**：连接方案改为当前卡片和按需搜索弹窗，后台活动方案提供一键返回；搜索、真实点击和键盘选择均保持 UDP 绑定、接收与记录。最新证据见 [方案选择优化报告](../reviews/profile-picker.md)。以下为历史交付记录。
 
 > **text-diagnostics-1**：字节详情新增 UTF-8 文本，让中文发送/接收可阅读且分页完整；保留实测接收/记录诊断，移除两个无数据来源的“未知”占位，改名“接收诊断”。最新证据见 [文本与诊断修复报告](../reviews/text-diagnostics.md)。以下为历史交付记录。
 

@@ -32,6 +32,45 @@ struct SessionController::Impl {
     size_t sampleBytes = 0, intervalSamples = 0;
     std::uint64_t ordinal = 0, udpSession = 0, generation = 0, nextTcpId = 1;
     std::map<std::uint64_t, std::uint64_t> tcpIds;
+    struct Observer {
+        std::uint64_t epoch = 0;
+        size_t budget = 0, charged = 0;
+        std::deque<DataRecord> records;
+        std::deque<TransportEvent> events;
+        QString error;
+    };
+    std::map<std::uint64_t, Observer> observers;
+    std::uint64_t nextObserverId = 1;
+    void fenceObservers(const QString& reason) {
+        for (auto& item : observers) {
+            auto& o = item.second;
+            if (o.error.isEmpty()) o.error = reason;
+            o.records.clear(); o.events.clear(); o.charged = 0;
+        }
+    }
+    void observeRecord(const DataRecord& r) {
+        if (r.direction != Direction::Receive) return;
+        const auto charge = detail::retainedCost(r);
+        for (auto& item : observers) {
+            auto& o = item.second;
+            if (!o.error.isEmpty() || o.epoch != generation) continue;
+            if (charge > o.budget - o.charged || o.records.size() + o.events.size() >= 4096) {
+                o.error = "Raw observer queue overflow: receive evidence is incomplete";
+                o.records.clear(); o.events.clear(); o.charged = 0;
+            } else { o.records.push_back(r); o.charged += charge; }
+        }
+    }
+    void observeEvent(const TransportEvent& e) {
+        const auto charge = sizeof(TransportEvent) + 128 + e.message.capacity() + e.peer.address.capacity() + e.local.address.capacity();
+        for (auto& item : observers) {
+            auto& o = item.second;
+            if (!o.error.isEmpty() || o.epoch != generation) continue;
+            if (charge > o.budget - o.charged || o.records.size() + o.events.size() >= 4096) {
+                o.error = "Raw observer queue overflow: transport evidence is incomplete";
+                o.records.clear(); o.events.clear(); o.charged = 0;
+            } else { o.events.push_back(e); o.charged += charge; }
+        }
+    }
     struct SequenceState {
         bool initialized = false;
         std::uint64_t base = 0, highest = 0, baseEpoch = 0, highestEpoch = 0;
@@ -182,6 +221,7 @@ struct SessionController::Impl {
         case EventKind::UdpTargetReady: status = detail::text(e.message); break;
         case EventKind::SendRejected: addError(detail::text(e.message)); break;
         }
+        observeEvent(e);
         recordEvent(source, e.connectionId);
         stateDirty = true;
     }
@@ -265,6 +305,9 @@ struct SessionController::Impl {
         if (r.direction == Direction::Receive) { stats.rxBytes += size; if (r.transport == TransportKind::Udp) ++stats.rxDatagrams; }
         else if (r.direction == Direction::Transmit) stats.txBytes += size;
         analyze(r);
+        // Publish only after recording admission/retry is resolved, before display
+        // omission. Returning false above never exposes a retry block twice.
+        observeRecord(r);
         if (overflow && r.transport == TransportKind::Udp && r.direction == Direction::Receive) { ++stats.applicationDroppedRecords; stats.applicationDroppedBytes += size; }
         const size_t byteLimit = high ? 2 * 1024 * 1024 : 10 * 1024 * 1024;
         const size_t recordLimit = high ? 2000 : 50000;
@@ -353,6 +396,7 @@ void SessionController::stop() {
           TransportEvent stopped; stopped.kind = EventKind::Disconnected; stopped.message = "Stopped by user or profile switch"; stopped.local = d->local;
           d->recordEvent(stopped, 0);
       }
+      d->fenceObservers("Raw session stopped or replaced");
       ++d->generation; d->tcpIds.clear(); d->wanted = d->isConnected = d->isConnecting = false; d->status = "Disconnected"; d->local = {}; d->clientMap.clear(); d->clientsDirty = true;
       d->finishSequences(); }
     stopRecording(); d->serial->stop(); d->network->stop(); emit stateChanged(); emit clientsChanged(); emit statisticsChanged();
@@ -411,6 +455,29 @@ void SessionController::disconnectClient(std::uint64_t id) {
     { std::lock_guard<std::mutex> lock(d->mutex); for (const auto& entry : d->tcpIds) if (entry.second == id) raw = entry.first; }
     if (raw) d->network->disconnectClient(raw);
 }
+std::uint64_t SessionController::sessionEpoch() const { std::lock_guard<std::mutex> lock(d->mutex); return d->generation; }
+std::uint64_t SessionController::observeRaw(std::size_t queueBytes, QString* error) {
+    if (error) error->clear();
+    std::lock_guard<std::mutex> lock(d->mutex);
+    if (!d->wanted || queueBytes < 256 || queueBytes > 64 * 1024 * 1024 || d->observers.size() >= 4) {
+        if (error) *error = "Raw observer requires an active session, bounded capacity, and an available slot";
+        return 0;
+    }
+    const auto id = d->nextObserverId++;
+    Impl::Observer observer; observer.epoch = d->generation; observer.budget = queueBytes;
+    d->observers.emplace(id, std::move(observer)); return id;
+}
+RawObservation SessionController::takeRawObservation(std::uint64_t observerId) {
+    std::lock_guard<std::mutex> lock(d->mutex); RawObservation result;
+    const auto it = d->observers.find(observerId);
+    if (it == d->observers.end()) { result.error = "Raw observer is no longer registered"; return result; }
+    auto& o = it->second; result.epoch = o.epoch; result.error = o.error;
+    // One bounded batch; retained buffers release immediately after consumption.
+    result.records.assign(std::make_move_iterator(o.records.begin()), std::make_move_iterator(o.records.end()));
+    result.events.assign(std::make_move_iterator(o.events.begin()), std::make_move_iterator(o.events.end()));
+    o.records.clear(); o.events.clear(); o.charged = 0; return result;
+}
+void SessionController::removeRawObserver(std::uint64_t observerId) { std::lock_guard<std::mutex> lock(d->mutex); d->observers.erase(observerId); }
 void SessionController::setHighSpeed(bool enabled) {
     { std::lock_guard<std::mutex> lock(d->mutex); d->high = enabled; const size_t byteLimit = enabled ? 2 * 1024 * 1024 : 10 * 1024 * 1024; const size_t recordLimit = enabled ? 2000 : 50000; while (!d->samples.empty() && (d->samples.size() > recordLimit || d->sampleBytes > byteLimit)) { d->sampleBytes -= detail::retainedCost(d->samples.front()); d->samples.pop_front(); ++d->stats.displayOmitted; } }
     emit stateChanged();

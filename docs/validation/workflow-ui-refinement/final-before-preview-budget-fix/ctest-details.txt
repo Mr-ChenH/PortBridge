@@ -1,0 +1,50 @@
+Start testing: Oct 08 10:33 中国标准时间
+----------------------------------------------------------
+2/8 Testing: session
+2/8 Test: session
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DTEST_EXECUTABLE=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test_session.exe" "-DTEST_LOG=C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product/test-reports/session.txt" "-P" "C:/Users/threeTeeth/workSpace/github/PortBridge/cmake/RunQtTest.cmake"
+Directory: C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+"session" start time: Oct 08 10:33 中国标准时间
+Output:
+----------------------------------------------------------
+-- ********* Start testing of SessionTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : SessionTest::initTestCase()
+PASS   : SessionTest::codec()
+PASS   : SessionTest::profilesAndCommands()
+PASS   : SessionTest::configSizePreservesPriorFile()
+PASS   : SessionTest::periodicFiniteAndStop()
+PASS   : SessionTest::captureRotationAndDecoder()
+PASS   : SessionTest::captureQueueDurationAndFailures()
+PASS   : SessionTest::displayPauseSequenceAndOverflow()
+PASS   : SessionTest::normalDisplayByteBoundAndSwitch()
+PASS   : SessionTest::captureCatalogBoundKeepsFilesAndReloads()
+PASS   : SessionTest::captureCompletenessPublicationObserver()
+PASS   : SessionTest::tcpCaptureBackpressureAndStableClientIds()
+PASS   : SessionTest::sequenceLittleEndianOffsetAndLargeGap()
+PASS   : SessionTest::sequenceWrapAndSourceEviction()
+PASS   : SessionTest::retainedCapacityAdmission()
+PASS   : SessionTest::udpReceiveOnlyResolutionErrorAndStreamSequenceRejected()
+PASS   : SessionTest::systemEventsAreReconstructableAndDoNotCountTraffic()
+PASS   : SessionTest::commandPeriodicCompatibilityAndValidation()
+PASS   : SessionTest::offlineSelectionIsolatesCallbacksAndWriter()
+PASS   : SessionTest::offlineSelectionFencesLateWriterFailureAcrossNextCapture()
+PASS   : SessionTest::catalogRefreshReconcilesAndProtectsActiveCapture()
+PASS   : SessionTest::captureMetadataCompatibilityAndTransportSummary()
+PASS   : SessionTest::reentrantStartupSelectionAndReplacementReleaseOldPort()
+PASS   : SessionTest::finalizedSequenceDenominatorAndSaturation()
+PASS   : SessionTest::truncationIsObservableNonterminalAndScoped()
+PASS   : SessionTest::serialOpenErrorIsObservable()
+PASS   : SessionTest::cleanupTestCase()
+Totals: 27 passed, 0 failed, 0 skipped, 0 blacklisted, 42464ms
+********* Finished testing of SessionTest *********
+
+<end of output>
+Test time =  42.52 sec
+----------------------------------------------------------
+Test Passed.
+"session" end time: Oct 08 10:33 中国标准时间
+"session" time elapsed: 00:00:42
+----------------------------------------------------------
+
+End testing: Oct 08 10:33 中国标准时间

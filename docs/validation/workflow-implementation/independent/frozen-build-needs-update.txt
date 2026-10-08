@@ -1,0 +1,12 @@
+[1/12] Automatic MOC for target review_ui
+[2/12] Building CXX object CMakeFiles/review_ui.dir/review_ui_autogen/mocs_compilation.cpp.obj
+[3/12] Building CXX object CMakeFiles/review_ui.dir/C_/Users/threeTeeth/workSpace/github/PortBridge/src/ui/workflow_page.cpp.obj
+[4/12] Linking CXX static library libreview_ui.a
+[5/12] Automatic MOC for target test_workflow_ui
+[6/12] Automatic MOC for target independent
+[7/12] Building CXX object CMakeFiles/test_workflow_ui.dir/test_workflow_ui_autogen/mocs_compilation.cpp.obj
+[8/12] Building CXX object CMakeFiles/test_workflow_ui.dir/C_/Users/threeTeeth/workSpace/github/PortBridge/tests/test_workflow_ui.cpp.obj
+[9/12] Building CXX object CMakeFiles/independent.dir/independent_autogen/mocs_compilation.cpp.obj
+[10/12] Building CXX object CMakeFiles/independent.dir/independent.cpp.obj
+[11/12] Linking CXX executable test_workflow_ui.exe
+[12/12] Linking CXX executable independent.exe

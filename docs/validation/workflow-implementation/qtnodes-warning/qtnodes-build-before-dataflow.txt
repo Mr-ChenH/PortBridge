@@ -1,0 +1,200 @@
+[1/18] Automatic MOC for target QtNodes
+[2/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/AbstractGraphModel.cpp.obj
+[3/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/AbstractNodeGeometry.cpp.obj
+[4/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/QtNodes_autogen/mocs_compilation.cpp.obj
+[5/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/BasicGraphicsScene.cpp.obj
+[6/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/ConnectionState.cpp.obj
+[7/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/ConnectionGraphicsObject.cpp.obj
+[8/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/DefaultConnectionPainter.cpp.obj
+[9/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/DefaultHorizontalNodeGeometry.cpp.obj
+[10/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/DataFlowGraphicsScene.cpp.obj
+[11/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/DataFlowGraphModel.cpp.obj
+In file included from C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_function.h:60,
+                 from C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/functional:49,
+                 from C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/include/QtNodes/internal/ConnectionIdHash.hpp:3,
+                 from C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/include/QtNodes/internal/AbstractGraphModel.hpp:3,
+                 from C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/include/QtNodes/internal/DataFlowGraphModel.hpp:3,
+                 from C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:1:
+In function '_Tp std::__exchange(_Tp&, _Up&&) [with _Tp = char16_t*; _Up = std::nullptr_t]',
+    inlined from '_Tp std::exchange(_Tp&, _Up&&) [with _Tp = char16_t*; _Up = std::nullptr_t]' at C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/utility:100:29,
+    inlined from 'QArrayDataPointer<T>::QArrayDataPointer(QArrayDataPointer<T>&&) [with T = char16_t]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qarraydatapointer.h:79:28,
+    inlined from 'QString::QString(QString&&)' at C:/Qt/6.8.3/mingw_64/include/QtCore/qstring.h:182:12,
+    inlined from 'QtNodes::NodeDataType::NodeDataType(QtNodes::NodeDataType&&)' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/include/QtNodes/internal/NodeData.hpp:16:27,
+    inlined from 'T qvariant_cast(QVariant&&) [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:774:67,
+    inlined from 'T QVariant::value() && [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:529:47,
+    inlined from 'QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const::<lambda(QtNodes::PortType)>' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:136:34,
+    inlined from 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:150:74:
+C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/move.h:159:11: warning: array subscript 4 is outside array bounds of 'QVariant [1]' [-Warray-bounds=]
+  159 |       _Tp __old_val = std::move(__obj);
+      |           ^~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp: In member function 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const':
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:132:24: note: at offset 32 into object '<anonymous>' of size 32
+  132 |         return portData(getNodeId(portType, connectionId),
+      |                ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  133 |                         portType,
+      |                         ~~~~~~~~~
+  134 |                         getPortIndex(portType, connectionId),
+      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  135 |                         PortRole::DataType)
+      |                         ~~~~~~~~~~~~~~~~~~~
+In function '_Tp std::__exchange(_Tp&, _Up&&) [with _Tp = char16_t*; _Up = std::nullptr_t]',
+    inlined from '_Tp std::exchange(_Tp&, _Up&&) [with _Tp = char16_t*; _Up = std::nullptr_t]' at C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/utility:100:29,
+    inlined from 'QArrayDataPointer<T>::QArrayDataPointer(QArrayDataPointer<T>&&) [with T = char16_t]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qarraydatapointer.h:79:28,
+    inlined from 'QString::QString(QString&&)' at C:/Qt/6.8.3/mingw_64/include/QtCore/qstring.h:182:12,
+    inlined from 'QtNodes::NodeDataType::NodeDataType(QtNodes::NodeDataType&&)' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/include/QtNodes/internal/NodeData.hpp:16:27,
+    inlined from 'T qvariant_cast(QVariant&&) [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:774:67,
+    inlined from 'T QVariant::value() && [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:529:47,
+    inlined from 'QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const::<lambda(QtNodes::PortType)>' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:136:34,
+    inlined from 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:150:74:
+C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/move.h:160:13: warning: array subscript 4 is outside array bounds of 'QVariant [1]' [-Warray-bounds=]
+  160 |       __obj = std::forward<_Up>(__new_val);
+      |       ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp: In member function 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const':
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:132:24: note: at offset 32 into object '<anonymous>' of size 32
+  132 |         return portData(getNodeId(portType, connectionId),
+      |                ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  133 |                         portType,
+      |                         ~~~~~~~~~
+  134 |                         getPortIndex(portType, connectionId),
+      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  135 |                         PortRole::DataType)
+      |                         ~~~~~~~~~~~~~~~~~~~
+In function '_Tp std::__exchange(_Tp&, _Up&&) [with _Tp = long long int; _Up = int]',
+    inlined from '_Tp std::exchange(_Tp&, _Up&&) [with _Tp = long long int; _Up = int]' at C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/utility:100:29,
+    inlined from 'QArrayDataPointer<T>::QArrayDataPointer(QArrayDataPointer<T>&&) [with T = char16_t]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qarraydatapointer.h:80:29,
+    inlined from 'QString::QString(QString&&)' at C:/Qt/6.8.3/mingw_64/include/QtCore/qstring.h:182:12,
+    inlined from 'QtNodes::NodeDataType::NodeDataType(QtNodes::NodeDataType&&)' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/include/QtNodes/internal/NodeData.hpp:16:27,
+    inlined from 'T qvariant_cast(QVariant&&) [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:774:67,
+    inlined from 'T QVariant::value() && [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:529:47,
+    inlined from 'QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const::<lambda(QtNodes::PortType)>' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:136:34,
+    inlined from 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:150:74:
+C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/move.h:159:11: warning: array subscript 5 is outside array bounds of 'QVariant [1]' [-Warray-bounds=]
+  159 |       _Tp __old_val = std::move(__obj);
+      |           ^~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp: In member function 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const':
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:132:24: note: at offset 40 into object '<anonymous>' of size 32
+  132 |         return portData(getNodeId(portType, connectionId),
+      |                ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  133 |                         portType,
+      |                         ~~~~~~~~~
+  134 |                         getPortIndex(portType, connectionId),
+      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  135 |                         PortRole::DataType)
+      |                         ~~~~~~~~~~~~~~~~~~~
+In function '_Tp std::__exchange(_Tp&, _Up&&) [with _Tp = long long int; _Up = int]',
+    inlined from '_Tp std::exchange(_Tp&, _Up&&) [with _Tp = long long int; _Up = int]' at C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/utility:100:29,
+    inlined from 'QArrayDataPointer<T>::QArrayDataPointer(QArrayDataPointer<T>&&) [with T = char16_t]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qarraydatapointer.h:80:29,
+    inlined from 'QString::QString(QString&&)' at C:/Qt/6.8.3/mingw_64/include/QtCore/qstring.h:182:12,
+    inlined from 'QtNodes::NodeDataType::NodeDataType(QtNodes::NodeDataType&&)' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/include/QtNodes/internal/NodeData.hpp:16:27,
+    inlined from 'T qvariant_cast(QVariant&&) [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:774:67,
+    inlined from 'T QVariant::value() && [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:529:47,
+    inlined from 'QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const::<lambda(QtNodes::PortType)>' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:136:34,
+    inlined from 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:150:74:
+C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/move.h:160:13: warning: array subscript 5 is outside array bounds of 'QVariant [1]' [-Warray-bounds=]
+  160 |       __obj = std::forward<_Up>(__new_val);
+      |       ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp: In member function 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const':
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:132:24: note: at offset 40 into object '<anonymous>' of size 32
+  132 |         return portData(getNodeId(portType, connectionId),
+      |                ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  133 |                         portType,
+      |                         ~~~~~~~~~
+  134 |                         getPortIndex(portType, connectionId),
+      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  135 |                         PortRole::DataType)
+      |                         ~~~~~~~~~~~~~~~~~~~
+In function '_Tp std::__exchange(_Tp&, _Up&&) [with _Tp = char16_t*; _Up = std::nullptr_t]',
+    inlined from '_Tp std::exchange(_Tp&, _Up&&) [with _Tp = char16_t*; _Up = std::nullptr_t]' at C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/utility:100:29,
+    inlined from 'QArrayDataPointer<T>::QArrayDataPointer(QArrayDataPointer<T>&&) [with T = char16_t]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qarraydatapointer.h:79:28,
+    inlined from 'QString::QString(QString&&)' at C:/Qt/6.8.3/mingw_64/include/QtCore/qstring.h:182:12,
+    inlined from 'QtNodes::NodeDataType::NodeDataType(QtNodes::NodeDataType&&)' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/include/QtNodes/internal/NodeData.hpp:16:27,
+    inlined from 'T qvariant_cast(QVariant&&) [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:774:67,
+    inlined from 'T QVariant::value() && [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:529:47,
+    inlined from 'QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const::<lambda(QtNodes::PortType)>' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:136:34,
+    inlined from 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:150:41:
+C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/move.h:159:11: warning: array subscript 4 is outside array bounds of 'QVariant [1]' [-Warray-bounds=]
+  159 |       _Tp __old_val = std::move(__obj);
+      |           ^~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp: In member function 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const':
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:132:24: note: at offset 32 into object '<anonymous>' of size 32
+  132 |         return portData(getNodeId(portType, connectionId),
+      |                ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  133 |                         portType,
+      |                         ~~~~~~~~~
+  134 |                         getPortIndex(portType, connectionId),
+      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  135 |                         PortRole::DataType)
+      |                         ~~~~~~~~~~~~~~~~~~~
+In function '_Tp std::__exchange(_Tp&, _Up&&) [with _Tp = char16_t*; _Up = std::nullptr_t]',
+    inlined from '_Tp std::exchange(_Tp&, _Up&&) [with _Tp = char16_t*; _Up = std::nullptr_t]' at C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/utility:100:29,
+    inlined from 'QArrayDataPointer<T>::QArrayDataPointer(QArrayDataPointer<T>&&) [with T = char16_t]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qarraydatapointer.h:79:28,
+    inlined from 'QString::QString(QString&&)' at C:/Qt/6.8.3/mingw_64/include/QtCore/qstring.h:182:12,
+    inlined from 'QtNodes::NodeDataType::NodeDataType(QtNodes::NodeDataType&&)' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/include/QtNodes/internal/NodeData.hpp:16:27,
+    inlined from 'T qvariant_cast(QVariant&&) [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:774:67,
+    inlined from 'T QVariant::value() && [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:529:47,
+    inlined from 'QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const::<lambda(QtNodes::PortType)>' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:136:34,
+    inlined from 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:150:41:
+C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/move.h:160:13: warning: array subscript 4 is outside array bounds of 'QVariant [1]' [-Warray-bounds=]
+  160 |       __obj = std::forward<_Up>(__new_val);
+      |       ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp: In member function 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const':
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:132:24: note: at offset 32 into object '<anonymous>' of size 32
+  132 |         return portData(getNodeId(portType, connectionId),
+      |                ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  133 |                         portType,
+      |                         ~~~~~~~~~
+  134 |                         getPortIndex(portType, connectionId),
+      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  135 |                         PortRole::DataType)
+      |                         ~~~~~~~~~~~~~~~~~~~
+In function '_Tp std::__exchange(_Tp&, _Up&&) [with _Tp = long long int; _Up = int]',
+    inlined from '_Tp std::exchange(_Tp&, _Up&&) [with _Tp = long long int; _Up = int]' at C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/utility:100:29,
+    inlined from 'QArrayDataPointer<T>::QArrayDataPointer(QArrayDataPointer<T>&&) [with T = char16_t]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qarraydatapointer.h:80:29,
+    inlined from 'QString::QString(QString&&)' at C:/Qt/6.8.3/mingw_64/include/QtCore/qstring.h:182:12,
+    inlined from 'QtNodes::NodeDataType::NodeDataType(QtNodes::NodeDataType&&)' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/include/QtNodes/internal/NodeData.hpp:16:27,
+    inlined from 'T qvariant_cast(QVariant&&) [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:774:67,
+    inlined from 'T QVariant::value() && [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:529:47,
+    inlined from 'QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const::<lambda(QtNodes::PortType)>' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:136:34,
+    inlined from 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:150:41:
+C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/move.h:159:11: warning: array subscript 5 is outside array bounds of 'QVariant [1]' [-Warray-bounds=]
+  159 |       _Tp __old_val = std::move(__obj);
+      |           ^~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp: In member function 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const':
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:132:24: note: at offset 40 into object '<anonymous>' of size 32
+  132 |         return portData(getNodeId(portType, connectionId),
+      |                ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  133 |                         portType,
+      |                         ~~~~~~~~~
+  134 |                         getPortIndex(portType, connectionId),
+      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  135 |                         PortRole::DataType)
+      |                         ~~~~~~~~~~~~~~~~~~~
+In function '_Tp std::__exchange(_Tp&, _Up&&) [with _Tp = long long int; _Up = int]',
+    inlined from '_Tp std::exchange(_Tp&, _Up&&) [with _Tp = long long int; _Up = int]' at C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/utility:100:29,
+    inlined from 'QArrayDataPointer<T>::QArrayDataPointer(QArrayDataPointer<T>&&) [with T = char16_t]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qarraydatapointer.h:80:29,
+    inlined from 'QString::QString(QString&&)' at C:/Qt/6.8.3/mingw_64/include/QtCore/qstring.h:182:12,
+    inlined from 'QtNodes::NodeDataType::NodeDataType(QtNodes::NodeDataType&&)' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/include/QtNodes/internal/NodeData.hpp:16:27,
+    inlined from 'T qvariant_cast(QVariant&&) [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:774:67,
+    inlined from 'T QVariant::value() && [with T = QtNodes::NodeDataType]' at C:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h:529:47,
+    inlined from 'QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const::<lambda(QtNodes::PortType)>' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:136:34,
+    inlined from 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const' at C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:150:41:
+C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/move.h:160:13: warning: array subscript 5 is outside array bounds of 'QVariant [1]' [-Warray-bounds=]
+  160 |       __obj = std::forward<_Up>(__new_val);
+      |       ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp: In member function 'virtual bool QtNodes::DataFlowGraphModel::connectionPossible(QtNodes::ConnectionId) const':
+C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow-research/nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3/src/DataFlowGraphModel.cpp:132:24: note: at offset 40 into object '<anonymous>' of size 32
+  132 |         return portData(getNodeId(portType, connectionId),
+      |                ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  133 |                         portType,
+      |                         ~~~~~~~~~
+  134 |                         getPortIndex(portType, connectionId),
+      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  135 |                         PortRole::DataType)
+      |                         ~~~~~~~~~~~~~~~~~~~
+[12/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/DefaultVerticalNodeGeometry.cpp.obj
+[13/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/DefaultNodePainter.cpp.obj
+[14/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/NodeConnectionInteraction.cpp.obj
+[15/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/UndoCommands.cpp.obj
+[16/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/GraphicsView.cpp.obj
+[17/18] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/NodeGraphicsObject.cpp.obj
+[18/18] Linking CXX static library lib\libQtNodes.a

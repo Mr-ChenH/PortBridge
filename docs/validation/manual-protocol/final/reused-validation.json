@@ -1,0 +1,18 @@
+{
+  "scope": "Seven unchanged backend/workflow suites plus native workflow UI/integration from the immediately preceding full 9/9 run. Only two test fixtures changed; all production sources match that run; reused executable SHA256 unchanged across rebuild.",
+  "evidence": "../final-before-native-fixture-fix/ctest-all.driver.txt",
+  "changed": [
+    "tests/test_protocol_debug.cpp",
+    "tests/test_ui.cpp"
+  ],
+  "executable_sha256": {
+    "network": "6c163a48a5170627da904bfe9f33f4968842115b973df52f0b133536f6cab330",
+    "session": "d1614cb59d49ade6013f75df24f6d4c245319959d68075732a4d48d648bd3399",
+    "workflow": "c717d4bc912ae7a42b8f609cf772565bd6c6aba61abd560f8afa5d18850bed27",
+    "workflow_ui": "5bd6e285a2e88c0b6b31b9701a773092c50c423af27dbc6fa40774fdcec32a89",
+    "workflow_protocol": "62f3c5dbe2187d9064598e9933ac1fc2b4e98f43cf4f63d591b99e817420b5d7",
+    "workflow_integration": "0cf6e74d9111f6979cc68a1f50e1efc7ea56c1a1fd8d8a71ad896ca4f2866f29",
+    "workflow_e2e": "0358c24f73ec5a7a171fb5b7e4619385c18ae92708089a7ec0f4d3c54847494c"
+  },
+  "verified": true
+}

@@ -1,0 +1,42 @@
+[
+    {
+        "canvasHeight": 272,
+        "canvasWidth": 779,
+        "dpr": 1.5,
+        "file": "dark-1440x1000-scale1.5.png",
+        "height": 707,
+        "logicalDpi": 96,
+        "width": 1283,
+        "zoom": 0.85
+    },
+    {
+        "canvasHeight": 272,
+        "canvasWidth": 779,
+        "dpr": 1.5,
+        "file": "light-1440x1000-scale1.5.png",
+        "height": 707,
+        "logicalDpi": 96,
+        "width": 1283,
+        "zoom": 0.85
+    },
+    {
+        "canvasHeight": 272,
+        "canvasWidth": 734,
+        "dpr": 1.5,
+        "file": "dark-1024x768-scale1.5.png",
+        "height": 707,
+        "logicalDpi": 96,
+        "width": 1024,
+        "zoom": 0.85
+    },
+    {
+        "canvasHeight": 272,
+        "canvasWidth": 734,
+        "dpr": 1.5,
+        "file": "light-1024x768-scale1.5.png",
+        "height": 707,
+        "logicalDpi": 96,
+        "width": 1024,
+        "zoom": 0.85
+    }
+]

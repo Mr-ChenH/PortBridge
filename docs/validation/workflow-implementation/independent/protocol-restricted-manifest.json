@@ -1,0 +1,42 @@
+﻿[
+    {
+        "sha256":  "5e27589147caa6d7a30f4cc058a14c455dc62233901ffff9a1797ede425e9f86",
+        "name":  "libgcc_s_seh-1.dll"
+    },
+    {
+        "sha256":  "8013488c5528bad7966ca07f3ea2e7a9b743cacb258fe76b46a326f821cc83b0",
+        "name":  "libstdc++-6.dll"
+    },
+    {
+        "sha256":  "c7c7dced65fff71c7bb61f80c771c562f533d26d72722d9d6091129a3b03d5ce",
+        "name":  "libwinpthread-1.dll"
+    },
+    {
+        "sha256":  "8f0fd831a5d988c1beb32d955f19cbf04724bb1952266babe53af05f71d53286",
+        "name":  "qt.conf"
+    },
+    {
+        "sha256":  "06d84a2e85bda1a651c65f7d159b63bee2458a8b50274da52b70c9e3e9188e97",
+        "name":  "Qt6Core.dll"
+    },
+    {
+        "sha256":  "3158e8979ce542c84a61257cfe03983144241ab4d11d8099c08db7ecf5cf8b83",
+        "name":  "Qt6Network.dll"
+    },
+    {
+        "sha256":  "bb51aa62555f9dabb99d60b4068ad6de5c4c135e89567dba77cf95bf54554dac",
+        "name":  "Qt6Test.dll"
+    },
+    {
+        "sha256":  "ddc8bab3c5420d0b782d0c741e60dde18deb3de9bd3a67c50264c8b077ad2fa5",
+        "name":  "Qt6WebSockets.dll"
+    },
+    {
+        "sha256":  "0e79063decaaa6d63912c7831d28f265d61afcf3eb727be8d597a478c9034c3f",
+        "name":  "test_workflow_protocol.exe"
+    },
+    {
+        "sha256":  "c7386dcca3c4277547d878cfa71c07b957a108e3538be07900bf9be18eec89b8",
+        "name":  "plugins\\tls\\qschannelbackend.dll"
+    }
+]

@@ -1,0 +1,12 @@
+{
+  "productRevision": "profile-picker-1",
+  "verifiedUnchangedProductInputs": 70,
+  "prototypeFiles": {
+    "app.js": "b9f843d87da7581909560654611311eb6f73f0a0476c1a1ba164337d181e9a43",
+    "index.html": "f85d5786af5877c5da78bf5a3e1edfbc7f21cb773f03af4cceb8bdb094093080",
+    "styles.css": "83b6396fd6937e55bc8860b8526e4b115389b56f9046f9a750c824b59daa55a5"
+  },
+  "prototypeUsesRealNetwork": false,
+  "passedBrowserChecks": 63,
+  "screenshotStates": 23
+}

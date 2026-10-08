@@ -1,0 +1,15 @@
+Test project C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+    Start 3: ui
+1/5 Test #3: ui ...............................   Passed   48.84 sec
+    Start 5: workflow_ui
+2/5 Test #5: workflow_ui ......................   Passed   33.83 sec
+    Start 7: workflow_integration
+3/5 Test #7: workflow_integration .............   Passed   17.23 sec
+    Start 8: workflow_e2e
+4/5 Test #8: workflow_e2e .....................   Passed   17.83 sec
+    Start 9: protocol_debug
+5/5 Test #9: protocol_debug ...................   Passed   34.40 sec
+
+100% tests passed, 0 tests failed out of 5
+
+Total Test time (real) = 152.31 sec

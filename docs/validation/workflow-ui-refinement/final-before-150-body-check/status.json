@@ -1,0 +1,36 @@
+{
+  "state": "failed",
+  "steps": [
+    {
+      "step": "build",
+      "exit": 0,
+      "seconds": 28.426
+    },
+    {
+      "step": "ctest",
+      "exit": 0,
+      "seconds": 117.859
+    },
+    {
+      "step": "native-integration",
+      "exit": 0,
+      "seconds": 5.966
+    },
+    {
+      "step": "native-workflow-ui-1",
+      "exit": 0,
+      "seconds": 19.827
+    },
+    {
+      "step": "native-workflow-ui-1.25",
+      "exit": 0,
+      "seconds": 24.68
+    },
+    {
+      "step": "native-workflow-ui-1.5",
+      "exit": 1,
+      "seconds": 19.45
+    }
+  ],
+  "error": "native-workflow-ui-1.5 failed"
+}

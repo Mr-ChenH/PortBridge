@@ -1,0 +1,132 @@
+{
+    "fixtureOnly": true,
+    "logs": [
+        {
+            "detail": "已固定本次配置并开始运行。",
+            "nodeId": "n1",
+            "status": "成功"
+        },
+        {
+            "detail": "HTTP 200 已收到响应。",
+            "nodeId": "n2",
+            "status": "成功"
+        },
+        {
+            "detail": "已提取 JSON 字段。",
+            "nodeId": "n3",
+            "status": "成功"
+        },
+        {
+            "detail": "WebSocket TLS 验证或握手失败 (167772294)",
+            "nodeId": "n4",
+            "status": "失败"
+        }
+    ],
+    "results": {
+        "n1": {
+            "detail": "已固定本次配置并开始运行。",
+            "elapsedMs": 0,
+            "output": {
+                "runId": "27d27d7c-afde-4ff9-b75d-9ca98cfa7d7b"
+            },
+            "state": 2
+        },
+        "n2": {
+            "detail": "HTTP 200 已收到响应。",
+            "elapsedMs": 250,
+            "output": {
+                "body": {
+                    "count": 7,
+                    "enabled": true,
+                    "token": "e2e-token"
+                },
+                "bodyBase64": "eyJ0b2tlbiI6ImUyZS10b2tlbiIsImVuYWJsZWQiOnRydWUsImNvdW50Ijo3fQ==",
+                "bodyBytes": 46,
+                "bodyText": "{\"token\":\"e2e-token\",\"enabled\":true,\"count\":7}",
+                "elapsedMs": 234,
+                "headers": {
+                    "connection": "close",
+                    "content-length": "46",
+                    "content-type": "application/json",
+                    "x-e2e": "actual-server"
+                },
+                "status": 200
+            },
+            "state": 2
+        },
+        "n3": {
+            "detail": "已提取 JSON 字段。",
+            "elapsedMs": 0,
+            "output": {
+                "value": "e2e-token",
+                "variable": "token"
+            },
+            "state": 2
+        },
+        "n4": {
+            "detail": "WebSocket TLS 验证或握手失败 (167772294)",
+            "elapsedMs": 46,
+            "output": {
+            },
+            "state": 3
+        },
+        "n5": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "n6": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "n7": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "n8": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 4
+        },
+        "recovery": {
+            "detail": "",
+            "elapsedMs": 0,
+            "output": {
+            },
+            "state": 0
+        }
+    },
+    "runId": "27d27d7c-afde-4ff9-b75d-9ca98cfa7d7b",
+    "state": 4,
+    "variables": {
+        "httpResponse": {
+            "body": {
+                "count": 7,
+                "enabled": true,
+                "token": "e2e-token"
+            },
+            "bodyBase64": "eyJ0b2tlbiI6ImUyZS10b2tlbiIsImVuYWJsZWQiOnRydWUsImNvdW50Ijo3fQ==",
+            "bodyBytes": 46,
+            "bodyText": "{\"token\":\"e2e-token\",\"enabled\":true,\"count\":7}",
+            "elapsedMs": 234,
+            "headers": {
+                "connection": "close",
+                "content-length": "46",
+                "content-type": "application/json",
+                "x-e2e": "actual-server"
+            },
+            "status": 200
+        },
+        "token": "e2e-token"
+    }
+}

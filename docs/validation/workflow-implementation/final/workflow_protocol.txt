@@ -1,0 +1,21 @@
+********* Start testing of ProtocolTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : ProtocolTest::initTestCase()
+PASS   : ProtocolTest::httpStatusAndBody()
+PASS   : ProtocolTest::httpCapsDeadlinesCancelAndReuse()
+PASS   : ProtocolTest::webSocketTextBinaryFragmentAndClose()
+PASS   : ProtocolTest::webSocketFailuresAndLimits()
+PASS   : ProtocolTest::unsolicitedPeerCloseMetadataBeforeState()
+PASS   : ProtocolTest::qtWebSocketCloseInterop(ws-requested)
+PASS   : ProtocolTest::qtWebSocketCloseInterop(ws-peer)
+PASS   : ProtocolTest::qtWebSocketCloseInterop(wss-requested)
+PASS   : ProtocolTest::qtWebSocketCloseInterop(wss-peer)
+PASS   : ProtocolTest::qtWebSocketCloseInterop(ws-abrupt)
+PASS   : ProtocolTest::qtWebSocketCloseInterop(wss-abrupt)
+PASS   : ProtocolTest::boundedHandoffCancelAndReuse()
+PASS   : ProtocolTest::maximumHttpAndWebSocketPayloads()
+PASS   : ProtocolTest::cancellationAdmissionAndConfigurationBudgets()
+PASS   : ProtocolTest::httpsAndWssTrustAndHostname()
+PASS   : ProtocolTest::cleanupTestCase()
+Totals: 17 passed, 0 failed, 0 skipped, 0 blacklisted, 6859ms
+********* Finished testing of ProtocolTest *********

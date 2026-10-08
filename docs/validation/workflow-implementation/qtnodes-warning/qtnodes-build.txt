@@ -1,0 +1,3 @@
+[1/4] Automatic MOC for target QtNodes
+[2/3] Building CXX object qtnodes/CMakeFiles/QtNodes.dir/src/DataFlowGraphModel.cpp.obj
+[3/3] Linking CXX static library lib\libQtNodes.a

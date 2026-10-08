@@ -1,0 +1,14 @@
+{
+  "product_revision": "profile-picker-1",
+  "product_source_inputs_unchanged": 70,
+  "product_executable_modified": false,
+  "protocol_probe_backend": "Qt Network + Qt WebSockets",
+  "cpr_and_beast_integration_tested": false,
+  "third_party_build_warnings_present": true,
+  "product_release_executable_sha256": "7378cb49ae56569ab37a2a6649139abe1b4a872d62fb2fd12f7aa7e38c826d0b",
+  "product_release_matches_deployed": true,
+  "sources_sha256": {
+    "probe-main.cpp": "1dbb682058134aa8bebd9fc8d127f0525f4ce2943d49741febebc3ca5f746b1c",
+    "probe-CMakeLists.txt": "ee66af9d9b5d9fe28e6da32fbbc9ff5a0f6e907ec4c1a337a4f068e070dbcf5e"
+  }
+}

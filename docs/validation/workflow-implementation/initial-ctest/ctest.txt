@@ -1,0 +1,96 @@
+Test project C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+    Start 1: network
+1/7 Test #1: network ..........................   Passed    1.69 sec
+    Start 2: session
+2/7 Test #2: session ..........................   Passed   36.48 sec
+    Start 3: ui
+3/7 Test #3: ui ...............................   Passed   36.08 sec
+    Start 4: workflow
+4/7 Test #4: workflow .........................   Passed    2.25 sec
+    Start 5: workflow_ui
+5/7 Test #5: workflow_ui ......................***Failed   23.97 sec
+CMake Error at C:/Users/threeTeeth/workSpace/github/PortBridge/cmake/RunQtTest.cmake:19 (message):
+  Qt Test failed (1).
+
+  ********* Start testing of WorkflowUiTest *********
+
+  Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64
+  shared (dynamic) release build; by GCC 13.1.0), windows 11
+
+  PASS : WorkflowUiTest::initTestCase()
+
+  QWARN : WorkflowUiTest::silentTemplatesAndRoundtrip() QFontDatabase: Cannot
+  find font directory C:/Qt/6.8.3/mingw_64/lib/fonts.
+
+  Note that Qt no longer ships fonts.  Deploy some (from
+  https://dejavu-fonts.github.io/ for example) or switch to fontconfig.
+
+  PASS : WorkflowUiTest::silentTemplatesAndRoundtrip()
+
+  PASS : WorkflowUiTest::importRejectsPrototypeAndUnknown()
+
+  PASS : WorkflowUiTest::paletteSearchNativeDropAndUndo()
+
+  PASS : WorkflowUiTest::mouseMovePortConnectAndDelete()
+
+  PASS : WorkflowUiTest::canonicalHttpAndWsParameterMutation()
+
+  QWARN : WorkflowUiTest::validationFocusAndNativeTemplates() This plugin
+  does not support propagateSizeHints()
+
+  PASS : WorkflowUiTest::validationFocusAndNativeTemplates()
+
+  PASS : WorkflowUiTest::runnerSnapshotLogsVariablesAndRedaction()
+
+  PASS : WorkflowUiTest::pauseStopRejectionAndMutationLock()
+
+  PASS : WorkflowUiTest::realUdpRunnerAndTimeoutResult()
+
+  FAIL! : WorkflowUiTest::keyboardPaletteAndDirtyPrompt() Compared values are
+  not the same
+
+     Actual   (p.document().nodes.size()): 0
+     Expected (1)                        : 1
+
+  
+  C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_workflow_ui.cpp(380)
+  : failure location
+
+  PASS : WorkflowUiTest::boundedPreviewAndStaticCredentialExport()
+
+  PASS : WorkflowUiTest::layoutsThemesAndScreenshot()
+
+  PASS : WorkflowUiTest::cleanupTestCase()
+
+  Totals: 13 passed, 1 failed, 0 skipped, 0 blacklisted, 23845ms
+
+  ********* Finished testing of WorkflowUiTest *********
+
+
+
+
+
+
+
+
+    Start 6: workflow_protocol
+6/7 Test #6: workflow_protocol ................   Passed    6.80 sec
+    Start 7: workflow_integration
+7/7 Test #7: workflow_integration .............   Passed    5.57 sec
+
+86% tests passed, 1 tests failed out of 7
+
+Total Test time (real) = 112.99 sec
+
+The following tests FAILED:
+	  5 - workflow_ui (Failed)
+Errors while running CTest
+CTest failed with code 8; inspect C:\Users\threeTeeth\workSpace\github\PortBridge\build\workflow-product\test-reports a
+nd Testing\Temporary\LastTest.log
+ËùÔÚÎ»ÖÃ C:\Users\threeTeeth\workSpace\github\PortBridge\scripts\test.ps1:15 ×Ö·û: 28
++ ... DE -ne 0) { throw "CTest failed with code $LASTEXITCODE; inspect $bui ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (CTest failed wi...ry\LastTest.log:String) [], RuntimeException
+    + FullyQualifiedErrorId : CTest failed with code 8; inspect C:\Users\threeTeeth\workSpace\github\PortBridge\build\ 
+   workflow-product\test-reports and Testing\Temporary\LastTest.log
+ 

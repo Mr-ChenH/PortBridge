@@ -1,0 +1,39 @@
+{
+  "state": "passed",
+  "steps": [
+    {
+      "step": "build",
+      "exit": 0,
+      "seconds": 27.023
+    },
+    {
+      "step": "ctest-affected-ui",
+      "exit": 0,
+      "seconds": 80.833
+    },
+    {
+      "step": "native-integration",
+      "exit": 0,
+      "seconds": 8.594
+    },
+    {
+      "step": "native-workflow-ui-1",
+      "exit": 0,
+      "seconds": 30.63
+    },
+    {
+      "step": "native-workflow-ui-1.25",
+      "exit": 0,
+      "seconds": 26.657
+    },
+    {
+      "step": "native-workflow-ui-1.5",
+      "exit": 0,
+      "seconds": 26.692
+    }
+  ],
+  "source_stable": true,
+  "source_inputs": 66,
+  "verification_mode": "four affected UI suites and native scales retested; four unchanged backend suites reused with source and executable hash verification",
+  "known_session_wait_failure_preserved": true
+}

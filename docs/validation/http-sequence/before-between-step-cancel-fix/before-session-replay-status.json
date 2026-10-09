@@ -1,0 +1,15 @@
+{
+  "state": "failed",
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 60.345
+    },
+    {
+      "name": "ctest-all",
+      "exitCode": 1,
+      "seconds": 196.807
+    }
+  ]
+}

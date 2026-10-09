@@ -1,0 +1,337 @@
+{
+    "admittedFrames": 29994,
+    "capturePayloadBytes": 44151168,
+    "captures": [
+        {
+            "bytes": 32219136,
+            "complete": true,
+            "file": "capture-1791510606463260-e2ba8746-de0a-46a3-a519-156d81ae3dd9-0001.pbc",
+            "records": 21888
+        },
+        {
+            "bytes": 11932032,
+            "complete": true,
+            "file": "capture-1791510606463260-e2ba8746-de0a-46a3-a519-156d81ae3dd9-0002.pbc",
+            "records": 8106
+        }
+    ],
+    "displayOmitted": 18060,
+    "displayQueuePeakBytes": 91160,
+    "droppedRecords": 0,
+    "durationMs": 30000,
+    "finalizationMs": 14,
+    "heartbeatMaxMs": 31,
+    "longestGuiEventMs": 27,
+    "moveScreens": false,
+    "observedFinishMs": 30023,
+    "pauseResumeActionMaxMs": 2,
+    "payloadBytes": 1472,
+    "physicalScreens": [
+        {
+            "devicePixelRatio": 1,
+            "exposed": true,
+            "logicalDpi": 96,
+            "screen": "P27FBA-RA",
+            "visible": true,
+            "windowDevicePixelRatio": 1,
+            "windowHeight": 760,
+            "windowWidth": 1100
+        }
+    ],
+    "progressWriterMaxMs": 5,
+    "progressWrittenByWorker": true,
+    "protocol": "udp",
+    "rateFramesPerSecond": 1000,
+    "realApplicationEventLoop": true,
+    "recordedBytes": 44151168,
+    "recordingFailures": 0,
+    "recordingQueueHighWaterBytes": 38743,
+    "recordingQueuePeakBytes": 31906,
+    "rejectedAdmissions": 0,
+    "rssPeakBytes": 153309184,
+    "rxBytes": 44151168,
+    "samples": [
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 1000,
+            "heartbeatMaxMs": 14,
+            "recordedBytes": 1469056,
+            "recordingQueueBytes": 0,
+            "rxBytes": 1469056,
+            "workingSetBytes": 144535552
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 1999,
+            "heartbeatMaxMs": 14,
+            "recordedBytes": 2941056,
+            "recordingQueueBytes": 0,
+            "rxBytes": 2941056,
+            "workingSetBytes": 145956864
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 3006,
+            "heartbeatMaxMs": 18,
+            "recordedBytes": 4410112,
+            "recordingQueueBytes": 0,
+            "rxBytes": 4410112,
+            "workingSetBytes": 147275776
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 4004,
+            "heartbeatMaxMs": 18,
+            "recordedBytes": 5883584,
+            "recordingQueueBytes": 0,
+            "rxBytes": 5883584,
+            "workingSetBytes": 148402176
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 4997,
+            "heartbeatMaxMs": 18,
+            "recordedBytes": 7357056,
+            "recordingQueueBytes": 0,
+            "rxBytes": 7357056,
+            "workingSetBytes": 149757952
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 5999,
+            "heartbeatMaxMs": 21,
+            "recordedBytes": 8827584,
+            "recordingQueueBytes": 0,
+            "rxBytes": 8827584,
+            "workingSetBytes": 150753280
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 7003,
+            "heartbeatMaxMs": 24,
+            "recordedBytes": 10298112,
+            "recordingQueueBytes": 0,
+            "rxBytes": 10298112,
+            "workingSetBytes": 151560192
+        },
+        {
+            "displayQueueBytes": 34185,
+            "elapsedMs": 7998,
+            "heartbeatMaxMs": 24,
+            "recordedBytes": 11761280,
+            "recordingQueueBytes": 0,
+            "rxBytes": 11761280,
+            "workingSetBytes": 151662592
+        },
+        {
+            "displayQueueBytes": 36464,
+            "elapsedMs": 8997,
+            "heartbeatMaxMs": 24,
+            "recordedBytes": 13233280,
+            "recordingQueueBytes": 0,
+            "rxBytes": 13233280,
+            "workingSetBytes": 151662592
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 10010,
+            "heartbeatMaxMs": 24,
+            "recordedBytes": 14728832,
+            "recordingQueueBytes": 0,
+            "rxBytes": 14728832,
+            "workingSetBytes": 151789568
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 11003,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 16196416,
+            "recordingQueueBytes": 0,
+            "rxBytes": 16196416,
+            "workingSetBytes": 151904256
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 12002,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 17661056,
+            "recordingQueueBytes": 0,
+            "rxBytes": 17665472,
+            "workingSetBytes": 152100864
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 13002,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 19138944,
+            "recordingQueueBytes": 0,
+            "rxBytes": 19138944,
+            "workingSetBytes": 152125440
+        },
+        {
+            "displayQueueBytes": 54696,
+            "elapsedMs": 14016,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 20627136,
+            "recordingQueueBytes": 0,
+            "rxBytes": 20627136,
+            "workingSetBytes": 152522752
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 15009,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 22094720,
+            "recordingQueueBytes": 0,
+            "rxBytes": 22094720,
+            "workingSetBytes": 152625152
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 16006,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 23563776,
+            "recordingQueueBytes": 0,
+            "rxBytes": 23563776,
+            "workingSetBytes": 152625152
+        },
+        {
+            "displayQueueBytes": 36464,
+            "elapsedMs": 17006,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 25016640,
+            "recordingQueueBytes": 0,
+            "rxBytes": 25016640,
+            "workingSetBytes": 152834048
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 18003,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 26500416,
+            "recordingQueueBytes": 0,
+            "rxBytes": 26500416,
+            "workingSetBytes": 152834048
+        },
+        {
+            "displayQueueBytes": 36464,
+            "elapsedMs": 19003,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 27953280,
+            "recordingQueueBytes": 0,
+            "rxBytes": 27953280,
+            "workingSetBytes": 152834048
+        },
+        {
+            "displayQueueBytes": 34185,
+            "elapsedMs": 20002,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 29428224,
+            "recordingQueueBytes": 0,
+            "rxBytes": 29428224,
+            "workingSetBytes": 152838144
+        },
+        {
+            "displayQueueBytes": 36464,
+            "elapsedMs": 21004,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 30919360,
+            "recordingQueueBytes": 0,
+            "rxBytes": 30919360,
+            "workingSetBytes": 153100288
+        },
+        {
+            "displayQueueBytes": 34185,
+            "elapsedMs": 21999,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 32369280,
+            "recordingQueueBytes": 0,
+            "rxBytes": 32369280,
+            "workingSetBytes": 153133056
+        },
+        {
+            "displayQueueBytes": 36464,
+            "elapsedMs": 22999,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 33839808,
+            "recordingQueueBytes": 0,
+            "rxBytes": 33839808,
+            "workingSetBytes": 153137152
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 24003,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 35333888,
+            "recordingQueueBytes": 0,
+            "rxBytes": 35333888,
+            "workingSetBytes": 153137152
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 25002,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 36800000,
+            "recordingQueueBytes": 0,
+            "rxBytes": 36800000,
+            "workingSetBytes": 153137152
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 26002,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 38267584,
+            "recordingQueueBytes": 4558,
+            "rxBytes": 38277888,
+            "workingSetBytes": 153137152
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 27011,
+            "heartbeatMaxMs": 28,
+            "recordedBytes": 39761664,
+            "recordingQueueBytes": 0,
+            "rxBytes": 39761664,
+            "workingSetBytes": 153108480
+        },
+        {
+            "displayQueueBytes": 45580,
+            "elapsedMs": 28007,
+            "heartbeatMaxMs": 31,
+            "recordedBytes": 41224832,
+            "recordingQueueBytes": 0,
+            "rxBytes": 41224832,
+            "workingSetBytes": 153108480
+        },
+        {
+            "displayQueueBytes": 38743,
+            "elapsedMs": 29003,
+            "heartbeatMaxMs": 31,
+            "recordedBytes": 42673280,
+            "recordingQueueBytes": 2279,
+            "rxBytes": 42674752,
+            "workingSetBytes": 153116672
+        },
+        {
+            "displayQueueBytes": 36464,
+            "elapsedMs": 30008,
+            "heartbeatMaxMs": 31,
+            "recordedBytes": 44151168,
+            "recordingQueueBytes": 0,
+            "rxBytes": 44151168,
+            "workingSetBytes": 153309184
+        }
+    ],
+    "scope": "local loopback; real QApplication event loop, production MainWindow, independent sender and real disk recording",
+    "senderIndependentOfGui": true,
+    "sequenceDuplicates": 0,
+    "sequenceMissing": 0,
+    "slowGuiEvents": [
+    ],
+    "state": "passed",
+    "stopRecordingCallMs": 0,
+    "transmitCompletedBytes": 44151168,
+    "transmitCompletionRecords": 29994,
+    "uiPauseInjection": {
+    }
+}

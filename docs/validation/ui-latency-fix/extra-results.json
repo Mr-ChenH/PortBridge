@@ -1,0 +1,20 @@
+{
+  "state": "passed",
+  "results": [
+    {
+      "suite": "dpi",
+      "exitCode": 0,
+      "receipt": "C:\\Users\\threeTeeth\\workSpace\\github\\PortBridge\\docs\\validation\\ui-latency-fix\\ui-latency-dpi-final\\receipt.json"
+    },
+    {
+      "suite": "overload",
+      "exitCode": 0,
+      "receipt": "C:\\Users\\threeTeeth\\workSpace\\github\\PortBridge\\docs\\validation\\ui-latency-fix\\ui-latency-overload-final\\receipt.json"
+    },
+    {
+      "suite": "ui-exit",
+      "exitCode": 0,
+      "receipt": "C:\\Users\\threeTeeth\\workSpace\\github\\PortBridge\\docs\\validation\\ui-latency-fix\\ui-latency-ui-exit-final\\receipt.json"
+    }
+  ]
+}

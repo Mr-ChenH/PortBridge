@@ -22,12 +22,4 @@ struct BackgroundCompletion {
         return completionChanged.wait_for(lock,timeout,[this]{return finished.load(std::memory_order_acquire);});
     }
 };
-// A stalled filesystem cannot make window destruction wait indefinitely.
-// Detached workers must capture their state/paths by value and own no UI object.
-inline bool finishBackgroundThread(std::thread& worker,const std::shared_ptr<BackgroundCompletion>& state,
-                                   std::chrono::milliseconds timeout) {
-    if(!worker.joinable())return true;
-    if(state && state->waitFor(timeout)) { worker.join(); return true; }
-    worker.detach();return false;
-}
 }

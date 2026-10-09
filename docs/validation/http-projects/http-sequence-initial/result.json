@@ -1,0 +1,7 @@
+{
+  "suite": "http_projects",
+  "exitCode": 0,
+  "seconds": 4.511,
+  "valid_for_current_source": false,
+  "reason": "Test started before failed new-source build finished and executed prior binary; do not count as second-phase pass."
+}

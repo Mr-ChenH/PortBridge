@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 2,
+  "type": "portbridge-http-project",
+  "secretsExcluded": true,
+  "project": {
+    "id": "example-members-project",
+    "name": "会员服务联调示例",
+    "folders": ["认证", "会员"],
+    "variables": [],
+    "auth": {"kind": "bearer", "token": "{{access_token}}"},
+    "environments": [{
+      "id": "example-local-environment",
+      "name": "本地服务",
+      "variables": [
+        {"name": "base_url", "value": "http://127.0.0.1:8080", "secret": false},
+        {"name": "username", "value": "demo", "secret": false},
+        {"name": "password", "secret": true}
+      ]
+    }]
+  },
+  "requests": [
+    {
+      "schemaVersion": 1,
+      "kind": "http",
+      "id": "example-login-request",
+      "projectId": "example-members-project",
+      "name": "登录并提取token",
+      "folder": "认证",
+      "credentialsMasked": true,
+      "params": {
+        "url": "{{base_url}}/login", "method": "POST",
+        "headers": {"Content-Type": "application/json"},
+        "body": "{\"username\":\"{{username}}\",\"password\":\"{{password}}\"}",
+        "timeoutMs": 10000, "connectTimeoutMs": 5000, "maxResponseBytes": 1048576
+      },
+      "editor": {
+        "baseUrl": "{{base_url}}/login", "authKind": 0,
+        "bodyKind": 2, "body": "{\"username\":\"{{username}}\",\"password\":\"{{password}}\"}",
+        "query": [], "headers": [], "formBody": []
+      },
+      "extractionRows": [{"enabled": true, "key": "access_token", "value": "$.data.access_token"}]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "http",
+      "id": "example-member-request",
+      "projectId": "example-members-project",
+      "name": "查询当前会员",
+      "folder": "会员",
+      "credentialsMasked": true,
+      "params": {
+        "url": "{{base_url}}/users/me", "method": "GET", "headers": {},
+        "timeoutMs": 10000, "connectTimeoutMs": 5000, "maxResponseBytes": 1048576
+      },
+      "editor": {"baseUrl": "{{base_url}}/users/me", "authKind": 3, "bodyKind": 0, "query": [], "headers": [], "formBody": []},
+      "extractionRows": []
+    }
+  ]
+}

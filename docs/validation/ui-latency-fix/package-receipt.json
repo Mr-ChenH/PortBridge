@@ -1,0 +1,24 @@
+{
+  "state": "passed",
+  "revision": "ui-latency-fix-1",
+  "archive": "PortBridge-0.1.0-windows-x64.zip",
+  "sha256": "3682e096b4da014c87336e59fdb7059659d997faab1c825baaf6c9f98328dbc6",
+  "archive_bytes": 114331701,
+  "files_hashed": 2274,
+  "source_inputs_verified": 88,
+  "zip_integrity": true,
+  "all_extracted_hashes_match": true,
+  "application_matches_build": true,
+  "extracted_startup_exit": {
+    "http": 0,
+    "websocket": 0,
+    "workflow": 0
+  },
+  "udp_completed_received": 500,
+  "tcp_completed_received": 500,
+  "previous_http_sequence_fix_1_preserved": true,
+  "previous_http_sequence_1_preserved": true,
+  "previous_http_project_1_preserved": true,
+  "environment": "Windows system PATH only; QT* removed; extracted cwd",
+  "clean_windows_validated": false
+}

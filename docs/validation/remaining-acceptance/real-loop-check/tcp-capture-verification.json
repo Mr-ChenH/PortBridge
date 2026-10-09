@@ -1,0 +1,39 @@
+{
+  "state": "passed",
+  "protocol": "tcp",
+  "verifiedFrames": 30001,
+  "payloadBytes": 122884096,
+  "savedRecords": 26560,
+  "allPayloadBytesMatch": true,
+  "allFootersAndMetadataComplete": true,
+  "files": [
+    {
+      "file": "capture-1791510638549148-fd8c92bb-a3fb-4809-a0c6-163cd599f571-0001.pbc",
+      "bytes": 33552872,
+      "payloadBytes": 33124352,
+      "records": 7024,
+      "sha256": "34be4c65cce32c9f6a382ac8eaac37b442de331fdadaec195246584bf546d2e1"
+    },
+    {
+      "file": "capture-1791510638549148-fd8c92bb-a3fb-4809-a0c6-163cd599f571-0002.pbc",
+      "bytes": 33554309,
+      "payloadBytes": 33112064,
+      "records": 7249,
+      "sha256": "e929dbca8a0e0b5d3b9cbd01a57c1f4bb13c47bc99bbc676e944bcbe521c9ce3"
+    },
+    {
+      "file": "capture-1791510638549148-fd8c92bb-a3fb-4809-a0c6-163cd599f571-0003.pbc",
+      "bytes": 33552095,
+      "payloadBytes": 33103872,
+      "records": 7347,
+      "sha256": "6d79e04df8fd5ebfd8ddf362c18e7a5b2d60da6f99903eac91114bc4ece538d9"
+    },
+    {
+      "file": "capture-1791510638549148-fd8c92bb-a3fb-4809-a0c6-163cd599f571-0004.pbc",
+      "bytes": 23845204,
+      "payloadBytes": 23543808,
+      "records": 4940,
+      "sha256": "5a078b4fd140c036d2801c8a69554f4dc3a16f4832df6d430fbbff5acfbb7487"
+    }
+  ]
+}

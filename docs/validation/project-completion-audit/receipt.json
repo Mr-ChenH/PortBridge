@@ -1,0 +1,56 @@
+{
+  "revision": "http-sequence-fix-1",
+  "review_type": "current-agent project-wide task and evidence review; not a new independent review or exhaustive code audit",
+  "verdict": "authorized software implementation and local delivery complete; external acceptance and specific validation gaps remain",
+  "source_inputs_verified": 87,
+  "source_mismatches": [],
+  "test_executables_verified": 10,
+  "all_test_executables_match": true,
+  "application_matches_final_verification": true,
+  "files_verified_in_deployment": 2058,
+  "deployment_mismatches": [],
+  "files_verified_in_archive": 2058,
+  "archive_mismatches": [],
+  "archive_sha256": "8cea7b0a2628fd955ad87bc03590ee4f9ad06bb5a7402048139604931476f738",
+  "archive_matches_delivered_receipt": true,
+  "original_ctest_full_suites_passed": 10,
+  "new_full_test_execution": false,
+  "historical_receipts_exist": {
+    "docs/validation/audit-fix-zip.json": true,
+    "docs/validation/workflow-package.json": true,
+    "docs/validation/workflow-zip.json": true,
+    "docs/validation/manual-protocol/package-receipt.json": true,
+    "docs/validation/http-projects/package-receipt.json": true,
+    "docs/validation/http-sequence/package-receipt.json": true,
+    "docs/validation/http-sequence-fix/package-receipt.json": true
+  },
+  "git_head": "c99c93f69d50895ec2a599da6a261a00ebae2ccf",
+  "git_dirty_entries_at_review": 46,
+  "recent_http_changes_committed": false,
+  "findings_status": {
+    "HA01": "closed",
+    "HA02": "closed"
+  },
+  "open_external_acceptance": [
+    "physical serial successful RX/TX, unplug, occupied device, flow control, high baud and one-hour operation",
+    "two-machine physical 2.5G load matrix with UI/recording/multi-client/directional conditions",
+    "sustained disk bandwidth and saturation",
+    "clean Windows deployment",
+    "physical multi-monitor DPI transitions",
+    "pathological OS DNS/file-I/O stalls and process exit fault injection"
+  ],
+  "other_unverified_or_unresolved": [
+    "sequence 10-minute deadline has source inspection; no full wall-clock deadline test",
+    "original Qt Socket packet-loss cause not established",
+    "historical occasional connected-wait/capture-wait root causes not established"
+  ],
+  "deferred_scope": [
+    "GBK/GB18030",
+    "serial/network bridging",
+    "file sending",
+    "parallel active resources and subflows",
+    "arbitrary scripts, OAuth, automatic token refresh/relogin, cloud/team sync, complete Postman import, multipart/SSE"
+  ],
+  "production_source_modified": false,
+  "released_archive_modified": false
+}

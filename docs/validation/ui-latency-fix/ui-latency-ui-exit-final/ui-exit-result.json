@@ -1,0 +1,12 @@
+{
+    "controllerSilent": true,
+    "diskHook": true,
+    "diskQueryCalls": 4,
+    "exitHook": true,
+    "heartbeatMaxMs": 52,
+    "injection": "1200ms _endthreadex delay for disk-query worker in child process",
+    "noGlobalSystemOrDeployedProcessChanges": true,
+    "queryWorkerExitCallsDuringRun": 0,
+    "state": "measured",
+    "windowDestructionMs": 38
+}

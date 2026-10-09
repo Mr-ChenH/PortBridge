@@ -1,0 +1,5 @@
+{
+  "script": "docs\\validation\\ui-latency-fix\\executed-tools\\validate-local-acceptance-soak.py",
+  "sha256": "e4bffdd43329123faf1e4be4da953a44a1c23d309e6cc7c7d6a543d8d03963b2",
+  "scope": "Source copied from unchanged driver file during the soak run, before adding the optional worker-exit case. This is the driver version loaded for the 5-minute final soak."
+}

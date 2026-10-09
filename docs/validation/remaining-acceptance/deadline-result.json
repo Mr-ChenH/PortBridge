@@ -1,0 +1,859 @@
+{
+    "lateObservationMs": 15001,
+    "limitMs": 600000,
+    "noFurtherRequests": true,
+    "observedStopMs": 599996,
+    "report": {
+        "cancelled": true,
+        "continueOnFailure": false,
+        "counts": {
+            "cancelled": 1,
+            "failed": 0,
+            "passed": 12,
+            "skipped": 115
+        },
+        "environmentId": "680039fe-243e-4798-af80-c1a8db730835",
+        "plannedSteps": 128,
+        "projectId": "30b74cd0-592f-4c01-a4bb-e462cc2f8a6a",
+        "results": [
+            {
+                "assertions": [
+                ],
+                "bodyBytes": 2,
+                "elapsedMs": 47043,
+                "message": "请求与断言通过",
+                "outcome": "passed",
+                "requestId": "deadline-0",
+                "status": 200,
+                "step": 1
+            },
+            {
+                "assertions": [
+                ],
+                "bodyBytes": 2,
+                "elapsedMs": 47034,
+                "message": "请求与断言通过",
+                "outcome": "passed",
+                "requestId": "deadline-1",
+                "status": 200,
+                "step": 2
+            },
+            {
+                "assertions": [
+                ],
+                "bodyBytes": 2,
+                "elapsedMs": 47004,
+                "message": "请求与断言通过",
+                "outcome": "passed",
+                "requestId": "deadline-2",
+                "status": 200,
+                "step": 3
+            },
+            {
+                "assertions": [
+                ],
+                "bodyBytes": 2,
+                "elapsedMs": 47014,
+                "message": "请求与断言通过",
+                "outcome": "passed",
+                "requestId": "deadline-3",
+                "status": 200,
+                "step": 4
+            },
+            {
+                "assertions": [
+                ],
+                "bodyBytes": 2,
+                "elapsedMs": 47012,
+                "message": "请求与断言通过",
+                "outcome": "passed",
+                "requestId": "deadline-4",
+                "status": 200,
+                "step": 5
+            },
+            {
+                "assertions": [
+                ],
+                "bodyBytes": 2,
+                "elapsedMs": 47006,
+                "message": "请求与断言通过",
+                "outcome": "passed",
+                "requestId": "deadline-5",
+                "status": 200,
+                "step": 6
+            },
+            {
+                "assertions": [
+                ],
+                "bodyBytes": 2,
+                "elapsedMs": 47002,
+                "message": "请求与断言通过",
+                "outcome": "passed",
+                "requestId": "deadline-6",
+                "status": 200,
+                "step": 7
+            },
+            {
+                "assertions": [
+                ],
+                "bodyBytes": 2,
+                "elapsedMs": 47009,
+                "message": "请求与断言通过",
+                "outcome": "passed",
+                "requestId": "deadline-7",
+                "status": 200,
+                "step": 8
+            },
+            {
+                "assertions": [
+                ],
+                "bodyBytes": 2,
+                "elapsedMs": 47004,
+                "message": "请求与断言通过",
+                "outcome": "passed",
+                "requestId": "deadline-8",
+                "status": 200,
+                "step": 9
+            },
+            {
+                "assertions": [
+                ],
+                "bodyBytes": 2,
+                "elapsedMs": 47001,
+                "message": "请求与断言通过",
+                "outcome": "passed",
+                "requestId": "deadline-9",
+                "status": 200,
+                "step": 10
+            },
+            {
+                "assertions": [
+                ],
+                "bodyBytes": 2,
+                "elapsedMs": 47004,
+                "message": "请求与断言通过",
+                "outcome": "passed",
+                "requestId": "deadline-10",
+                "status": 200,
+                "step": 11
+            },
+            {
+                "assertions": [
+                ],
+                "bodyBytes": 2,
+                "elapsedMs": 47017,
+                "message": "请求与断言通过",
+                "outcome": "passed",
+                "requestId": "deadline-11",
+                "status": 200,
+                "step": 12
+            },
+            {
+                "message": "已停止；不能撤回已发送的数据",
+                "outcome": "cancelled",
+                "requestId": "deadline-12",
+                "step": 13
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-13",
+                "step": 14
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-14",
+                "step": 15
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-15",
+                "step": 16
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-16",
+                "step": 17
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-17",
+                "step": 18
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-18",
+                "step": 19
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-19",
+                "step": 20
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-20",
+                "step": 21
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-21",
+                "step": 22
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-22",
+                "step": 23
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-23",
+                "step": 24
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-24",
+                "step": 25
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-25",
+                "step": 26
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-26",
+                "step": 27
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-27",
+                "step": 28
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-28",
+                "step": 29
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-29",
+                "step": 30
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-30",
+                "step": 31
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-31",
+                "step": 32
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-32",
+                "step": 33
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-33",
+                "step": 34
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-34",
+                "step": 35
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-35",
+                "step": 36
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-36",
+                "step": 37
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-37",
+                "step": 38
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-38",
+                "step": 39
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-39",
+                "step": 40
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-40",
+                "step": 41
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-41",
+                "step": 42
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-42",
+                "step": 43
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-43",
+                "step": 44
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-44",
+                "step": 45
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-45",
+                "step": 46
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-46",
+                "step": 47
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-47",
+                "step": 48
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-48",
+                "step": 49
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-49",
+                "step": 50
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-50",
+                "step": 51
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-51",
+                "step": 52
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-52",
+                "step": 53
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-53",
+                "step": 54
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-54",
+                "step": 55
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-55",
+                "step": 56
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-56",
+                "step": 57
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-57",
+                "step": 58
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-58",
+                "step": 59
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-59",
+                "step": 60
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-60",
+                "step": 61
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-61",
+                "step": 62
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-62",
+                "step": 63
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-63",
+                "step": 64
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-64",
+                "step": 65
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-65",
+                "step": 66
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-66",
+                "step": 67
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-67",
+                "step": 68
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-68",
+                "step": 69
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-69",
+                "step": 70
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-70",
+                "step": 71
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-71",
+                "step": 72
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-72",
+                "step": 73
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-73",
+                "step": 74
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-74",
+                "step": 75
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-75",
+                "step": 76
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-76",
+                "step": 77
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-77",
+                "step": 78
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-78",
+                "step": 79
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-79",
+                "step": 80
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-80",
+                "step": 81
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-81",
+                "step": 82
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-82",
+                "step": 83
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-83",
+                "step": 84
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-84",
+                "step": 85
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-85",
+                "step": 86
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-86",
+                "step": 87
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-87",
+                "step": 88
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-88",
+                "step": 89
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-89",
+                "step": 90
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-90",
+                "step": 91
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-91",
+                "step": 92
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-92",
+                "step": 93
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-93",
+                "step": 94
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-94",
+                "step": 95
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-95",
+                "step": 96
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-96",
+                "step": 97
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-97",
+                "step": 98
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-98",
+                "step": 99
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-99",
+                "step": 100
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-100",
+                "step": 101
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-101",
+                "step": 102
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-102",
+                "step": 103
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-103",
+                "step": 104
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-104",
+                "step": 105
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-105",
+                "step": 106
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-106",
+                "step": 107
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-107",
+                "step": 108
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-108",
+                "step": 109
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-109",
+                "step": 110
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-110",
+                "step": 111
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-111",
+                "step": 112
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-112",
+                "step": 113
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-113",
+                "step": 114
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-114",
+                "step": 115
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-115",
+                "step": 116
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-116",
+                "step": 117
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-117",
+                "step": 118
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-118",
+                "step": 119
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-119",
+                "step": 120
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-120",
+                "step": 121
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-121",
+                "step": 122
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-122",
+                "step": 123
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-123",
+                "step": 124
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-124",
+                "step": 125
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-125",
+                "step": 126
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-126",
+                "step": 127
+            },
+            {
+                "message": "未执行",
+                "outcome": "skipped",
+                "requestId": "deadline-127",
+                "step": 128
+            }
+        ],
+        "runId": "1f86976b-2343-4a76-9201-89ffa59fae32",
+        "running": false,
+        "schemaVersion": 1,
+        "type": "portbridge-http-sequence-result",
+        "valuesExcluded": true
+    },
+    "reportUnchangedAfterLateServerTimer": true,
+    "requestsReceived": 13,
+    "sessionReleased": true,
+    "state": "passed",
+    "test": "production 600000ms sequence deadline; actual wall-clock execution"
+}

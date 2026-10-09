@@ -1,0 +1,25 @@
+{
+  "revision": "http-sequence-fix-1",
+  "state": "passed",
+  "findings": {
+    "HA01": "closed",
+    "HA02": "closed"
+  },
+  "full_suites_passed": 10,
+  "http_projects_passed": 35,
+  "http_projects_controlled_screenshot_skips": 2,
+  "native_scales": {
+    "1": 37,
+    "1.25": 37,
+    "1.5": 37
+  },
+  "source_inputs": 87,
+  "source_stable": true,
+  "root_array_passed": true,
+  "invalid_resolved_assertions_rejected": true,
+  "actual_requests_with_invalid_rules": 0,
+  "probe_source_sha256": "e4f60f2953fb7953c7cc442262137726496390943a72e75492784f66af5f24d0",
+  "linked_ui_library_sha256": "7602ee13c49ec25ccebbed850b736f72fd6dd0bf67fd342413f921f0ef80d1df",
+  "review_type": "current-agent implementation and self-review",
+  "deadline_verification": "existing 600000ms timer source inspection; no new 10-minute wall-clock run"
+}

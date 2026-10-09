@@ -1,0 +1,14 @@
+{
+  "state": "passed",
+  "scope": "sequential TCP/UDP native UI + recording; no restart-storm injected",
+  "results": [
+    {
+      "protocol": "udp",
+      "exitCode": 0
+    },
+    {
+      "protocol": "tcp",
+      "exitCode": 0
+    }
+  ]
+}

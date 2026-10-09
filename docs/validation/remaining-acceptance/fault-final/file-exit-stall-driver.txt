@@ -1,0 +1,12 @@
+{
+    "blockedAtDestructorReturn": true,
+    "destructorMs": 3007,
+    "hookEntered": true,
+    "incompleteMetadataObservedAfterRelease": false,
+    "incompleteMetadataObservedBeforeExit": true,
+    "injection": "child-process QtCore WriteFile IAT hook for PBCAP001 binary only",
+    "metadataError": "",
+    "realOsPermanentStallValidated": false,
+    "state": "passed",
+    "workerUnreleasedAtProcessExit": true
+}

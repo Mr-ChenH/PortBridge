@@ -1,0 +1,76 @@
+{
+  "revision": "http-sequence-1",
+  "state": "passed",
+  "source_stable": true,
+  "inputs": 87,
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 60.345
+    },
+    {
+      "name": "ctest-all",
+      "exitCode": 1,
+      "seconds": 196.807
+    },
+    {
+      "name": "session-focused-replay",
+      "exitCode": 0,
+      "seconds": 16.868
+    },
+    {
+      "name": "session-full-replay",
+      "exitCode": 0,
+      "seconds": 44.02
+    },
+    {
+      "name": "native-1",
+      "exitCode": 0,
+      "seconds": 11.75
+    },
+    {
+      "name": "creation-1",
+      "exitCode": 0,
+      "seconds": 4.007
+    },
+    {
+      "name": "native-1.25",
+      "exitCode": 0,
+      "seconds": 11.825
+    },
+    {
+      "name": "creation-1.25",
+      "exitCode": 0,
+      "seconds": 3.517
+    },
+    {
+      "name": "native-1.5",
+      "exitCode": 0,
+      "seconds": 15.125
+    },
+    {
+      "name": "creation-1.5",
+      "exitCode": 0,
+      "seconds": 4.151
+    }
+  ],
+  "application_sha256": "7f215be5bbad2972837bc3d0187b0c71a3619d12abc3e8f70c46e5b3992ec18a",
+  "test_executable_sha256": {
+    "test_http_projects": "9f89eaa455d6ddc184352dec2e02d1880424d59e12f8f254c96996688edebc17",
+    "test_network": "6c163a48a5170627da904bfe9f33f4968842115b973df52f0b133536f6cab330",
+    "test_protocol_debug": "bf1c553444d2689ad0639893adc6de2e62c296fada76efe87000216dedefea4b",
+    "test_session": "d1614cb59d49ade6013f75df24f6d4c245319959d68075732a4d48d648bd3399",
+    "test_ui": "b622799205b04ec2b336e23bc961e2d35f129c6ca60d881304502d9881d25a7f",
+    "test_workflow": "c717d4bc912ae7a42b8f609cf772565bd6c6aba61abd560f8afa5d18850bed27",
+    "test_workflow_e2e": "782588fb4e31d593731a19ee52e36a245197f4a9387900e0c60ff315ad6cdc71",
+    "test_workflow_integration": "311cb19161269c829067b31cda402af87a9a980db7395970383231b9fbc2de44",
+    "test_workflow_protocol": "62f3c5dbe2187d9064598e9933ac1fc2b4e98f43cf4f63d591b99e817420b5d7",
+    "test_workflow_ui": "d4f1eaba2c7fff67e7708daae20f5997db6f79b8eded9d1792a6f9b4dfcab1aa"
+  },
+  "ctest_initial_failed_suites": [
+    "session"
+  ],
+  "session_replay_same_source_and_executables": true,
+  "verification_note": "Nine suites passed in complete run; session had capture wait timeout and historical connected-wait failure. Both focused and full session replays pass unchanged. Original failures preserved; causes not claimed resolved."
+}

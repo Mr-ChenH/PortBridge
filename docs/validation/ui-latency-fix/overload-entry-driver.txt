@@ -1,0 +1,5 @@
+Running udp-overload (up to 90s); evidence: C:\Users\threeTeeth\workSpace\github\PortBridge\docs\validation\ui-latency-fix\ui-latency-overload-final\udp-overload-result.json
+{"state": "passed", "protocol": "udp", "verifiedFrames": 30001, "payloadBytes": 44161472, "savedRecords": 30001, "allPayloadBytesMatch": true, "allFootersAndMetadataComplete": true}
+Running tcp-overload (up to 90s); evidence: C:\Users\threeTeeth\workSpace\github\PortBridge\docs\validation\ui-latency-fix\ui-latency-overload-final\tcp-overload-result.json
+{"state": "passed", "protocol": "tcp", "verifiedFrames": 29998, "payloadBytes": 122871808, "savedRecords": 24271, "allPayloadBytesMatch": true, "allFootersAndMetadataComplete": true}
+Acceptance passed: C:\Users\threeTeeth\workSpace\github\PortBridge\docs\validation\ui-latency-fix\ui-latency-overload-final

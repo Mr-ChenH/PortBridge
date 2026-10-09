@@ -1,0 +1,5 @@
+Running udp-overload (up to 90s); evidence: C:\Users\threeTeeth\workSpace\github\PortBridge\docs\validation\remaining-acceptance\overload-final\udp-overload-result.json
+{"state": "passed", "protocol": "udp", "verifiedFrames": 29995, "payloadBytes": 44152640, "savedRecords": 29995, "allPayloadBytesMatch": true, "allFootersAndMetadataComplete": true}
+Running tcp-overload (up to 90s); evidence: C:\Users\threeTeeth\workSpace\github\PortBridge\docs\validation\remaining-acceptance\overload-final\tcp-overload-result.json
+{"state": "passed", "protocol": "tcp", "verifiedFrames": 29992, "payloadBytes": 122847232, "savedRecords": 24037, "allPayloadBytesMatch": true, "allFootersAndMetadataComplete": true}
+Acceptance failed: C:\Users\threeTeeth\workSpace\github\PortBridge\docs\validation\remaining-acceptance\overload-final

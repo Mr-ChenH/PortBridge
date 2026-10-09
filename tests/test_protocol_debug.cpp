@@ -587,7 +587,8 @@ class ProtocolDebugTest : public QObject {
         for (const auto &secret :
              {"url-private", "bearer-private", "header-private", "query-private", "12345"}) {
             QVERIFY(!bytes.contains(secret));
-            QVERIFY(!settings.value("manual/httpLibrary").toByteArray().contains(secret));
+            QVERIFY(!settings.value("manual/httpProjectsV2").toByteArray().isEmpty());
+            QVERIFY(!settings.value("manual/httpProjectsV2").toByteArray().contains(secret));
         }
         QCOMPARE(widget<QLineEdit>(page, "protocolBearer")->text(), "bearer-private");
         ProtocolDebugPage restored(ProtocolDebugSession::Mode::Http, &settings);
@@ -647,6 +648,7 @@ class ProtocolDebugTest : public QObject {
         for (int at = 0; at < tabs->count(); ++at) {
             tabs->setCurrentIndex(at);
             auto *view = qobject_cast<QPlainTextEdit *>(tabs->currentWidget());
+            if(!view)view=tabs->currentWidget()->findChild<QPlainTextEdit*>();
             QVERIFY(view);
             QVERIFY(!view->toPlainText().contains(secret));
             QVERIFY(!view->toPlainText().contains("response-private-secret"));
@@ -665,7 +667,8 @@ class ProtocolDebugTest : public QObject {
         }
         QString error;
         QVERIFY(page.saveDraft(&error));
-        QVERIFY(!settings.value("manual/httpLibrary").toByteArray().contains(secret.toUtf8()));
+        QVERIFY(!settings.value("manual/httpProjectsV2").toByteArray().isEmpty());
+        QVERIFY(!settings.value("manual/httpProjectsV2").toByteArray().contains(secret.toUtf8()));
         QCOMPARE(page.session()->latestResponse(), raw);
     }
     void rawBodyBytePagesAreComplete() {

@@ -28,7 +28,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/deploy.ps1
 
 应用图标采用深色圆角底、薄荷绿桥接线和橙色端点，提供 16–256 像素九种 Windows ICO 尺寸，嵌入 EXE 文件资源及 Qt 窗口资源。资源管理器、快捷方式、标题栏和任务栏可使用同一图标，无需外部图片文件；图稿位于 `assets/app-icon/`，离线再生成可运行 `python scripts/generate-icon.py`（需要 PySide6、Pillow）。
 
-当前版本直接运行 `dist/PortBridge-connection-ui-1/PortBridge.exe`。上一 `dist/PortBridge-http-ws-1/PortBridge.exe`、`dist/PortBridge-workflow-ui-2/PortBridge.exe`、`dist/PortBridge-workflow-1/PortBridge.exe`、`dist/PortBridge-profile-picker-1/PortBridge.exe` 和被用户占用的历史版本保持保留。部署目录包含 Qt 运行时、平台插件、编译器运行库及必要的串口模块。实际可分发验证结果见验收报告。
+当前版本直接运行 `dist/PortBridge-ui-latency-fix-1/PortBridge.exe`。该修订修复GUI等待后台线程退出与重复布局/详情刷新；完整10/10回归、原生UI42/42及UDP/TCP各5分钟152/43ms心跳通过，见 [界面响应修复](docs/reviews/ui-latency-fix.md)。上一 `dist/PortBridge-http-sequence-fix-1/PortBridge.exe`、`dist/PortBridge-http-sequence-1/PortBridge.exe`、`dist/PortBridge-http-project-1/PortBridge.exe`、`dist/PortBridge-connection-ui-1/PortBridge.exe`、`dist/PortBridge-http-ws-1/PortBridge.exe`、`dist/PortBridge-workflow-ui-2/PortBridge.exe`、`dist/PortBridge-workflow-1/PortBridge.exe`、`dist/PortBridge-profile-picker-1/PortBridge.exe` 和被用户占用的历史版本保持保留。部署目录包含 Qt 运行时、平台插件、编译器运行库及必要的串口模块。实际可分发验证结果见验收报告。
 
 ## 操作
 
@@ -57,6 +57,12 @@ UDP 工作台把“本地接收绑定”和发送区的“UDP 发送目标”分
 
 先编辑、保存或载入，再明确发送/连接。WebSocket消息可在离线时准备，连接不会自动发送它。开始另一类通信需要明确处理旧活动；拒绝或确认期间活动状态改变，会保留现状。默认方案、结果预览、复制与预览导出遮蔽凭据；原始结果不被改写。TLS保持证书/主机名校验。完整说明见 [操作指南](docs/manual-protocol-guide.md)、[设计与调研](docs/project-factory/14-manual-protocol-design.md)、[本轮实施验证](docs/reviews/manual-protocol.md) 和 [真实界面](docs/validation/manual-protocol/gallery.html)。本地请求示例在 `docs/examples/`，载入不会启动服务或通信。
 
+HTTP项目功能支持项目/文件夹分类、独立环境、双大括号变量、项目公共认证和可视化响应提取。登录请求可把 `$.data.access_token` 写入当前环境运行变量，后续请求以 `{{access_token}}` 继承Bearer；模板可在登录前保存。敏感值只保留在运行期，环境/项目互相隔离，项目导出省略运行值。旧HTTP库迁入默认项目，WS与原始连接继续使用原方案。步骤见 [HTTP项目联调指南](docs/http-project-guide.md)，依据见 [调研](docs/project-factory/15-http-project-research.md) 与 [第一期要求](docs/project-factory/16-http-project-requirements.md)。
+
+## HTTP响应断言与顺序联调
+
+HTTP请求可保存状态码、响应头与JSON字段断言，按严格JSON类型比较。右上“顺序联调”选择已保存请求并排序，明确点击运行后逐项执行，当前步提取的token供下一步解析。支持遇错停止/继续、整段停止、逐步结果和省略值的JSON报告；执行期间锁定项目/环境，步骤间保持资源互斥。操作步骤见 [顺序联调指南](docs/http-sequence-guide.md)，示例 [登录→查询项目](docs/examples/login-sequence.pbhttp-project.json)，实现与验收见 [本轮审核](docs/reviews/http-sequence.md)。
+
 ## 原生工作流
 
 上一工作流UI修订位于 `dist/PortBridge-workflow-ui-2/PortBridge.exe`，本轮按交互设计重新整理节点库、工具条、参数常用/高级分层、HTTP响应、日志与紧凑布局，修复日志折叠误保存、无描述流程残留旧说明及Body裁切。新增结果视图保持有界预览与凭据遮罩，原生工作流UI28/28在Qt软件100/125/150%通过；最终修改复验4个相关UI套件，4个未改后端套件依据此前冻结回归及源码/可执行文件哈希复用。此前 `workflow-1` 已完成正式协议/核心实施与交叉独立审核，其历史证据保持保留。点击第四导航“工作流”，从节点库拖入或双击添加节点，拖动端口连接，在右侧填写协议参数；检查后主动运行。编辑、模板替换、导入和程序启动都不建立连接或发送业务数据。
@@ -75,6 +81,7 @@ UDP 工作台把“本地接收绑定”和发送区的“UDP 发送目标”分
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test.ps1 -Suite ui
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test.ps1 -BuildDirectory build/workflow-product -Suite protocol_debug
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test.ps1 -BuildDirectory build/workflow-product -Suite http_projects
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test.ps1 -BuildDirectory build/workflow-product -Suite workflow_e2e
 ```
 
@@ -94,7 +101,7 @@ build/release/portbridge_bench.exe --mode send --protocol udp --host 192.168.1.2
 build/release/PortBridge.exe --review-settings build/review-settings/manual --theme dark --size 1440x960 --screenshot docs/screenshots/manual.png
 ```
 
-在上述开发运行 PATH 条件下执行；--review-settings 使用独立配置目录，--screenshot 保存真实原生启动界面并退出。最新版本为 `connection-ui-1`；开发构建可用 `build/workflow-product/PortBridge.exe --page http` 或 `--page websocket` 静默打开协议工作台。原生工作流开发构建可用 `build/workflow-product/PortBridge.exe --page workflow --review-settings build/review-settings/workflow --theme dark --size 1440x1000 --screenshot docs/screenshots/workflow.png` 查看。`--page` 只选择页面，不运行任务。此前 `app-icon-1` 的图标设计与 EXE/窗口加载验证见 [应用图标报告](docs/reviews/app-icon.md)。此前 `text-diagnostics-1` 的中文 UTF-8 字节详情与接收诊断整理见 [文本与诊断修复报告](docs/reviews/text-diagnostics.md)。此前 `udp-lifecycle-1` 的 UDP 绑定/关闭不生成数据消息见 [生命周期消息修复报告](docs/reviews/udp-lifecycle.md)。此前 `composer-fix-1` 的四种通信方式全宽多行编辑、拖动调整与展开见 [发送区优化报告](docs/reviews/composer-fix.md)。此前 `direct-send-1` 的明显收发配色、UDP 无需应用直接发送见 [本轮修复报告](docs/reviews/direct-send.md)。此前会话浏览、文本格式化和完整 ASCII 查看见 [交互修复报告](docs/reviews/interaction-fix.md)。此前 UDP 配置修复与验证见 [UDP 修复报告](docs/reviews/udp-fix.md)。上一轮 `audit-fix-1` 的原生截图及可切换设计/修复前基准的 [对照页面](docs/validation/audit-fix/comparison.html) 位于 `docs/validation/audit-fix/`；完整结果见 [审核修复验收](docs/reviews/audit-fix-acceptance.md)。`docs/screenshots/ui-refinement/` 与 native-windows-* 图片保留为历史证据。
+在上述开发运行 PATH 条件下执行；--review-settings 使用独立配置目录，--screenshot 保存真实原生启动界面并退出。最新版本为 `http-sequence-fix-1`，验证见 [断言审核修复](docs/reviews/http-sequence-fix.md)；第二期原始记录见 [HTTP顺序联调审核](docs/reviews/http-sequence.md) 与 [界面图集](docs/validation/http-sequence/gallery.html)；开发构建可用 `build/workflow-product/PortBridge.exe --page http` 或 `--page websocket` 静默打开协议工作台。原生工作流开发构建可用 `build/workflow-product/PortBridge.exe --page workflow --review-settings build/review-settings/workflow --theme dark --size 1440x1000 --screenshot docs/screenshots/workflow.png` 查看。`--page` 只选择页面，不运行任务。此前 `app-icon-1` 的图标设计与 EXE/窗口加载验证见 [应用图标报告](docs/reviews/app-icon.md)。此前 `text-diagnostics-1` 的中文 UTF-8 字节详情与接收诊断整理见 [文本与诊断修复报告](docs/reviews/text-diagnostics.md)。此前 `udp-lifecycle-1` 的 UDP 绑定/关闭不生成数据消息见 [生命周期消息修复报告](docs/reviews/udp-lifecycle.md)。此前 `composer-fix-1` 的四种通信方式全宽多行编辑、拖动调整与展开见 [发送区优化报告](docs/reviews/composer-fix.md)。此前 `direct-send-1` 的明显收发配色、UDP 无需应用直接发送见 [本轮修复报告](docs/reviews/direct-send.md)。此前会话浏览、文本格式化和完整 ASCII 查看见 [交互修复报告](docs/reviews/interaction-fix.md)。此前 UDP 配置修复与验证见 [UDP 修复报告](docs/reviews/udp-fix.md)。上一轮 `audit-fix-1` 的原生截图及可切换设计/修复前基准的 [对照页面](docs/validation/audit-fix/comparison.html) 位于 `docs/validation/audit-fix/`；完整结果见 [审核修复验收](docs/reviews/audit-fix-acceptance.md)。`docs/screenshots/ui-refinement/` 与 native-windows-* 图片保留为历史证据。
 
 连接配置由选中的方案决定协议，标题右侧显示只读协议标识；更改协议通过新建/编辑方案完成。连接按钮紧跟基础参数，TCP 客户端优先显示目标地址/端口。检查器分开显示 OFFSET/HEX、范围及 ASCII；诊断按接收、截断、队列、记录和显示等位置区分实际计数。命令/采集页提供行内操作，更多功能保留在菜单；主题、显示偏好、队列预算及周期参数可恢复，启动始终不连接、不记录、不发送。
 
@@ -105,5 +112,7 @@ build/release/PortBridge.exe --review-settings build/review-settings/manual --th
 工作流设计/模拟原型位于 `docs/project-factory/workflow-prototype/`，真实产品依据 [原生工作流设计](docs/project-factory/12-workflow-ui-design.md) 和 [实施计划](docs/project-factory/13-workflow-implementation-plan.md)。[本轮设计/优化前/优化后对照](docs/validation/workflow-ui-refinement/comparison.html) 和 [UI再审核报告](docs/reviews/workflow-ui-refinement.md) 记录当前界面、真实HTTP/WS结果、凭据遮罩、失败复验及源码冻结范围。[上一版原生实现对照](docs/validation/workflow-implementation/comparison.html) 可直接离线打开；此前 [整体验收](docs/reviews/workflow-acceptance.md)、[独立核心/UI审核](docs/reviews/workflow-independent-review.md)、[独立协议组合审核](docs/reviews/workflow-protocol-independent.md) 记录范围与未验证条件。
 
 ## 验证范围
+
+新增可选的长时间验收入口 `python scripts/validate-local-acceptance.py --suite all`，默认使用 `build/workflow-product`；分项可选deadline/soak/dpi/overload/faults/waits，soak支持固定UDP或TCP及30～3600秒。实际10分钟截止、阻塞退出、指定负载实盘与跨屏/停顿证据见 [补充验收](docs/reviews/remaining-acceptance.md)，操作与设备条件见 [剩余验收指南](docs/remaining-acceptance-guide.md)。本机5分钟GUI心跳200ms门槛未通过（RA-UI01保持打开）；完整采集字节校验通过不替代界面响应验收。
 
 本机自动回环及原生界面测试不等于真实 2.5G 网卡吞吐、真实串口拔插或干净系统认证。使用独立压力工具和真实设备按 docs/project-factory/10-high-throughput-plan.md 验证这些条件。第三方组件与固定版本见 THIRD_PARTY_NOTICES.md。

@@ -1,0 +1,5 @@
+Running udp-dpi (up to 90s); evidence: C:\Users\threeTeeth\workSpace\github\PortBridge\docs\validation\ui-latency-fix\ui-latency-dpi-final\udp-dpi-result.json
+{"state": "passed", "protocol": "udp", "verifiedFrames": 29990, "payloadBytes": 44145280, "savedRecords": 29990, "allPayloadBytesMatch": true, "allFootersAndMetadataComplete": true}
+Running tcp-dpi (up to 90s); evidence: C:\Users\threeTeeth\workSpace\github\PortBridge\docs\validation\ui-latency-fix\ui-latency-dpi-final\tcp-dpi-result.json
+{"state": "passed", "protocol": "tcp", "verifiedFrames": 29999, "payloadBytes": 122875904, "savedRecords": 23586, "allPayloadBytesMatch": true, "allFootersAndMetadataComplete": true}
+Acceptance passed: C:\Users\threeTeeth\workSpace\github\PortBridge\docs\validation\ui-latency-fix\ui-latency-dpi-final

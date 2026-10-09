@@ -1,0 +1,52 @@
+{
+  "state": "passed",
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 61.603
+    },
+    {
+      "name": "focused-ui",
+      "exitCode": 0,
+      "seconds": 2.153
+    },
+    {
+      "name": "storage-exit-compile",
+      "exitCode": 0,
+      "seconds": 2.609
+    },
+    {
+      "name": "storage-exit-before-link",
+      "exitCode": 0,
+      "seconds": 2.205
+    },
+    {
+      "name": "storage-exit-before",
+      "exitCode": 0,
+      "seconds": 7.313
+    },
+    {
+      "name": "storage-exit-after-link",
+      "exitCode": 0,
+      "seconds": 2.094
+    },
+    {
+      "name": "storage-exit-after",
+      "exitCode": 0,
+      "seconds": 7.175
+    },
+    {
+      "name": "ctest-all",
+      "exitCode": 0,
+      "seconds": 167.724
+    },
+    {
+      "name": "native-ui",
+      "exitCode": 0,
+      "seconds": 86.283
+    }
+  ],
+  "sourceHashes": "source-hashes.json",
+  "sourceUnchanged": true
+}

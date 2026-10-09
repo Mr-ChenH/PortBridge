@@ -1,0 +1,25 @@
+{
+  "state": "passed",
+  "protocol": "udp",
+  "verifiedFrames": 29987,
+  "payloadBytes": 44140864,
+  "savedRecords": 29987,
+  "allPayloadBytesMatch": true,
+  "allFootersAndMetadataComplete": true,
+  "files": [
+    {
+      "file": "capture-1791511392161705-577c7f90-d32f-4b3a-b6a8-50150baed9d2-0001.pbc",
+      "bytes": 33554360,
+      "payloadBytes": 32219136,
+      "records": 21888,
+      "sha256": "e7314186ac6dd11b3d34aba2771c86250c8924234b2d1f6a7c08435a8f5a499d"
+    },
+    {
+      "file": "capture-1791511392161705-577c7f90-d32f-4b3a-b6a8-50150baed9d2-0002.pbc",
+      "bytes": 12415823,
+      "payloadBytes": 11921728,
+      "records": 8099,
+      "sha256": "bd22068b15daf9ceb6988f98f7a16fa522c639228100b61c4c8d8c9e071c1e87"
+    }
+  ]
+}

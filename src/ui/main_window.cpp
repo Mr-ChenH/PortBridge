@@ -5,6 +5,7 @@
 #include "ui/record_model.hpp"
 #include "ui/byte_text_preview.hpp"
 #include "ui/background_job.hpp"
+#include "ui/background_worker.hpp"
 #include "ui/connection_dialog.hpp"
 #include "ui/design_widgets.hpp"
 #include <QStyleFactory>
@@ -17,6 +18,7 @@
 #include <QComboBox>
 #include <QDateTime>
 #include <QElapsedTimer>
+#include <QPersistentModelIndex>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QDir>
@@ -141,6 +143,10 @@ struct MainWindow::Impl : QObject {
     QComboBox* textFormat=nullptr;
     QSpinBox* bytePage=nullptr;
     std::uint64_t inspectedOrdinal=0;
+    bool emptyInspectorRendered=false;
+    QPersistentModelIndex inspectedIndex;
+    int inspectedPage=0;
+    bool inspectedDark=false;
     design::Assets assets;
     QPushButton* navigation[4]{};
     QPushButton* railNavigation[4]{};
@@ -201,6 +207,7 @@ struct MainWindow::Impl : QObject {
     Trend* trend=nullptr;
     QTabWidget* dataTabs=nullptr;
     QTimer* timer=nullptr;
+    QElapsedTimer metricsClock;
     QByteArray payload;
     bool payloadValid=false;
     struct ExportJob : detail::BackgroundCompletion {
@@ -210,22 +217,23 @@ struct MainWindow::Impl : QObject {
         bool success=false;
     };
     std::shared_ptr<ExportJob> exportJob;
-    std::thread exportThread;
+    detail::BackgroundWorker exportWorker;
     QProgressBar* exportProgress=nullptr;
     QLabel* exportStatus=nullptr;
     QPushButton *cancelExport=nullptr,*exportCaptureButton=nullptr,*openCaptureButton=nullptr,*sampleExportButton=nullptr,*cancelSamples=nullptr;
     std::shared_ptr<ExportJob> sampleJob;
-    std::thread sampleThread;
+    detail::BackgroundWorker sampleWorker;
     struct StorageJob : detail::BackgroundCompletion {
         std::atomic<bool> cancel{false};
         QString requestedPath,result;
     };
     std::shared_ptr<StorageJob> storageJob;
-    std::thread storageThread;
+    detail::BackgroundWorker storageWorker;
     QString pendingStoragePath;
+    QString storageResultPath;
     QStringList captureSignature;
     std::shared_ptr<ExportJob> deleteJob;
-    std::thread deleteThread;
+    detail::BackgroundWorker deleteWorker;
 
 
     explicit Impl(MainWindow* owner, SessionController* controller) : QObject(owner),q(owner),c(controller) {
@@ -262,7 +270,7 @@ struct MainWindow::Impl : QObject {
         else QTimer::singleShot(0,this,[this]{workspaceSplitter->setSizes({220,360});});
         connectController(c);
         timer=named(new QTimer(q),"uiSnapshotTimer"); timer->setInterval(50);
-        QObject::connect(timer,&QTimer::timeout,q,[this]{ snapshot(); }); timer->start();
+        QObject::connect(timer,&QTimer::timeout,q,[this]{ snapshot(false); }); timer->start();
         q->installEventFilter(this);
         trendPanel->setVisible(q->height()>=850);
         updateState(); snapshot(); if (!startupError.trimmed().isEmpty()) showError(startupError.trimmed());
@@ -275,13 +283,13 @@ struct MainWindow::Impl : QObject {
         q->removeEventFilter(this);
         timer->stop();
         if(exportJob)exportJob->cancel.store(true,std::memory_order_relaxed);
-        detail::finishBackgroundThread(exportThread,exportJob,std::chrono::seconds(1));
+        exportWorker.stop(std::chrono::seconds(1));
         if(sampleJob)sampleJob->cancel.store(true,std::memory_order_relaxed);
         if(storageJob)storageJob->cancel.store(true,std::memory_order_relaxed);
         if(deleteJob)deleteJob->cancel.store(true,std::memory_order_relaxed);
-        detail::finishBackgroundThread(deleteThread,deleteJob,std::chrono::seconds(1));
-        detail::finishBackgroundThread(sampleThread,sampleJob,std::chrono::seconds(1));
-        detail::finishBackgroundThread(storageThread,storageJob,std::chrono::seconds(1));
+        deleteWorker.stop(std::chrono::seconds(1));
+        sampleWorker.stop(std::chrono::seconds(1));
+        storageWorker.stop(std::chrono::seconds(1));
         if(httpPage)httpPage->session()->cancel();
         if(webSocketPage)webSocketPage->session()->cancel();
         if(workflowPage)workflowPage->runner()->stop();
@@ -376,7 +384,7 @@ struct MainWindow::Impl : QObject {
     void updateState();
     void navigate(int index);
     void updateTargetState();
-    void snapshot();
+    void snapshot(bool forceMetrics=true);
     void revealByteText(){const auto ordinal=inspectedOrdinal;QTimer::singleShot(0,this,[this,ordinal]{if(ordinal&&ordinal==inspectedOrdinal&&q->findChild<QTabWidget*>("byteFormatTabs")->currentIndex()==2){auto* scroll=q->findChild<QScrollArea*>("byteDetailsScroll");scroll->widget()->layout()->activate();scroll->verticalScrollBar()->setValue(byteUtf8->mapTo(scroll->widget(),QPoint()).y()-8);}});}
     void inspect();
     void toggleRecording();
@@ -462,6 +470,7 @@ bool MainWindow::Impl::prepareManualProtocol(ProtocolDebugSession* target,QStrin
         if(error)*error=QStringLiteral("确认期间活动状态已变更；保留现状，请重新操作。");
         return false;
     }
+    if(target){const auto contextError=target->pendingContextError();if(!contextError.isEmpty()){if(error)*error=contextError;return false;}}
     if(flowActive)workflowPage->runner()->stop();
     if(httpActive)http->cancel();
     if(wsActive)ws->cancel();
@@ -1126,8 +1135,8 @@ void MainWindow::Impl::renderTextPreview(){
     model->setStreamFormat(textFormat->currentIndex());streamView->clear();streamOmittedCharacters=0;
     if(!c->highSpeed())appendTextSegments(model->takeStreamSegments());else model->takeStreamSegments();
 }
-void MainWindow::Impl::snapshot() {
-    if(stateDirty){stateDirty=false;updateState();}
+void MainWindow::Impl::snapshot(bool forceMetrics) {
+    if(stateDirty){stateDirty=false;updateState();forceMetrics=true;}
     pollExport();pollSamples();pollStorage();pollDelete();validateSend();
     auto records=c->takeDisplayRecords();const auto stats=c->statistics();
     if(!c->displayPaused()){
@@ -1145,6 +1154,11 @@ void MainWindow::Impl::snapshot() {
         if(!text.empty()&&!c->highSpeed())appendTextSegments(std::move(text));
         if(!records.empty()&&autoScroll->isChecked())table->scrollToBottom();
     }
+    // Keep sample consumption and job polling at 20 Hz. Counters/layouts need
+    // only four refreshes per second; explicit user actions render immediately.
+    const bool refreshMetrics=forceMetrics||!metricsClock.isValid()||metricsClock.elapsed()>=250;
+    if(refreshMetrics){
+    metricsClock.restart();
     auto number=[this](const QString& value,const QString& unit){return QStringLiteral("<span style='font-size:29px'>%1</span><span style='font-size:10px;color:%3'> %2</span>").arg(value,unit,dark?"#8b9a9f":"#5e7379");};
     rxMetric->setText(number(QString::number(stats.rxBytesPerSecond/1e6,'f',3),QStringLiteral("MB/s")));
     txRate->setText(QStringLiteral("TX %1 MB/s · 有效负载").arg(stats.txBytesPerSecond/1e6,0,'f',3));
@@ -1166,10 +1180,10 @@ void MainWindow::Impl::snapshot() {
     diagnosticValues[2]->setText(bytesLabel(stats.rxBytes));diagnosticValues[3]->setText(QStringLiteral("%1 数据报").arg(stats.receiveTruncatedDatagrams));diagnosticValues[4]->setText(QStringLiteral("%1 条 / %2").arg(stats.applicationDroppedRecords).arg(bytesLabel(stats.applicationDroppedBytes)));diagnosticValues[5]->setText(c->recording()?QStringLiteral("%1 · %2 失败").arg(bytesLabel(stats.recordedBytes)).arg(stats.recordingFailures):QStringLiteral("未开启 · %1 失败").arg(stats.recordingFailures));diagnosticValues[6]->setText(QStringLiteral("%1 条省略").arg(stats.displayOmitted));
     retained->setToolTip(QStringLiteral("保留 %1 行 / %2 · 缓存裁剪 %3 · 管线省略 %4 · 文本裁剪 %5 字符").arg(model->rowCount()).arg(bytesLabel(model->retainedBytes())).arg(model->omitted()).arg(stats.displayOmitted).arg(streamOmittedCharacters));
     retained->setText(QStringLiteral("显示 %1 条 · %2 · 裁剪 %3 / 省略 %4").arg(model->rowCount()).arg(bytesLabel(model->retainedBytes())).arg(model->omitted()).arg(stats.displayOmitted));
-    diagnostics->setText(QStringLiteral("接收与记录诊断\n\n网络丢失：无法直接判断（需要发送端或系统计数）\n\n应用实际 RX：%1 B · UDP %2 数据报\n应用队列丢弃：%3 条 / %4 B\n记录失败：%5 · 已记录 %6 B / %7 条\n记录队列峰值：%8\n显示管线省略：%9 · UI 缓存裁剪：%10\n\n协议序号：%11\n%12\n\n显示抽样、暂停、缓存裁剪不是网络丢失；记录未开启时不能证明原始数据完整。")
+    const auto diagnosticText=QStringLiteral("接收与记录诊断\n\n网络丢失：无法直接判断（需要发送端或系统计数）\n\n应用实际 RX：%1 B · UDP %2 数据报\n应用队列丢弃：%3 条 / %4 B\n记录失败：%5 · 已记录 %6 B / %7 条\n记录队列峰值：%8\n显示管线省略：%9 · UI 缓存裁剪：%10\n\n协议序号：%11\n%12\n\n显示抽样、暂停、缓存裁剪不是网络丢失；记录未开启时不能证明原始数据完整。")
         .arg(stats.rxBytes).arg(stats.rxDatagrams).arg(stats.applicationDroppedRecords).arg(stats.applicationDroppedBytes).arg(stats.recordingFailures).arg(stats.recordedBytes).arg(stats.recordedRecords).arg(bytesLabel(stats.recordingQueueHighWater)).arg(stats.displayOmitted).arg(model->omitted()).arg(stats.sequenceEnabled?QStringLiteral("已显式启用 uint64 测试序号分析"):QStringLiteral("未知 / 未启用"))
-        .arg(stats.sequenceEnabled?QStringLiteral("窗口确认缺失 %1 · 重复 %2 · 乱序 %3").arg(stats.sequenceMissing).arg(stats.sequenceDuplicates).arg(stats.sequenceReordered):QStringLiteral("请仅在数据含协议/测试序号时配置；内部记录 # 不用于推断丢帧。")));
-    diagnostics->setText(diagnostics->text()+QStringLiteral("\nUDP 接收截断：%1 数据报（独立于应用队列丢弃）\n%2").arg(stats.receiveTruncatedDatagrams).arg(stats.sequenceEnabled?QStringLiteral("序号缺失率 %1；已确认位置 %2，待观察窗口与重复不计入分母。").arg(missingRatio).arg(stats.sequenceExpected):QStringLiteral("未启用序号分析，不计算缺失率。")));
+        .arg(stats.sequenceEnabled?QStringLiteral("窗口确认缺失 %1 · 重复 %2 · 乱序 %3").arg(stats.sequenceMissing).arg(stats.sequenceDuplicates).arg(stats.sequenceReordered):QStringLiteral("请仅在数据含协议/测试序号时配置；内部记录 # 不用于推断丢帧。"));
+    diagnostics->setText(diagnosticText+QStringLiteral("\nUDP 接收截断：%1 数据报（独立于应用队列丢弃）\n%2").arg(stats.receiveTruncatedDatagrams).arg(stats.sequenceEnabled?QStringLiteral("序号缺失率 %1；已确认位置 %2，待观察窗口与重复不计入分母。").arg(missingRatio).arg(stats.sequenceExpected):QStringLiteral("未启用序号分析，不计算缺失率。")));
     q->findChild<QWidget*>("diagnosticsPanel")->setAccessibleDescription(diagnostics->text());
     metricNotes[3]->setText(stats.recordedBytes?QStringLiteral("累计已记录 %1 · %2 失败").arg(bytesLabel(stats.recordedBytes)).arg(stats.recordingFailures):QStringLiteral("开启后保存原始字节与索引"));
     q->findChild<QPushButton*>("dataViewTab0")->setText(QStringLiteral("数据样本  %1").arg(proxy->rowCount()));
@@ -1181,15 +1195,26 @@ void MainWindow::Impl::snapshot() {
     if(parkedController)footer->setText(footer->text()+QStringLiteral("  |  后台 %1 · %2 · RX %3 B").arg(fromStd(profiles[parkedProfile].name),parkedController->connected()?endpointText(parkedController->localEndpoint()):QStringLiteral("已停止")).arg(parkedController->statistics().rxBytes));
     capacity->setText(QStringLiteral("按当前 RX+TX：%1 / 小时\n时长预计：%2").arg(bytesLabel((stats.rxBytesPerSecond+stats.txBytesPerSecond)*3600)).arg(duration->value()?bytesLabel((stats.rxBytesPerSecond+stats.txBytesPerSecond)*duration->value()):QStringLiteral("手动停止，时长未知")));
     if(stats.applicationDroppedRecords||stats.recordingFailures){banner->setText(QStringLiteral("管线异常：应用丢弃 %1 条；记录失败 %2。检查接收诊断和实际采集完整性。").arg(stats.applicationDroppedRecords).arg(stats.recordingFailures));banner->show();}
+    }
     if(++ticks%5==0)trend->sample(stats.rxBytesPerSecond);
     if(ticks%20==0){updateStorage();if(pages->currentIndex()==1)refreshCaptures();}
     if(c->periodicActive())sendButton->setToolTip(QStringLiteral("停止周期发送 · 已发 %1 次").arg(c->periodicSent()));
 }
 void MainWindow::Impl::inspect() {
-    const auto source=proxy->mapToSource(table->currentIndex());
+    const auto source=proxy->mapToSource(table->currentIndex()).siblingAtColumn(0);
     const auto* r=source.isValid()&&table->selectionModel()->hasSelection()?model->record(source.row()):nullptr;
     q->findChild<QPushButton*>("copyInspectorBytes")->setEnabled(r!=nullptr);q->findChild<QPushButton*>("copyRecord")->setEnabled(r!=nullptr);
-    if(!r){inspectedOrdinal=0;{const QSignalBlocker block(bytePage);bytePage->setRange(1,1);bytePage->setValue(1);bytePage->setSuffix(" / 1");}bytePage->setEnabled(false);byteSummary->setText(QStringLiteral("未选择记录"));byteSummary->setToolTip({});byteView->clear();byteOffsets->clear();byteAscii->clear();byteUtf8->clear();byteTextStatus->setText(QStringLiteral("中文请查看 UTF-8；ASCII 的点表示非可打印字节。"));byteRange->setText(QStringLiteral("选择记录后显示预览范围"));return;}
+    if(!r){
+        if(emptyInspectorRendered)return;
+        emptyInspectorRendered=true;
+        inspectedIndex=QPersistentModelIndex{};inspectedPage=0;
+        inspectedOrdinal=0;{const QSignalBlocker block(bytePage);bytePage->setRange(1,1);bytePage->setValue(1);bytePage->setSuffix(" / 1");}bytePage->setEnabled(false);byteSummary->setText(QStringLiteral("未选择记录"));byteSummary->setToolTip({});byteView->clear();byteOffsets->clear();byteAscii->clear();byteUtf8->clear();byteTextStatus->setText(QStringLiteral("中文请查看 UTF-8；ASCII 的点表示非可打印字节。"));byteRange->setText(QStringLiteral("选择记录后显示预览范围"));return;}
+    emptyInspectorRendered=false;
+    const int requestedPage=inspectedOrdinal==r->sequence?bytePage->value():1;
+    // Retained records are immutable. Front eviction changes their row number,
+    // not their bytes; a persistent index tracks the selected record across it.
+    if(inspectedIndex==source&&inspectedPage==requestedPage&&inspectedDark==dark)return;
+    inspectedIndex=source;inspectedPage=requestedPage;inspectedDark=dark;
     const auto raw=recordBytes(*r);const int pagesCount=std::max(1,int((raw.size()+4095)/4096));
     const bool changedRecord=inspectedOrdinal!=r->sequence;
     {const QSignalBlocker block(bytePage);bytePage->setMaximum(pagesCount);if(changedRecord)bytePage->setValue(1);bytePage->setSuffix(QStringLiteral(" / %1").arg(pagesCount));}inspectedOrdinal=r->sequence;bytePage->setEnabled(pagesCount>1);
@@ -1215,11 +1240,13 @@ void MainWindow::Impl::toggleRecording() {
 }
 void MainWindow::Impl::updateStorage() {
     const auto requested=recordDirectory->text().trimmed();
+    if(requested!=storageResultPath)storage->setText(QStringLiteral("实际可用空间：正在后台查询…"));
     if(storageJob){pendingStoragePath=requested;return;}
-    if(storageThread.joinable())storageThread.join();
     storageJob=std::make_shared<StorageJob>();storageJob->requestedPath=requested;const auto job=storageJob;
-    storage->setText(QStringLiteral("实际可用空间：正在后台查询…"));q->setProperty("storageQueryActive",true);
-    try {storageThread=std::thread([job]{
+    // Keep the latest successful result visible during periodic background queries.
+    if(storage->text().isEmpty()){storage->setText(QStringLiteral("实际可用空间：正在后台查询…"));}
+    q->setProperty("storageQueryActive",true);
+    if(!storageWorker.submit([job]{
         try {
             QString path=job->requestedPath;
             for(int depth=0;depth<64&&!path.isEmpty()&&!job->cancel.load(std::memory_order_relaxed);++depth){if(QFileInfo::exists(path))break;const auto parent=QFileInfo(path).absolutePath();if(parent==path){path.clear();break;}path=parent;}
@@ -1228,13 +1255,14 @@ void MainWindow::Impl::updateStorage() {
             }
         } catch(...) {job->result=QStringLiteral("可用空间：未知（查询失败）");}
         job->complete();
-    });}catch(...){job->result=QStringLiteral("可用空间：未知（后台查询不可用）");job->complete();}
+    })){job->result=QStringLiteral("可用空间：未知（后台查询不可用）");job->complete();}
 }
 void MainWindow::Impl::pollStorage() {
     if(!storageJob||!storageJob->finished.load(std::memory_order_acquire))return;
-    if(storageThread.joinable())storageThread.join();
     const auto job=std::move(storageJob);q->setProperty("storageQueryActive",false);
-    if(job->requestedPath==recordDirectory->text().trimmed())storage->setText(job->result);
+    if(job->requestedPath==recordDirectory->text().trimmed()){
+        storage->setText(job->result);storageResultPath=job->requestedPath;
+    }
     const auto next=std::move(pendingStoragePath);pendingStoragePath.clear();if(!next.isNull()&&next!=job->requestedPath)updateStorage();
 }
 void MainWindow::Impl::exportSamples() {
@@ -1245,10 +1273,9 @@ void MainWindow::Impl::exportSamples() {
     std::vector<DataRecord> records;records.reserve(std::size_t(proxy->rowCount()));
     for(int i=0;i<proxy->rowCount();++i){const auto* r=model->record(proxy->mapToSource(proxy->index(i,0)).row());if(r)records.push_back(*r);}
     const QJsonObject header{{"schemaVersion",1},{"scope","retained-filtered-display-samples"},{"sampled",c->highSpeed()},{"uiOmitted",QString::number(model->omitted())},{"pipelineOmitted",QString::number(c->statistics().displayOmitted)}};
-    if(sampleThread.joinable())sampleThread.join();
     sampleJob=std::make_shared<ExportJob>();sampleJob->output=path;sampleJob->total.store(records.size());const auto job=sampleJob;
     sampleExportButton->setEnabled(false);cancelSamples->show();cancelSamples->setEnabled(true);q->setProperty("sampleExportActive",true);
-    try {sampleThread=std::thread([job,path,records=std::move(records),header]{
+    if(!sampleWorker.submit([job,path,records=std::move(records),header]{
         try {
             QSaveFile file(path);if(!file.open(QIODevice::WriteOnly))job->error=file.errorString();else {
                 auto write=[&](const QByteArray& bytes){if(job->cancel.load(std::memory_order_relaxed))return false;if(file.write(bytes)!=bytes.size()){job->error=file.errorString();return false;}return true;};
@@ -1258,11 +1285,10 @@ void MainWindow::Impl::exportSamples() {
                 if(ok&&!job->cancel.load(std::memory_order_relaxed)){job->success=file.commit();if(!job->success)job->error=file.errorString();}else file.cancelWriting();
             }
         } catch(const std::exception& e){job->error=QString::fromUtf8(e.what());}catch(...){job->error=QStringLiteral("样本导出遇到未知错误。");}job->complete();
-    });}catch(const std::exception& e){job->error=QString::fromUtf8(e.what());job->complete();}
+    })){job->error=QStringLiteral("无法启动样本导出后台任务。");job->complete();}
 }
 void MainWindow::Impl::pollSamples() {
     if(!sampleJob||!sampleJob->finished.load(std::memory_order_acquire))return;
-    if(sampleThread.joinable())sampleThread.join();
     const auto job=std::move(sampleJob);q->setProperty("sampleExportActive",false);sampleExportButton->setEnabled(true);cancelSamples->hide();
     if(job->success)q->statusBar()->showMessage(QStringLiteral("显示样本已导出：")+job->output,6000);
     else if(job->cancel.load(std::memory_order_relaxed))q->statusBar()->showMessage(QStringLiteral("样本导出已取消；原输出文件未覆盖。"),6000);
@@ -1295,19 +1321,17 @@ void MainWindow::Impl::refreshCaptures(bool rescan) {
 void MainWindow::Impl::deleteCapture(const QString& path) {
     if(deleteJob||exportJob||c->recording()||(parkedController&&parkedController->recording()))return;
     QMessageBox dialog(QMessageBox::Question,QStringLiteral("删除采集文件"),QStringLiteral("删除原始采集与元数据目录？\n%1\n此操作无法撤销。").arg(path),QMessageBox::NoButton,q);auto* remove=dialog.addButton(QStringLiteral("删除"),QMessageBox::DestructiveRole);dialog.addButton(QStringLiteral("取消"),QMessageBox::RejectRole);dialog.exec();if(dialog.clickedButton()!=remove)return;
-    if(deleteThread.joinable())deleteThread.join();
     deleteJob=std::make_shared<ExportJob>();deleteJob->output=path;const auto job=deleteJob;q->setProperty("captureDeleteActive",true);
-    try{deleteThread=std::thread([job,path]{
+    if(!deleteWorker.submit([job,path]{
         try{if(!job->cancel.load(std::memory_order_relaxed)){
             if(!QFile::remove(path))job->error=QStringLiteral("无法删除原始采集：")+path;
             else if(QFileInfo::exists(path+".meta.json")&&!QFile::remove(path+".meta.json"))job->error=QStringLiteral("原始采集已删除，元数据目录删除失败：")+path+".meta.json";
             else job->success=true;
         }}catch(...){job->error=QStringLiteral("删除采集时发生错误。");}job->complete();
-    });}catch(...){job->error=QStringLiteral("无法启动后台删除任务。");job->complete();}refreshCaptures();
+    })){job->error=QStringLiteral("无法启动后台删除任务。");job->complete();}refreshCaptures();
 }
 void MainWindow::Impl::pollDelete() {
     if(!deleteJob||!deleteJob->finished.load(std::memory_order_acquire))return;
-    if(deleteThread.joinable())deleteThread.join();
     const auto job=std::move(deleteJob);q->setProperty("captureDeleteActive",false);
     if(!job->error.isEmpty())showError(job->error);else if(job->success)q->statusBar()->showMessage(QStringLiteral("采集文件已删除。"),4000);refreshCaptures(true);
 }
@@ -1315,20 +1339,17 @@ void MainWindow::Impl::pollDelete() {
 void MainWindow::Impl::beginCaptureExport(const QString& input,const QString& output) {
     exportStatus->show();cancelExport->show();exportProgress->show();
     if(exportJob){showError(QStringLiteral("已有导出任务，请等待完成或取消。"));return;}
-    if(exportThread.joinable())exportThread.join();
     exportJob=std::make_shared<ExportJob>();exportJob->output=output;
     exportCaptureButton->setEnabled(false);openCaptureButton->setEnabled(false);cancelExport->setEnabled(true);
     exportProgress->setValue(0);exportStatus->setText(QStringLiteral("后台导出：")+QFileInfo(input).fileName());q->setProperty("captureExportActive",true);
     const auto job=exportJob;
-    try {
-        exportThread=std::thread([job,input,output]{
+    if(!exportWorker.submit([job,input,output]{
             try {
                 job->success=exportCapture(input,output,&job->error,[job](std::uint64_t done,std::uint64_t total){job->processed.store(done,std::memory_order_relaxed);job->total.store(total,std::memory_order_relaxed);return !job->cancel.load(std::memory_order_relaxed);});
             } catch(const std::exception& e) { job->error=QString::fromUtf8(e.what()); }
             catch(...) { job->error=QStringLiteral("导出遇到未知错误。"); }
             job->complete();
-        });
-    } catch(const std::exception& e) {job->error=QString::fromUtf8(e.what());job->complete();}
+    })){job->error=QStringLiteral("无法启动采集导出后台任务。");job->complete();}
 }
 void MainWindow::Impl::pollExport() {
     if(!exportJob)return;
@@ -1336,7 +1357,6 @@ void MainWindow::Impl::pollExport() {
     exportProgress->setValue(total?int(std::min(1000.0,double(done)*1000/double(total))):0);
     if(!exportJob->cancel.load(std::memory_order_relaxed))exportStatus->setText(QStringLiteral("后台导出 %1 / %2 · 一个任务，接收和 UI 继续").arg(bytesLabel(double(done)),total?bytesLabel(double(total)):QStringLiteral("未知")));
     if(!exportJob->finished.load(std::memory_order_acquire))return;
-    if(exportThread.joinable())exportThread.join();
     const auto job=std::move(exportJob);q->setProperty("captureExportActive",false);exportCaptureButton->setEnabled(true);openCaptureButton->setEnabled(true);cancelExport->setEnabled(false);
     if(job->success){exportProgress->setValue(1000);exportStatus->setText(QStringLiteral("实际采集已导出：")+job->output);}
     else if(job->cancel.load(std::memory_order_relaxed)){exportStatus->setText(QStringLiteral("已取消导出；原输出文件未覆盖。"));}

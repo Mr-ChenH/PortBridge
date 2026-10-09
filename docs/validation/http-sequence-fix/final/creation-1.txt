@@ -1,0 +1,11 @@
+********* Start testing of ProtocolDebugTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : ProtocolDebugTest::initTestCase()
+PASS   : ProtocolDebugTest::unifiedCreationDialog(http-dark)
+PASS   : ProtocolDebugTest::unifiedCreationDialog(http-light)
+PASS   : ProtocolDebugTest::unifiedCreationDialog(websocket-dark)
+PASS   : ProtocolDebugTest::unifiedCreationDialog(websocket-light)
+PASS   : ProtocolDebugTest::creationPreservesDirtyDraftAndActiveSession()
+PASS   : ProtocolDebugTest::cleanupTestCase()
+Totals: 7 passed, 0 failed, 0 skipped, 0 blacklisted, 3190ms
+********* Finished testing of ProtocolDebugTest *********

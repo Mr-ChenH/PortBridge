@@ -1,0 +1,2 @@
+Running ui-exit (up to 20s); evidence: C:\Users\threeTeeth\workSpace\github\PortBridge\docs\validation\ui-latency-fix\ui-latency-ui-exit-final\ui-exit-result.json
+Acceptance passed: C:\Users\threeTeeth\workSpace\github\PortBridge\docs\validation\ui-latency-fix\ui-latency-ui-exit-final

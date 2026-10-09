@@ -1,0 +1,38 @@
+{
+  "actualRequestsWithInvalidResolvedRules": 0,
+  "invalidResolvedRulesRejected": true,
+  "nestedArrayPassed": true,
+  "nestedArrayPathValidation": "",
+  "over128Rejected": true,
+  "over32Rejected": true,
+  "over8MiBRejected": true,
+  "requestsAfterBoundaryRejections": 0,
+  "resolveError": "断言预期值缺失、超过64KiB或深度限制。",
+  "resolvedExpectedCharacters": 0,
+  "resolvedRulesValidation": "",
+  "rootArrayPassed": true,
+  "rootArrayPathValidation": "",
+  "sequenceAcceptedInvalidResolvedRules": false,
+  "sequenceReport": {
+    "cancelled": false,
+    "continueOnFailure": false,
+    "counts": {
+      "cancelled": 0,
+      "failed": 0,
+      "passed": 0,
+      "skipped": 0
+    },
+    "environmentId": "",
+    "plannedSteps": 0,
+    "projectId": "",
+    "results": [],
+    "runId": "",
+    "running": false,
+    "schemaVersion": 1,
+    "type": "portbridge-http-sequence-result",
+    "valuesExcluded": true
+  },
+  "sequenceStartError": "断言预期值缺失、超过64KiB或深度限制。",
+  "variableAccepted": true,
+  "variableError": ""
+}

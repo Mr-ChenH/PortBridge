@@ -1,0 +1,434 @@
+Test project C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+      Start  1: network
+ 1/10 Test  #1: network ..........................   Passed    1.69 sec
+      Start  2: session
+ 2/10 Test  #2: session ..........................   Passed   46.34 sec
+      Start  3: ui
+ 3/10 Test  #3: ui ...............................   Passed   45.68 sec
+      Start  4: workflow
+ 4/10 Test  #4: workflow .........................   Passed    2.38 sec
+      Start  5: workflow_ui
+ 5/10 Test  #5: workflow_ui ......................   Passed   27.18 sec
+      Start  6: workflow_protocol
+ 6/10 Test  #6: workflow_protocol ................   Passed    7.77 sec
+      Start  7: workflow_integration
+ 7/10 Test  #7: workflow_integration .............   Passed    9.30 sec
+      Start  8: workflow_e2e
+ 8/10 Test  #8: workflow_e2e .....................   Passed   10.53 sec
+      Start  9: protocol_debug
+ 9/10 Test  #9: protocol_debug ...................***Failed   25.71 sec
+CMake Error at C:/Users/threeTeeth/workSpace/github/PortBridge/cmake/RunQtTest.cmake:19 (message):
+  Qt Test failed (9).
+
+  ********* Start testing of ProtocolDebugTest *********
+
+  Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64
+  shared (dynamic) release build; by GCC 13.1.0), windows 11
+
+  PASS : ProtocolDebugTest::initTestCase()
+
+  QWARN : ProtocolDebugTest::noFloatingControlsCoverTheEditor() This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::noFloatingControlsCoverTheEditor() This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::noFloatingControlsCoverTheEditor() This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::noFloatingControlsCoverTheEditor() This plugin
+  does not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::noFloatingControlsCoverTheEditor()
+
+  PASS : ProtocolDebugTest::previewBoundaryMasksPartialKnownSecret()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(http-dark) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(http-dark) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(http-dark) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(http-dark) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(http-dark) This plugin
+  does not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::unifiedCreationDialog(http-dark)
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(http-light) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(http-light) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(http-light) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(http-light) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(http-light) This plugin
+  does not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::unifiedCreationDialog(http-light)
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(websocket-dark) This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(websocket-dark) This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(websocket-dark) This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(websocket-dark) This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(websocket-dark) This
+  plugin does not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::unifiedCreationDialog(websocket-dark)
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(websocket-light) This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(websocket-light) This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(websocket-light) This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(websocket-light) This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::unifiedCreationDialog(websocket-light) This
+  plugin does not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::unifiedCreationDialog(websocket-light)
+
+  QWARN : ProtocolDebugTest::creationPreservesDirtyDraftAndActiveSession()
+  This plugin does not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::creationPreservesDirtyDraftAndActiveSession()
+
+  QWARN : ProtocolDebugTest::silentModesAndDraftLoading() This plugin does
+  not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::silentModesAndDraftLoading()
+
+  PASS : ProtocolDebugTest::controllerHttp401And302()
+
+  PASS : ProtocolDebugTest::validationPrecedesGuard()
+
+  PASS : ProtocolDebugTest::cancelIsolatesLateHttpCallbacks()
+
+  PASS : ProtocolDebugTest::allHttpMethodsReachTheServer()
+
+  PASS : ProtocolDebugTest::importedBoundsRejectBeforeMutation()
+
+  QWARN : ProtocolDebugTest::connectedWidgetDestructionReleasesPeer() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::connectedWidgetDestructionReleasesPeer() This
+  plugin does not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::connectedWidgetDestructionReleasesPeer()
+
+  PASS : ProtocolDebugTest::capacityFailureAndRecovery()
+
+  QWARN : ProtocolDebugTest::actualHttpEditorSemantics() This plugin does not
+  support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::actualHttpEditorSemantics() This plugin does not
+  support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::actualHttpEditorSemantics()
+
+  PASS : ProtocolDebugTest::urlEncodedBodyAndDuplicateHeaders()
+
+  PASS : ProtocolDebugTest::schemeRoundTripPreservesQueryEncoding()
+
+  PASS : ProtocolDebugTest::savedDraftMasksCredentialsAndRestores()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(string) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(string) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(string) This plugin
+  does not support propagateSizeHints()
+
+  FAIL! : ProtocolDebugTest::credentialViewsAndClipboard(string) 'view'
+  returned FALSE.  ()
+
+  
+  C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_protocol_debug.cpp(651)
+  : failure location
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(number) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(number) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(number) This plugin
+  does not support propagateSizeHints()
+
+  FAIL! : ProtocolDebugTest::credentialViewsAndClipboard(number) 'view'
+  returned FALSE.  ()
+
+  
+  C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_protocol_debug.cpp(651)
+  : failure location
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(boolean) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(boolean) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(boolean) This plugin
+  does not support propagateSizeHints()
+
+  FAIL! : ProtocolDebugTest::credentialViewsAndClipboard(boolean) 'view'
+  returned FALSE.  ()
+
+  
+  C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_protocol_debug.cpp(651)
+  : failure location
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(null) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(null) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(null) This plugin
+  does not support propagateSizeHints()
+
+  FAIL! : ProtocolDebugTest::credentialViewsAndClipboard(null) 'view'
+  returned FALSE.  ()
+
+  
+  C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_protocol_debug.cpp(651)
+  : failure location
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(array) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(array) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(array) This plugin
+  does not support propagateSizeHints()
+
+  FAIL! : ProtocolDebugTest::credentialViewsAndClipboard(array) 'view'
+  returned FALSE.  ()
+
+  
+  C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_protocol_debug.cpp(651)
+  : failure location
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(object) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(object) This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(object) This plugin
+  does not support propagateSizeHints()
+
+  FAIL! : ProtocolDebugTest::credentialViewsAndClipboard(object) 'view'
+  returned FALSE.  ()
+
+  
+  C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_protocol_debug.cpp(651)
+  : failure location
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(escaped-key) This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(escaped-key) This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(escaped-key) This
+  plugin does not support propagateSizeHints()
+
+  FAIL! : ProtocolDebugTest::credentialViewsAndClipboard(escaped-key) 'view'
+  returned FALSE.  ()
+
+  
+  C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_protocol_debug.cpp(651)
+  : failure location
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(long-value) This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(long-value) This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(long-value) This
+  plugin does not support propagateSizeHints()
+
+  FAIL! : ProtocolDebugTest::credentialViewsAndClipboard(long-value) 'view'
+  returned FALSE.  ()
+
+  
+  C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_protocol_debug.cpp(651)
+  : failure location
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(large-body) This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(large-body) This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::credentialViewsAndClipboard(large-body) This
+  plugin does not support propagateSizeHints()
+
+  FAIL! : ProtocolDebugTest::credentialViewsAndClipboard(large-body) 'view'
+  returned FALSE.  ()
+
+  
+  C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_protocol_debug.cpp(651)
+  : failure location
+
+  QWARN : ProtocolDebugTest::rawBodyBytePagesAreComplete() This plugin does
+  not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::rawBodyBytePagesAreComplete() This plugin does
+  not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::rawBodyBytePagesAreComplete() This plugin does
+  not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::rawBodyBytePagesAreComplete()
+
+  PASS : ProtocolDebugTest::actualWebSocketTextBinaryEmptyAndClose()
+
+  PASS : ProtocolDebugTest::webSocketPeerCloseCodeAndReason()
+
+  PASS : ProtocolDebugTest::webSocketHistoryIsByteBounded()
+
+  QWARN : ProtocolDebugTest::webSocketPagePausesOnlyDisplay() This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::webSocketPagePausesOnlyDisplay() This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::webSocketPagePausesOnlyDisplay() This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::webSocketPagePausesOnlyDisplay() This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::webSocketPagePausesOnlyDisplay() This plugin
+  does not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::webSocketPagePausesOnlyDisplay()
+
+  QWARN : ProtocolDebugTest::mainWindowResourceConfirmPreservesAndReplaces()
+  This plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::mainWindowResourceConfirmPreservesAndReplaces()
+  This plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::mainWindowResourceConfirmPreservesAndReplaces()
+  This plugin does not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::mainWindowResourceConfirmPreservesAndReplaces()
+
+  QWARN : ProtocolDebugTest::confirmationFencesChangedEpoch() This plugin
+  does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::confirmationFencesChangedEpoch() This plugin
+  does not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::confirmationFencesChangedEpoch()
+
+  QWARN : ProtocolDebugTest::browsingKeepsWsAndHiddenShortcutsSilent() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::browsingKeepsWsAndHiddenShortcutsSilent() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::browsingKeepsWsAndHiddenShortcutsSilent() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::browsingKeepsWsAndHiddenShortcutsSilent() This
+  plugin does not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::browsingKeepsWsAndHiddenShortcutsSilent()
+
+  QWARN : ProtocolDebugTest::workflowRequiresExplicitReleaseOfManualWs() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::workflowRequiresExplicitReleaseOfManualWs() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::workflowRequiresExplicitReleaseOfManualWs() This
+  plugin does not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::workflowRequiresExplicitReleaseOfManualWs()
+
+  QWARN : ProtocolDebugTest::mainWindowExitCancellationPreservesWs() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::mainWindowExitCancellationPreservesWs() This
+  plugin does not support propagateSizeHints()
+
+  QWARN : ProtocolDebugTest::mainWindowExitCancellationPreservesWs() This
+  plugin does not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::mainWindowExitCancellationPreservesWs()
+
+  PASS : ProtocolDebugTest::wsHandshakeHeadersAndOutgoingCapacity()
+
+  QWARN : ProtocolDebugTest::nativeWsMessagesAndCompactGeometry() This plugin
+  does not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::nativeWsMessagesAndCompactGeometry()
+
+  QWARN : ProtocolDebugTest::nativeHttpClipboardMaskAndGeometry() This plugin
+  does not support propagateSizeHints()
+
+  PASS : ProtocolDebugTest::nativeHttpClipboardMaskAndGeometry()
+
+  PASS : ProtocolDebugTest::cleanupTestCase()
+
+  Totals: 34 passed, 9 failed, 0 skipped, 0 blacklisted, 25552ms
+
+  ********* Finished testing of ProtocolDebugTest *********
+
+
+
+
+
+
+
+
+      Start 10: http_projects
+10/10 Test #10: http_projects ....................   Passed    6.67 sec
+
+90% tests passed, 1 tests failed out of 10
+
+Total Test time (real) = 183.30 sec
+
+The following tests FAILED:
+	  9 - protocol_debug (Failed)
+Errors while running CTest
+CTest failed with code 8; inspect C:\Users\threeTeeth\workSpace\github\PortBridge\build\workflow-product\test-reports a
+nd Testing\Temporary\LastTest.log
+ËùÔÚÎ»ÖÃ C:\Users\threeTeeth\workSpace\github\PortBridge\scripts\test.ps1:15 ×Ö·û: 28
++ ... DE -ne 0) { throw "CTest failed with code $LASTEXITCODE; inspect $bui ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (CTest failed wi...ry\LastTest.log:String) [], RuntimeException
+    + FullyQualifiedErrorId : CTest failed with code 8; inspect C:\Users\threeTeeth\workSpace\github\PortBridge\build\ 
+   workflow-product\test-reports and Testing\Temporary\LastTest.log
+ 

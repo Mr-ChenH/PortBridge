@@ -13,7 +13,8 @@
 namespace portbridge {
 namespace {
 bool token(const QString &s) {
-    return !s.isEmpty() && s.size() <= 256 && s.contains(QRegularExpression("^[!#$%&'*+.^_`|~0-9A-Za-z-]+$"));
+    return !s.isEmpty() && s.size() <= 256 &&
+           s.contains(QRegularExpression("^[!#$%&'*+.^_`|~0-9A-Za-z-]+$"));
 }
 QString normalizedError(const QString &error) {
     const auto translated = workflowDetail::userMessage(error);
@@ -32,15 +33,16 @@ QString ProtocolDebugSession::validate(const QJsonObject &p, Mode mode) {
     const auto text = p.value("url").toString();
     const QUrl url(text, QUrl::StrictMode);
     const bool http = mode == Mode::Http;
-    if (text.size() > 4096 || url.hasFragment() || text.contains(QRegularExpression("[\\s\\x00-\\x1f]")) ||
-        !url.isValid() || url.host().isEmpty() ||
+    if (text.size() > 4096 || url.hasFragment() ||
+        text.contains(QRegularExpression("[\\s\\x00-\\x1f]")) || !url.isValid() ||
+        url.host().isEmpty() ||
         !(http ? QStringList{"http", "https"} : QStringList{"ws", "wss"}).contains(url.scheme()))
         return QStringLiteral("请填写完整的%1 URL，含协议与主机；不能包含空白或控制字符。")
             .arg(http ? "http/https" : "ws/wss");
     if (!url.userInfo().isEmpty())
         return QStringLiteral("请通过认证页签设置用户名/密码，URL不能包含认证信息。");
-    if (http && !p.value("body").isUndefined() && !p.value("body").isNull() && !p.value("body").isString() &&
-        !p.value("body").isObject() && !p.value("body").isArray())
+    if (http && !p.value("body").isUndefined() && !p.value("body").isNull() &&
+        !p.value("body").isString() && !p.value("body").isObject() && !p.value("body").isArray())
         return QStringLiteral("请求体须为文本、JSON对象或数组。");
     const auto host = url.host(QUrl::FullyDecoded);
     if (QUrl::toAce(host).isEmpty() && !host.contains(':'))
@@ -90,8 +92,8 @@ QString ProtocolDebugSession::validate(const QJsonObject &p, Mode mode) {
         if (!token(it.key()) || !it.value().isString() || names.contains(name) ||
             value.contains(QRegularExpression("[\\r\\n\\x00]")))
             return QStringLiteral("请求头名称/值无效或重复；禁止换行注入。");
-        if (QStringList{"host", "content-length", "transfer-encoding", "connection", "upgrade"}.contains(
-                name) ||
+        if (QStringList{"host", "content-length", "transfer-encoding", "connection", "upgrade"}
+                .contains(name) ||
             name.startsWith("sec-websocket-"))
             return QStringLiteral("%1由协议客户端管理，请删除该请求头。").arg(it.key());
         names.insert(name);
@@ -103,11 +105,13 @@ QString ProtocolDebugSession::validate(const QJsonObject &p, Mode mode) {
                     p.value("method").toString("GET")))
         return QStringLiteral("HTTP方法无效。");
     if (http && p.value("method").toString() == "HEAD" &&
-        (p.value("body").isObject() || p.value("body").isArray() || !p.value("body").toString().isEmpty()))
+        (p.value("body").isObject() || p.value("body").isArray() ||
+         !p.value("body").toString().isEmpty()))
         return QStringLiteral("HEAD只读取响应头，本工作台不发送Body；请清空Body或改用其他方法。");
     if (p.value("body").isString() && p.value("body").toString().toUtf8().size() > 8 * 1024 * 1024)
         return QStringLiteral("请求体超过8MiB。");
-    if (!http && !p.value("subprotocol").toString().isEmpty() && !token(p.value("subprotocol").toString()))
+    if (!http && !p.value("subprotocol").toString().isEmpty() &&
+        !token(p.value("subprotocol").toString()))
         return QStringLiteral("子协议须为单个有效协议名称。");
     if (p.value("caFile").toString().size() > 4096 || p.value("caFile").toString().contains(QChar(0)))
         return QStringLiteral("CA文件路径无效或过长。");
@@ -134,10 +138,11 @@ ProtocolDebugSession::ProtocolDebugSession(Mode mode, QObject *parent)
                         else
                             add("ERROR", error_, {}, false, {}, id);
                     } else {
-                        phase_ =
-                            error.isEmpty() && client_->webSocketConnected() ? Phase::Connected : Phase::Idle;
+                        phase_ = error.isEmpty() && client_->webSocketConnected() ? Phase::Connected
+                                                                                  : Phase::Idle;
                         add(error.isEmpty() ? "OPEN" : "ERROR",
-                            error.isEmpty() ? QStringLiteral("WebSocket握手完成；可收发完整消息。") : error_);
+                            error.isEmpty() ? QStringLiteral("WebSocket握手完成；可收发完整消息。")
+                                            : error_);
                     }
                 } else if (id == sendId_ && !sendId_.isEmpty()) {
                     sendId_.clear();
@@ -200,27 +205,57 @@ ProtocolDebugSession::ProtocolDebugSession(Mode mode, QObject *parent)
         emit changed();
     });
 }
-ProtocolDebugSession::~ProtocolDebugSession() {
-    client_->cancelAll();
-}
+ProtocolDebugSession::~ProtocolDebugSession() { client_->cancelAll(); }
 QString ProtocolDebugSession::nextId() {
     return "manual-" + QUuid::createUuid().toString(QUuid::WithoutBraces);
 }
+bool ProtocolDebugSession::acquireSequence(const QString &id, QString *error) {
+    if (mode_ != Mode::Http || id.isEmpty() || active() || starting_) {
+        if (error)
+            *error = QStringLiteral("HTTP会话已有活动，不能开始顺序联调。");
+        return false;
+    }
+    sequenceId_ = id;
+    ++epoch_;
+    emit changed();
+    return true;
+}
+void ProtocolDebugSession::releaseSequence(const QString &id) {
+    if (sequenceId_ == id && phase_ == Phase::Idle) {
+        sequenceId_.clear();
+        ++epoch_;
+        emit changed();
+    }
+}
 bool ProtocolDebugSession::start(const QJsonObject &parameters, QString *error) {
-    auto why = (active() || starting_) ? QStringLiteral("已有操作或连接；请先取消或断开。")
-                                       : validate(parameters, mode_);
+    auto occupied = [&] {
+        return phase_ != Phase::Idle ||
+               ((!sequenceId_.isEmpty() || !parameters.value("httpSequenceId").toString().isEmpty()) &&
+                parameters.value("httpSequenceId").toString() != sequenceId_);
+    };
+    auto why = (occupied() || starting_) ? QStringLiteral("已有操作或连接；请先取消或断开。")
+                                         : validate(parameters, mode_);
     if (!why.isEmpty()) {
         if (error)
             *error = why;
         return false;
     }
     QScopedValueRollback<bool> starting(starting_, true);
+    QScopedValueRollback<QJsonObject> pending(pendingParameters_, parameters);
+    why = pendingContextError();
+    if (!why.isEmpty()) {
+        if (error)
+            *error = why;
+        return false;
+    }
     const auto before = epoch_;
     if (guard_ && !guard_(&why)) {
         if (why.isEmpty())
             why = QStringLiteral("保留了当前活动，未发起通信。");
     }
-    if (why.isEmpty() && (epoch_ != before || active()))
+    if (why.isEmpty())
+        why = pendingContextError();
+    if (why.isEmpty() && (epoch_ != before || occupied()))
         why = QStringLiteral("确认期间当前操作已变更，请重新发起通信。");
     if (!why.isEmpty()) {
         if (error)
@@ -257,10 +292,12 @@ bool ProtocolDebugSession::sendMessage(const QByteArray &bytes, bool binary, QSt
         return false;
     }
     const auto configured = snapshot_.value("maxMessageBytes");
-    const int limit = int(configured.isDouble() ? configured.toDouble() : configured.toString().toDouble());
+    const int limit =
+        int(configured.isDouble() ? configured.toDouble() : configured.toString().toDouble());
     if (bytes.size() > std::min(limit, 8 * 1024 * 1024)) {
         if (error)
-            *error = QStringLiteral("消息%1B超过此连接设置的%2B上限；未发送。").arg(bytes.size()).arg(limit);
+            *error =
+                QStringLiteral("消息%1B超过此连接设置的%2B上限；未发送。").arg(bytes.size()).arg(limit);
         return false;
     }
     if (!binary && QString::fromUtf8(bytes).toUtf8() != bytes) {
@@ -301,6 +338,7 @@ void ProtocolDebugSession::cancel() {
     sendId_.clear();
     closeId_.clear();
     sending_.clear();
+    sequenceId_.clear();
     phase_ = Phase::Idle;
     add("CANCEL", QStringLiteral("已取消/释放；不能撤回已经发送的数据。"));
     emit changed();

@@ -1,0 +1,55 @@
+{
+  "state": "passed",
+  "cases": [
+    {
+      "case": "valid",
+      "expectedPass": true,
+      "exitCode": 0,
+      "result": {
+        "state": "passed",
+        "protocol": "udp",
+        "verifiedFrames": 1,
+        "payloadBytes": 1472,
+        "savedRecords": 1,
+        "allPayloadBytesMatch": true,
+        "allFootersAndMetadataComplete": true,
+        "files": [
+          {
+            "file": "capture-0001.pbc",
+            "bytes": 1589,
+            "payloadBytes": 1472,
+            "records": 1,
+            "sha256": "2e73233ec00a89f70eecb3d9905dd0d701afd4effa5d85adfd769e2132d92182"
+          }
+        ]
+      }
+    },
+    {
+      "case": "changed-payload",
+      "expectedPass": false,
+      "exitCode": 1,
+      "result": {
+        "state": "failed",
+        "error": "Payload corruption or missing frame at 0"
+      }
+    },
+    {
+      "case": "truncated-footer",
+      "expectedPass": false,
+      "exitCode": 1,
+      "result": {
+        "state": "failed",
+        "error": "Truncated capture: capture-0001.pbc"
+      }
+    },
+    {
+      "case": "incomplete-metadata",
+      "expectedPass": false,
+      "exitCode": 1,
+      "result": {
+        "state": "failed",
+        "error": ""
+      }
+    }
+  ]
+}

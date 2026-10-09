@@ -1,0 +1,5 @@
+Running udp-dpi (up to 90s); evidence: C:\Users\threeTeeth\workSpace\github\PortBridge\docs\validation\remaining-acceptance\dpi-final\udp-dpi-result.json
+{"state": "passed", "protocol": "udp", "verifiedFrames": 29987, "payloadBytes": 44140864, "savedRecords": 29987, "allPayloadBytesMatch": true, "allFootersAndMetadataComplete": true}
+Running tcp-dpi (up to 90s); evidence: C:\Users\threeTeeth\workSpace\github\PortBridge\docs\validation\remaining-acceptance\dpi-final\tcp-dpi-result.json
+{"state": "passed", "protocol": "tcp", "verifiedFrames": 29994, "payloadBytes": 122855424, "savedRecords": 25622, "allPayloadBytesMatch": true, "allFootersAndMetadataComplete": true}
+Acceptance failed: C:\Users\threeTeeth\workSpace\github\PortBridge\docs\validation\remaining-acceptance\dpi-final

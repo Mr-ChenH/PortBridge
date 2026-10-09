@@ -1,0 +1,288 @@
+{
+  "search": {
+    "tool": "brave-search",
+    "result": "30-second timeout; no usable results",
+    "query": "Postman Bruno Insomnia extract response token environment variables collection folder authentication"
+  },
+  "receipts": [
+    {
+      "name": "postman-variables",
+      "url": "https://learning.postman.com/docs/sending-requests/variables/variables/",
+      "status": 200,
+      "finalUrl": "https://learning.postman.com/docs/use/send-requests/variables/variables/",
+      "bytes": 248264,
+      "sha256": "48d959ff79ff1268f303d3513ee483254900554f85188ffb1a02795c8d84ad9d",
+      "seconds": 8.32
+    },
+    {
+      "name": "postman-environments",
+      "url": "https://learning.postman.com/docs/sending-requests/variables/managing-environments/",
+      "status": 200,
+      "finalUrl": "https://learning.postman.com/docs/use/send-requests/variables/managing-environments/",
+      "bytes": 272489,
+      "sha256": "11a7c145571878adf05df3c4ee5d14710dda947ce9eca65ddd96686173216d54",
+      "seconds": 8.93
+    },
+    {
+      "name": "postman-scripts",
+      "url": "https://learning.postman.com/docs/writing-scripts/script-references/postman-sandbox-api-reference/",
+      "status": 200,
+      "finalUrl": "https://learning.postman.com/docs/tests-and-scripts/write-scripts/postman-sandbox-reference/overview/",
+      "bytes": 251748,
+      "sha256": "9258f74292f58dd946fdc553e8f5ed906cf59eade29126be20d66dd53abc965e",
+      "seconds": 5.65
+    },
+    {
+      "name": "postman-auth",
+      "url": "https://learning.postman.com/docs/sending-requests/authorization/specifying-authorization-details/",
+      "status": 200,
+      "finalUrl": "https://learning.postman.com/docs/use/send-requests/authorization/specifying-authorization-details/",
+      "bytes": 240226,
+      "sha256": "0f79141b3a3f9395c88c2e74592f13f0bcebb05a8cc924004e23c865989e080f",
+      "seconds": 5.62
+    },
+    {
+      "name": "postman-collections",
+      "url": "https://learning.postman.com/docs/collections/using-collections/",
+      "status": 200,
+      "finalUrl": "https://learning.postman.com/docs/use/use-collections/overview/",
+      "bytes": 228940,
+      "sha256": "5b58a8a82a6bb4af6f80f05ef4d1f694198f74566909382fa05487f409f6fc6a",
+      "seconds": 8.82
+    },
+    {
+      "name": "bruno-runtime",
+      "url": "https://docs.usebruno.com/variables/runtime-variables",
+      "error": "<urlopen error _ssl.c:1063: The handshake operation timed out>",
+      "seconds": 18.09
+    },
+    {
+      "name": "bruno-environments",
+      "url": "https://docs.usebruno.com/variables/environment-variables",
+      "error": "<urlopen error _ssl.c:1063: The handshake operation timed out>",
+      "seconds": 18.03
+    },
+    {
+      "name": "bruno-auth",
+      "url": "https://docs.usebruno.com/authentication/overview",
+      "error": "<urlopen error _ssl.c:1063: The handshake operation timed out>",
+      "seconds": 18.04
+    },
+    {
+      "name": "bruno-scripts",
+      "url": "https://docs.usebruno.com/scripting/get-started",
+      "error": "<urlopen error _ssl.c:1063: The handshake operation timed out>",
+      "seconds": 18.05
+    },
+    {
+      "name": "bruno-format",
+      "url": "https://docs.usebruno.com/bru-lang/overview",
+      "error": "<urlopen error _ssl.c:1063: The handshake operation timed out>",
+      "seconds": 18.03
+    },
+    {
+      "name": "insomnia-collections",
+      "url": "https://developer.konghq.com/insomnia/collections/",
+      "error": "<urlopen error _ssl.c:1063: The handshake operation timed out>",
+      "seconds": 18.04
+    },
+    {
+      "name": "insomnia-environments",
+      "url": "https://developer.konghq.com/insomnia/environments/",
+      "error": "<urlopen error _ssl.c:1063: The handshake operation timed out>",
+      "seconds": 18.03
+    },
+    {
+      "name": "insomnia-scripts",
+      "url": "https://developer.konghq.com/insomnia/scripts/",
+      "error": "<urlopen error _ssl.c:1063: The handshake operation timed out>",
+      "seconds": 18.03
+    },
+    {
+      "name": "insomnia-tags",
+      "url": "https://developer.konghq.com/insomnia/template-tags/",
+      "error": "<urlopen error _ssl.c:1063: The handshake operation timed out>",
+      "seconds": 18.03
+    },
+    {
+      "name": "hoppscotch-environments",
+      "url": "https://docs.hoppscotch.io/documentation/features/environments",
+      "status": 200,
+      "finalUrl": "https://docs.hoppscotch.io/documentation/features/environments",
+      "bytes": 334196,
+      "sha256": "2579a48c8fe3ef4b7e1d5cd32724d3f54e020601cee6754814a2a685b2e202ea",
+      "seconds": 4.4
+    },
+    {
+      "name": "hoppscotch-collections",
+      "url": "https://docs.hoppscotch.io/documentation/features/collections",
+      "status": 200,
+      "finalUrl": "https://docs.hoppscotch.io/documentation/features/collections",
+      "bytes": 324931,
+      "sha256": "91c230f95f391dfde61141171d5456b55148f1ec5622cc36cc2c0df7dbe12d8c",
+      "seconds": 1.08
+    },
+    {
+      "name": "hoppscotch-scripts",
+      "url": "https://docs.hoppscotch.io/documentation/features/scripts",
+      "status": 200,
+      "finalUrl": "https://docs.hoppscotch.io/documentation/features/scripts",
+      "bytes": 1512439,
+      "sha256": "36d4263171a9887db83ad95dd308327596fcee860713c84d8d4dceadfb35f196",
+      "seconds": 5.34
+    },
+    {
+      "name": "apifox-index",
+      "url": "https://docs.apifox.com/",
+      "status": 200,
+      "finalUrl": "https://docs.apifox.com/",
+      "bytes": 386314,
+      "sha256": "38094fbb2ccc61c075caa18ed8410037d892cf020fd79bbe504033338dc769cd",
+      "seconds": 0.72
+    },
+    {
+      "name": "windows-credential",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/api/wincred/nf-wincred-credwritew",
+      "status": 200,
+      "finalUrl": "https://learn.microsoft.com/en-us/windows/win32/api/wincred/nf-wincred-credwritew",
+      "bytes": 55443,
+      "sha256": "d00eab2c11d200efa5129b56cb878c8b2850bd54d7e216aa8b4fca8516196b9e",
+      "seconds": 1.51
+    },
+    {
+      "name": "windows-dpapi",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/api/dpapi/nf-dpapi-cryptprotectdata",
+      "status": 200,
+      "finalUrl": "https://learn.microsoft.com/en-us/windows/win32/api/dpapi/nf-dpapi-cryptprotectdata",
+      "bytes": 58581,
+      "sha256": "77ba323b32fd9ca510548ef671d8e794d3fc9e6ba92d12dec926d68e48aa3525",
+      "seconds": 1.55
+    },
+    {
+      "name": "oauth-bearer",
+      "url": "https://www.rfc-editor.org/rfc/rfc6750",
+      "status": 200,
+      "finalUrl": "https://www.rfc-editor.org/info/rfc6750/",
+      "bytes": 258384,
+      "sha256": "b6f29577d6bf7f7a821449c7bd50ec3cfa5cfe2bf5005f90138fbff8a7abefa3",
+      "seconds": 8.03
+    },
+    {
+      "name": "apifox-project",
+      "url": "https://docs.apifox.com/create-api-project",
+      "status": 200,
+      "finalUrl": "https://docs.apifox.com/create-api-project",
+      "bytes": 366586,
+      "sha256": "2f879d95483f13be118a756a9037a5992e54359adbfcdb0b985d4ce16f43fdfc",
+      "seconds": 0.42
+    },
+    {
+      "name": "apifox-environments",
+      "url": "https://docs.apifox.com/environments-and-services",
+      "status": 200,
+      "finalUrl": "https://docs.apifox.com/environments-and-services",
+      "bytes": 397564,
+      "sha256": "918cc0977866890da3d4d17cbad533338046c28ddfac00f1f85f0f1510fca70d",
+      "seconds": 0.6
+    },
+    {
+      "name": "apifox-variables",
+      "url": "https://docs.apifox.com/global-environment-session-variables",
+      "status": 200,
+      "finalUrl": "https://docs.apifox.com/global-environment-session-variables",
+      "bytes": 453265,
+      "sha256": "aff7edf7b9b048bb83831ecddbb2ee88d40c3c8f84259911942c96a8b1d27564",
+      "seconds": 0.56
+    },
+    {
+      "name": "apifox-extract",
+      "url": "https://docs.apifox.com/extract-variables",
+      "status": 200,
+      "finalUrl": "https://docs.apifox.com/extract-variables",
+      "bytes": 370305,
+      "sha256": "e3a2c7ce9915230ae68ac2406828a70cc979fd5b8f991c53efe243a584311464",
+      "seconds": 0.52
+    },
+    {
+      "name": "apifox-post-script",
+      "url": "https://docs.apifox.com/post-request-scripts",
+      "status": 200,
+      "finalUrl": "https://docs.apifox.com/post-request-scripts",
+      "bytes": 363630,
+      "sha256": "142373787188e837c5860600b941d05ae5e9be78af9cff6eb201bd60a5981dfe",
+      "seconds": 0.29
+    },
+    {
+      "name": "apifox-auth",
+      "url": "https://docs.apifox.com/use-security-schemes",
+      "status": 200,
+      "finalUrl": "https://docs.apifox.com/use-security-schemes",
+      "bytes": 402737,
+      "sha256": "9785bda03611fadf8d60b3abb9378e954a5985b862262b54f4f03532ee39fbde",
+      "seconds": 0.63
+    },
+    {
+      "name": "postman-variable-api",
+      "url": "https://learning.postman.com/docs/tests-and-scripts/write-scripts/postman-sandbox-reference/pm-variables/",
+      "status": 200,
+      "finalUrl": "https://learning.postman.com/docs/tests-and-scripts/write-scripts/postman-sandbox-reference/pm-variables/",
+      "bytes": 282665,
+      "sha256": "54db7d5c81d3caa10ced05fbd6823ae3b997f3d0314ca2e2f222b88a07307151",
+      "seconds": 4.56
+    },
+    {
+      "name": "postman-response-api",
+      "url": "https://learning.postman.com/docs/tests-and-scripts/write-scripts/postman-sandbox-reference/pm-response/",
+      "status": 200,
+      "finalUrl": "https://learning.postman.com/docs/tests-and-scripts/write-scripts/postman-sandbox-reference/pm-response/",
+      "bytes": 258683,
+      "sha256": "9c0f7be5e6286fd4861871c481118476240374c96d2dcf10cb2eff6036b938f8",
+      "seconds": 4.32
+    },
+    {
+      "name": "bruno-tree",
+      "url": "https://api.github.com/repos/usebruno/bruno/git/trees/main?recursive=1",
+      "status": 200,
+      "finalUrl": "https://api.github.com/repos/usebruno/bruno/git/trees/main?recursive=1",
+      "bytes": 1862922,
+      "sha256": "18b276e9d16bb5c535f127ed5062e31dc20789ae278321e46a8d63ac76906506",
+      "seconds": 1.99
+    },
+    {
+      "name": "bruno-readme",
+      "url": "https://raw.githubusercontent.com/usebruno/bruno/main/readme.md",
+      "status": 200,
+      "finalUrl": "https://raw.githubusercontent.com/usebruno/bruno/main/readme.md",
+      "bytes": 8461,
+      "sha256": "fec8af393e65aae5f85c89a2e4cc787bc7ed014b94336ab8179762386c0930b2",
+      "seconds": 1.12
+    },
+    {
+      "name": "insomnia-readme",
+      "url": "https://raw.githubusercontent.com/Kong/insomnia/develop/README.md",
+      "status": 200,
+      "finalUrl": "https://raw.githubusercontent.com/Kong/insomnia/develop/README.md",
+      "bytes": 8210,
+      "sha256": "9959819e3ce2d39ffe8e60b1d3d90229a13cb4e9357884863cf238d99d3df406",
+      "seconds": 1.05
+    },
+    {
+      "name": "bruno-vars-source",
+      "url": "https://raw.githubusercontent.com/usebruno/bruno/efba9c2f13f3bff4e7b879123fdf5522d74189f9/packages/bruno-js/src/runtime/vars-runtime.js",
+      "status": 200,
+      "finalUrl": "https://raw.githubusercontent.com/usebruno/bruno/efba9c2f13f3bff4e7b879123fdf5522d74189f9/packages/bruno-js/src/runtime/vars-runtime.js",
+      "bytes": 3225,
+      "sha256": "4969a86a9915727c57d6d3f264af83f9d1c91ed8a733b91d5275dd7fab06709b",
+      "seconds": 1.01
+    },
+    {
+      "name": "bruno-auth-source",
+      "url": "https://raw.githubusercontent.com/usebruno/bruno/efba9c2f13f3bff4e7b879123fdf5522d74189f9/packages/bruno-app/src/components/CollectionSettings/Auth/AuthMode/index.js",
+      "status": 200,
+      "finalUrl": "https://raw.githubusercontent.com/usebruno/bruno/efba9c2f13f3bff4e7b879123fdf5522d74189f9/packages/bruno-app/src/components/CollectionSettings/Auth/AuthMode/index.js",
+      "bytes": 2966,
+      "sha256": "05a2fccb9e35eead4ca4f4687a4dcf3cb60946398a9ef31c624e4264e6d978ec",
+      "seconds": 0.99
+    }
+  ]
+}

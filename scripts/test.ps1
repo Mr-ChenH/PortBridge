@@ -2,7 +2,7 @@ param(
     [string]$QtRoot = 'C:\Qt\6.8.3\mingw_64',
     [string]$MingwRoot = 'C:\Qt\Tools\mingw1310_64',
     [string]$BuildDirectory = 'build\release',
-    [ValidateSet('all','network','session','ui','workflow','workflow_ui','workflow_protocol','workflow_integration','workflow_e2e','protocol_debug')][string]$Suite = 'all'
+    [ValidateSet('all','network','session','ui','workflow','workflow_ui','workflow_protocol','workflow_integration','workflow_e2e','protocol_debug','http_projects')][string]$Suite = 'all'
 )
 $ErrorActionPreference = 'Stop'
 $projectRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path

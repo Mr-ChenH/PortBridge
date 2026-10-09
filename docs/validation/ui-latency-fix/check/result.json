@@ -1,0 +1,45 @@
+{
+  "state": "passed",
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 74.916
+    },
+    {
+      "name": "focused-ui",
+      "exitCode": 0,
+      "seconds": 4.565
+    },
+    {
+      "name": "storage-exit-compile",
+      "exitCode": 0,
+      "seconds": 5.34
+    },
+    {
+      "name": "storage-exit-before-link",
+      "exitCode": 0,
+      "seconds": 3.813
+    },
+    {
+      "name": "storage-exit-before",
+      "exitCode": 0,
+      "seconds": 7.64
+    },
+    {
+      "name": "storage-exit-after-link",
+      "exitCode": 0,
+      "seconds": 6.56
+    },
+    {
+      "name": "storage-exit-after",
+      "exitCode": 0,
+      "seconds": 8.407
+    },
+    {
+      "name": "ctest-all",
+      "exitCode": 0,
+      "seconds": 174.02
+    }
+  ]
+}

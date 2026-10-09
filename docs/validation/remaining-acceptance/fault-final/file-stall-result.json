@@ -1,0 +1,12 @@
+{
+    "blockedAtDestructorReturn": true,
+    "destructorMs": 3011,
+    "hookEntered": true,
+    "incompleteMetadataObservedAfterRelease": true,
+    "incompleteMetadataObservedBeforeExit": false,
+    "injection": "child-process QtCore WriteFile IAT hook for PBCAP001 binary only",
+    "metadataError": "Shutdown finalization exceeded 3 seconds; capture is incomplete",
+    "realOsPermanentStallValidated": false,
+    "state": "passed",
+    "workerUnreleasedAtProcessExit": false
+}

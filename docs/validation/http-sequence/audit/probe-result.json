@@ -1,0 +1,54 @@
+{
+  "actualRequestsWithInvalidResolvedRules": 1,
+  "nestedArrayPassed": true,
+  "nestedArrayPathValidation": "",
+  "over128Rejected": true,
+  "over32Rejected": true,
+  "over8MiBRejected": true,
+  "requestsAfterBoundaryRejections": 1,
+  "resolveError": "",
+  "resolvedExpectedCharacters": 20000,
+  "resolvedRulesValidation": "断言预期值缺失、超过64KiB或深度限制。",
+  "rootArrayPassed": false,
+  "rootArrayPathValidation": "断言字段路径或响应头名称无效。",
+  "sequenceAcceptedInvalidResolvedRules": true,
+  "sequenceReport": {
+    "cancelled": false,
+    "continueOnFailure": false,
+    "counts": {
+      "cancelled": 0,
+      "failed": 1,
+      "passed": 0,
+      "skipped": 0
+    },
+    "environmentId": "6a0a14ce-b8e7-4d33-9a6f-8f441e7c88ae",
+    "plannedSteps": 1,
+    "projectId": "aac86065-7cdd-4df0-90cc-f64ee56e5c09",
+    "results": [
+      {
+        "assertions": [
+          {
+            "index": 0,
+            "message": "断言预期值缺失、超过64KiB或深度限制。",
+            "passed": false
+          }
+        ],
+        "bodyBytes": 20011,
+        "elapsedMs": 13,
+        "message": "响应断言失败",
+        "outcome": "failed",
+        "requestId": "audit-request",
+        "status": 200,
+        "step": 1
+      }
+    ],
+    "runId": "251f01c4-78d5-412e-82b2-6de90be3c17c",
+    "running": false,
+    "schemaVersion": 1,
+    "type": "portbridge-http-sequence-result",
+    "valuesExcluded": true
+  },
+  "sequenceStartError": "",
+  "variableAccepted": true,
+  "variableError": ""
+}

@@ -1,6 +1,14 @@
 # PortBridge 0.1.0 软件实施与验收报告
 
-> 当前修订为 **connection-ui-1**：统一新建连接入口加入HTTP/WS，并改为六种类型卡片、协议地址、就地校验与深浅主题。创建保存到对应方案库并打开页面，不自动通信；未保存草稿与当前活动保持保护。五个受影响套件复跑，四个未改后端套件按生产源码和可执行文件SHA256复用，73项输入冻结；原生Qt软件100/125/150%检查实际创建和布局。见 [实施报告](../reviews/connection-creation.md) 与 [真实对话框](../validation/connection-creation/gallery.html)。新目录 `dist/PortBridge-connection-ui-1/`，上一http-ws-1保留。
+> 最新修订 **ui-latency-fix-1**：RA-UI01/P2在本机声明负载内关闭。GUI不再join后台文件任务线程；采样50ms、指标布局250ms，空/不变字节详情避免重复生成。完整CTest10/10、原生UI42/42、88输入冻结；UDP/TCP各5分钟心跳152/43ms，逐字节采集、实际三屏与主动GUI停顿复验通过。新部署 `dist/PortBridge-ui-latency-fix-1/`，旧版本和失败记录保留。见 [响应修复验收](../reviews/ui-latency-fix.md)、[总机器回执](../validation/ui-latency-fix/receipt.json) 与 [包回执](../validation/ui-latency-fix/package-receipt.json)。
+
+> 上一软件修订为 **http-sequence-fix-1**：已修复顶层JSON数组断言和变量展开后的发送前预算校验，HA01、HA02关闭。最新完整10/10套件通过，HTTP项目普通35通过/2受控截图跳过，原生软件100/125/150%各37通过，87输入冻结；独立部署 `dist/PortBridge-http-sequence-fix-1/` 与ZIP验证通过。见 [修复验收](../reviews/http-sequence-fix.md)、[最终回执](../validation/http-sequence-fix/final/result.json) 和 [包回执](../validation/http-sequence-fix/package-receipt.json)。
+
+> 全项目任务状态见 [完成度总审核](../reviews/project-completion-audit.md)：已授权的软件开发和本机交付完成；真实串口、双机2.5G、持续磁盘/声明负载、干净Windows等外部验收及原始丢失原因调查仍未完成。以下总审核和补充报告记录当时的范围与失败；后续RA-UI01实际修复以首页最新记录为准，外部条件仍未具备。下面各版本统计与任务账本保留其当时快照，本次追加审核记录不改写已发布旧包。
+
+> 本轮按用户授权继续处理剩余验收，见 [补充报告](../reviews/remaining-acceptance.md) 与 [可重复执行指南](../remaining-acceptance-guide.md)：生产10分钟截止、受控依赖API阻塞及进程退出已实际验证；持续本机采集、实际多屏和UI停顿有新增证据，历史失败保留；物理串口、两机2.5G、干净Windows和原程序根因仍有外部条件限制。当时产品修订/EXE/ZIP保持http-sequence-fix-1；后续界面响应修复已形成上述新修订。
+
+> 历史修订 **connection-ui-1**：统一新建连接入口加入HTTP/WS，并改为六种类型卡片、协议地址、就地校验与深浅主题。创建保存到对应方案库并打开页面，不自动通信；未保存草稿与当前活动保持保护。五个受影响套件复跑，四个未改后端套件按生产源码和可执行文件SHA256复用，73项输入冻结；原生Qt软件100/125/150%检查实际创建和布局。见 [实施报告](../reviews/connection-creation.md) 与 [真实对话框](../validation/connection-creation/gallery.html)。新目录 `dist/PortBridge-connection-ui-1/`，上一http-ws-1保留。
 
 > 上一修订为 **http-ws-1**：调试工作台新增独立HTTP/WS手动入口、请求方案、真实结果/消息、默认凭据遮蔽及单活动资源确认，复用cpr/libcurl和Boost.Beast。72项来源冻结；完整9套件通过后仅修正两个原生测试夹具，最终复跑受影响UI/协议套件，其他七套件按源码与测试可执行文件SHA256复用并注明。HTTP/WS38项原生Qt软件100/125/150%、原始UI40项100%及工作流/集成保持验证记录；原始UI150%桌面可用区域不足的失败保留为环境限制，不计通过。新目录 `dist/PortBridge-http-ws-1/`，上一workflow-ui-2保留。见 [实施验收](../reviews/manual-protocol.md)、[操作指南](../manual-protocol-guide.md)、[真实界面](../validation/manual-protocol/gallery.html) 和 [最终机器记录](../validation/manual-protocol/final/result.json)。物理/干净系统和历史未定位问题边界不变。
 
@@ -152,3 +160,17 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/deploy.ps1
 原生Windows深浅截图：docs/screenshots/native-windows-{dark,light}.png。实际2-client TCP、小尺寸1100×760/1280×900和缩放图片在owner/reviewer/final-scale构建证据中；HTML继续作为模拟视觉参考，没有将原型虚构指标注入产品。
 
 剩余外部验收：真实串口成功回环/拔插/占用/流控/高baud及1小时持续运行；两机2.5G不同payload/PPS/突发/方向和UI/记录条件；持续磁盘速度/饱和；干净Windows；真实多屏DPI变化；OS DNS/文件I/O异常阻塞和进程退出fault injection。正常软件路径及QT_SCALE_FACTOR缩放不能替代这些项目。Qt部署工具仍提示dxcompiler/dxil未发现；本机Widgets实际启动成功，干净Windows需另行验证。用户原Qt Socket丢失原因仍未定位，本轮不把换库或localhost零缺失当作原因分析。
+
+## HTTP 项目工作台（http-project-1）
+
+版本2合并项目/请求配置、旧库迁移、分类与环境、变量模板、项目认证继承、响应提取、运行值隔离与敏感值导出排除已实施。完整10套件回归通过；普通HTTP项目运行21通过/1截图跳过，原生100/125/150%受控运行各22通过/0跳过，原HTTP/WS43通过，创建入口每档7通过。真实本地HTTP登录与后续Authorization/特殊字符字节验证、资源确认保留旧UDP、取消/错误不更新值均见 [审核](../reviews/http-projects.md) 与 [最终回执](../validation/http-projects/final/result.json)。
+
+独立部署 `dist/PortBridge-http-project-1/PortBridge.exe`，包哈希和解压/系统PATH启动见 [包回执](../validation/http-projects/package-receipt.json)。本轮为当前代理实现与自审，不新增独立审核声明；本地合成服务、软件缩放不证明生产账号、物理2.5G/串口、多显示器或干净Windows。
+
+## HTTP 第二期：断言与顺序联调（http-sequence-1）
+
+用户选择请求断言和项目顺序联调，HS01–HS06已实施。冻结87个输入；HTTP项目普通30通过/2截图跳过，三档原生软件缩放各32通过/0跳过，HTTP/WS43通过，创建入口各7通过。真实登录→提取→Bearer、失败策略、取消晚回调、外部变量变更、接受/拒绝资源切换和步骤间资源身份已验证。
+
+后续完成度审核的HA01、HA02已在 `http-sequence-fix-1` 修复并关闭：支持顶层/连续数组索引；展开后预算在发送前验证，超限首步保留旧UDP且0请求/0确认，后续步骤遵循失败策略且不发送。新增5个回归槽，修复后完整10/10通过，普通HTTP项目35通过/2截图跳过，三档原生各37通过/0跳过，原HTTP/WS43通过，创建入口各7通过，87输入前后稳定。修复版独立部署 `dist/PortBridge-http-sequence-fix-1`，原版本和原ZIP备份保留；详见 [修复验收](../reviews/http-sequence-fix.md)、[最终回执](../validation/http-sequence-fix/final/result.json) 和 [包回执](../validation/http-sequence-fix/package-receipt.json)。10分钟期限未增加真实等待测试，仍保留既有定时器源码检查的验证边界。
+
+取消边界修复前首次全量9/10套件通过，session采集等待超时及历史连接等待失败保留；同源码/同程序集中两个用例4通过和完整session27通过。补齐步骤间排队Esc取消及过期运行身份拒绝后，重新冻结与完整回归最终10/10通过，不声称历史偶发根因解决。详细 [审核](../reviews/http-sequence.md)、[回执](../validation/http-sequence/final/result.json) 与 [包回执](../validation/http-sequence/package-receipt.json)。独立部署dist/PortBridge-http-sequence-1，第一期目录/ZIP备份保留。本轮当前代理实现与自审，未声称独立审核或物理硬件/干净Windows验证。

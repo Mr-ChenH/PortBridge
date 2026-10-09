@@ -1,0 +1,47 @@
+{
+  "revision": "http-sequence-1",
+  "reviewType": "current-agent completion audit; no independent agent review",
+  "source_inputs_verified": 87,
+  "source_mismatches": [],
+  "application_matches_final_verification": true,
+  "test_executable_matches_final_verification": {
+    "test_http_projects": true,
+    "test_network": true,
+    "test_protocol_debug": true,
+    "test_session": true,
+    "test_ui": true,
+    "test_workflow": true,
+    "test_workflow_e2e": true,
+    "test_workflow_integration": true,
+    "test_workflow_protocol": true,
+    "test_workflow_ui": true
+  },
+  "archive_sha256": "2df4b5b513ebed3d004fdc5bf5d0a81568f060693a55cb1e1cdde5fb8219107f",
+  "archive_matches_delivered_receipt": true,
+  "original_full_regression_suites_passed": 10,
+  "new_probe": "probe-result.json",
+  "probe_source_sha256": "d7ea22454ee1815e9f75303a0bdb8c5fc0afe2d0840027f52b47b710a673c935",
+  "linked_ui_library_sha256": "23dde7ab6ad3201588253d16537d99df407d6fb84fdc356ca463998ee4e930e4",
+  "completion_verdict": "major functionality delivered; two confirmed acceptance gaps remain",
+  "findings": [
+    {
+      "id": "HA01",
+      "priority": "P2",
+      "requirement": "HS01",
+      "summary": "Top-level JSON array element paths such as $[0].id are rejected despite an authoritative array response."
+    },
+    {
+      "id": "HA02",
+      "priority": "P2",
+      "requirement": "HS01/HS03/HS04 pre-send rule validation",
+      "summary": "Expanded assertion expectations are not revalidated before reserving resources and sending; a known-invalid resolved rule is rejected only after network completion."
+    }
+  ],
+  "additional_boundaries_verified": {
+    "more_than_32_assertions_rejected": true,
+    "more_than_128_steps_rejected": true,
+    "more_than_8MiB_templates_rejected": true
+  },
+  "deadline_verification": "600000ms timer and stop connection inspected; no new 10-minute wall-clock execution",
+  "production_source_modified_by_audit": false
+}

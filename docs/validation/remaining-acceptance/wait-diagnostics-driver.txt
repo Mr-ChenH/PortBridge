@@ -1,0 +1,13 @@
+{
+    "boundedCleanupRejections": 994,
+    "catalogComplete": true,
+    "catalogRotationRecords": 1028,
+    "catalogRotationWallMs": 8628,
+    "context": "run concurrently with native TCP/UDP UI and disk soak",
+    "historicalFailureRootCauseProven": false,
+    "lastRapidRestartError": "Previous connections are still closing; retry after cleanup",
+    "rapidRestartAttempts": 1000,
+    "recoveredConnection": true,
+    "recoveryAndCatalogMs": 8637,
+    "state": "passed"
+}

@@ -1,0 +1,61 @@
+{
+  "revision": "http-sequence-1",
+  "state": "passed",
+  "source_stable": true,
+  "inputs": 87,
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 46.631
+    },
+    {
+      "name": "ctest-all",
+      "exitCode": 0,
+      "seconds": 170.075
+    },
+    {
+      "name": "native-1",
+      "exitCode": 0,
+      "seconds": 10.686
+    },
+    {
+      "name": "creation-1",
+      "exitCode": 0,
+      "seconds": 3.338
+    },
+    {
+      "name": "native-1.25",
+      "exitCode": 0,
+      "seconds": 10.883
+    },
+    {
+      "name": "creation-1.25",
+      "exitCode": 0,
+      "seconds": 3.536
+    },
+    {
+      "name": "native-1.5",
+      "exitCode": 0,
+      "seconds": 10.936
+    },
+    {
+      "name": "creation-1.5",
+      "exitCode": 0,
+      "seconds": 3.469
+    }
+  ],
+  "application_sha256": "a9925bb1c92e7a1b47e05e12675862916b6088d5bfe700ef5ba5c03a3e8454c0",
+  "test_executable_sha256": {
+    "test_http_projects": "bc8d0dc2279a16111a23de274999bff7cd13410d15c1248cda389cb241c0dc81",
+    "test_network": "6c163a48a5170627da904bfe9f33f4968842115b973df52f0b133536f6cab330",
+    "test_protocol_debug": "c38b84b72acadc2d48cd1ace9719cd1f31d534d8e64c903b19833c152c79f929",
+    "test_session": "d1614cb59d49ade6013f75df24f6d4c245319959d68075732a4d48d648bd3399",
+    "test_ui": "2a485ba04d488357b6e62c1b74fef3ad330e47382bfc43ce2a177d6b232442f2",
+    "test_workflow": "c717d4bc912ae7a42b8f609cf772565bd6c6aba61abd560f8afa5d18850bed27",
+    "test_workflow_e2e": "f03c130928463637056114d118ee475a53a0d3b935fad19021b22c4d6357854a",
+    "test_workflow_integration": "8ad7ce72afa672747b27abb10650cee692910691e530728fb1708aff5ceaa6ce",
+    "test_workflow_protocol": "62f3c5dbe2187d9064598e9933ac1fc2b4e98f43cf4f63d591b99e817420b5d7",
+    "test_workflow_ui": "332fa9ff2b555780e238cb98e0ac247123abd09457c0c91fb6fa28c84f5ce334"
+  }
+}

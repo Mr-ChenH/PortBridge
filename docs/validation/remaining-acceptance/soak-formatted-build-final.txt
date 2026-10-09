@@ -1,0 +1,448 @@
+In file included from C:\Users\threeTeeth\workSpace\github\PortBridge\tools\acceptance\soak_probe.cpp:32:
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:75:3: error: 'WINBOOL' does not name a type
+   75 |   WINBOOL WINAPI EnumProcesses(DWORD *lpidProcess,DWORD cb,DWORD *cbNeeded);
+      |   ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:76:3: error: 'WINBOOL' does not name a type
+   76 |   WINBOOL WINAPI EnumProcessModules(HANDLE hProcess,HMODULE *lphModule,DWORD cb,LPDWORD lpcbNeeded);
+      |   ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:77:3: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+   77 |   DWORD WINAPI GetModuleBaseNameA(HANDLE hProcess,HMODULE hModule,LPSTR lpBaseName,DWORD nSize);
+      |   ^~~~~
+      |   LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:78:3: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+   78 |   DWORD WINAPI GetModuleBaseNameW(HANDLE hProcess,HMODULE hModule,LPWSTR lpBaseName,DWORD nSize);
+      |   ^~~~~
+      |   LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:79:3: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+   79 |   DWORD WINAPI GetModuleFileNameExA(HANDLE hProcess,HMODULE hModule,LPSTR lpFilename,DWORD nSize);
+      |   ^~~~~
+      |   LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:80:3: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+   80 |   DWORD WINAPI GetModuleFileNameExW(HANDLE hProcess,HMODULE hModule,LPWSTR lpFilename,DWORD nSize);
+      |   ^~~~~
+      |   LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:83:5: error: 'LPVOID' does not name a type; did you mean 'LPGUID'?
+   83 |     LPVOID lpBaseOfDll;
+      |     ^~~~~~
+      |     LPGUID
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:84:5: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+   84 |     DWORD SizeOfImage;
+      |     ^~~~~
+      |     LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:85:5: error: 'LPVOID' does not name a type; did you mean 'LPGUID'?
+   85 |     LPVOID EntryPoint;
+      |     ^~~~~~
+      |     LPGUID
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:88:3: error: 'WINBOOL' does not name a type
+   88 |   WINBOOL WINAPI GetModuleInformation(HANDLE hProcess,HMODULE hModule,LPMODULEINFO lpmodinfo,DWORD cb);
+      |   ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:89:3: error: 'WINBOOL' does not name a type
+   89 |   WINBOOL WINAPI EmptyWorkingSet(HANDLE hProcess);
+      |   ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:90:3: error: 'WINBOOL' does not name a type
+   90 |   WINBOOL WINAPI QueryWorkingSet(HANDLE hProcess,PVOID pv,DWORD cb);
+      |   ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:91:3: error: 'WINBOOL' does not name a type
+   91 |   WINBOOL WINAPI QueryWorkingSetEx(HANDLE hProcess,PVOID pv,DWORD cb);
+      |   ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:92:3: error: 'WINBOOL' does not name a type
+   92 |   WINBOOL WINAPI InitializeProcessForWsWatch(HANDLE hProcess);
+      |   ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:95:5: error: 'LPVOID' does not name a type; did you mean 'LPGUID'?
+   95 |     LPVOID FaultingPc;
+      |     ^~~~~~
+      |     LPGUID
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:96:5: error: 'LPVOID' does not name a type; did you mean 'LPGUID'?
+   96 |     LPVOID FaultingVa;
+      |     ^~~~~~
+      |     LPGUID
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:99:3: error: 'WINBOOL' does not name a type
+   99 |   WINBOOL WINAPI GetWsChanges(HANDLE hProcess,PPSAPI_WS_WATCH_INFORMATION lpWatchInfo,DWORD cb);
+      |   ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:100:3: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  100 |   DWORD WINAPI GetMappedFileNameW(HANDLE hProcess,LPVOID lpv,LPWSTR lpFilename,DWORD nSize);
+      |   ^~~~~
+      |   LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:101:3: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  101 |   DWORD WINAPI GetMappedFileNameA(HANDLE hProcess,LPVOID lpv,LPSTR lpFilename,DWORD nSize);
+      |   ^~~~~
+      |   LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:102:3: error: 'WINBOOL' does not name a type
+  102 |   WINBOOL WINAPI EnumDeviceDrivers(LPVOID *lpImageBase,DWORD cb,LPDWORD lpcbNeeded);
+      |   ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:103:3: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  103 |   DWORD WINAPI GetDeviceDriverBaseNameA(LPVOID ImageBase,LPSTR lpBaseName,DWORD nSize);
+      |   ^~~~~
+      |   LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:104:3: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  104 |   DWORD WINAPI GetDeviceDriverBaseNameW(LPVOID ImageBase,LPWSTR lpBaseName,DWORD nSize);
+      |   ^~~~~
+      |   LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:105:3: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  105 |   DWORD WINAPI GetDeviceDriverFileNameA(LPVOID ImageBase,LPSTR lpFilename,DWORD nSize);
+      |   ^~~~~
+      |   LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:106:3: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  106 |   DWORD WINAPI GetDeviceDriverFileNameW(LPVOID ImageBase,LPWSTR lpFilename,DWORD nSize);
+      |   ^~~~~
+      |   LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:109:5: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  109 |     DWORD cb;
+      |     ^~~~~
+      |     LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:110:5: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  110 |     DWORD PageFaultCount;
+      |     ^~~~~
+      |     LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:111:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  111 |     SIZE_T PeakWorkingSetSize;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:112:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  112 |     SIZE_T WorkingSetSize;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:113:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  113 |     SIZE_T QuotaPeakPagedPoolUsage;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:114:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  114 |     SIZE_T QuotaPagedPoolUsage;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:115:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  115 |     SIZE_T QuotaPeakNonPagedPoolUsage;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:116:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  116 |     SIZE_T QuotaNonPagedPoolUsage;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:117:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  117 |     SIZE_T PagefileUsage;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:118:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  118 |     SIZE_T PeakPagefileUsage;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:123:5: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  123 |     DWORD cb;
+      |     ^~~~~
+      |     LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:124:5: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  124 |     DWORD PageFaultCount;
+      |     ^~~~~
+      |     LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:125:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  125 |     SIZE_T PeakWorkingSetSize;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:126:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  126 |     SIZE_T WorkingSetSize;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:127:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  127 |     SIZE_T QuotaPeakPagedPoolUsage;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:128:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  128 |     SIZE_T QuotaPagedPoolUsage;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:129:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  129 |     SIZE_T QuotaPeakNonPagedPoolUsage;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:130:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  130 |     SIZE_T QuotaNonPagedPoolUsage;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:131:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  131 |     SIZE_T PagefileUsage;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:132:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  132 |     SIZE_T PeakPagefileUsage;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:133:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  133 |     SIZE_T PrivateUsage;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:137:3: error: 'WINBOOL' does not name a type
+  137 |   WINBOOL WINAPI GetProcessMemoryInfo(HANDLE Process,PPROCESS_MEMORY_COUNTERS ppsmemCounters,DWORD cb);
+      |   ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:140:5: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  140 |     DWORD cb;
+      |     ^~~~~
+      |     LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:141:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  141 |     SIZE_T CommitTotal;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:142:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  142 |     SIZE_T CommitLimit;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:143:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  143 |     SIZE_T CommitPeak;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:144:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  144 |     SIZE_T PhysicalTotal;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:145:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  145 |     SIZE_T PhysicalAvailable;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:146:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  146 |     SIZE_T SystemCache;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:147:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  147 |     SIZE_T KernelTotal;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:148:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  148 |     SIZE_T KernelPaged;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:149:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  149 |     SIZE_T KernelNonpaged;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:150:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  150 |     SIZE_T PageSize;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:151:5: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  151 |     DWORD HandleCount;
+      |     ^~~~~
+      |     LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:152:5: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  152 |     DWORD ProcessCount;
+      |     ^~~~~
+      |     LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:153:5: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  153 |     DWORD ThreadCount;
+      |     ^~~~~
+      |     LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:156:3: error: 'WINBOOL' does not name a type
+  156 |   WINBOOL WINAPI GetPerformanceInfo (PPERFORMACE_INFORMATION pPerformanceInformation,DWORD cb);
+      |   ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:159:5: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  159 |     DWORD cb;
+      |     ^~~~~
+      |     LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:160:5: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  160 |     DWORD Reserved;
+      |     ^~~~~
+      |     LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:161:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  161 |     SIZE_T TotalSize;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:162:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  162 |     SIZE_T TotalInUse;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:163:5: error: 'SIZE_T' does not name a type; did you mean 'QSIZE_H'?
+  163 |     SIZE_T PeakUsage;
+      |     ^~~~~~
+      |     QSIZE_H
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:166:11: error: typedef 'WINBOOL' is initialized (use 'decltype' instead)
+  166 |   typedef WINBOOL (CALLBACK *PENUM_PAGE_FILE_CALLBACKW) (LPVOID pContext,PENUM_PAGE_FILE_INFORMATION pPageFileInfo,LPCWSTR lpFilename);
+      |           ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:166:20: error: 'CALLBACK' was not declared in this scope
+  166 |   typedef WINBOOL (CALLBACK *PENUM_PAGE_FILE_CALLBACKW) (LPVOID pContext,PENUM_PAGE_FILE_INFORMATION pPageFileInfo,LPCWSTR lpFilename);
+      |                    ^~~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:166:20: note: the macro 'CALLBACK' had not yet been defined
+In file included from C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/windef.h:9,
+                 from C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/windows.h:69,
+                 from C:\Users\threeTeeth\workSpace\github\PortBridge\tools\acceptance\soak_probe.cpp:34:
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/minwindef.h:90: note: it was later defined here
+   90 | #define CALLBACK __stdcall
+      | 
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:166:30: error: 'PENUM_PAGE_FILE_CALLBACKW' was not declared in this scope; did you mean 'PENUM_PAGE_FILE_CALLBACK'?
+  166 |   typedef WINBOOL (CALLBACK *PENUM_PAGE_FILE_CALLBACKW) (LPVOID pContext,PENUM_PAGE_FILE_INFORMATION pPageFileInfo,LPCWSTR lpFilename);
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~
+      |                              PENUM_PAGE_FILE_CALLBACK
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:167:11: error: typedef 'WINBOOL' is initialized (use 'decltype' instead)
+  167 |   typedef WINBOOL (CALLBACK *PENUM_PAGE_FILE_CALLBACKA) (LPVOID pContext,PENUM_PAGE_FILE_INFORMATION pPageFileInfo,LPCSTR lpFilename);
+      |           ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:167:20: error: 'CALLBACK' was not declared in this scope
+  167 |   typedef WINBOOL (CALLBACK *PENUM_PAGE_FILE_CALLBACKA) (LPVOID pContext,PENUM_PAGE_FILE_INFORMATION pPageFileInfo,LPCSTR lpFilename);
+      |                    ^~~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:167:20: note: the macro 'CALLBACK' had not yet been defined
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/minwindef.h:90: note: it was later defined here
+   90 | #define CALLBACK __stdcall
+      | 
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:167:30: error: 'PENUM_PAGE_FILE_CALLBACKA' was not declared in this scope; did you mean 'PENUM_PAGE_FILE_CALLBACK'?
+  167 |   typedef WINBOOL (CALLBACK *PENUM_PAGE_FILE_CALLBACKA) (LPVOID pContext,PENUM_PAGE_FILE_INFORMATION pPageFileInfo,LPCSTR lpFilename);
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~
+      |                              PENUM_PAGE_FILE_CALLBACK
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:169:3: error: 'WINBOOL' does not name a type
+  169 |   WINBOOL WINAPI EnumPageFilesW (PENUM_PAGE_FILE_CALLBACKW pCallBackRoutine,LPVOID pContext);
+      |   ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:170:3: error: 'WINBOOL' does not name a type
+  170 |   WINBOOL WINAPI EnumPageFilesA (PENUM_PAGE_FILE_CALLBACKA pCallBackRoutine,LPVOID pContext);
+      |   ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:171:3: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  171 |   DWORD WINAPI GetProcessImageFileNameA(HANDLE hProcess,LPSTR lpImageFileName,DWORD nSize);
+      |   ^~~~~
+      |   LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:172:3: error: 'DWORD' does not name a type; did you mean 'LOWORD'?
+  172 |   DWORD WINAPI GetProcessImageFileNameW(HANDLE hProcess,LPWSTR lpImageFileName,DWORD nSize);
+      |   ^~~~~
+      |   LOWORD
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:176:3: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  176 |   ULONG_PTR                  FaultingThreadId;
+      |   ^~~~~~~~~
+      |   MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:177:3: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  177 |   ULONG_PTR                  Flags;
+      |   ^~~~~~~~~
+      |   MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:180:1: error: 'WINBOOL' does not name a type
+  180 | WINBOOL WINAPI GetWsChangesEx(
+      | ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:186:1: error: 'WINBOOL' does not name a type
+  186 | WINBOOL WINAPI EnumProcessModulesEx(
+      | ^~~~~~~
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:195:3: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  195 |   ULONG_PTR Flags;
+      |   ^~~~~~~~~
+      |   MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:197:5: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  197 |     ULONG_PTR Protection  :5;
+      |     ^~~~~~~~~
+      |     MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:198:5: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  198 |     ULONG_PTR ShareCount  :3;
+      |     ^~~~~~~~~
+      |     MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:199:5: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  199 |     ULONG_PTR Shared  :1;
+      |     ^~~~~~~~~
+      |     MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:200:5: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  200 |     ULONG_PTR Reserved  :3;
+      |     ^~~~~~~~~
+      |     MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:202:5: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  202 |     ULONG_PTR VirtualPage  :52;
+      |     ^~~~~~~~~
+      |     MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:210:3: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  210 |   ULONG_PTR               NumberOfEntries;
+      |   ^~~~~~~~~
+      |   MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:215:3: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  215 |   ULONG_PTR Flags;
+      |   ^~~~~~~~~
+      |   MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:218:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  218 |       ULONG_PTR Valid : 1;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:219:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  219 |       ULONG_PTR ShareCount : 3;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:220:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  220 |       ULONG_PTR Win32Protection : 11;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:221:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  221 |       ULONG_PTR Shared : 1;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:222:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  222 |       ULONG_PTR Node : 6;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:223:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  223 |       ULONG_PTR Locked : 1;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:224:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  224 |       ULONG_PTR LargePage : 1;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:225:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  225 |       ULONG_PTR Reserved : 7;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:226:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  226 |       ULONG_PTR Bad : 1;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:228:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  228 |       ULONG_PTR ReservedUlong : 32;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:232:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  232 |       ULONG_PTR Valid : 1;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:233:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  233 |       ULONG_PTR Reserved0 : 14;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:234:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  234 |       ULONG_PTR Shared : 1;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:235:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  235 |       ULONG_PTR Reserved1 : 15;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:236:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  236 |       ULONG_PTR Bad : 1;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:238:7: error: 'ULONG_PTR' does not name a type; did you mean 'MAXLONG_PTR'?
+  238 |       ULONG_PTR ReservedUlong : 32;
+      |       ^~~~~~~~~
+      |       MAXLONG_PTR
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/psapi.h:245:3: error: 'PVOID' does not name a type; did you mean 'VOID'?
+  245 |   PVOID                      VirtualAddress;
+      |   ^~~~~
+      |   VOID
+C:\Users\threeTeeth\workSpace\github\PortBridge\tools\acceptance\soak_probe.cpp: In lambda function:
+C:\Users\threeTeeth\workSpace\github\PortBridge\tools\acceptance\soak_probe.cpp:258:9: error: 'K32GetProcessMemoryInfo' was not declared in this scope; did you mean 'GetProcessMemoryInfo'?
+  258 |         GetProcessMemoryInfo(GetCurrentProcess(), &pm, sizeof(pm));
+      |         ^~~~~~~~~~~~~~~~~~~~
+C:\Users\threeTeeth\workSpace\github\PortBridge\tools\acceptance\soak_probe.cpp:259:40: error: 'PROCESS_MEMORY_COUNTERS' has no member named 'WorkingSetSize'
+  259 |         rssPeak = std::max(rssPeak, pm.WorkingSetSize);
+      |                                        ^~~~~~~~~~~~~~
+C:\Users\threeTeeth\workSpace\github\PortBridge\tools\acceptance\soak_probe.cpp:262:66: error: 'PROCESS_MEMORY_COUNTERS' has no member named 'WorkingSetSize'
+  262 |                                    {"workingSetBytes", double(pm.WorkingSetSize)},
+      |                                                                  ^~~~~~~~~~~~~~
+C:\Users\threeTeeth\workSpace\github\PortBridge\tools\acceptance\soak_probe.cpp:267:63: error: no matching function for call to 'QJsonObject::QJsonObject(<brace-enclosed initializer list>)'
+  267 |                                    {"heartbeatMaxMs", maxTick}});
+      |                                                               ^
+In file included from C:\Qt\6.8.3\mingw_64\include\QtCore/QJsonObject:1,
+                 from C:\Users\threeTeeth\workSpace\github\PortBridge\tools\acceptance\soak_probe.cpp:14:
+C:\Qt\6.8.3\mingw_64\include\QtCore/qjsonobject.h:336:5: note: candidate: 'QJsonObject::QJsonObject(QCborContainerPrivate*)'
+  336 |     QJsonObject(QCborContainerPrivate *object);
+      |     ^~~~~~~~~~~
+C:\Qt\6.8.3\mingw_64\include\QtCore/qjsonobject.h:336:5: note:   candidate expects 1 argument, 7 provided
+C:\Qt\6.8.3\mingw_64\include\QtCore/qjsonobject.h:31:5: note: candidate: 'QJsonObject::QJsonObject(QJsonObject&&)'
+   31 |     QJsonObject(QJsonObject &&other) noexcept;
+      |     ^~~~~~~~~~~
+C:\Qt\6.8.3\mingw_64\include\QtCore/qjsonobject.h:31:5: note:   candidate expects 1 argument, 7 provided
+C:\Qt\6.8.3\mingw_64\include\QtCore/qjsonobject.h:28:5: note: candidate: 'QJsonObject::QJsonObject(const QJsonObject&)'
+   28 |     QJsonObject(const QJsonObject &other) noexcept;
+      |     ^~~~~~~~~~~
+C:\Qt\6.8.3\mingw_64\include\QtCore/qjsonobject.h:28:5: note:   candidate expects 1 argument, 7 provided
+C:\Qt\6.8.3\mingw_64\include\QtCore/qjsonobject.h:24:5: note: candidate: 'QJsonObject::QJsonObject(std::initializer_list<std::pair<QString, QJsonValue> >)'
+   24 |     QJsonObject(std::initializer_list<std::pair<QString, QJsonValue> > args);
+      |     ^~~~~~~~~~~
+C:\Qt\6.8.3\mingw_64\include\QtCore/qjsonobject.h:24:5: note:   candidate expects 1 argument, 7 provided
+C:\Qt\6.8.3\mingw_64\include\QtCore/qjsonobject.h:22:5: note: candidate: 'QJsonObject::QJsonObject()'
+   22 |     QJsonObject();
+      |     ^~~~~~~~~~~
+C:\Qt\6.8.3\mingw_64\include\QtCore/qjsonobject.h:22:5: note:   candidate expects 0 arguments, 7 provided

@@ -1,0 +1,10 @@
+{
+    "blockedAtDestructorReturn": true,
+    "destructorMs": 3029,
+    "hookEntered": true,
+    "injection": "child-process getaddrinfo IAT hook; blocks indefinitely until explicitly released",
+    "lateReleaseSurvived": false,
+    "realOsPermanentStallValidated": false,
+    "state": "passed",
+    "workerUnreleasedAtProcessExit": true
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "from": "docs\\validation\\remaining-acceptance\\verified\\soak.exe",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\verified\\soak.exe"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\verified\\soak.o",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\verified\\soak.o"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\verified\\tcp-captures",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\verified\\tcp-captures"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\verified\\udp-captures",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\verified\\udp-captures"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\instrumentation-check\\soak.exe",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\instrumentation-check\\soak.exe"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\instrumentation-check\\soak.o",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\instrumentation-check\\soak.o"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\instrumentation-check\\tcp-captures",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\instrumentation-check\\tcp-captures"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\instrumentation-check\\udp-captures",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\instrumentation-check\\udp-captures"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\real-loop-check\\soak.exe",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\real-loop-check\\soak.exe"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\real-loop-check\\soak.o",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\real-loop-check\\soak.o"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\real-loop-check\\tcp-captures",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\real-loop-check\\tcp-captures"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\real-loop-check\\udp-captures",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\real-loop-check\\udp-captures"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\fault-final\\dns-exit-stall-data",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\fault-final\\dns-exit-stall-data"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\fault-final\\dns-stall-data",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\fault-final\\dns-stall-data"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\fault-final\\faults.exe",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\fault-final\\faults.exe"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\fault-final\\faults.o",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\fault-final\\faults.o"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\fault-final\\file-exit-stall-data",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\fault-final\\file-exit-stall-data"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\fault-final\\file-stall-data",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\fault-final\\file-stall-data"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\gui-profile\\profile.exe",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\gui-profile\\profile.exe"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\gui-profile\\window.o",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\gui-profile\\window.o"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\production-loop-final\\soak.exe",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\production-loop-final\\soak.exe"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\production-loop-final\\soak.o",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\production-loop-final\\soak.o"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\production-loop-final\\tcp-captures",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\production-loop-final\\tcp-captures"
+  },
+  {
+    "from": "docs\\validation\\remaining-acceptance\\production-loop-final\\udp-captures",
+    "to": "build\\remaining-acceptance\\preserved-artifacts\\production-loop-final\\udp-captures"
+  }
+]

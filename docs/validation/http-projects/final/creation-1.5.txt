@@ -1,0 +1,15 @@
+********* Start testing of ProtocolDebugTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : ProtocolDebugTest::initTestCase()
+QWARN  : ProtocolDebugTest::unifiedCreationDialog(http-dark) setGeometry: Unable to set geometry 1925x1152+8+32 (frame: 1941x1191+0+1) on QWidgetWindow/"mainWindowWindow" on "\\.\DISPLAY1". Resulting geometry: 1924x1152+8+32 (frame: 1940x1191+0+1) margins: 8, 31, 8, 8 minimum size: 1024x768 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1552, y=1191)))
+PASS   : ProtocolDebugTest::unifiedCreationDialog(http-dark)
+QWARN  : ProtocolDebugTest::unifiedCreationDialog(http-light) setGeometry: Unable to set geometry 1925x1152+8+32 (frame: 1941x1191+0+1) on QWidgetWindow/"mainWindowWindow" on "\\.\DISPLAY1". Resulting geometry: 1924x1152+8+32 (frame: 1940x1191+0+1) margins: 8, 31, 8, 8 minimum size: 1024x768 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1552, y=1191)))
+PASS   : ProtocolDebugTest::unifiedCreationDialog(http-light)
+QWARN  : ProtocolDebugTest::unifiedCreationDialog(websocket-dark) setGeometry: Unable to set geometry 1925x1152+8+32 (frame: 1941x1191+0+1) on QWidgetWindow/"mainWindowWindow" on "\\.\DISPLAY1". Resulting geometry: 1924x1152+8+32 (frame: 1940x1191+0+1) margins: 8, 31, 8, 8 minimum size: 1024x768 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1552, y=1191)))
+PASS   : ProtocolDebugTest::unifiedCreationDialog(websocket-dark)
+QWARN  : ProtocolDebugTest::unifiedCreationDialog(websocket-light) setGeometry: Unable to set geometry 1925x1152+8+32 (frame: 1941x1191+0+1) on QWidgetWindow/"mainWindowWindow" on "\\.\DISPLAY1". Resulting geometry: 1924x1152+8+32 (frame: 1940x1191+0+1) margins: 8, 31, 8, 8 minimum size: 1024x768 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1552, y=1191)))
+PASS   : ProtocolDebugTest::unifiedCreationDialog(websocket-light)
+PASS   : ProtocolDebugTest::creationPreservesDirtyDraftAndActiveSession()
+PASS   : ProtocolDebugTest::cleanupTestCase()
+Totals: 7 passed, 0 failed, 0 skipped, 0 blacklisted, 4820ms
+********* Finished testing of ProtocolDebugTest *********

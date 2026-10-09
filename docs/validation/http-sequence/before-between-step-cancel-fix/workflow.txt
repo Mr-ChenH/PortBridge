@@ -1,0 +1,18 @@
+********* Start testing of WorkflowTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : WorkflowTest::initTestCase()
+PASS   : WorkflowTest::templatesAndRoundtrip()
+PASS   : WorkflowTest::strictSchemaAndValidation()
+PASS   : WorkflowTest::variablesBranchLoopAndImmutablePlan()
+PASS   : WorkflowTest::extractionAndErrorBranches()
+PASS   : WorkflowTest::pauseCancellationDeadlineAndBounds()
+PASS   : WorkflowTest::udpFastReplyPausedAndSourceFilter()
+PASS   : WorkflowTest::tcpSplitCoalescedDelimiterFixedAndHeader()
+PASS   : WorkflowTest::rawObserverCapacityEpochAndNoDisplayCoupling()
+PASS   : WorkflowTest::sessionReplacementStopsRunAndOwnedCleanup()
+PASS   : WorkflowTest::workflowObserverOverflowAndSampledDisplay()
+PASS   : WorkflowTest::ownedReplacementDoesNotStopReplacement()
+PASS   : WorkflowTest::tcpDisconnectAndAssemblyOverflow()
+PASS   : WorkflowTest::cleanupTestCase()
+Totals: 14 passed, 0 failed, 0 skipped, 0 blacklisted, 2266ms
+********* Finished testing of WorkflowTest *********

@@ -2,6 +2,7 @@
 #include "ui/record_model.hpp"
 #include "ui/byte_text_preview.hpp"
 #include "ui/background_job.hpp"
+#include "ui/background_worker.hpp"
 #include <future>
 #include "portbridge/session_controller.hpp"
 #include "session/session_private.hpp"
@@ -313,12 +314,18 @@ private slots:
     }
     void backgroundCompletionHasBoundedSafeTeardown() {
         auto state=std::make_shared<detail::BackgroundCompletion>();std::promise<void> release;const auto ready=release.get_future().share();
-        std::thread stalled([state,ready]{ready.wait();state->complete();});QElapsedTimer timer;timer.start();
-        QVERIFY(!detail::finishBackgroundThread(stalled,state,std::chrono::milliseconds(25)));QVERIFY(!stalled.joinable());QVERIFY(timer.elapsed()<500);QVERIFY(!state->finished.load());
-        // The safely detached worker still owns valid state after teardown;
-        // release the controlled stall so no background task survives the test.
-        release.set_value();QVERIFY(state->waitFor(std::chrono::seconds(1)));
-        auto completed=std::make_shared<detail::BackgroundCompletion>();std::thread fast([completed]{completed->complete();});QVERIFY(detail::finishBackgroundThread(fast,completed,std::chrono::seconds(1)));QVERIFY(!fast.joinable());
+        auto worker=std::make_unique<detail::BackgroundWorker>();
+        auto entered=std::make_shared<std::atomic<bool>>(false);
+        QVERIFY(worker->submit([state,ready,entered]{*entered=true;ready.wait();state->complete();}));
+        QTRY_VERIFY_WITH_TIMEOUT(entered->load(),3000);
+        QElapsedTimer timer;timer.start();const auto stopped=worker->stop(std::chrono::milliseconds(25));
+        worker.reset();const auto waited=timer.elapsed();
+        // The detached loop owns state after the GUI owner disappears.
+        release.set_value();const auto completed=state->waitFor(std::chrono::seconds(3));
+        QVERIFY(!stopped);QVERIFY(waited<500);QVERIFY(completed);
+        auto fast=std::make_shared<detail::BackgroundCompletion>();detail::BackgroundWorker normal;
+        QVERIFY(normal.submit([fast]{fast->complete();}));QVERIFY(fast->waitFor(std::chrono::seconds(3)));
+        QVERIFY(normal.stop(std::chrono::seconds(3)));
     }
     void rawModelBoundsDecoderAndFilters() {
         RecordModel model(nullptr,10000,3);model.append({record(QByteArray::fromHex("e4b8")),record("other",2),record(QByteArray::fromHex("ad"))},false);QCOMPARE(model.textPreview(2),QStringLiteral("中"));QVERIFY(!model.takeStreamText().contains(QChar::ReplacementCharacter));
@@ -459,6 +466,51 @@ private slots:
         chooseFile(output);get<QPushButton>(w,"exportSamples")->click();model->clear();QCOMPARE(proxy->rowCount(),0);QTRY_VERIFY(!w.property("sampleExportActive").toBool());QVERIFY(file.open(QIODevice::ReadOnly));const auto root=QJsonDocument::fromJson(file.readAll()).object();QCOMPARE(root["records"].toArray().size(),1);QCOMPARE(root["records"].toArray()[0].toObject()["length"].toInt(),bytes.size());QVERIFY(root["records"].toArray()[0].toObject()["hex"].toString().startsWith("41 41"));file.close();
         QVERIFY(file.open(QIODevice::WriteOnly));file.write("KEEP-ON-CLOSE");file.close();{auto closing=std::make_unique<MainWindow>(&controller);auto* p=dynamic_cast<RecordFilter*>(get<QTableView>(*closing,"recordTable")->model());dynamic_cast<RecordModel*>(p->sourceModel())->append({record(bytes)},false);chooseFile(output);get<QPushButton>(*closing,"exportSamples")->click();QElapsedTimer elapsed;elapsed.start();closing.reset();QVERIFY(elapsed.elapsed()<3500);}QVERIFY(file.open(QIODevice::ReadOnly));QCOMPARE(file.readAll(),QByteArray("KEEP-ON-CLOSE"));
         get<QLineEdit>(w,"recordDirectory")->setText(data->path()+"/first/nested");get<QLineEdit>(w,"recordDirectory")->setText(data->path()+"/latest/nested");QTRY_VERIFY(!w.property("storageQueryActive").toBool());QVERIFY(get<QLabel>(w,"storageFacts")->text().contains(QStringLiteral("实际可用空间")));
+    }
+    void backgroundWorkerBoundsQueueAndNeverWaitsForPublishedTask() {
+        struct Shared {
+            std::promise<void> release;
+            std::atomic<bool> published{false};
+            std::atomic<int> queuedRan{0};
+        };
+        auto state=std::make_shared<Shared>();
+        auto gate=state->release.get_future().share();
+        detail::BackgroundWorker worker;
+        QVERIFY(worker.submit([state,gate]{state->published=true;gate.wait();}));
+        QTRY_VERIFY_WITH_TIMEOUT(state->published.load(),3000);
+        // Result publication is deliberately followed by a stalled task. A GUI
+        // consumer may accept one next query, but must neither join nor grow a queue.
+        bool second=worker.submit([state]{++state->queuedRan;});
+        bool third=worker.submit([]{});
+        QElapsedTimer shutdown;shutdown.start();
+        const bool exited=worker.stop(std::chrono::milliseconds(20));
+        const auto waited=shutdown.elapsed();
+        state->release.set_value(); // Release before assertions so failures cannot leave a task blocked.
+        QVERIFY(second);QVERIFY(!third);QVERIFY(!exited);QVERIFY(waited<250);
+        QVERIFY(worker.stop(std::chrono::seconds(3)));QCOMPARE(state->queuedRan.load(),0);
+        QVERIFY(!worker.submit([]{}));
+    }
+    void unselectedInspectorDoesNotRebuildEmptyDocumentsOnEveryEviction() {
+        SessionController controller;MainWindow w(&controller);w.show();
+        auto* table=get<QTableView>(w,"recordTable");
+        auto* proxy=dynamic_cast<RecordFilter*>(table->model());
+        auto* model=dynamic_cast<RecordModel*>(proxy->sourceModel());
+        auto* hex=get<QPlainTextEdit>(w,"byteInspector");
+        auto* text=get<QPlainTextEdit>(w,"byteUtf8");
+        QSignalSpy hexChanges(hex->document(),&QTextDocument::contentsChanged);
+        QSignalSpy textChanges(text->document(),&QTextDocument::contentsChanged);
+        std::vector<DataRecord> incoming;
+        for(int i=0;i<6000;++i)incoming.push_back(record(QByteArray(1024,'a'),i+1));
+        model->append(incoming,true);
+        for(int i=0;i<10;++i)model->append({record(QByteArray(1024,'b'),i+7000)},true);
+        QVERIFY(model->omitted()>0);QCOMPARE(hexChanges.count(),0);QCOMPARE(textChanges.count(),0);
+        table->setCurrentIndex(proxy->index(proxy->rowCount()-1,0));QVERIFY(!hex->toPlainText().isEmpty());
+        const auto selectedHex=hex->toPlainText();const auto selectedText=text->toPlainText();
+        hexChanges.clear();textChanges.clear();
+        for(int i=0;i<10;++i)model->append({record(QByteArray(1024,'c'),i+9000)},true);
+        QCOMPARE(hex->toPlainText(),selectedHex);QCOMPARE(text->toPlainText(),selectedText);
+        QCOMPARE(hexChanges.count(),0);QCOMPARE(textChanges.count(),0);
+        table->clearSelection();QVERIFY(hex->toPlainText().isEmpty());QVERIFY(text->toPlainText().isEmpty());
     }
     void nativeAuditScreenshotsAndLayout() {
         if(qEnvironmentVariable("PORTBRIDGE_UI_SCREENSHOT_DIR").isEmpty())return;

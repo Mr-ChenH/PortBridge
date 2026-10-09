@@ -1,0 +1,68 @@
+{
+  "state": "passed",
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 61.603
+    },
+    {
+      "name": "focused-ui",
+      "exitCode": 0,
+      "seconds": 2.153
+    },
+    {
+      "name": "storage-exit-compile",
+      "exitCode": 0,
+      "seconds": 2.609
+    },
+    {
+      "name": "storage-exit-before-link",
+      "exitCode": 0,
+      "seconds": 2.205
+    },
+    {
+      "name": "storage-exit-before",
+      "exitCode": 0,
+      "seconds": 7.313
+    },
+    {
+      "name": "storage-exit-after-link",
+      "exitCode": 0,
+      "seconds": 2.094
+    },
+    {
+      "name": "storage-exit-after",
+      "exitCode": 0,
+      "seconds": 7.175
+    },
+    {
+      "name": "ctest-all",
+      "exitCode": 0,
+      "seconds": 167.724
+    },
+    {
+      "name": "native-ui",
+      "exitCode": 0,
+      "seconds": 86.283
+    }
+  ],
+  "sourceHashes": "source-hashes.json",
+  "sourceUnchanged": true,
+  "revision": "ui-latency-fix-1",
+  "source_stable": true,
+  "inputs": 88,
+  "application_sha256": "11373e7624e80a2abc1e0fd5a385d9ed5729ac3ba5532a14762b17cc745487f6",
+  "test_executable_sha256": {
+    "test_http_projects": "2b004bbed0bb5b5fc0dfae6168c4dbac8b107388a6f20431d8d89b567e8f37cb",
+    "test_network": "6c163a48a5170627da904bfe9f33f4968842115b973df52f0b133536f6cab330",
+    "test_protocol_debug": "9a24181c76832612d5e5dda305964c15b2f32f7ed1a0c78b08aef9afc5d92c06",
+    "test_session": "d1614cb59d49ade6013f75df24f6d4c245319959d68075732a4d48d648bd3399",
+    "test_ui": "759268a7cf2e92b0fba2c6a5ad3cbd717b2270e4e9532a6b67059ca7724fed19",
+    "test_workflow": "c717d4bc912ae7a42b8f609cf772565bd6c6aba61abd560f8afa5d18850bed27",
+    "test_workflow_e2e": "e42c7917c218dec069b1293f7366eaf06a8b8a4b8c268b22a6bd0de75f2d44e8",
+    "test_workflow_integration": "3293fccd93ece46b61680b17c63fe3ddd5f94dc24d12406c840900bbcc7eb332",
+    "test_workflow_protocol": "62f3c5dbe2187d9064598e9933ac1fc2b4e98f43cf4f63d591b99e817420b5d7",
+    "test_workflow_ui": "1de4262a16447978b8b51473d3da2fe5f3fb7f5e43c38746326ec29682b77ef8"
+  }
+}

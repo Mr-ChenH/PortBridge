@@ -1,7 +1,7 @@
 #pragma once
 #include "portbridge/workflow_protocol.hpp"
-#include <QVector>
 #include <QJsonObject>
+#include <QVector>
 #include <functional>
 
 namespace portbridge {
@@ -25,7 +25,10 @@ class ProtocolDebugSession final : public QObject {
     bool sendMessage(const QByteArray &bytes, bool binary, QString *error = nullptr);
     void close(int code = 1000, const QString &reason = {});
     void cancel();
-    bool active() const { return phase_ != Phase::Idle; }
+    bool active() const { return phase_ != Phase::Idle || !sequenceId_.isEmpty(); }
+    bool acquireSequence(const QString &id, QString *error = nullptr);
+    void releaseSequence(const QString &id);
+    QString sequenceId() const { return sequenceId_; }
     bool connected() const { return phase_ == Phase::Connected && client_->webSocketConnected(); }
     bool writing() const { return !sendId_.isEmpty(); }
     Phase phase() const { return phase_; }
@@ -43,6 +46,12 @@ class ProtocolDebugSession final : public QObject {
     quint64 transmittedBytes() const { return transmitted_; }
     void clearHistory();
     void setStartGuard(std::function<bool(QString *)> guard) { guard_ = std::move(guard); }
+    void setContextValidator(std::function<QString(const QJsonObject &)> validator) {
+        contextValidator_ = std::move(validator);
+    }
+    QString pendingContextError() const {
+        return contextValidator_ ? contextValidator_(pendingParameters_) : QString();
+    }
     static QString validate(const QJsonObject &parameters, Mode mode);
   signals:
     void changed();
@@ -54,7 +63,8 @@ class ProtocolDebugSession final : public QObject {
     WorkflowProtocolClient *client_;
     Mode mode_;
     Phase phase_ = Phase::Idle;
-    QString activeId_, sendId_, closeId_, latestId_, error_, endpoint_;
+    QString activeId_, sendId_, closeId_, latestId_, error_, endpoint_, sequenceId_;
+    QJsonObject pendingParameters_;
     QJsonObject latest_, snapshot_;
     QVector<ProtocolDebugEntry> entries_;
     quint64 epoch_ = 0, nextEntry_ = 0, omitted_ = 0, received_ = 0, transmitted_ = 0;
@@ -62,6 +72,7 @@ class ProtocolDebugSession final : public QObject {
     bool starting_ = false, awaitLocalClose_ = false;
     QByteArray sending_;
     bool sendingBinary_ = false;
+    std::function<QString(const QJsonObject &)> contextValidator_;
     std::function<bool(QString *)> guard_;
 };
 } // namespace portbridge

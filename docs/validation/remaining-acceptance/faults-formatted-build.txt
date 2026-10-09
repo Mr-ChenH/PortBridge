@@ -1,0 +1,4 @@
+In file included from C:\Users\threeTeeth\workSpace\github\PortBridge\tools\acceptance\faults_probe.cpp:16:
+C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/winsock2.h:15:2: warning: #warning Please include winsock2.h before windows.h [-Wcpp]
+   15 | #warning Please include winsock2.h before windows.h
+      |  ^~~~~~~

@@ -498,7 +498,7 @@ void ProtocolDebugPage::Impl::build() {
     method = new QComboBox;
     method->setObjectName("protocolMethod");
     method->addItems({"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"});
-    method->setFixedWidth(96);
+    method->setFixedWidth(128);
     method->setVisible(http);
     urlRow->addWidget(method);
     url = line("protocolUrl", 4096);
@@ -691,11 +691,11 @@ void ProtocolDebugPage::Impl::build() {
     log->setEditTriggers(QAbstractItemView::NoEditTriggers);
     log->verticalHeader()->hide();
     log->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
-    log->setColumnWidth(0, 94);
+    log->setColumnWidth(0, 138);
     log->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
-    log->setColumnWidth(1, 56);
+    log->setColumnWidth(1, 86);
     log->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
-    log->setMinimumWidth(160);
+    log->setMinimumWidth(340);
     resultSplit->addWidget(log);
     auto *details = new QWidget;
     auto *detailLayout = new QVBoxLayout(details);
@@ -757,7 +757,7 @@ void ProtocolDebugPage::Impl::build() {
     resultSplit->addWidget(details);
     resultSplit->setStretchFactor(0, 0);
     resultSplit->setStretchFactor(1, 1);
-    resultSplit->setSizes({280, 600});
+    resultSplit->setSizes({360, 600});
     responseLayout->addWidget(resultSplit, 1);
     empty = text(http ? QStringLiteral("尚未发送请求。选择方法、填写URL后点击发送；这里展示真实响应。")
                       : QStringLiteral("尚未建立连接。明确连接后收发完整消息；切换页面不会断开。"),
@@ -2225,13 +2225,15 @@ ProtocolDebugSession *ProtocolDebugPage::session() const { return d->session; }
 void ProtocolDebugPage::setDarkTheme(bool dark) {
     d->dark = dark;
     setProperty("darkTheme", dark);
+    setFont(design::font(16));
+    setPalette(design::textPalette(palette(), dark));
     d->warn(d->warning->text(), d->warningError);
     setStyleSheet(QString("#protocolLibraryPanel {background:%1;border-right:1px "
                           "solid %2;} #protocolTitle "
                           "{font-size:20px;font-weight:600;} "
                           "#protocolLibraryEmpty {color:%3;padding:10px 4px;}")
                       .arg(dark ? "#171c1f" : "#f6f8f8", dark ? "#2b3438" : "#d5dfe1",
-                           dark ? "#8b9a9f" : "#5e7379"));
+                           dark ? "#b5c4cb" : "#435960"));
     d->timeline->dark = dark;
     d->refresh();
 }

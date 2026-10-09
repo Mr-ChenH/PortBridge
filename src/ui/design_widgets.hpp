@@ -22,7 +22,20 @@ enum class Icon { Brand, Workspace, Folder, Terminal, Network, Chip, Sun, Moon, 
 inline QFont font(int pixels, bool mono = false, bool bold = false) {
     QFont f; f.setFamilies(mono ? QStringList{"Cascadia Code", "Consolas", "Microsoft YaHei UI"}
                               : QStringList{"Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei"});
-    f.setPixelSize(pixels); f.setWeight(bold ? QFont::DemiBold : QFont::Normal); return f;
+    // Sizes are logical pixels; Qt applies the screen's device-pixel ratio.
+    f.setPixelSize(pixels < 12 ? 14 : std::max(pixels, 16));
+    f.setWeight(bold ? QFont::DemiBold : QFont::Normal); return f;
+}
+inline QPalette textPalette(QPalette palette, bool dark) {
+    const QColor ink(dark ? "#e5edee" : "#213336");
+    const QColor secondary(dark ? "#b5c4cb" : "#435960");
+    for (auto group : {QPalette::Active, QPalette::Inactive, QPalette::Disabled}) {
+        for (auto role : {QPalette::Text, QPalette::WindowText, QPalette::ButtonText})
+            palette.setColor(group, role, group == QPalette::Disabled ? secondary : ink);
+        palette.setColor(group, QPalette::PlaceholderText, secondary);
+        palette.setColor(group, QPalette::ToolTipText, ink);
+    }
+    return palette;
 }
 inline void drawIcon(QPainter& p, const QRectF& rect, Icon icon, const QColor& color) {
     p.save(); p.setRenderHint(QPainter::Antialiasing); p.translate(rect.topLeft());
@@ -89,7 +102,7 @@ public:
 protected:
     void paintEvent(QPaintEvent*) override {
         const bool dark=window()->property("darkTheme").toBool();
-        const QColor ink(dark?"#e5edee":"#213336"),muted(dark?"#8b9a9f":"#5e7379"),accent(dark?"#85dec4":"#176e58");
+        const QColor ink(dark?"#e5edee":"#213336"),muted(dark?"#b5c4cb":"#435960"),accent(dark?"#85dec4":"#176e58");
         QPainter p(this);p.setRenderHint(QPainter::Antialiasing);
         p.setBrush(QColor(underMouse()?(dark?"#24302f":"#edf5f1"):(dark?"#1d2428":"#ffffff")));
         p.setPen(QPen(hasFocus()?accent:QColor(dark?"#2b3438":"#d5dfe1"),1));p.drawRoundedRect(QRectF(rect()).adjusted(0.5,0.5,-0.5,-0.5),5,5);
@@ -112,7 +125,7 @@ public:
     LibraryList(Icon value,QString title,QString note):symbol(value),heading(std::move(title)),description(std::move(note)){}
 protected:
     void paintEvent(QPaintEvent* event) override {
-        QListWidget::paintEvent(event);if(count())return;QPainter p(viewport());const auto center=viewport()->rect().center();const bool dark=window()->property("darkTheme").toBool();const QColor muted(dark?"#8b9a9f":"#5e7379");drawIcon(p,QRectF(center.x()-17,center.y()-60,34,34),symbol,muted);
+        QListWidget::paintEvent(event);if(count())return;QPainter p(viewport());const auto center=viewport()->rect().center();const bool dark=window()->property("darkTheme").toBool();const QColor muted(dark?"#b5c4cb":"#435960");drawIcon(p,QRectF(center.x()-17,center.y()-60,34,34),symbol,muted);
         p.setPen(muted);p.setFont(design::font(14));p.drawText(QRect(0,center.y()-11,viewport()->width(),24),Qt::AlignCenter,heading);p.setFont(design::font(11));p.drawText(QRect(0,center.y()+19,viewport()->width(),24),Qt::AlignCenter,description);
     }
 };
@@ -122,7 +135,7 @@ public:
     LibraryDelegate(Icon value,QObject* owner):QStyledItemDelegate(owner),symbol(value){}
     QSize sizeHint(const QStyleOptionViewItem&,const QModelIndex&) const override {return {300,90};}
     void paint(QPainter* p,const QStyleOptionViewItem& option,const QModelIndex& index) const override {
-        const bool dark=option.widget->window()->property("darkTheme").toBool(),selected=option.state&QStyle::State_Selected;const QColor muted(dark?"#8b9a9f":"#5e7379"),text(dark?"#e5edee":"#213336"),accent(dark?"#85dec4":"#176e58");const auto r=option.rect;const auto parts=index.data().toString().split('\n');p->save();p->fillRect(r,QColor(selected?(dark?"#21352f":"#e3f1eb"):(dark?"#171c1f":"#ffffff")));p->setPen(QColor(dark?"#2b3438":"#d5dfe1"));p->drawLine(r.bottomLeft(),r.bottomRight());if(index.data(Qt::UserRole+10).toBool()){p->restore();return;}drawIcon(*p,QRectF(r.left()+16,r.top()+19,24,24),symbol,accent);
+        const bool dark=option.widget->window()->property("darkTheme").toBool(),selected=option.state&QStyle::State_Selected;const QColor muted(dark?"#b5c4cb":"#435960"),text(dark?"#e5edee":"#213336"),accent(dark?"#85dec4":"#176e58");const auto r=option.rect;const auto parts=index.data().toString().split('\n');p->save();p->fillRect(r,QColor(selected?(dark?"#21352f":"#e3f1eb"):(dark?"#171c1f":"#ffffff")));p->setPen(QColor(dark?"#2b3438":"#d5dfe1"));p->drawLine(r.bottomLeft(),r.bottomRight());if(index.data(Qt::UserRole+10).toBool()){p->restore();return;}drawIcon(*p,QRectF(r.left()+16,r.top()+19,24,24),symbol,accent);
         const int x=r.left()+56,width=std::max(1,r.width()-76);for(int n=0;n<std::min(3,int(parts.size()));++n){p->setFont(font(n?11:13,n==2,n==0));p->setPen(n?muted:text);p->drawText(QRect(x,r.top()+13+n*22,width,20),Qt::AlignLeft|Qt::AlignVCenter,p->fontMetrics().elidedText(parts[n],Qt::ElideRight,width));}p->restore();
     }
 };
@@ -132,14 +145,14 @@ public:
     QSize sizeHint(const QStyleOptionViewItem&,const QModelIndex&) const override {return {190,64};}
     void paint(QPainter* p,const QStyleOptionViewItem& option,const QModelIndex& index) const override {
         const bool dark=option.widget->window()->property("darkTheme").toBool();
-        const QColor text(dark?"#e5edee":"#213336"),muted(dark?"#8b9a9f":"#5e7379"),accent(dark?"#85dec4":"#176e58");
+        const QColor text(dark?"#e5edee":"#213336"),muted(dark?"#b5c4cb":"#435960"),accent(dark?"#85dec4":"#176e58");
         const bool selected=option.state&QStyle::State_Selected;
         p->save();p->setRenderHint(QPainter::Antialiasing);const auto r=QRectF(option.rect).adjusted(0,3,-1,-3);
         if(selected||option.state&QStyle::State_MouseOver){p->setBrush(QColor(selected?(dark?"#21352f":"#e3f1eb"):(dark?"#1d2428":"#f3f6f6")));p->setPen(selected?QPen(QColor(dark?"#38584e":"#b0d1c7"),1):QPen(Qt::NoPen));p->drawRoundedRect(r,4,4);}
         drawIcon(*p,QRectF(r.left()+10,r.center().y()-9,18,18),index.data(Qt::UserRole).toInt()==0?Icon::Chip:Icon::Network,selected?accent:muted);
         const auto parts=index.data().toString().split('\n');const auto x=int(r.left()+36);const int width=int(r.width()-50);
-        p->setFont(font(12,false,selected));p->setPen(selected?text:muted);p->drawText(QRect(x,int(r.top()+12),width,18),Qt::AlignLeft|Qt::AlignVCenter,p->fontMetrics().elidedText(parts.value(0),Qt::ElideRight,width));
-        p->setFont(font(10,true));p->setPen(muted);p->drawText(QRect(x,int(r.top()+32),width,16),Qt::AlignLeft|Qt::AlignVCenter,p->fontMetrics().elidedText(parts.value(1),Qt::ElideRight,width));
+        p->setFont(font(12,false,selected));p->setPen(selected?text:muted);p->drawText(QRect(x,int(r.top()+10),width,22),Qt::AlignLeft|Qt::AlignVCenter,p->fontMetrics().elidedText(parts.value(0),Qt::ElideRight,width));
+        p->setFont(font(10,true));p->setPen(muted);p->drawText(QRect(x,int(r.top()+33),width,20),Qt::AlignLeft|Qt::AlignVCenter,p->fontMetrics().elidedText(parts.value(1),Qt::ElideRight,width));
         if(index.data(Qt::UserRole+1).toBool()){p->setPen(Qt::NoPen);p->setBrush(accent);p->drawEllipse(QPointF(r.right()-10,r.center().y()),3,3);}p->restore();
     }
 };
@@ -148,11 +161,11 @@ public:
     explicit RecordDelegate(QObject* p):QStyledItemDelegate(p){}
     void paint(QPainter* p,const QStyleOptionViewItem& option,const QModelIndex& index) const override {
         const bool dark=option.widget->window()->property("darkTheme").toBool(),selected=option.state&QStyle::State_Selected;
-        const QColor text(dark?"#e5edee":"#213336"),muted(dark?"#8b9a9f":"#5e7379"),accent(dark?"#85dec4":"#176e58");
+        const QColor text(dark?"#e5edee":"#213336"),muted(dark?"#b5c4cb":"#435960"),accent(dark?"#85dec4":"#176e58");
         p->save();p->fillRect(option.rect,QColor(selected?(dark?"#21352f":"#e3f1eb"):(option.state&QStyle::State_MouseOver)?(dark?"#1d2428":"#f3f6f6"):(dark?"#171c1f":"#ffffff")));
         p->setPen(QColor(dark?"#232b2f":"#e7eded"));p->drawLine(option.rect.bottomLeft(),option.rect.bottomRight());
         const auto r=option.rect.adjusted(10,0,-6,0);QString value=index.data().toString();p->setFont(font(11,true,selected));
-        if(index.column()==2){const QColor color=value=="RX"?QColor(dark?"#68ED9D":"#116B35"):value=="TX"?QColor(dark?"#FFAD5C":"#9A4300"):muted;p->setFont(font(9,true));const int width=p->fontMetrics().horizontalAdvance(value)+8;const QRect badge(r.left(),r.center().y()-7,width,15);auto background=color;background.setAlpha(25);p->setPen(Qt::NoPen);p->setBrush(background);p->drawRoundedRect(badge,2,2);p->setPen(color);p->drawText(badge,Qt::AlignCenter,value);}
+        if(index.column()==2){const QColor color=value=="RX"?QColor(dark?"#68ED9D":"#116B35"):value=="TX"?QColor(dark?"#FFAD5C":"#9A4300"):muted;p->setFont(font(9,true));const int width=p->fontMetrics().horizontalAdvance(value)+8;const QRect badge(r.left(),r.center().y()-11,width,23);auto background=color;background.setAlpha(25);p->setPen(Qt::NoPen);p->setBrush(background);p->drawRoundedRect(badge,2,2);p->setPen(color);p->drawText(badge,Qt::AlignCenter,value);}
         else{if(index.column()==0)value=value.rightJustified(3,'0');p->setPen(selected||index.column()==5?text:muted);p->drawText(r,(index.column()==4?Qt::AlignRight:Qt::AlignLeft)|Qt::AlignVCenter,p->fontMetrics().elidedText(value,Qt::ElideRight,r.width()));}
         if(selected&&index.column()==0) p->fillRect(QRect(option.rect.left(),option.rect.top(),2,option.rect.height()),accent);
         p->restore();
@@ -165,9 +178,9 @@ protected:
     void paintEvent(QPaintEvent* event) override {
         QTableView::paintEvent(event);if(!model()||model()->rowCount())return;
         QPainter p(viewport());const bool dark=window()->property("darkTheme").toBool();const auto center=viewport()->rect().center();
-        const QColor muted(dark?"#63757d":"#70868c");drawIcon(p,QRectF(center.x()-14,center.y()-45,28,28),Icon::Workspace,muted);
+        const QColor muted(dark?"#b5c4cb":"#435960");drawIcon(p,QRectF(center.x()-14,center.y()-45,28,28),Icon::Workspace,muted);
         const auto* proxy=qobject_cast<const QAbstractProxyModel*>(model());const bool filtered=proxy&&proxy->sourceModel()&&proxy->sourceModel()->rowCount()>0;
-        p.setFont(design::font(12));p.setPen(QColor(dark?"#8b9a9f":"#5e7379"));p.drawText(QRect(0,center.y()-7,viewport()->width(),24),Qt::AlignCenter,filtered?QStringLiteral("没有匹配的数据样本"):QStringLiteral("等待通信数据"));
+        p.setFont(design::font(12));p.setPen(QColor(dark?"#b5c4cb":"#435960"));p.drawText(QRect(0,center.y()-7,viewport()->width(),24),Qt::AlignCenter,filtered?QStringLiteral("没有匹配的数据样本"):QStringLiteral("等待通信数据"));
         p.setFont(design::font(10));p.setPen(muted);p.drawText(QRect(0,center.y()+20,viewport()->width(),24),Qt::AlignCenter,filtered?QStringLiteral("试试调整字节或来源搜索条件"):QStringLiteral("连接设备后，在这里查看收发记录"));
     }
 };

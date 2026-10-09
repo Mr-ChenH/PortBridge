@@ -1,0 +1,16 @@
+********* Start testing of ProtocolDebugTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : ProtocolDebugTest::initTestCase()
+QWARN  : ProtocolDebugTest::unifiedCreationDialog(http-dark) setGeometry: Unable to set geometry 775x794-1679+40 (frame: 791x833-1687+9) on QWidgetWindow/"profileDialogWindow" on "HDMI". Resulting geometry: 775x820-1679+14 (frame: 791x859-1687-17) margins: 8, 31, 8, 8 minimum size: 560x635 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=716, y=833)))
+PASS   : ProtocolDebugTest::unifiedCreationDialog(http-dark)
+QWARN  : ProtocolDebugTest::unifiedCreationDialog(http-light) setGeometry: Unable to set geometry 775x794-1679+40 (frame: 791x833-1687+9) on QWidgetWindow/"profileDialogWindow" on "HDMI". Resulting geometry: 775x820-1679+14 (frame: 791x859-1687-17) margins: 8, 31, 8, 8 minimum size: 560x635 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=716, y=833)))
+PASS   : ProtocolDebugTest::unifiedCreationDialog(http-light)
+PASS   : ProtocolDebugTest::unifiedCreationDialog(websocket-dark)
+PASS   : ProtocolDebugTest::unifiedCreationDialog(websocket-light)
+PASS   : ProtocolDebugTest::creationPreservesDirtyDraftAndActiveSession()
+PASS   : ProtocolDebugTest::nativeHttpRequestHistoryScreenshots()
+PASS   : ProtocolDebugTest::nativeWsMessagesAndCompactGeometry()
+PASS   : ProtocolDebugTest::nativeHttpClipboardMaskAndGeometry()
+PASS   : ProtocolDebugTest::cleanupTestCase()
+Totals: 10 passed, 0 failed, 0 skipped, 0 blacklisted, 11420ms
+********* Finished testing of ProtocolDebugTest *********

@@ -1,0 +1,21 @@
+********* Start testing of UiTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : UiTest::initTestCase()
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() This plugin does not support propagateSizeHints()
+FAIL!  : UiTest::wholeUiReadabilityAcrossThemes() 'contrast(ink, paper) >= 4.5' returned FALSE. (sendInput contrast=1.59147 foreground=#213336 background=#000000)
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_ui.cpp(567) : failure location
+PASS   : UiTest::startupAndAccessibility()
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=0 window=1440x1000 default=1109x144 expanded=1109x557
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=1 window=1440x1000 default=1109x143 expanded=1109x555
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=2 window=1440x1000 default=1109x143 expanded=1109x555
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=3 window=1440x1000 default=1109x98 expanded=1109x511
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=0 window=1100x760 default=769x96 expanded=769x317
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=1 window=1100x760 default=769x96 expanded=769x315
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=2 window=1100x760 default=769x96 expanded=769x315
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=3 window=1100x760 default=769x96 expanded=769x271
+PASS   : UiTest::sharedComposerSupportsMultilineResizeAndExpansion()
+PASS   : UiTest::udpDirectSendUsesEditedTargetWithoutConfigurationTraffic()
+PASS   : UiTest::cleanupTestCase()
+Totals: 5 passed, 1 failed, 0 skipped, 0 blacklisted, 4668ms
+********* Finished testing of UiTest *********

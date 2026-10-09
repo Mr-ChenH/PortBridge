@@ -1,5 +1,6 @@
 #include "portbridge/session_controller.hpp"
 #include "ui/main_window.hpp"
+#include "ui/design_widgets.hpp"
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
@@ -20,7 +21,7 @@ int main(int argc, char* argv[]) {
     QApplication::setApplicationName(QStringLiteral("PortBridge"));
     QApplication::setApplicationVersion(QStringLiteral("0.1.0"));
     app.setWindowIcon(QIcon(QStringLiteral(":/icons/portbridge.ico")));
-    app.setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 9));
+    app.setFont(portbridge::design::font(16));
     QCommandLineParser parser;
     parser.setApplicationDescription(QStringLiteral("PortBridge 通信调试与原生工作流工作台"));
     parser.addHelpOption();

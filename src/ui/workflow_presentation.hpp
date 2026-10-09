@@ -41,7 +41,7 @@ public:
     }
     void paint(QPainter* p, const QStyleOptionViewItem& option, const QModelIndex& index) const override {
         const auto rect=option.rect;
-        const QColor muted(*dark ? "#96a7ad" : "#5e7379"), ink(*dark ? "#e5edee" : "#213336");
+        const QColor muted(*dark ? "#b5c4cb" : "#435960"), ink(*dark ? "#e5edee" : "#213336");
         p->save();
         if (!index.parent().isValid()) {
             p->setPen(muted); p->setFont(design::font(11));
@@ -95,14 +95,14 @@ protected:
         QTableView::paintEvent(event);
         if (!model() || model()->rowCount()) return;
         QPainter p(viewport());const auto c=viewport()->rect().center();
-        const QColor muted(*dark ? "#96a7ad" : "#5e7379");
+        const QColor muted(*dark ? "#b5c4cb" : "#435960");
         p.setFont(design::font(12));p.setPen(muted);
         const auto textWidth=p.fontMetrics().horizontalAdvance(heading);
         design::drawIcon(p,QRectF(c.x()-textWidth/2-25,c.y()-8,16,16),design::Icon::Record,muted);
         p.drawText(QRect(12,c.y()-12,viewport()->width()-24,24),Qt::AlignCenter,heading);
         if (viewport()->height() >= 100) {
             p.setFont(design::font(10));
-            p.drawText(QRect(12,c.y()+18,viewport()->width()-24,18),Qt::AlignCenter,detail);
+            p.drawText(QRect(12,c.y()+18,viewport()->width()-24,22),Qt::AlignCenter,detail);
         }
     }
 };

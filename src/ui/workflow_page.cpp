@@ -459,7 +459,7 @@ void WorkflowPage::Impl::layout() {
         v->setSelectionBehavior(QAbstractItemView::SelectRows);
         v->setSelectionMode(QAbstractItemView::SingleSelection);
         v->verticalHeader()->hide();
-        v->verticalHeader()->setDefaultSectionSize(27);
+        v->verticalHeader()->setDefaultSectionSize(32);
         v->horizontalHeader()->setStretchLastSection(false);
         v->setAlternatingRowColors(false);
         v->setFont(design::font(11, true));
@@ -1178,7 +1178,7 @@ void WorkflowPage::Impl::form() {
         line(QStringLiteral("请求 URL"), "url");
         combo(QStringLiteral("请求体模式"), "bodyMode",
               {{QStringLiteral("JSON / 原文"), "text"}, {QStringLiteral("JSON"), "json"}}, "text");
-        area(QStringLiteral("Body / 请求体"), "body")->setMaximumHeight(128);
+        area(QStringLiteral("Body / 请求体"), "body")->setMaximumHeight(88);
         section(QStringLiteral("请求头"),"headers");
         area(QStringLiteral("每行一个；支持 ${变量}"), "headers");
         endSection();
@@ -1552,29 +1552,29 @@ void WorkflowPage::setDarkTheme(bool dark) {
     d->dark = dark;
     setProperty("darkTheme", dark);
     const QString panel = dark ? "#171c1f" : "#ffffff", side = dark ? "#14191c" : "#f7f9f9",
-                  ink = dark ? "#e5edee" : "#213336", muted = dark ? "#96a7ad" : "#5e7379",
+                  ink = dark ? "#e5edee" : "#213336", muted = dark ? "#b5c4cb" : "#435960",
                   line = dark ? "#2b3438" : "#d5dfe1", accent = dark ? "#85dec4" : "#176e58";
     setStyleSheet(
         QStringLiteral(
-            "QWidget#workflowPage { background:%1; color:%2; } QWidget { color:%2; } "
-            "QLabel { font-size:12px; } QWidget#workflowHeading { background:%1; border-bottom:1px solid %4; } "
+            "QWidget#workflowPage { background:%1; color:%2; } QWidget { color:%2; font-size:16px; } "
+            "QLabel { font-size:16px; } QWidget#workflowHeading { background:%1; border-bottom:1px solid %4; } "
             "QWidget#workflowExecution { background:%1; border-top:1px solid %4; } "
             "QWidget#workflowPalettePanel, QWidget#workflowInspector, QWidget#workflowToolbar, "
             "QWidget#workflowParameterBody { background:%3; } QWidget#workflowToolbar { border-bottom:1px solid %4; } "
-            "QLabel[muted=\"true\"], QLabel#workflowResource, QLabel#workflowRunStatus { color:%6; font-size:11px; } "
-            "QLabel#workflowEyebrow { color:%6; font-size:10px; letter-spacing:2px; } "
-            "QLabel#workflowSaveState { color:%6; border:1px solid %4; border-radius:3px; padding:2px 6px; font-size:10px; } "
+            "QLabel[muted=\"true\"], QLabel#workflowResource, QLabel#workflowRunStatus { color:%6; font-size:14px; } "
+            "QLabel#workflowEyebrow { color:%6; font-size:14px; letter-spacing:1px; } "
+            "QLabel#workflowSaveState { color:%6; border:1px solid %4; border-radius:3px; padding:2px 6px; font-size:14px; } "
             "QFrame[divider=\"true\"] { background:%4; border:0; } "
-            "QLabel#workflowInspectorHeading, QLabel#workflowLibraryTitle, QLabel#workflowInspectorLabel { font-size:13px; font-weight:600; } "
-            "QLabel#workflowInspectorMeta { font-size:10px; color:%6; } QLabel#workflowInspectorIcon { background:%1; border-radius:5px; padding:7px; } "
-            "QLabel#workflowInspectorFooter { font-size:11px; color:%5; border-top:1px solid %4; } "
-            "QLabel#workflowResultStatus { color:%5; font-size:13px; font-weight:600; } "
-            "QLineEdit,QPlainTextEdit,QComboBox { background:%1; color:%2; border:1px solid %4; border-radius:4px; padding:4px 6px; min-height:18px; font-size:12px; selection-background-color:%5; selection-color:%3; } "
+            "QLabel#workflowInspectorHeading, QLabel#workflowLibraryTitle, QLabel#workflowInspectorLabel { font-size:16px; font-weight:600; } "
+            "QLabel#workflowInspectorMeta { font-size:14px; color:%6; } QLabel#workflowInspectorIcon { background:%1; border-radius:5px; padding:7px; } "
+            "QLabel#workflowInspectorFooter { font-size:14px; color:%5; border-top:1px solid %4; } "
+            "QLabel#workflowResultStatus { color:%5; font-size:16px; font-weight:600; } "
+            "QLineEdit,QPlainTextEdit,QComboBox { background:%1; color:%2; border:1px solid %4; border-radius:4px; padding:4px 6px; min-height:22px; font-size:16px; placeholder-text-color:%6; selection-background-color:%5; selection-color:%3; } "
             "QLineEdit#workflowTitle { border:0; background:transparent; padding:0; font-size:21px; font-weight:600; } "
             "QLineEdit#workflowTitle:focus { border-bottom:1px solid %5; } "
             "QTreeWidget#workflowPalette { background:transparent; border:0; padding:0; outline:0; } "
             "QTableView { background:%1; color:%2; border:0; gridline-color:%4; selection-background-color:%4; selection-color:%2; } "
-            "QPushButton { background:transparent; border:1px solid %4; border-radius:5px; padding:4px 10px; color:%2; font-size:12px; } "
+            "QPushButton { background:transparent; border:1px solid %4; border-radius:5px; padding:4px 10px; color:%2; font-size:16px; } "
             "QPushButton:hover { background:%4; border-color:%5; } QPushButton:focus, QLineEdit:focus, QComboBox:focus { border:1px solid %5; } "
             "QPushButton[quiet=\"true\"] { border:0; padding:4px 6px; color:%6; } QPushButton[quiet=\"true\"]:hover { color:%2; background:%4; } "
             "QPushButton[section=\"true\"] { border:0; border-top:1px solid %4; border-radius:0; text-align:left; padding:10px 0; color:%6; } "
@@ -1582,8 +1582,8 @@ void WorkflowPage::setDarkTheme(bool dark) {
             "QPushButton[viewTab=\"true\"]:checked { color:%2; border-bottom-color:%5; } "
             "QPushButton[primary=\"true\"] { background:%5; color:%3; font-weight:600; padding:6px 22px; } QPushButton:disabled { color:%6; } "
             "QLabel#workflowIssue { background:%3; color:%7; border-bottom:1px solid %4; } "
-            "QHeaderView::section { background:%1; color:%6; border:0; border-bottom:1px solid %4; padding:7px; font-size:11px; } "
-            "QTabWidget::pane { border:0; } QTabBar::tab { background:transparent; color:%6; padding:9px 12px; border-bottom:2px solid transparent; font-size:12px; } "
+            "QHeaderView::section { background:%1; color:%6; border:0; border-bottom:1px solid %4; padding:7px; font-size:14px; } "
+            "QTabWidget::pane { border:0; } QTabBar::tab { background:transparent; color:%6; padding:9px 12px; border-bottom:2px solid transparent; font-size:14px; } "
             "QTabBar::tab:selected { color:%2; border-bottom:2px solid %5; } QSplitter::handle { background:%4; } QSplitter::handle:hover { background:%5; } "
             "QScrollArea { border:0; } QCheckBox { spacing:7px; } "
             "QScrollBar:vertical { background:transparent; width:6px; margin:0; } QScrollBar::handle:vertical { background:%4; min-height:32px; border-radius:3px; } "
@@ -1594,7 +1594,7 @@ void WorkflowPage::setDarkTheme(bool dark) {
     palette.setColor(QPalette::Base, QColor(panel));
     palette.setColor(QPalette::Text, QColor(ink));
     palette.setColor(QPalette::WindowText, QColor(ink));
-    setPalette(palette);
+    setPalette(design::textPalette(palette, dark));
     for (const auto& entry : QList<QPair<QString,design::Icon>>{
         {"workflowTemplates",design::Icon::Folder},{"workflowSave",design::Icon::Save},
         {"workflowRun",design::Icon::Send},{"workflowPaletteToggle",design::Icon::Plus},

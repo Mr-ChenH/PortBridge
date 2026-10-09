@@ -1,0 +1,43 @@
+********* Start testing of UiTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : UiTest::initTestCase()
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() setGeometry: Unable to set geometry 2700x1875+1281+141 (frame: 2718x1922+1272+103) on QWidgetWindow/"mainWindowWindow" on "B160QAN05.0 ". Resulting geometry: 2700x1856+1281+141 (frame: 2718x1903+1272+103) margins: 9, 38, 9, 9 minimum size: 1100x760 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=2081, y=1472)))
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workspace requested=1440x1000 actual=1440x990 dpr=1.875
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workspace requested=1100x760 actual=1100x760 dpr=1.875
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() setGeometry: Unable to set geometry 2700x1875+1281+141 (frame: 2718x1922+1272+103) on QWidgetWindow/"mainWindowWindow" on "B160QAN05.0 ". Resulting geometry: 2700x1856+1281+141 (frame: 2718x1903+1272+103) margins: 9, 38, 9, 9 minimum size: 1024x768 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1938, y=1487)))
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=http requested=1440x1000 actual=1440x990 dpr=1.875
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=http requested=1024x768 actual=1024x768 dpr=1.875
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() setGeometry: Unable to set geometry 2700x1875+1281+141 (frame: 2718x1922+1272+103) on QWidgetWindow/"mainWindowWindow" on "B160QAN05.0 ". Resulting geometry: 2700x1856+1281+141 (frame: 2718x1903+1272+103) margins: 9, 38, 9, 9 minimum size: 1024x768 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1938, y=1487)))
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=websocket requested=1440x1000 actual=1440x990 dpr=1.875
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=websocket requested=1024x768 actual=1024x768 dpr=1.875
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() setGeometry: Unable to set geometry 2700x1875+1281+141 (frame: 2718x1922+1272+103) on QWidgetWindow/"mainWindowWindow" on "B160QAN05.0 ". Resulting geometry: 2700x1856+1281+141 (frame: 2718x1903+1272+103) margins: 9, 38, 9, 9 minimum size: 1024x768 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1938, y=1487)))
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workflow requested=1440x1000 actual=1440x990 dpr=1.875
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workflow requested=1024x768 actual=1024x768 dpr=1.875
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() setGeometry: Unable to set geometry 2700x1875+1281+141 (frame: 2718x1922+1272+103) on QWidgetWindow/"mainWindowWindow" on "B160QAN05.0 ". Resulting geometry: 2700x1856+1281+141 (frame: 2718x1903+1272+103) margins: 9, 38, 9, 9 minimum size: 1100x760 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=2081, y=1472)))
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=commands requested=1440x1000 actual=1440x990 dpr=1.875
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=commands requested=1100x760 actual=1100x760 dpr=1.875
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() setGeometry: Unable to set geometry 2700x1875+1281+141 (frame: 2718x1922+1272+103) on QWidgetWindow/"mainWindowWindow" on "B160QAN05.0 ". Resulting geometry: 2700x1856+1281+141 (frame: 2718x1903+1272+103) margins: 9, 38, 9, 9 minimum size: 1100x760 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=2081, y=1472)))
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=captures requested=1440x1000 actual=1440x990 dpr=1.875
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=captures requested=1100x760 actual=1100x760 dpr=1.875
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() setGeometry: Unable to set geometry 2700x1875+1281+141 (frame: 2718x1922+1272+103) on QWidgetWindow/"mainWindowWindow" on "B160QAN05.0 ". Resulting geometry: 2700x1856+1281+141 (frame: 2718x1903+1272+103) margins: 9, 38, 9, 9 minimum size: 1100x760 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=2081, y=1472)))
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workspace requested=1440x1000 actual=1440x990 dpr=1.875
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workspace requested=1100x760 actual=1100x760 dpr=1.875
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() setGeometry: Unable to set geometry 2700x1875+1281+141 (frame: 2718x1922+1272+103) on QWidgetWindow/"mainWindowWindow" on "B160QAN05.0 ". Resulting geometry: 2700x1856+1281+141 (frame: 2718x1903+1272+103) margins: 9, 38, 9, 9 minimum size: 1024x768 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1938, y=1487)))
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=http requested=1440x1000 actual=1440x990 dpr=1.875
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=http requested=1024x768 actual=1024x768 dpr=1.875
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() setGeometry: Unable to set geometry 2700x1875+1281+141 (frame: 2718x1922+1272+103) on QWidgetWindow/"mainWindowWindow" on "B160QAN05.0 ". Resulting geometry: 2700x1856+1281+141 (frame: 2718x1903+1272+103) margins: 9, 38, 9, 9 minimum size: 1024x768 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1938, y=1487)))
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=websocket requested=1440x1000 actual=1440x990 dpr=1.875
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=websocket requested=1024x768 actual=1024x768 dpr=1.875
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() setGeometry: Unable to set geometry 2700x1875+1281+141 (frame: 2718x1922+1272+103) on QWidgetWindow/"mainWindowWindow" on "B160QAN05.0 ". Resulting geometry: 2700x1856+1281+141 (frame: 2718x1903+1272+103) margins: 9, 38, 9, 9 minimum size: 1024x768 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=1938, y=1487)))
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workflow requested=1440x1000 actual=1440x990 dpr=1.875
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workflow requested=1024x768 actual=1024x768 dpr=1.875
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() setGeometry: Unable to set geometry 2700x1875+1281+141 (frame: 2718x1922+1272+103) on QWidgetWindow/"mainWindowWindow" on "B160QAN05.0 ". Resulting geometry: 2700x1856+1281+141 (frame: 2718x1903+1272+103) margins: 9, 38, 9, 9 minimum size: 1100x760 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=2081, y=1472)))
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=commands requested=1440x1000 actual=1440x990 dpr=1.875
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=commands requested=1100x760 actual=1100x760 dpr=1.875
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() setGeometry: Unable to set geometry 2700x1875+1281+141 (frame: 2718x1922+1272+103) on QWidgetWindow/"mainWindowWindow" on "B160QAN05.0 ". Resulting geometry: 2700x1856+1281+141 (frame: 2718x1903+1272+103) margins: 9, 38, 9, 9 minimum size: 1100x760 MINMAXINFO(maxSize=POINT(x=0, y=0), maxpos=POINT(x=0, y=0), maxtrack=POINT(x=0, y=0), mintrack=POINT(x=2081, y=1472)))
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=captures requested=1440x1000 actual=1440x990 dpr=1.875
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=captures requested=1100x760 actual=1100x760 dpr=1.875
+PASS   : UiTest::wholeUiReadabilityAcrossThemes()
+PASS   : UiTest::cleanupTestCase()
+Totals: 3 passed, 0 failed, 0 skipped, 0 blacklisted, 6925ms
+********* Finished testing of UiTest *********

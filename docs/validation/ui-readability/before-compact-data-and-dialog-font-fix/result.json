@@ -1,0 +1,30 @@
+{
+  "state": "passed",
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 82.073
+    },
+    {
+      "name": "focused-ui",
+      "exitCode": 0,
+      "seconds": 6.25
+    },
+    {
+      "name": "native-ui",
+      "exitCode": 0,
+      "seconds": 8.148
+    },
+    {
+      "name": "native-workflow",
+      "exitCode": 0,
+      "seconds": 5.027
+    },
+    {
+      "name": "native-settings",
+      "exitCode": 0,
+      "seconds": 2.468
+    }
+  ]
+}

@@ -164,8 +164,8 @@ QVariant WorkflowGraphModel::nodeData(NodeId id, NodeRole role) const {
         return uint(outputs(id).size());
     case NodeRole::Size:
         return QSize(
-            n->type == "start" || n->type == "end" ? 108 : 208,
-            n->type == "start" || n->type == "end" ? 76 : std::max(132, 66 + int(outputs(id).size()) * 28));
+            n->type == "start" || n->type == "end" ? 108 : 248,
+            n->type == "start" || n->type == "end" ? 76 : std::max(146, 66 + int(outputs(id).size()) * 28));
     case NodeRole::Style: {
         auto style = StyleCollection::nodeStyle().toJson();
         auto values = style["NodeStyle"].toObject();

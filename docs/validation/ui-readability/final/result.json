@@ -1,0 +1,121 @@
+{
+  "state": "passed",
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 38.219
+    },
+    {
+      "name": "focused-ui",
+      "exitCode": 0,
+      "seconds": 7.482
+    },
+    {
+      "name": "focused-workflow",
+      "exitCode": 0,
+      "seconds": 0.912
+    },
+    {
+      "name": "ctest-ui",
+      "exitCode": 0,
+      "seconds": 38.942
+    },
+    {
+      "name": "ctest-workflow",
+      "exitCode": 0,
+      "seconds": 2.542
+    },
+    {
+      "name": "ctest-workflow_ui",
+      "exitCode": 0,
+      "seconds": 21.827
+    },
+    {
+      "name": "ctest-workflow_protocol",
+      "exitCode": 0,
+      "seconds": 7.119
+    },
+    {
+      "name": "ctest-workflow_integration",
+      "exitCode": 0,
+      "seconds": 7.588
+    },
+    {
+      "name": "ctest-workflow_e2e",
+      "exitCode": 0,
+      "seconds": 8.731
+    },
+    {
+      "name": "ctest-protocol_debug",
+      "exitCode": 0,
+      "seconds": 33.564
+    },
+    {
+      "name": "ctest-http_projects",
+      "exitCode": 0,
+      "seconds": 9.84
+    },
+    {
+      "name": "native-ui-1",
+      "exitCode": 0,
+      "seconds": 5.128
+    },
+    {
+      "name": "native-workflow-1",
+      "exitCode": 0,
+      "seconds": 3.379
+    },
+    {
+      "name": "native-settings-1",
+      "exitCode": 0,
+      "seconds": 2.093
+    },
+    {
+      "name": "native-protocol-1",
+      "exitCode": 0,
+      "seconds": 11.558
+    },
+    {
+      "name": "native-ui-1.25",
+      "exitCode": 0,
+      "seconds": 5.408
+    },
+    {
+      "name": "native-workflow-1.25",
+      "exitCode": 0,
+      "seconds": 3.422
+    },
+    {
+      "name": "native-settings-1.25",
+      "exitCode": 0,
+      "seconds": 2.357
+    },
+    {
+      "name": "native-protocol-1.25",
+      "exitCode": 0,
+      "seconds": 11.529
+    },
+    {
+      "name": "native-ui-1.5",
+      "exitCode": 0,
+      "seconds": 7.019
+    },
+    {
+      "name": "native-workflow-1.5",
+      "exitCode": 0,
+      "seconds": 3.204
+    },
+    {
+      "name": "native-settings-1.5",
+      "exitCode": 0,
+      "seconds": 2.303
+    },
+    {
+      "name": "native-protocol-1.5",
+      "exitCode": 0,
+      "seconds": 9.449
+    }
+  ],
+  "sourceUnchanged": true
+}

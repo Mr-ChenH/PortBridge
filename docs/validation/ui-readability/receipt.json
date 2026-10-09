@@ -1,0 +1,21 @@
+{
+  "state": "passed",
+  "revision": "ui-readability-1",
+  "verification": "final/result.json",
+  "sourceInputs": 93,
+  "application_sha256": "ee2bdc15896c4e8f954efd019fe995b48bdc6607ae33f72daa885df4b95804c9",
+  "testExecutables": {
+    "test_http_projects.exe": "0114a4b4d43f217e4f41fcaa659fce5d28478c7a5944630f11354e62d9eb28e9",
+    "test_network.exe": "6c163a48a5170627da904bfe9f33f4968842115b973df52f0b133536f6cab330",
+    "test_protocol_debug.exe": "9d5f05b3140c1499a0b830a8fb86aae13f08f9e944a29048982c464105fd0c3f",
+    "test_session.exe": "d1614cb59d49ade6013f75df24f6d4c245319959d68075732a4d48d648bd3399",
+    "test_ui.exe": "396e7101b095c82f276d5ac3b9aaf02c4a399596d9be54f0b4df7f798f038d91",
+    "test_workflow.exe": "c717d4bc912ae7a42b8f609cf772565bd6c6aba61abd560f8afa5d18850bed27",
+    "test_workflow_e2e.exe": "5ef28dda0ec5e68e54d3d15f9f94d2ca813a0e8a0224628e92fbebfa8cb3cda7",
+    "test_workflow_integration.exe": "91ebc4ab8a86b04d8f703a12b1ed7c1e94dbcd81af59ca065d7570036becd489",
+    "test_workflow_protocol.exe": "62f3c5dbe2187d9064598e9933ac1fc2b4e98f43cf4f63d591b99e817420b5d7",
+    "test_workflow_ui.exe": "fb12de4910d8416ba97dfe8ad2131ec67ae8a5271a8393f2149b8b6edd1dd6fc"
+  },
+  "review": "Current agent implementation and review; Qt Windows software scaling and local HTTP/WS fixtures; not physical monitor or clean Windows certification",
+  "package": "package-receipt.json"
+}

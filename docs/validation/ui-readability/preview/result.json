@@ -1,0 +1,77 @@
+{
+  "baselineCommit": "87d5fd4 + readability work",
+  "results": [
+    {
+      "page": "workspace",
+      "theme": "dark",
+      "exitCode": 0,
+      "seconds": 2.733
+    },
+    {
+      "page": "http",
+      "theme": "dark",
+      "exitCode": 0,
+      "seconds": 2.745
+    },
+    {
+      "page": "websocket",
+      "theme": "dark",
+      "exitCode": 0,
+      "seconds": 2.843
+    },
+    {
+      "page": "workflow",
+      "theme": "dark",
+      "exitCode": 0,
+      "seconds": 2.917
+    },
+    {
+      "page": "commands",
+      "theme": "dark",
+      "exitCode": 0,
+      "seconds": 2.813
+    },
+    {
+      "page": "captures",
+      "theme": "dark",
+      "exitCode": 0,
+      "seconds": 3.025
+    },
+    {
+      "page": "workspace",
+      "theme": "light",
+      "exitCode": 0,
+      "seconds": 3.889
+    },
+    {
+      "page": "http",
+      "theme": "light",
+      "exitCode": 0,
+      "seconds": 3.626
+    },
+    {
+      "page": "websocket",
+      "theme": "light",
+      "exitCode": 0,
+      "seconds": 3.42
+    },
+    {
+      "page": "workflow",
+      "theme": "light",
+      "exitCode": 0,
+      "seconds": 3.521
+    },
+    {
+      "page": "commands",
+      "theme": "light",
+      "exitCode": 0,
+      "seconds": 3.337
+    },
+    {
+      "page": "captures",
+      "theme": "light",
+      "exitCode": 0,
+      "seconds": 3.637
+    }
+  ]
+}

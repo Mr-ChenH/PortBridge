@@ -1,0 +1,18 @@
+{
+  "startup_exit": {
+    "dark/http": 0,
+    "dark/websocket": 0,
+    "dark/workspace": 0,
+    "dark/workflow": 0,
+    "dark/commands": 0,
+    "dark/captures": 0,
+    "light/http": 0,
+    "light/websocket": 0,
+    "light/workspace": 0,
+    "light/workflow": 0,
+    "light/commands": 0,
+    "light/captures": 0
+  },
+  "environment": "Windows system PATH only; QT* removed",
+  "clean_windows_validated": false
+}

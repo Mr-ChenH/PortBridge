@@ -1,0 +1,47 @@
+********* Start testing of UiTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : UiTest::initTestCase()
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workspace requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workspace requested=1100x760 actual=1100x760 dpr=1.000
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() This plugin does not support propagateSizeHints()
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=http requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=http requested=1024x768 actual=1024x768 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=websocket requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=websocket requested=1024x768 actual=1024x768 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workflow requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workflow requested=1024x768 actual=1024x768 dpr=1.000
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() This plugin does not support propagateSizeHints()
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=commands requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=commands requested=1100x760 actual=1100x760 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=captures requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=captures requested=1100x760 actual=1100x760 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workspace requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workspace requested=1100x760 actual=1100x760 dpr=1.000
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() This plugin does not support propagateSizeHints()
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=http requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=http requested=1024x768 actual=1024x768 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=websocket requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=websocket requested=1024x768 actual=1024x768 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workflow requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workflow requested=1024x768 actual=1024x768 dpr=1.000
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() This plugin does not support propagateSizeHints()
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=commands requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=commands requested=1100x760 actual=1100x760 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=captures requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=captures requested=1100x760 actual=1100x760 dpr=1.000
+PASS   : UiTest::wholeUiReadabilityAcrossThemes()
+PASS   : UiTest::startupAndAccessibility()
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=0 window=1440x1000 default=1109x144 expanded=1109x557
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=1 window=1440x1000 default=1109x143 expanded=1109x555
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=2 window=1440x1000 default=1109x143 expanded=1109x555
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=3 window=1440x1000 default=1109x98 expanded=1109x511
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=0 window=1100x760 default=769x134 expanded=769x317
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=1 window=1100x760 default=769x133 expanded=769x315
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=2 window=1100x760 default=769x133 expanded=769x315
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=3 window=1100x760 default=769x96 expanded=769x271
+PASS   : UiTest::sharedComposerSupportsMultilineResizeAndExpansion()
+PASS   : UiTest::udpDirectSendUsesEditedTargetWithoutConfigurationTraffic()
+PASS   : UiTest::udpRecordInspectorFitsDesignedWidth()
+PASS   : UiTest::cleanupTestCase()
+Totals: 7 passed, 0 failed, 0 skipped, 0 blacklisted, 8269ms
+********* Finished testing of UiTest *********

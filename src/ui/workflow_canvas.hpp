@@ -323,7 +323,7 @@ class Geometry final : public QtNodes::AbstractNodeGeometry {
     QPointF portTextPosition(QtNodes::NodeId id, QtNodes::PortType type,
                              QtNodes::PortIndex index) const override {
         auto p = portPosition(id, type, index);
-        return {p.x() > 0 ? p.x() - 50 : 12, p.y() + 4};
+        return {p.x() > 0 ? p.x() - 80 : 12, p.y() + 5};
     }
     QPointF captionPosition(QtNodes::NodeId) const override { return {43, 26}; }
     QRectF captionRect(QtNodes::NodeId id) const override {
@@ -345,7 +345,7 @@ class NodePainter final : public QtNodes::AbstractNodePainter {
         const auto &g = object.nodeScene()->nodeGeometry();
         const auto s = g.size(object.nodeId());
         const bool mini = s.width() == 108;
-        const QColor ink(*dark ? "#e5edee" : "#213336"), muted(*dark ? "#96a7ad" : "#5e7379"),
+        const QColor ink(*dark ? "#e5edee" : "#213336"), muted(*dark ? "#b5c4cb" : "#435960"),
             panel(*dark ? "#171c1f" : "#ffffff"), line(*dark ? "#2b3438" : "#d5dfe1"),
             accent(*dark ? "#85dec4" : "#176e58"), red(*dark ? "#ed9693" : "#b04040");
         const auto state = runner->result(n->id).state;
@@ -368,12 +368,12 @@ class NodePainter final : public QtNodes::AbstractNodePainter {
         design::drawIcon(*p, QRectF(mini ? 17 : 15, mini ? 29 : 15, 16, 16), nodeIcon(n->type), category);
         p->setFont(design::font(13, false, true));
         p->setPen(ink);
-        const int titleWidth = s.width() - (mini ? 46 : 83);
+        const int titleWidth = s.width() - (mini ? 46 : 126);
         p->drawText(QRect(mini ? 39 : 41, mini ? 22 : 8, titleWidth, 30), Qt::AlignVCenter,
                     p->fontMetrics().elidedText(n->title, Qt::ElideRight, titleWidth));
         if (!mini) {
             p->setFont(design::font(8, true)); p->setPen(category);
-            p->drawText(QRect(s.width()-46, 13, 34, 20), Qt::AlignRight|Qt::AlignVCenter, protocolTag(n->type));
+            p->drawText(QRect(s.width()-82, 12, 70, 22), Qt::AlignRight|Qt::AlignVCenter, protocolTag(n->type));
             p->setPen(line);
             p->drawLine(1, 42, s.width() - 1, 42);
             auto rows = summary(*n);
@@ -387,9 +387,9 @@ class NodePainter final : public QtNodes::AbstractNodePainter {
                 const bool reservePortLabel = i || m.outputs(object.nodeId()).size() > 2;
                 const bool reverse = !m.outputs(object.nodeId()).isEmpty() &&
                     g.portPosition(object.nodeId(), QtNodes::PortType::Out, 0).x() == 0;
-                const int textLeft = reservePortLabel && reverse ? 70 : 13;
-                const int textWidth = s.width() - textLeft - (reservePortLabel && !reverse ? 57 : 25);
-                p->drawText(QRect(textLeft, 49 + i * 21, textWidth, 18), Qt::AlignVCenter,
+                const int textLeft = reservePortLabel && reverse ? 88 : 13;
+                const int textWidth = s.width() - textLeft - (reservePortLabel && !reverse ? 85 : 25);
+                p->drawText(QRect(textLeft, 49 + i * 25, textWidth, 22), Qt::AlignVCenter,
                             p->fontMetrics().elidedText(safe, Qt::ElideRight, textWidth));
             }
             p->setFont(design::font(10));
@@ -397,10 +397,10 @@ class NodePainter final : public QtNodes::AbstractNodePainter {
             int ordinal = 0;
             for (const auto& node : doc.nodes) { ++ordinal; if (node.id == n->id) break; }
             p->setPen(muted);
-            p->drawText(QRect(13, s.height() - 22, 28, 18), Qt::AlignVCenter,
+            p->drawText(QRect(13, s.height() - 28, 28, 24), Qt::AlignVCenter,
                         QStringLiteral("%1").arg(ordinal, 2, 10, QChar('0')));
             p->setPen(border == line ? muted : border);
-            p->drawText(QRect(s.width()-90, s.height() - 22, 77, 18), Qt::AlignRight|Qt::AlignVCenter, nodeState(state));
+            p->drawText(QRect(s.width()-105, s.height() - 28, 92, 24), Qt::AlignRight|Qt::AlignVCenter, nodeState(state));
         }
         for (auto type : {QtNodes::PortType::In, QtNodes::PortType::Out}) {
             int count = type == QtNodes::PortType::In ? (n->type == "start" ? 0 : 1)
@@ -548,7 +548,7 @@ class View final : public QtNodes::GraphicsView {
             return;
         p->save();
         p->resetTransform();
-        p->setPen(QColor(*dark ? "#96a7ad" : "#5e7379"));
+        p->setPen(QColor(*dark ? "#b5c4cb" : "#435960"));
         p->setFont(design::font(17));
         p->drawText(viewport()->rect().adjusted(20, 0, -20, -20), Qt::AlignCenter,
                     QStringLiteral("从一个步骤开始\n\n拖入节点，或选择模板搭建第一条流程。"));

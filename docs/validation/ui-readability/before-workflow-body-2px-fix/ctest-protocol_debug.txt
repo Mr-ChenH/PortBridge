@@ -1,0 +1,7 @@
+Test project C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+    Start 9: protocol_debug
+1/1 Test #9: protocol_debug ...................   Passed   32.93 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  32.93 sec

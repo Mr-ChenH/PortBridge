@@ -1,0 +1,32 @@
+********* Start testing of UiTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : UiTest::initTestCase()
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workspace requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workspace requested=1100x760 actual=1100x760 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=http requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=http requested=1024x768 actual=1024x768 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=websocket requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=websocket requested=1024x768 actual=1024x768 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workflow requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workflow requested=1024x768 actual=1024x768 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=commands requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=commands requested=1100x760 actual=1100x760 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=captures requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=captures requested=1100x760 actual=1100x760 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workspace requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workspace requested=1100x760 actual=1100x760 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=http requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=http requested=1024x768 actual=1024x768 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=websocket requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=websocket requested=1024x768 actual=1024x768 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workflow requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workflow requested=1024x768 actual=1024x768 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=commands requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=commands requested=1100x760 actual=1100x760 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=captures requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=captures requested=1100x760 actual=1100x760 dpr=1.000
+PASS   : UiTest::wholeUiReadabilityAcrossThemes()
+PASS   : UiTest::nativeAuditScreenshotsAndLayout()
+PASS   : UiTest::cleanupTestCase()
+Totals: 4 passed, 0 failed, 0 skipped, 0 blacklisted, 5057ms
+********* Finished testing of UiTest *********

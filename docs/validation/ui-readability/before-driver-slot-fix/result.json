@@ -1,0 +1,16 @@
+{
+  "state": "failed",
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 66.774
+    },
+    {
+      "name": "focused-ui",
+      "exitCode": 1,
+      "seconds": 0.114
+    }
+  ],
+  "error": "AssertionError()"
+}

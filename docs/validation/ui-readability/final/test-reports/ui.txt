@@ -1,0 +1,127 @@
+********* Start testing of UiTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : UiTest::initTestCase()
+PASS   : UiTest::startupAndAccessibility()
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=0 window=1440x1000 default=1109x144 expanded=1109x557
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=1 window=1440x1000 default=1109x143 expanded=1109x555
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=2 window=1440x1000 default=1109x143 expanded=1109x555
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=3 window=1440x1000 default=1109x98 expanded=1109x511
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=0 window=1100x760 default=769x134 expanded=769x317
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=1 window=1100x760 default=769x133 expanded=769x315
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=2 window=1100x760 default=769x133 expanded=769x315
+QINFO  : UiTest::sharedComposerSupportsMultilineResizeAndExpansion() Composer protocol=3 window=1100x760 default=769x96 expanded=769x271
+PASS   : UiTest::sharedComposerSupportsMultilineResizeAndExpansion()
+PASS   : UiTest::composerSizePreferenceRestoresWithoutExpandedStartup()
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support raise()
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support grabbing the keyboard
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support raise()
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support grabbing the keyboard
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support raise()
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support grabbing the keyboard
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support raise()
+QWARN  : UiTest::profilePickerSearchAndReturnPreserveRunningUdp() This plugin does not support grabbing the keyboard
+PASS   : UiTest::profilePickerSearchAndReturnPreserveRunningUdp()
+QWARN  : UiTest::profilePickerBoundsLongNamesAndKeyboardSearch() This plugin does not support raise()
+QWARN  : UiTest::profilePickerBoundsLongNamesAndKeyboardSearch() This plugin does not support grabbing the keyboard
+PASS   : UiTest::profilePickerBoundsLongNamesAndKeyboardSearch()
+PASS   : UiTest::navigationAndModeControlsStayInSync()
+PASS   : UiTest::profileBrowsingKeepsUdpBindingAndReceivesInBackground()
+PASS   : UiTest::textPreviewColorsFormattingAndCompleteAsciiPages()
+PASS   : UiTest::utf8InspectorShowsSentChineseAndCompletePagedCharacters()
+PASS   : UiTest::udpBindAndCloseDoNotCreateMessagesOrDatagrams()
+PASS   : UiTest::udpDirectSendUsesEditedTargetWithoutConfigurationTraffic()
+PASS   : UiTest::udpRecordInspectorFitsDesignedWidth()
+PASS   : UiTest::strictHexAndBytePreview()
+PASS   : UiTest::modesPauseClearResetAndActualBytes()
+PASS   : UiTest::finitePeriodicFreezesConfigurationAndStops()
+QWARN  : UiTest::commandsAddEditLoadDeleteAndPersist() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandsAddEditLoadDeleteAndPersist() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandsAddEditLoadDeleteAndPersist() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandsAddEditLoadDeleteAndPersist() This plugin does not support propagateSizeHints()
+PASS   : UiTest::commandsAddEditLoadDeleteAndPersist()
+PASS   : UiTest::serverTargetsBroadcastAndStatefulText()
+PASS   : UiTest::recordingUsesActualStorageAndFiles()
+QWARN  : UiTest::captureExportRunsInBackgroundAndCancelsAtomically() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::captureExportRunsInBackgroundAndCancelsAtomically() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::captureExportRunsInBackgroundAndCancelsAtomically() This plugin does not support propagateSizeHints()
+PASS   : UiTest::captureExportRunsInBackgroundAndCancelsAtomically()
+PASS   : UiTest::backgroundCompletionHasBoundedSafeTeardown()
+PASS   : UiTest::rawModelBoundsDecoderAndFilters()
+QWARN  : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profilesCrudAndVersionedUiFiles() This plugin does not support propagateSizeHints()
+PASS   : UiTest::profilesCrudAndVersionedUiFiles()
+QWARN  : UiTest::displayedSampleExportReadsOriginalBytes() This plugin does not support propagateSizeHints()
+PASS   : UiTest::displayedSampleExportReadsOriginalBytes()
+QWARN  : UiTest::exactImportedProfileValuesSurviveCloseAndExplicitEdits() This plugin does not support propagateSizeHints()
+PASS   : UiTest::exactImportedProfileValuesSurviveCloseAndExplicitEdits()
+PASS   : UiTest::statisticsResetPreservesDecoderButRealRecordGapResetsIt()
+PASS   : UiTest::selectingLiveServerClientRefreshesDisconnectImmediately()
+QWARN  : UiTest::sequenceUdpProfileTransportEditPersistsAndRestarts() This plugin does not support propagateSizeHints()
+PASS   : UiTest::sequenceUdpProfileTransportEditPersistsAndRestarts()
+QWARN  : UiTest::profileActivationClearsAllScopedStateAcrossCrud() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profileActivationClearsAllScopedStateAcrossCrud() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profileActivationClearsAllScopedStateAcrossCrud() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::profileActivationClearsAllScopedStateAcrossCrud() This plugin does not support propagateSizeHints()
+PASS   : UiTest::profileActivationClearsAllScopedStateAcrossCrud()
+PASS   : UiTest::inspectorClearsOnFilterResetRemovalAndDeselection()
+PASS   : UiTest::continuousPeriodicSurvivesBrowsingAndStopsOnReplacement()
+PASS   : UiTest::allPreferencesRestoreWithoutStartingWork()
+QWARN  : UiTest::captureRefreshSeesExternalFilesPreservesSelectionAndDeletes() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::captureRefreshSeesExternalFilesPreservesSelectionAndDeletes() This plugin does not support propagateSizeHints()
+PASS   : UiTest::captureRefreshSeesExternalFilesPreservesSelectionAndDeletes()
+QWARN  : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs() This plugin does not support propagateSizeHints()
+PASS   : UiTest::commandPeriodicCrudRowsChipsAndLocalizedDialogs()
+PASS   : UiTest::txRateAndIndependentTruncationMetricFollowRealStatistics()
+QWARN  : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange() This plugin does not support propagateSizeHints()
+PASS   : UiTest::importedCommandPeriodicValuesPreserveFullSchemaRange()
+QWARN  : UiTest::sampleExportCancellationImmutableSnapshotAndClose() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::sampleExportCancellationImmutableSnapshotAndClose() This plugin does not support propagateSizeHints()
+QWARN  : UiTest::sampleExportCancellationImmutableSnapshotAndClose() This plugin does not support propagateSizeHints()
+PASS   : UiTest::sampleExportCancellationImmutableSnapshotAndClose()
+PASS   : UiTest::backgroundWorkerBoundsQueueAndNeverWaitsForPublishedTask()
+PASS   : UiTest::unselectedInspectorDoesNotRebuildEmptyDocumentsOnEveryEviction()
+PASS   : UiTest::nativeAuditScreenshotsAndLayout()
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workspace requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workspace requested=1100x760 actual=1100x760 dpr=1.000
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() This plugin does not support propagateSizeHints()
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=http requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=http requested=1024x768 actual=1024x768 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=websocket requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=websocket requested=1024x768 actual=1024x768 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workflow requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=workflow requested=1024x768 actual=1024x768 dpr=1.000
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() This plugin does not support propagateSizeHints()
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=commands requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=commands requested=1100x760 actual=1100x760 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=captures requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=dark page=captures requested=1100x760 actual=1100x760 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workspace requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workspace requested=1100x760 actual=1100x760 dpr=1.000
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() This plugin does not support propagateSizeHints()
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=http requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=http requested=1024x768 actual=1024x768 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=websocket requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=websocket requested=1024x768 actual=1024x768 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workflow requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=workflow requested=1024x768 actual=1024x768 dpr=1.000
+QWARN  : UiTest::wholeUiReadabilityAcrossThemes() This plugin does not support propagateSizeHints()
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=commands requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=commands requested=1100x760 actual=1100x760 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=captures requested=1440x1000 actual=1440x1000 dpr=1.000
+QINFO  : UiTest::wholeUiReadabilityAcrossThemes() Readability theme=light page=captures requested=1100x760 actual=1100x760 dpr=1.000
+PASS   : UiTest::wholeUiReadabilityAcrossThemes()
+PASS   : UiTest::preferencesRestoreWithoutAutoConnect()
+PASS   : UiTest::cleanupTestCase()
+Totals: 43 passed, 0 failed, 0 skipped, 0 blacklisted, 38483ms
+********* Finished testing of UiTest *********

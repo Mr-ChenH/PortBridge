@@ -1,0 +1,7 @@
+Test project C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+    Start 6: workflow_protocol
+1/1 Test #6: workflow_protocol ................   Passed    7.59 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   7.60 sec

@@ -1,0 +1,71 @@
+{
+  "state": "failed",
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 51.336
+    },
+    {
+      "name": "focused-ui",
+      "exitCode": 0,
+      "seconds": 10.76
+    },
+    {
+      "name": "focused-workflow",
+      "exitCode": 0,
+      "seconds": 1.065
+    },
+    {
+      "name": "ctest-ui",
+      "exitCode": 0,
+      "seconds": 48.051
+    },
+    {
+      "name": "ctest-workflow",
+      "exitCode": 0,
+      "seconds": 2.444
+    },
+    {
+      "name": "ctest-workflow_ui",
+      "exitCode": 0,
+      "seconds": 21.281
+    },
+    {
+      "name": "ctest-workflow_protocol",
+      "exitCode": 0,
+      "seconds": 7.894
+    },
+    {
+      "name": "ctest-workflow_integration",
+      "exitCode": 0,
+      "seconds": 10.482
+    },
+    {
+      "name": "ctest-workflow_e2e",
+      "exitCode": 0,
+      "seconds": 10.602
+    },
+    {
+      "name": "ctest-protocol_debug",
+      "exitCode": 0,
+      "seconds": 33.151
+    },
+    {
+      "name": "ctest-http_projects",
+      "exitCode": 0,
+      "seconds": 9.926
+    },
+    {
+      "name": "native-ui-1",
+      "exitCode": 0,
+      "seconds": 6.583
+    },
+    {
+      "name": "native-workflow-1",
+      "exitCode": 1,
+      "seconds": 3.991
+    }
+  ],
+  "error": "AssertionError()"
+}

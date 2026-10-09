@@ -1,0 +1,49 @@
+C:\Users\threeTeeth\workSpace\github\PortBridge\dist\PortBridge-ui-readability-1\PortBridge.exe 64 bit, release executable
+Adding in plugin type generic for module: Qt6Gui
+Adding in plugin type iconengines for module: Qt6Gui
+Adding Qt6Svg for qsvgicon.dll from plugin type: iconengines
+Adding in plugin type imageformats for module: Qt6Gui
+Adding in plugin type networkinformation for module: Qt6Network
+Adding in plugin type platforms for module: Qt6Gui
+Adding in plugin type styles for module: Qt6Widgets
+Adding in plugin type tls for module: Qt6Network
+Skipping plugin qopensslbackend.dll. Use -force-openssl or specify -openssl-root if you want to use it.
+Direct dependencies: Qt6Core Qt6Gui Qt6Network Qt6SerialPort Qt6Widgets
+All dependencies   : Qt6Core Qt6Gui Qt6Network Qt6SerialPort Qt6Widgets
+To be deployed     : Qt6Core Qt6Gui Qt6Network Qt6SerialPort Qt6Svg Qt6Widgets
+Warning: Cannot find any version of the dxcompiler.dll and dxil.dll.
+Updating Qt6Core.dll.
+Updating Qt6Gui.dll.
+Updating Qt6Network.dll.
+Qt6SerialPort.dll is up to date.
+Updating Qt6Svg.dll.
+Updating Qt6Widgets.dll.
+Updating opengl32sw.dll.
+Updating D3Dcompiler_47.dll.
+Updating libgcc_s_seh-1.dll.
+Updating libstdc++-6.dll.
+Updating libwinpthread-1.dll.
+Creating directory C:/Users/threeTeeth/workSpace/github/PortBridge/dist/PortBridge-ui-readability-1/generic.
+Updating qtuiotouchplugin.dll.
+Creating directory C:/Users/threeTeeth/workSpace/github/PortBridge/dist/PortBridge-ui-readability-1/iconengines.
+Updating qsvgicon.dll.
+Creating directory C:/Users/threeTeeth/workSpace/github/PortBridge/dist/PortBridge-ui-readability-1/imageformats.
+Updating qgif.dll.
+Updating qicns.dll.
+Updating qico.dll.
+Updating qjpeg.dll.
+Updating qsvg.dll.
+Updating qtga.dll.
+Updating qtiff.dll.
+Updating qwbmp.dll.
+Updating qwebp.dll.
+Creating directory C:/Users/threeTeeth/workSpace/github/PortBridge/dist/PortBridge-ui-readability-1/networkinformation.
+Updating qnetworklistmanager.dll.
+Creating directory C:/Users/threeTeeth/workSpace/github/PortBridge/dist/PortBridge-ui-readability-1/platforms.
+Updating qwindows.dll.
+Creating directory C:/Users/threeTeeth/workSpace/github/PortBridge/dist/PortBridge-ui-readability-1/styles.
+Updating qmodernwindowsstyle.dll.
+Creating directory C:/Users/threeTeeth/workSpace/github/PortBridge/dist/PortBridge-ui-readability-1/tls.
+Updating qcertonlybackend.dll.
+Updating qschannelbackend.dll.
+Deployment ready: C:\Users\threeTeeth\workSpace\github\PortBridge\dist\PortBridge-ui-readability-1\PortBridge.exe

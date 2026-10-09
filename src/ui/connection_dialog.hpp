@@ -35,7 +35,7 @@ class ConnectionTypeCard final : public QPushButton {
   protected:
     void paintEvent(QPaintEvent *) override {
         const bool dark = window()->property("darkTheme").toBool();
-        const QColor ink(dark ? "#e5edee" : "#213336"), muted(dark ? "#94a5a8" : "#60767b"),
+        const QColor ink(dark ? "#e5edee" : "#213336"), muted(dark ? "#b5c4cb" : "#435960"),
             accent(dark ? "#85dec4" : "#176e58");
         QPainter p(this);
         p.setRenderHint(QPainter::Antialiasing);
@@ -71,17 +71,21 @@ class ConnectionDialog final : public QDialog {
         : QDialog(parent) {
         setObjectName("profileDialog");
         setProperty("darkTheme", dark);
+        setFont(design::font(16));
+        setPalette(design::textPalette(palette(), dark));
         setWindowTitle(add ? QStringLiteral("新建调试项") : QStringLiteral("编辑连接方案"));
         setMinimumWidth(560);
         resize(620, add ? 570 : 550);
-        const QString ink = dark ? "#e5edee" : "#213336", muted = dark ? "#94a5a8" : "#60767b",
+        const QString ink = dark ? "#e5edee" : "#213336", muted = dark ? "#b5c4cb" : "#435960",
                       border = dark ? "#344348" : "#d5dfe1", accent = dark ? "#85dec4" : "#176e58";
         setStyleSheet(
             QString(
-                "QDialog#profileDialog{background:%1;color:%2;} QDialog#profileDialog "
+                "QDialog#profileDialog{background:%1;color:%2;} "
+                "QDialog#profileDialog QWidget{font-size:16px;} "
+                "QLabel#profileDialogTitle{font-size:22px;font-weight:600;} QDialog#profileDialog "
                 "QLabel{color:%2;background:transparent;} "
                 "QLabel#profileDialogSubtitle,QLabel#profileDialogHint{color:%3;} "
-                "QLabel#profileDialogError{color:%4;} QLineEdit{border:1px solid "
+                "QLabel#profileDialogError{color:%4;} QLineEdit{placeholder-text-color:%3;border:1px solid "
                 "%5;border-radius:5px;padding:8px 10px;background:%6;color:%2;min-height:18px;} "
                 "QLineEdit:focus{border:1px solid %7;} QPushButton{padding:7px 16px;border:1px solid "
                 "%5;border-radius:5px;background:%6;color:%2;} "
@@ -92,6 +96,7 @@ class ConnectionDialog final : public QDialog {
         layout->setContentsMargins(24, 22, 24, 22);
         layout->setSpacing(14);
         auto *title = new QLabel(add ? QStringLiteral("选择调试类型") : QStringLiteral("编辑连接方案"));
+        title->setObjectName("profileDialogTitle");
         title->setFont(design::font(22, false, true));
         layout->addWidget(title);
         auto *subtitle = new QLabel(

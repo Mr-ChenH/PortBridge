@@ -98,7 +98,7 @@ void chineseButtons(QDialogButtonBox* buttons,const QString& save) { buttons->bu
 QSpinBox* spin(int min, int max, int value, const char* name) { auto* s = named(new QSpinBox,name); s->setRange(min,max); s->setValue(value); return s; }
 QWidget* panel(QLayout* l) { auto* w = new QWidget; w->setLayout(l); return w; }
 QScrollArea* scrollPanel(QWidget* w) { auto* s = new QScrollArea; s->setWidgetResizable(true); s->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); s->setFrameShape(QFrame::NoFrame); s->setWidget(w); return s; }
-QFont fixedFont(int points=9) { const auto family=QFontDatabase::families().contains(QStringLiteral("Consolas"))?QStringLiteral("Consolas"):QFontDatabase::systemFont(QFontDatabase::FixedFont).family(); QFont f(family,points); f.setFamilies({family,QStringLiteral("Microsoft YaHei UI")}); f.setStyleHint(QFont::Monospace); return f; }
+QFont fixedFont() { return design::font(16, true); }
 QHBoxLayout* rowLayout() { auto* l = new QHBoxLayout; l->setContentsMargins(0,0,0,0); l->setSpacing(7); return l; }
 void buddy(QFormLayout* f, const QString& text, QWidget* field) { auto* l = label(text); l->setBuddy(field); field->setAccessibleName(text); f->addRow(l,field); }
 
@@ -111,7 +111,7 @@ public:
 protected:
     void paintEvent(QPaintEvent*) override {
         QPainter p(this); p.setRenderHint(QPainter::Antialiasing);
-        const QColor muted(dark ? "#8b9a9f" : "#5e7379"), line(dark ? "#2b3438" : "#d5dfe1"), accent(dark ? "#85dec4" : "#176e58");
+        const QColor muted(dark ? "#b5c4cb" : "#435960"), line(dark ? "#2b3438" : "#d5dfe1"), accent(dark ? "#85dec4" : "#176e58");
         p.setFont(design::font(11));p.setPen(muted);p.drawText(0,18,QStringLiteral("接收吞吐"));
         p.setFont(design::font(16,true,true));p.setPen(accent);p.drawText(0,43,QStringLiteral("%1 MB/s").arg(points.empty()?0:points.back().second/1e6,0,'f',3));
         p.setFont(design::font(9,true));p.setPen(muted);p.drawText(0,61,QStringLiteral("最近 60 秒 · 实测"));
@@ -277,7 +277,11 @@ struct MainWindow::Impl : QObject {
         updateState(); snapshot(); if (!startupError.trimmed().isEmpty()) showError(startupError.trimmed());
     }
     bool eventFilter(QObject* watched,QEvent* event) override {
-        if(watched==q&&event->type()==QEvent::Resize&&trendPanel)trendPanel->setVisible(q->height()>=850&&!expandComposer->isChecked());
+        if(watched==q&&event->type()==QEvent::Resize&&trendPanel){
+            const bool detailed=q->height()>=850&&!expandComposer->isChecked();
+            trendPanel->setVisible(detailed);
+            q->findChild<QWidget*>("metricsStrip")->setVisible(detailed);
+        }
         return QObject::eventFilter(watched,event);
     }
     ~Impl() {
@@ -329,6 +333,8 @@ struct MainWindow::Impl : QObject {
     QWidget* buildInspector();
     QWidget* buildComposer();
     void setComposerExpanded(bool expanded){
+        q->findChild<QWidget*>("metricsStrip")->setVisible(q->height()>=850&&!expanded);
+        q->findChild<QWidget*>("workspacePage")->layout()->activate();
         trendPanel->setVisible(q->height()>=850&&!expanded);
         if(expanded){composerSplitSizes=workspaceSplitter->sizes();workspaceSplitter->setSizes({0,workspaceSplitter->height()});}
         else workspaceSplitter->setSizes(composerSplitSizes.isEmpty()?QList<int>{220,360}:composerSplitSizes);
@@ -649,9 +655,9 @@ QWidget* MainWindow::Impl::buildWorkspace() {
     auto* w=named(new QWidget,"workspacePage");auto* l=new QVBoxLayout(w);l->setContentsMargins(0,0,0,0);l->setSpacing(0);
     auto* header=new QWidget;auto* head=new QHBoxLayout(header);head->setContentsMargins(25,19,25,17);head->setSpacing(14);
     auto* titles=new QVBoxLayout;titles->setSpacing(6);eyebrow=label({},"sessionEyebrow");titles->addWidget(eyebrow);
-    auto* titleRow=rowLayout();title=label({},"sessionTitle");title->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Preferred);titleRow->addWidget(title,1);state=label(QStringLiteral("未连接"),"connectionState");state->setFixedHeight(20);titleRow->addWidget(state);titleRow->addStretch();titles->addLayout(titleRow);
+    auto* titleRow=rowLayout();title=label({},"sessionTitle");title->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Preferred);titleRow->addWidget(title,1);state=label(QStringLiteral("未连接"),"connectionState");state->setFixedHeight(28);titleRow->addWidget(state);titleRow->addStretch();titles->addLayout(titleRow);
     endpoint=label(QStringLiteral("实际本地端点：未建立"),"actualEndpoint");endpoint->setProperty("muted",true);endpoint->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Preferred);titles->addWidget(endpoint);head->addLayout(titles,1);
-    auto* modes=named(new QWidget,"modeSwitch");modes->setFixedHeight(32);auto* modeRow=rowLayout();modeRow->setSpacing(0);modeRow->setContentsMargins(3,3,3,3);modes->setLayout(modeRow);
+    auto* modes=named(new QWidget,"modeSwitch");modes->setFixedHeight(38);auto* modeRow=rowLayout();modeRow->setSpacing(0);modeRow->setContentsMargins(3,3,3,3);modes->setLayout(modeRow);
     ordinaryMode=button(QStringLiteral("普通调试"),"ordinaryModeButton");fastMode=button(QStringLiteral("高速采集"),"highSpeedModeButton");for(auto* b:{ordinaryMode,fastMode}){b->setCheckable(true);b->setProperty("segment",true);modeRow->addWidget(b);}head->addWidget(modes);
     high=named(new QCheckBox(QStringLiteral("高速采集 / 抽样")),"highSpeedMode");high->hide();head->addWidget(high);
     recordButton=button(QStringLiteral("开始记录"),"recordButton");recordButton->setProperty("primary",true);head->addWidget(recordButton);l->addWidget(header);
@@ -671,9 +677,9 @@ QWidget* MainWindow::Impl::buildWorkspace() {
     auto* toolbar=named(new QWidget,"dataToolbar");auto* tools=new QHBoxLayout(toolbar);tools->setContentsMargins(22,0,18,0);tools->setSpacing(7);
     QPushButton* tabs[3];const QString tabNames[]={QStringLiteral("数据样本"),QStringLiteral("文本流"),QStringLiteral("接收诊断")};
     for(int i=0;i<3;++i){tabs[i]=button(tabNames[i],("dataViewTab"+QByteArray::number(i)).constData());tabs[i]->setProperty("viewTab",true);tabs[i]->setCheckable(true);tabs[i]->setFixedHeight(42);tools->addWidget(tabs[i]);}tools->addStretch();
-    filterKind=combo({QStringLiteral("来源"),QStringLiteral("HEX"),QStringLiteral("文本")},"filterKind");filterKind->setFixedWidth(62);filterKind->setToolTip(QStringLiteral("搜索条件：来源 / ID、HEX字节、解码文本"));tools->addWidget(filterKind);
+    filterKind=combo({QStringLiteral("来源"),QStringLiteral("HEX"),QStringLiteral("文本")},"filterKind");filterKind->setFixedWidth(86);filterKind->setToolTip(QStringLiteral("搜索条件：来源 / ID、HEX字节、解码文本"));tools->addWidget(filterKind);
     filter=named(new QLineEdit,"recordFilter");filter->setAccessibleName(QStringLiteral("搜索保留数据样本"));filter->setPlaceholderText(QStringLiteral("搜索字节或来源     Ctrl K"));filter->setClearButtonEnabled(true);filter->setMinimumWidth(100);filter->setMaximumWidth(225);tools->addWidget(filter,1);
-    displayFormat=combo({"HEX",QStringLiteral("文本")},"displayFormat");displayFormat->setFixedWidth(64);
+    displayFormat=combo({"HEX",QStringLiteral("文本")},"displayFormat");displayFormat->setFixedWidth(86);
     paused=named(new QCheckBox(QStringLiteral("暂停")),"pauseDisplay");paused->setAccessibleName(QStringLiteral("暂停显示"));paused->setToolTip(QStringLiteral("暂停显示，接收与记录继续"));tools->addWidget(paused);
     auto* clear=button(QStringLiteral("清空显示"),"clearDisplay");auto* reset=button(QStringLiteral("重置统计"),"resetStatistics");for(auto* b:{clear,reset}){b->setProperty("iconOnly",true);b->setFixedSize(26,26);tools->addWidget(b);}l->addWidget(toolbar);
     banner=label({},"runtimeBanner");banner->setWordWrap(true);banner->setProperty("error",true);banner->hide();l->addWidget(banner);
@@ -682,7 +688,7 @@ QWidget* MainWindow::Impl::buildWorkspace() {
     auto* noticeRow=rowLayout();noticeRow->setSpacing(6);notice=label({},"displayNotice");notice->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Preferred);notice->setWordWrap(true);noticeRow->addWidget(notice,1);noticeRow->addWidget(displayFormat);recordLayout->addLayout(noticeRow);
     dataTabs=named(new QTabWidget,"dataTabs");dataTabs->tabBar()->hide();
     table=named(new design::RecordView,"recordTable");table->setAccessibleName(QStringLiteral("真实收发记录"));model=new RecordModel(q);proxy=new RecordFilter(q);proxy->setSourceModel(model);table->setModel(proxy);table->setItemDelegate(new design::RecordDelegate(table));table->setMouseTracking(true);table->setSelectionBehavior(QAbstractItemView::SelectRows);table->setSelectionMode(QAbstractItemView::SingleSelection);table->setEditTriggers(QAbstractItemView::NoEditTriggers);table->setShowGrid(false);table->setAlternatingRowColors(false);table->verticalHeader()->hide();table->verticalHeader()->setDefaultSectionSize(32);
-    table->horizontalHeader()->setStretchLastSection(true);table->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft|Qt::AlignVCenter);table->horizontalHeader()->setFixedHeight(30);table->setColumnWidth(0,45);table->setColumnWidth(1,112);table->setColumnWidth(2,65);table->setColumnWidth(3,170);table->setColumnWidth(4,65);dataTabs->addTab(table,QStringLiteral("数据样本"));
+    table->horizontalHeader()->setStretchLastSection(true);table->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft|Qt::AlignVCenter);table->horizontalHeader()->setFixedHeight(34);table->setColumnWidth(0,58);table->setColumnWidth(1,138);table->setColumnWidth(2,65);table->setColumnWidth(3,180);table->setColumnWidth(4,84);dataTabs->addTab(table,QStringLiteral("数据样本"));
     auto* textPanel=new QWidget;auto* textLayout=new QVBoxLayout(textPanel);textLayout->setContentsMargins(12,6,12,6);auto* textTools=rowLayout();
     auto* rxLegend=label(QStringLiteral("▼ RX 接收"),"textRxLegend");auto* txLegend=label(QStringLiteral("▲ TX 发送"),"textTxLegend");textTools->addWidget(rxLegend);textTools->addWidget(txLegend);textTools->addStretch();textFormat=combo({QStringLiteral("UTF-8 原文"),QStringLiteral("HEX · 16字节/行"),QStringLiteral("JSON 格式化")},"textPreviewFormat");textFormat->setMinimumWidth(165);textFormat->setToolTip(QStringLiteral("格式化保留的样本。JSON 仅格式化完整有效的对象/数组；无效或跨读取块内容保留原文。"));textTools->addWidget(textFormat);textLayout->addLayout(textTools);
     streamView=named(new QPlainTextEdit,"normalStreamView");streamView->setAccessibleName(QStringLiteral("收发分色文本预览"));streamView->setReadOnly(true);streamView->setFont(fixedFont());streamView->document()->setMaximumBlockCount(10000);streamView->setPlaceholderText(QStringLiteral("接收或发送后显示内容；RX 为绿色，TX 为橙色。"));textLayout->addWidget(streamView);dataTabs->addTab(textPanel,QStringLiteral("文本预览"));
@@ -694,10 +700,10 @@ QWidget* MainWindow::Impl::buildWorkspace() {
     for(int i=0;i<3;++i){QObject::connect(tabs[i],&QPushButton::clicked,q,[this,i,b=tabs[i]]{dataTabs->setCurrentIndex(i);b->setChecked(true);});}QObject::connect(dataTabs,&QTabWidget::currentChanged,q,[this](int current){for(int i=0;i<3;++i)q->findChild<QPushButton*>(QStringLiteral("dataViewTab%1").arg(i))->setChecked(current==i);});tabs[0]->setChecked(true);
     auto* bottomWidget=named(new QWidget,"recordFooter");auto* bottom=new QHBoxLayout(bottomWidget);bottom->setContentsMargins(22,0,16,0);bottom->setSpacing(10);bottomWidget->setMinimumHeight(31);
     retained=label({},"retainedSamples");retained->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Preferred);bottom->addWidget(retained,1);autoScroll=named(new QCheckBox(QStringLiteral("自动滚动")),"autoScroll");autoScroll->setChecked(true);bottom->addWidget(autoScroll);auto* copy=button(QStringLiteral("复制原始 HEX"),"copyRecord");copy->setProperty("iconOnly",true);copy->setFixedSize(24,24);bottom->addWidget(copy);auto* exportButton=button(QStringLiteral("导出显示样本"),"exportSamples");exportButton->setProperty("textAction",true);bottom->addWidget(exportButton);sampleExportButton=exportButton;cancelSamples=button(QStringLiteral("取消样本导出"),"cancelSampleExport");cancelSamples->hide();bottom->addWidget(cancelSamples);QObject::connect(cancelSamples,&QPushButton::clicked,q,[this]{if(sampleJob)sampleJob->cancel.store(true,std::memory_order_relaxed);});recordLayout->addWidget(bottomWidget);
-    dataSplitter->addWidget(recordsPanel);dataSplitter->addWidget(buildInspector());dataSplitter->setStretchFactor(0,1);dataSplitter->setStretchFactor(1,0);dataSplitter->setSizes({858,246});
+    dataSplitter->addWidget(recordsPanel);dataSplitter->addWidget(buildInspector());dataSplitter->setStretchFactor(0,1);dataSplitter->setStretchFactor(1,0);dataSplitter->setSizes({858,340});
     workspaceSplitter=named(new QSplitter(Qt::Vertical),"workspaceSplitter");workspaceSplitter->setHandleWidth(7);workspaceSplitter->setAccessibleName(QStringLiteral("拖动调整接收区和发送编辑区高度"));workspaceSplitter->setToolTip(QStringLiteral("拖动分隔条调整发送编辑区大小"));
     dataSplitter->setMinimumHeight(100);workspaceSplitter->addWidget(dataSplitter);workspaceSplitter->addWidget(buildComposer());workspaceSplitter->setCollapsible(0,true);workspaceSplitter->setCollapsible(1,false);workspaceSplitter->setStretchFactor(0,1);workspaceSplitter->setStretchFactor(1,1);workspaceSplitter->setSizes({220,360});l->addWidget(workspaceSplitter,1);
-    QObject::connect(workspaceSplitter,&QSplitter::splitterMoved,this,[this]{const bool expanded=workspaceSplitter->sizes().front()==0;const QSignalBlocker block(expandComposer);expandComposer->setChecked(expanded);expandComposer->setText(expanded?QStringLiteral("收起编辑"):QStringLiteral("展开编辑"));expandComposer->setArrowType(expanded?Qt::DownArrow:Qt::UpArrow);if(!expanded)composerSplitSizes=workspaceSplitter->sizes();trendPanel->setVisible(q->height()>=850&&!expanded);});
+    QObject::connect(workspaceSplitter,&QSplitter::splitterMoved,this,[this]{const bool expanded=workspaceSplitter->sizes().front()==0;const QSignalBlocker block(expandComposer);expandComposer->setChecked(expanded);expandComposer->setText(expanded?QStringLiteral("收起编辑"):QStringLiteral("展开编辑"));expandComposer->setArrowType(expanded?Qt::DownArrow:Qt::UpArrow);if(!expanded)composerSplitSizes=workspaceSplitter->sizes();trendPanel->setVisible(q->height()>=850&&!expanded);q->findChild<QWidget*>("metricsStrip")->setVisible(q->height()>=850&&!expanded);});
     QObject::connect(filter,&QLineEdit::textChanged,q,[this]{proxy->setQuery(filter->text(),filterKind->currentIndex());inspect();});QObject::connect(filterKind,&QComboBox::currentIndexChanged,q,[this]{proxy->setQuery(filter->text(),filterKind->currentIndex());inspect();});
     QObject::connect(displayFormat,&QComboBox::currentIndexChanged,q,[this](int i){model->setText(i==1);});
     QObject::connect(paused,&QCheckBox::toggled,q,[this](bool v){c->setDisplayPaused(v);if(!v)model->resetDecoders();updateState();});
@@ -715,14 +721,14 @@ QWidget* MainWindow::Impl::buildWorkspace() {
 }
 
 QWidget* MainWindow::Impl::buildInspector() {
-    auto* tabs=named(new QTabWidget,"inspectorTabs");tabs->setMinimumWidth(222);tabs->setMaximumWidth(640);
+    auto* tabs=named(new QTabWidget,"inspectorTabs");tabs->setMinimumWidth(340);tabs->setMaximumWidth(640);
     auto* bytes=named(new QWidget,"bytePanel");auto* bl=new QVBoxLayout(bytes);bl->setContentsMargins(16,12,16,12);bl->setSpacing(7);
     byteSummary=label(QStringLiteral("未选择记录"),"selectedByteSummary");byteSummary->setTextFormat(Qt::RichText);byteSummary->setWordWrap(true);bl->addWidget(byteSummary);
     auto* contentHeading=rowLayout();contentHeading->addWidget(label(QStringLiteral("字节页")));bytePage=spin(1,1,1,"bytePage");bytePage->setEnabled(false);bytePage->setAccessibleName(QStringLiteral("完整字节分页，每页 4096 字节"));contentHeading->addWidget(bytePage,1);auto* copyBytes=button(QStringLiteral("复制所选记录完整原始 HEX"),"copyInspectorBytes");copyBytes->setProperty("iconOnly",true);copyBytes->setFixedSize(24,24);copyBytes->setEnabled(false);contentHeading->addWidget(copyBytes);bl->addLayout(contentHeading);
     auto* views=named(new QTabWidget,"byteFormatTabs");views->setFixedHeight(180);
     auto* hexPanel=new QWidget;auto* hexLayout=new QHBoxLayout(hexPanel);hexLayout->setContentsMargins(0,4,0,0);hexLayout->setSpacing(4);
     auto byteEditor=[&](const char* name){auto* view=named(new QPlainTextEdit,name);view->setReadOnly(true);view->setLineWrapMode(QPlainTextEdit::NoWrap);view->setFont(design::font(10,true));return view;};
-    byteOffsets=byteEditor("byteOffsets");byteOffsets->setFixedWidth(45);byteOffsets->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);byteOffsets->setAccessibleName(QStringLiteral("当前页字节偏移"));hexLayout->addWidget(byteOffsets);
+    byteOffsets=byteEditor("byteOffsets");byteOffsets->setFixedWidth(68);byteOffsets->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);byteOffsets->setAccessibleName(QStringLiteral("当前页字节偏移"));hexLayout->addWidget(byteOffsets);
     byteView=byteEditor("byteInspector");byteView->setAccessibleName(QStringLiteral("完整 HEX，按 4096 字节分页，页内可滚动"));hexLayout->addWidget(byteView,1);views->addTab(hexPanel,"HEX");
     byteAscii=byteEditor("byteAscii");byteAscii->setLineWrapMode(QPlainTextEdit::WidgetWidth);byteAscii->setAccessibleName(QStringLiteral("完整 ASCII，按 4096 字节分页，页内可滚动；非可打印字节显示点"));byteAscii->setToolTip(QStringLiteral("ASCII 只显示可打印单字节字符；中文请切换 UTF-8 页签。"));views->addTab(byteAscii,"ASCII");
     byteUtf8=byteEditor("byteUtf8");byteUtf8->setLineWrapMode(QPlainTextEdit::WidgetWidth);byteUtf8->setAccessibleName(QStringLiteral("UTF-8 文本，中文与完整字符分页；无效字节提示编码错误"));views->addTab(byteUtf8,"UTF-8");views->setTabToolTip(1,QStringLiteral("逐字节 ASCII，中文等非 ASCII 字节显示点"));views->setTabToolTip(2,QStringLiteral("UTF-8 解码，可阅读中文；不改变原始字节"));views->setCurrentIndex(1);bl->addWidget(views);
@@ -752,14 +758,14 @@ QWidget* MainWindow::Impl::buildComposer() {
     auto* heading=rowLayout();auto* composerIcon=named(new QLabel,"composerIcon");composerIcon->setFixedSize(14,14);heading->addWidget(composerIcon);heading->addWidget(label(QStringLiteral("发送数据")),1);
     clientTarget=combo({},"serverClientTarget");clientTarget->setMinimumWidth(140);heading->addWidget(clientTarget);
     broadcast=named(new QCheckBox(QStringLiteral("广播所有客户端")),"serverBroadcast");heading->addWidget(broadcast);disconnectClient=button(QStringLiteral("断开客户端"),"disconnectClient");heading->addWidget(disconnectClient);
-    expandComposer=named(new QToolButton,"expandComposer");expandComposer->setText(QStringLiteral("展开编辑"));expandComposer->setCheckable(true);expandComposer->setArrowType(Qt::UpArrow);expandComposer->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);expandComposer->setAccessibleName(QStringLiteral("展开或收起发送编辑区"));expandComposer->setToolTip(QStringLiteral("展开编辑区；不改变连接、接收或发送内容"));heading->addWidget(expandComposer);QObject::connect(expandComposer,&QToolButton::toggled,this,[this](bool expanded){setComposerExpanded(expanded);});
+    expandComposer=named(new QToolButton,"expandComposer");expandComposer->setText(QStringLiteral("展开编辑"));expandComposer->setCheckable(true);expandComposer->setArrowType(Qt::UpArrow);expandComposer->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);expandComposer->setAccessibleName(QStringLiteral("展开或收起发送编辑区"));expandComposer->setToolTip(QStringLiteral("展开编辑区并暂时收起速率统计；不改变连接、接收或发送内容"));heading->addWidget(expandComposer);QObject::connect(expandComposer,&QToolButton::toggled,this,[this](bool expanded){setComposerExpanded(expanded);});
     auto* commandLink=button(QStringLiteral("命令库"),"composerCommands");commandLink->setProperty("textAction",true);heading->addWidget(commandLink);QObject::connect(commandLink,&QPushButton::clicked,q,[this]{navigate(2);});l->addLayout(heading);
     udpSendFields=named(new QWidget,"udpSendFields");udpTargetLayout=rowLayout();udpSendFields->setLayout(udpTargetLayout);
     auto* targetCaption=label(QStringLiteral("UDP 发送目标"));targetCaption->setProperty("sectionHeading",true);udpTargetLayout->addWidget(targetCaption);
     udpTargetStatus=label({},"udpTargetStatus");udpTargetStatus->setWordWrap(true);udpTargetStatus->setMinimumWidth(110);udpTargetStatus->setMaximumWidth(160);udpTargetStatus->setProperty("muted",true);udpTargetLayout->addWidget(udpTargetStatus);l->addWidget(udpSendFields);
     QObject::connect(remoteAddress,&QLineEdit::textChanged,q,[this]{if(sendButton)validateSend();});QObject::connect(remotePort,&QSpinBox::valueChanged,q,[this]{if(sendButton)validateSend();});
     auto* body=new QVBoxLayout;body->setSpacing(8);sendFields=named(new QWidget,"sendEditor");sendFields->setMinimumHeight(120);auto* editorLayout=new QVBoxLayout(sendFields);editorLayout->setContentsMargins(0,0,0,0);editorLayout->setSpacing(0);
-    sendInput=named(new QPlainTextEdit,"sendInput");sendInput->setAccessibleName(QStringLiteral("待发送原文"));sendInput->setMinimumHeight(96);sendInput->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);sendInput->setFont(design::font(11,true));sendInput->setPlaceholderText(QStringLiteral("输入待发送数据 · 支持多行编辑"));editorLayout->addWidget(sendInput,1);
+    sendInput=named(new QPlainTextEdit,"sendInput");sendInput->setAccessibleName(QStringLiteral("待发送原文"));sendInput->setMinimumHeight(96);sendInput->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);sendInput->setFont(design::font(16,true));sendInput->setPlaceholderText(QStringLiteral("输入待发送数据 · 支持多行编辑"));editorLayout->addWidget(sendInput,1);
     validation=label(QStringLiteral("0 字节"),"sendValidation");validation->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Preferred);validation->setMinimumHeight(24);validation->setToolTip(QStringLiteral("Ctrl+Enter发送 / 停止；本地写出不等于对端确认"));editorLayout->addWidget(validation);body->addWidget(sendFields,1);
     auto* settingsPanel=named(new QWidget,"sendSettings");auto* settingsLayout=new QHBoxLayout(settingsPanel);settingsLayout->setContentsMargins(0,0,0,0);settingsLayout->setSpacing(18);
     auto* formats=rowLayout();formats->setSpacing(9);sendFormat=combo({"HEX",QStringLiteral("文本")},"sendFormat");encoding=combo({"UTF-8","ASCII"},"sendEncoding");eol=eolCombo("sendEol");sendFormat->setAccessibleName(QStringLiteral("发送格式"));encoding->setAccessibleName(QStringLiteral("文本编码"));eol->setAccessibleName(QStringLiteral("附加换行"));
@@ -816,21 +822,21 @@ void MainWindow::Impl::enumerate() {
     localAddress->setCurrentText(address.isEmpty()?QStringLiteral("127.0.0.1"):address);
 }
 void MainWindow::Impl::applyTheme() {
-    const QString bg=dark?"#101416":"#edf1f1",surface=dark?"#171c1f":"#ffffff",side=dark?"#14191c":"#f7f9f9",input=dark?"#111719":"#ffffff",raised=dark?"#1d2428":"#f3f6f6",text=dark?"#e5edee":"#213336",muted=dark?"#8b9a9f":"#5e7379",dim=dark?"#63757d":"#70868c",line=dark?"#2b3438":"#d5dfe1",soft=dark?"#232b2f":"#e7eded",accent=dark?"#85dec4":"#176e58",accentBg=dark?"#243c35":"#dff1e9",selection=dark?"#21352f":"#e3f1eb",error=dark?"#ed9693":"#b04040";
-    QPalette pal;pal.setColor(QPalette::Window,QColor(surface));pal.setColor(QPalette::WindowText,QColor(text));pal.setColor(QPalette::Base,QColor(input));pal.setColor(QPalette::AlternateBase,QColor(surface));pal.setColor(QPalette::Text,QColor(text));pal.setColor(QPalette::Button,QColor(raised));pal.setColor(QPalette::ButtonText,QColor(text));pal.setColor(QPalette::Highlight,QColor(selection));pal.setColor(QPalette::HighlightedText,QColor(text));pal.setColor(QPalette::ToolTipBase,QColor(raised));pal.setColor(QPalette::ToolTipText,QColor(text));pal.setColor(QPalette::Disabled,QPalette::Text,QColor(dim));pal.setColor(QPalette::Disabled,QPalette::ButtonText,QColor(dim));q->setPalette(pal);q->setFont(design::font(12));q->setProperty("darkTheme",dark);
+    const QString bg=dark?"#101416":"#edf1f1",surface=dark?"#171c1f":"#ffffff",side=dark?"#14191c":"#f7f9f9",input=dark?"#111719":"#ffffff",raised=dark?"#1d2428":"#f3f6f6",text=dark?"#e5edee":"#213336",muted=dark?"#b5c4cb":"#435960",dim=dark?"#a4b6be":"#536b75",line=dark?"#2b3438":"#d5dfe1",soft=dark?"#232b2f":"#e7eded",accent=dark?"#85dec4":"#176e58",accentBg=dark?"#243c35":"#dff1e9",selection=dark?"#21352f":"#e3f1eb",error=dark?"#ed9693":"#b04040";
+    QPalette pal;pal.setColor(QPalette::Window,QColor(surface));pal.setColor(QPalette::WindowText,QColor(text));pal.setColor(QPalette::Base,QColor(input));pal.setColor(QPalette::AlternateBase,QColor(surface));pal.setColor(QPalette::Text,QColor(text));pal.setColor(QPalette::Button,QColor(raised));pal.setColor(QPalette::ButtonText,QColor(text));pal.setColor(QPalette::Highlight,QColor(selection));pal.setColor(QPalette::HighlightedText,QColor(text));pal.setColor(QPalette::ToolTipBase,QColor(raised));pal.setColor(QPalette::ToolTipText,QColor(text));pal.setColor(QPalette::Disabled,QPalette::Text,QColor(dim));pal.setColor(QPalette::Disabled,QPalette::ButtonText,QColor(dim));q->setPalette(design::textPalette(pal,dark));q->setFont(design::font(16));q->setProperty("darkTheme",dark);
     QString css=QStringLiteral(R"CSS(
 QMainWindow {background:@bg;} QDialog, #workspacePage, #capturesPage, #commandsPage, #appHeader, #diagnosticsPanel {background:@surface;}
 QProgressBar {border:0;background:@line;border-radius:2px;} QProgressBar::chunk {background:@accent;border-radius:2px;}
-QWidget {color:@text;} QLabel {background:transparent;} QLabel[muted=true] {color:@muted;}
-QLabel[small=true], #profileCount, #headerScope {font-size:10px;color:@dim;}
+QWidget {color:@text;font-size:16px;} QLabel {background:transparent;} QLabel[muted=true] {color:@muted;}
+QLabel[small=true], #profileCount, #headerScope {font-size:14px;color:@muted;}
 QLabel[pageTitle=true] {font-size:24px;font-weight:600;} QLabel[diagnosticHeading=true] {font-size:17px;font-weight:600;}
 #diagnosticStage {background:transparent;border:0;border-bottom:1px solid @line;}
-QLabel[fieldCaption=true], QLabel[sectionHeading=true], #connectionSidebar QLabel {font-size:11px;}
-QLabel[metricTag=true] {font-family:'Consolas';font-size:8px;color:@dim;border:1px solid @line;border-radius:2px;padding:0 3px;}
+QLabel[fieldCaption=true], QLabel[sectionHeading=true], #connectionSidebar QLabel {font-size:14px;}
+QLabel[metricTag=true] {font-family:'Consolas';font-size:14px;color:@muted;border:1px solid @line;border-radius:2px;padding:0 3px;}
 QLabel[sectionHeading=true] {color:@muted;font-weight:600;} QLabel[error=true] {color:@error;}
 #appHeader {border-bottom:1px solid @line;} #brandLabel {font-size:18px;font-weight:600;}
-#brandVersion {font-size:10px;color:@dim;} #activityRail, #connectionSidebar {background:@side;border-right:1px solid @line;}
-#railAvatar {border:1px solid @line;border-radius:5px;font-size:10px;color:@muted;}
+#brandVersion {font-size:14px;color:@muted;} #activityRail, #connectionSidebar {background:@side;border-right:1px solid @line;}
+#railAvatar {border:1px solid @line;border-radius:5px;font-size:14px;color:@muted;}
 #sidebarDivider {background:@line;} #connectionSidebar QScrollArea, #connectionSidebar QScrollArea > QWidget, #connectionFields {background:@side;}
 QPushButton, QToolButton {background:@raised;border:1px solid @line;border-radius:4px;padding:5px 10px;min-height:18px;}
 QPushButton:hover, QToolButton:hover {border-color:@muted;} QPushButton:focus, QToolButton:focus {border-color:@accent;}
@@ -843,26 +849,27 @@ QPushButton[iconOnly=true]:hover, QToolButton[iconOnly=true]:hover {background:@
 QPushButton[iconOnly=true]:focus, QToolButton[iconOnly=true]:focus {background:@selection;}
 QPushButton[rail=true] {background:transparent;border:0;border-radius:7px;padding:0;min-height:36px;max-height:36px;min-width:36px;max-width:36px;}
 QPushButton[rail=true]:hover {background:@raised;} QPushButton[rail=true]:checked {background:@accentBg;}
-QPushButton[textAction=true] {background:transparent;border:0;color:@muted;padding:2px 4px;min-height:0;font-size:10px;}
+QPushButton[textAction=true] {background:transparent;border:0;color:@muted;padding:2px 4px;min-height:0;font-size:14px;}
 QPushButton[textAction=true]:hover {color:@accent;} QToolButton::menu-indicator {image:none;}
-QPushButton[quickChip=true] {background:@raised;border:1px solid @line;border-radius:3px;padding:2px 7px;min-height:14px;font-size:10px;color:@muted;}
+QPushButton[quickChip=true] {background:@raised;border:1px solid @line;border-radius:3px;padding:2px 7px;min-height:20px;font-size:14px;color:@muted;}
 QPushButton[quickChip=true]:hover {color:@accent;border-color:@accent;}
-QToolButton[quickMenu=true] {background:transparent;border:0;padding:2px 4px;min-height:14px;font-size:10px;color:@muted;}
+QToolButton[quickMenu=true] {background:transparent;border:0;padding:2px 4px;min-height:20px;font-size:14px;color:@muted;}
 #modeSwitch {background:@input;border:1px solid @line;border-radius:5px;}
-QPushButton[segment=true] {background:transparent;border:0;min-height:0;padding:5px 9px;font-size:10px;color:@muted;}
+QPushButton[segment=true] {background:transparent;border:0;min-height:0;padding:4px 9px;font-size:14px;color:@muted;}
 QPushButton[segment=true]:checked {background:@raised;color:@text;}
-#sessionTitle {font-size:24px;font-weight:600;} #sessionEyebrow {font-size:9px;color:@dim;}
-#connectionState {font-size:10px;border:1px solid @line;border-radius:3px;padding:1px 6px;color:@muted;}
-#connectionState[connected=true] {color:@accent;border-color:@accent;} #actualEndpoint {font-size:10px;color:@muted;}
+#sessionTitle {font-size:24px;font-weight:600;} #sessionEyebrow {font-size:14px;color:@muted;}
+#connectionState {font-size:14px;border:1px solid @line;border-radius:3px;padding:1px 6px;color:@muted;}
+#connectionState[connected=true] {color:@accent;border-color:@accent;} #actualEndpoint {font-size:14px;color:@muted;}
 #metricsStrip {border-top:1px solid @line;border-bottom:1px solid @line;} #metricDivider {background:@line;}
 #rxRate, #packetRate {font-family:'Consolas';font-size:29px;font-weight:600;} #rxRate {color:@accent;} #sequenceMetric, #recordingMetric {font-size:21px;}
-#queueHealth {border-left:1px solid @line;} #queueHealthTitle {font-size:11px;}
+#queueHealth {border-left:1px solid @line;} #queueHealthTitle {font-size:14px;}
 #queueFill {border:0;background:@line;border-radius:1px;} #queueFill::chunk {background:@accent;}
 #dataToolbar {border-top:1px solid @line;border-bottom:1px solid @line;}
-QPushButton[viewTab=true] {background:transparent;border:0;border-bottom:2px solid transparent;border-radius:0;padding:0 6px;font-size:11px;color:@muted;min-height:0;}
+QPushButton[viewTab=true] {background:transparent;border:0;border-bottom:2px solid transparent;border-radius:0;padding:0 6px;font-size:14px;color:@muted;min-height:0;}
 QPushButton[viewTab=true]:checked {color:@text;border-bottom-color:@accent;}
-#displayNotice {background:@input;border-bottom:1px solid @soft;color:@muted;font-size:10px;padding:7px 22px;}
+#displayNotice {background:@input;border-bottom:1px solid @soft;color:@muted;font-size:14px;padding:7px 22px;}
 #runtimeBanner {background:@accentBg;color:@error;padding:8px 22px;border-bottom:1px solid @line;}
+QLineEdit, QPlainTextEdit, QComboBox, QSpinBox {placeholder-text-color:@muted;}
 QLineEdit, QComboBox, QSpinBox {background:@input;border:1px solid @line;border-radius:4px;padding:3px 9px;min-height:22px;}
 QLineEdit:focus, QComboBox:focus, QSpinBox:focus {border-color:@accent;} QLineEdit:disabled, QComboBox:disabled, QSpinBox:disabled {color:@dim;}
 QComboBox, QSpinBox {padding-right:3px;} QComboBox::drop-down {subcontrol-origin:border;subcontrol-position:top right;width:20px;border:0;background:transparent;}
@@ -873,20 +880,22 @@ QSpinBox::up-arrow {image:url("@up");width:8px;height:8px;} QSpinBox::down-arrow
 QPlainTextEdit {background:@input;border:1px solid @line;border-radius:4px;padding:7px 10px;selection-background-color:@selection;}
 QPlainTextEdit:focus {border-color:@accent;} QListWidget, QTableView {background:@surface;border:0;outline:0;selection-background-color:@selection;selection-color:@text;}
 #profileList {background:@side;} QListWidget::item {padding:12px;border-bottom:1px solid @line;} #profileList::item {padding:0;border:0;}
-QListWidget::item:selected {background:@selection;} QHeaderView::section {background:@surface;color:@muted;border:0;border-bottom:1px solid @line;font-size:10px;padding:5px 10px;}
-QTabWidget::pane {border:0;} QTabBar::tab {background:@side;color:@muted;padding:8px 13px;border-bottom:2px solid transparent;font-size:10px;}
-QTabBar::tab:selected {color:@text;border-bottom-color:@accent;} #inspectorTabs {background:@side;border-left:1px solid @line;}
+QListWidget::item:selected {background:@selection;} QHeaderView::section {background:@surface;color:@muted;border:0;border-bottom:1px solid @line;font-size:14px;padding:5px 10px;}
+QTabWidget::pane {border:0;} QTabBar::tab {background:@side;color:@muted;padding:8px 13px;border-bottom:2px solid transparent;font-size:14px;}
+QTabBar::tab:selected {color:@text;border-bottom-color:@accent;}
+QTabBar QToolButton {background:@raised;border:1px solid @line;padding:0;min-height:0;min-width:20px;}
+#inspectorTabs {background:@side;border-left:1px solid @line;}
 #inspectorTabs QScrollArea, #inspectorTabs QScrollArea > QWidget, #bytePanel, #capturePanel {background:@side;} #byteInspector, #byteOffsets, #byteAscii, #byteUtf8 {border:0;background:@side;padding:0;}
-#byteRange {font-size:10px;color:@muted;border-bottom:1px solid @line;padding-bottom:9px;}
-#recordCapacityEstimate {background:@accentBg;color:@accent;padding:12px;border:1px solid @line;border-radius:4px;font-size:12px;font-weight:600;}
-#recordFooter {border-top:1px solid @line;} #retainedSamples, #recordFooter QCheckBox {font-size:10px;color:@dim;}
+#byteRange {font-size:14px;color:@muted;border-bottom:1px solid @line;padding-bottom:9px;}
+#recordCapacityEstimate {background:@accentBg;color:@accent;padding:12px;border:1px solid @line;border-radius:4px;font-size:16px;font-weight:600;}
+#recordFooter {border-top:1px solid @line;} #retainedSamples, #recordFooter QCheckBox {font-size:14px;color:@muted;}
 #composer {border-top:1px solid @line;} #sendEditor {background:@input;border:1px solid @line;border-radius:4px;}
-#sendInput {border:0;background:transparent;padding:8px 10px;} #sendValidation {border-top:1px solid @soft;font-size:9px;color:@dim;padding:3px 10px;}
-#sendValidation[error=true] {color:@error;} #sendSettings QComboBox {min-height:18px;font-size:10px;}
-#periodicInterval, #periodicCount {font-size:10px;min-height:18px;padding-left:4px;padding-right:2px;} #periodicEnabled {font-size:10px;spacing:4px;}
-#sendButton {font-size:10px;min-height:18px;padding:4px 8px;} #quickCommands, #sendHistory {font-size:10px;min-height:12px;max-height:22px;padding:2px 7px;}
-#advancedSettings {background:transparent;border:0;border-top:1px solid @line;border-radius:0;padding:12px 0;color:@muted;font-size:10px;text-align:left;}
-QCheckBox {spacing:5px;} QCheckBox::indicator {width:12px;height:12px;border:1px solid @dim;border-radius:2px;background:transparent;}
+#sendInput {border:0;background:transparent;padding:8px 10px;} #sendValidation {border-top:1px solid @soft;font-size:14px;color:@muted;padding:3px 10px;}
+#sendValidation[error=true] {color:@error;} #sendSettings QComboBox {min-height:22px;font-size:14px;}
+#periodicInterval, #periodicCount {font-size:14px;min-height:22px;padding-left:4px;padding-right:2px;} #periodicEnabled {font-size:14px;spacing:4px;}
+#sendButton {font-size:16px;min-height:22px;padding:4px 8px;} #quickCommands, #sendHistory {font-size:14px;min-height:22px;padding:2px 7px;}
+#advancedSettings {background:transparent;border:0;border-top:1px solid @line;border-radius:0;padding:12px 0;color:@muted;font-size:14px;text-align:left;}
+QCheckBox {spacing:7px;} QCheckBox::indicator {width:16px;height:16px;border:1px solid @dim;border-radius:2px;background:transparent;}
 QCheckBox::indicator:checked {background:@accent;border-color:@accent;image:url("@check");} QCheckBox::indicator:disabled {border-color:@line;}
 QScrollArea {border:0;background:@surface;} QScrollBar:vertical {background:transparent;width:6px;margin:0;}
 QScrollBar::handle:vertical {background:@line;border-radius:3px;min-height:24px;} QScrollBar::handle:vertical:hover {background:@dim;}
@@ -894,7 +903,7 @@ QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {height:0;} QScroll
 QScrollBar:horizontal {background:transparent;height:6px;margin:0;} QScrollBar::handle:horizontal {background:@line;border-radius:3px;min-width:24px;}
 QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {width:0;} QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {background:transparent;}
 QSplitter::handle {background:@line;} #workspaceSplitter::handle:vertical {background:@soft;border-top:1px solid @line;border-bottom:1px solid @line;} #workspaceSplitter::handle:vertical:hover {background:@accentBg;} QStatusBar {background:@side;border-top:1px solid @line;padding:0 15px;} QStatusBar::item {border:0;}
-#statusSummary {font-size:10px;color:@muted;} QMenu {background:@surface;border:1px solid @line;padding:5px;}
+#statusSummary {font-size:14px;color:@muted;} QMenu {background:@surface;border:1px solid @line;padding:5px;}
 QMenu::item {padding:7px 20px;} QMenu::item:selected {background:@selection;} QToolTip {background:@raised;color:@text;border:1px solid @line;padding:5px;}
 )CSS");
     const QList<QPair<QString,QString>> tokens={{"@primaryText",dark?"#142721":"#ffffff"},{"@accentBg",accentBg},{"@selection",selection},{"@surface",surface},{"@raised",raised},{"@accent",accent},{"@muted",muted},{"@input",input},{"@error",error},{"@text",text},{"@side",side},{"@soft",soft},{"@line",line},{"@dim",dim},{"@bg",bg},{"@down",assets.file(design::Icon::Down,QColor(muted),dark)},{"@up",assets.file(design::Icon::Up,QColor(muted),dark)},{"@check",assets.file(design::Icon::Check,QColor(dark?"#142721":"#ffffff"),dark)}};
@@ -1162,7 +1171,7 @@ void MainWindow::Impl::snapshot(bool forceMetrics) {
     const bool refreshMetrics=forceMetrics||!metricsClock.isValid()||metricsClock.elapsed()>=250;
     if(refreshMetrics){
     metricsClock.restart();
-    auto number=[this](const QString& value,const QString& unit){return QStringLiteral("<span style='font-size:29px'>%1</span><span style='font-size:10px;color:%3'> %2</span>").arg(value,unit,dark?"#8b9a9f":"#5e7379");};
+    auto number=[this](const QString& value,const QString& unit){return QStringLiteral("<span style='font-size:29px'>%1</span><span style='font-size:14px;color:%3'> %2</span>").arg(value,unit,dark?"#8b9a9f":"#5e7379");};
     rxMetric->setText(number(QString::number(stats.rxBytesPerSecond/1e6,'f',3),QStringLiteral("MB/s")));
     txRate->setText(QStringLiteral("TX %1 MB/s · 有效负载").arg(stats.txBytesPerSecond/1e6,0,'f',3));
     const auto shownKind=c->connected()?c->config().kind:profiles[profileIndex].kind;
@@ -1223,7 +1232,7 @@ void MainWindow::Impl::inspect() {
     {const QSignalBlocker block(bytePage);bytePage->setMaximum(pagesCount);if(changedRecord)bytePage->setValue(1);bytePage->setSuffix(QStringLiteral(" / %1").arg(pagesCount));}inspectedOrdinal=r->sequence;bytePage->setEnabled(pagesCount>1);
     const int offset=(bytePage->value()-1)*4096;const int shown=int(std::min<qsizetype>(4096,raw.size()-offset));
     const auto timestamp=QDateTime::fromMSecsSinceEpoch(qint64(r->timestampUs/1000));
-    byteSummary->setText(QStringLiteral("<div style='font-size:9px;color:%1'>RECORD %2 · %3 · ID %4</div><div style='font-size:13px;margin:8px 0'><b>%5</b></div><table width='100%' cellspacing='0' cellpadding='2' style='font-size:10px'><tr><td>时间</td><td align='right'>%6</td></tr><tr><td>来源</td><td align='right'>%7</td></tr></table><div style='font-size:10px;margin-top:5px'>实际长度 %8 B</div>").arg(dark?"#8b9a9f":"#5e7379").arg(r->sequence,3,10,QChar('0')).arg(recordDirection(r->direction)).arg(r->connectionId).arg(r->transport==TransportKind::Udp?QStringLiteral("UDP 数据报"):r->transport==TransportKind::Serial?QStringLiteral("串口读取块"):QStringLiteral("TCP 读取块")).arg(timestamp.toString("hh:mm:ss.zzz"),endpointText(r->peer).toHtmlEscaped()).arg(raw.size()));
+    byteSummary->setText(QStringLiteral("<div style='font-size:14px;color:%1'>RECORD %2 · %3 · ID %4</div><div style='font-size:16px;margin:8px 0'><b>%5</b></div><table width='100%' cellspacing='0' cellpadding='2' style='font-size:14px'><tr><td>时间</td><td align='right'>%6</td></tr><tr><td>来源</td><td align='right'>%7</td></tr></table><div style='font-size:14px;margin-top:5px'>实际长度 %8 B</div>").arg(dark?"#8b9a9f":"#5e7379").arg(r->sequence,3,10,QChar('0')).arg(recordDirection(r->direction)).arg(r->connectionId).arg(r->transport==TransportKind::Udp?QStringLiteral("UDP 数据报"):r->transport==TransportKind::Serial?QStringLiteral("串口读取块"):QStringLiteral("TCP 读取块")).arg(timestamp.toString("hh:mm:ss.zzz"),endpointText(r->peer).toHtmlEscaped()).arg(raw.size()));
     byteSummary->setToolTip(timestamp.toString(Qt::ISODateWithMs)+'\n'+endpointText(r->peer));
     QString dump,offsets,ascii;for(int start=0;start<shown;start+=8){const auto line=raw.mid(offset+start,std::min(8,shown-start));offsets+=QStringLiteral("%1\n").arg(offset+start,4,16,QChar('0'));dump+=hexBytes(line)+'\n';for(unsigned char ch:line)ascii+=ch>=32&&ch<=126?QChar(ch):QChar('.');}
     byteView->setPlainText(dump);byteOffsets->setPlainText(offsets);byteAscii->setPlainText(ascii);

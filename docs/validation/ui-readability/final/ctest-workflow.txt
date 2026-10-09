@@ -1,0 +1,7 @@
+Test project C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+    Start 4: workflow
+1/1 Test #4: workflow .........................   Passed    2.21 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   2.22 sec

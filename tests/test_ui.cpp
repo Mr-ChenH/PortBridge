@@ -3,6 +3,9 @@
 #include "ui/byte_text_preview.hpp"
 #include "ui/background_job.hpp"
 #include "ui/background_worker.hpp"
+#include "ui/design_widgets.hpp"
+#include <QFontInfo>
+#include <cmath>
 #include <future>
 #include "portbridge/session_controller.hpp"
 #include "session/session_private.hpp"
@@ -152,7 +155,7 @@ private slots:
     }
     void navigationAndModeControlsStayInSync() {
         SessionController controller;MainWindow w(&controller);w.show();QTest::qWait(60);
-        auto* pages=get<QStackedWidget>(w,"mainPages");auto* rail=get<QPushButton>(w,"railNavigation0");QCOMPARE(rail->height(),36);QCOMPARE(get<QWidget>(w,"modeSwitch")->height(),32);
+        auto* pages=get<QStackedWidget>(w,"mainPages");auto* rail=get<QPushButton>(w,"railNavigation0");QCOMPARE(rail->height(),36);QVERIFY(get<QWidget>(w,"modeSwitch")->rect().contains(get<QPushButton>(w,"highSpeedModeButton")->geometry()));QVERIFY(get<QPushButton>(w,"highSpeedModeButton")->height()>=get<QPushButton>(w,"highSpeedModeButton")->fontMetrics().height());
         auto* fast=get<QPushButton>(w,"highSpeedModeButton");auto* ordinary=get<QPushButton>(w,"ordinaryModeButton");
         for(int repeat=0;repeat<2;++repeat){QTest::mouseClick(fast,Qt::LeftButton);QVERIFY(controller.highSpeed());QVERIFY(fast->isChecked());QVERIFY(!ordinary->isChecked());}
         for(int repeat=0;repeat<2;++repeat){QTest::mouseClick(ordinary,Qt::LeftButton);QVERIFY(!controller.highSpeed());QVERIFY(ordinary->isChecked());QVERIFY(!fast->isChecked());}
@@ -523,6 +526,72 @@ private slots:
         get<QPushButton>(w,"dataViewTab0")->click();get<QTabWidget>(w,"inspectorTabs")->setCurrentIndex(0);get<QListWidget>(w,"profileList")->setCurrentRow(1);screenshot(w,"audit-native-tcp-client.png");
         const auto remote=get<QLineEdit>(w,"remoteAddress")->mapTo(&w,QPoint());const auto local=get<QComboBox>(w,"localAddress")->mapTo(&w,QPoint());const auto connect=get<QPushButton>(w,"connectButton")->mapTo(&w,QPoint());const auto advanced=get<QToolButton>(w,"advancedSettings")->mapTo(&w,QPoint());QVERIFY(remote.y()<local.y());QVERIFY(local.y()<connect.y());QVERIFY(connect.y()<advanced.y());QVERIFY(!get<QSpinBox>(w,"localPort")->isVisible());
         w.resize(1100,760);screenshot(w,"audit-native-1100x760.png");for(const auto* name:{"connectButton","sendButton","recordFilter","recordButton","periodicInterval","periodicCount"}){auto* control=get<QWidget>(w,name);QVERIFY2(w.rect().contains(QRect(control->mapTo(&w,QPoint()),control->size())),name);for(auto* parent=control->parentWidget();parent;parent=parent->parentWidget())if(auto* scroll=qobject_cast<QScrollArea*>(parent)){QVERIFY2(scroll->viewport()->rect().contains(QRect(control->mapTo(scroll->viewport(),QPoint()),control->size())),name);break;}}get<QPushButton>(w,"commandsNavigation")->click();screenshot(w,"audit-native-commands-1100x760.png");
+    }
+    void wholeUiReadabilityAcrossThemes() {
+        auto contrast = [](QColor a, QColor b) {
+            auto luminance = [](QColor c) {
+                auto linear = [](double v) { return v <= .04045 ? v / 12.92 : std::pow((v + .055) / 1.055, 2.4); };
+                return .2126 * linear(c.redF()) + .7152 * linear(c.greenF()) + .0722 * linear(c.blueF());
+            };
+            double x = luminance(a), y = luminance(b);
+            return (std::max(x, y) + .05) / (std::min(x, y) + .05);
+        };
+        SessionController controller;
+        MainWindow w(&controller);
+        w.show();
+        const QList<QPair<const char*, const char*>> pages{
+            {"rawWorkspaceMode", "workspace"}, {"httpWorkspaceMode", "http"},
+            {"webSocketWorkspaceMode", "websocket"}, {"workflowNavigation", "workflow"},
+            {"commandsNavigation", "commands"}, {"capturesNavigation", "captures"}};
+        for (bool dark : {true, false}) {
+            if (w.property("darkTheme").toBool() != dark)
+                get<QPushButton>(w, "themeButton")->click();
+            for (const auto& page : pages) {
+                get<QPushButton>(w, page.first)->click();
+                const bool protocol = QByteArray(page.second) == "http" || QByteArray(page.second) == "websocket";
+                for (const auto& size : {QSize(1440,1000), protocol || QByteArray(page.second) == "workflow" ? QSize(1024,768) : QSize(1100,760)}) {
+                    w.resize(size);
+                    QTest::qWait(40);
+                    const auto rendered = w.grab().toImage();
+                    for (auto* widget : w.findChildren<QWidget*>()) {
+                        if (!widget->isVisible()) continue;
+                        bool text = false;
+                        if (auto* label = qobject_cast<QLabel*>(widget)) text = !label->text().isEmpty();
+                        if (auto* button = qobject_cast<QAbstractButton*>(widget)) text = !button->text().isEmpty();
+                        text |= qobject_cast<QLineEdit*>(widget) || qobject_cast<QComboBox*>(widget) || qobject_cast<QPlainTextEdit*>(widget);
+                        if (text) QVERIFY2(QFontInfo(widget->font()).pixelSize() >= 14,
+                            qPrintable(QString::fromLatin1(widget->metaObject()->className())+"/"+widget->objectName()+QString(" font=%1 page=%2").arg(QFontInfo(widget->font()).pixelSize()).arg(page.second)));
+                        if (qobject_cast<QLineEdit*>(widget) || qobject_cast<QPlainTextEdit*>(widget)) {
+                            const auto palette = widget->palette();
+                            // Read the painted background: QSS transparent editors may expose a
+                            // NoBrush Base whose QColor is opaque black, independent of the theme.
+                            auto* surface = widget;
+                            if (auto* editor = qobject_cast<QPlainTextEdit*>(widget)) surface = editor->viewport();
+                            const auto sample = surface->mapTo(&w, QPoint(surface->width()-6, surface->height()-4));
+                            QVERIFY(w.rect().contains(sample));
+                            const auto paper = rendered.pixelColor(qRound(sample.x()*rendered.devicePixelRatio()),
+                                qRound(sample.y()*rendered.devicePixelRatio()));
+                            for (auto role : {QPalette::Text, QPalette::PlaceholderText}) {
+                                const auto ink = palette.color(role);
+                                QVERIFY2(contrast(ink, paper) >= 4.5,
+                                    qPrintable(widget->objectName()+QString(" contrast=%1 foreground=%2 background=%3").arg(contrast(ink,paper)).arg(ink.name(),paper.name())));
+                            }
+                        }
+                    }
+                    for (auto* label : w.findChildren<QLabel*>()) {
+                        if (label->isVisible()) QVERIFY(QFontInfo(label->font()).pixelSize() >= 14);
+                    }
+                    if (QByteArray(page.second) == "workspace") {
+                        auto* table = get<QTableView>(w, "recordTable");
+                        QVERIFY2(table->viewport()->height() >= 60, "Compact layout must leave room to read received data.");
+                    }
+                    qInfo("Readability theme=%s page=%s requested=%dx%d actual=%dx%d dpr=%.3f", dark ? "dark" : "light", page.second, size.width(), size.height(), w.width(), w.height(), w.devicePixelRatioF());
+                    screenshot(w, QString("%1-%2-%3x%4.png").arg(page.second, dark ? "dark" : "light").arg(w.width()).arg(w.height()));
+                }
+            }
+        }
+        QVERIFY(!controller.connected());
+        QCOMPARE(controller.statistics().txBytes, std::uint64_t(0));
     }
     void preferencesRestoreWithoutAutoConnect() {
         {SessionController controller;MainWindow w(&controller);w.show();loopbackConfig(w,3);get<QSpinBox>(w,"remotePort")->setValue(12456);get<QPushButton>(w,"saveProfiles")->click();get<QPushButton>(w,"themeButton")->click();w.resize(1280,820);}

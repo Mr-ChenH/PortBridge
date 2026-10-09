@@ -1,0 +1,7 @@
+Test project C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+    Start 8: workflow_e2e
+1/1 Test #8: workflow_e2e .....................   Passed   10.23 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  10.24 sec

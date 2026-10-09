@@ -15,6 +15,7 @@
 #include <QDialogButtonBox>
 #include <QDir>
 #include <QFile>
+#include <QFontInfo>
 #include <QInputDialog>
 #include <QLabel>
 #include <QLineEdit>
@@ -1900,6 +1901,10 @@ class HttpProjectsTest : public QObject {
             auto *tabs = widget<QTabWidget>(dialog, "httpSettingsTabs");
             auto *navigation = widget<QListWidget>(dialog, "httpSettingsNavigation");
             const auto verifyFooter = [&] {
+                for (auto* label : dialog.findChildren<QLabel*>())
+                    if (label->isVisible()) QVERIFY(QFontInfo(label->font()).pixelSize() >= 14);
+                for (auto* field : dialog.findChildren<QLineEdit*>())
+                    if (field->isVisible()) QVERIFY(QFontInfo(field->font()).pixelSize() >= 14);
                 auto *buttons = dialog.findChild<QDialogButtonBox *>();
                 QVERIFY(dialog.rect().contains(buttons->geometry()));
                 for (auto role : {QDialogButtonBox::Save, QDialogButtonBox::Cancel}) {

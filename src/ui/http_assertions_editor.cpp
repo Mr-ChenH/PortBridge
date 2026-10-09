@@ -23,9 +23,9 @@ HttpAssertionsEditor::HttpAssertionsEditor(QWidget *parent) : QWidget(parent) {
                                        QStringLiteral("预期JSON值"), QStringLiteral("解析")});
     table_->horizontalHeader()->setSectionResizeMode(4, QHeaderView::Stretch);
     table_->setColumnWidth(0, 42);
-    table_->setColumnWidth(1, 88);
+    table_->setColumnWidth(1, 112);
     table_->setColumnWidth(2, 150);
-    table_->setColumnWidth(3, 88);
+    table_->setColumnWidth(3, 106);
     table_->setColumnWidth(5, 60);
     table_->verticalHeader()->hide();
     table_->setSelectionBehavior(QAbstractItemView::SelectRows);

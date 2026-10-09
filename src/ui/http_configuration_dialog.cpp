@@ -1,4 +1,5 @@
 #include "http_configuration_dialog.hpp"
+#include "design_widgets.hpp"
 #include "http_auth_presentation.hpp"
 #include "http_browser_fingerprint.hpp"
 #include <QCheckBox>
@@ -229,11 +230,15 @@ HttpConfigurationDialog::HttpConfigurationDialog(HttpProjectStore *store, int ta
             dark = p->property("darkTheme").toBool();
             break;
         }
+    setFont(design::font(16));
+    setPalette(design::textPalette(palette(), dark));
     setStyleSheet(
         QStringLiteral(
-            "#httpProjectSettingsDialog,#httpProjectSettingsDialog QWidget {color:%1;background:%2;} "
+            "#httpProjectSettingsDialog,#httpProjectSettingsDialog QWidget {color:%1;background:%2;font-size:16px;} "
             "#httpProjectSettingsDialog {background:%2;} #httpSettingsTitle "
             "{font-size:19px;font-weight:600;} #httpSettingsContext,#httpSettingsHelp {color:%3;} "
+            "#httpProjectSettingsDialog QLineEdit,#httpProjectSettingsDialog QPlainTextEdit "
+            "{placeholder-text-color:%3;} "
             "#httpProjectSettingsDialog QLineEdit,#httpProjectSettingsDialog QComboBox "
             "{min-height:28px;padding:3px 7px;border:1px solid %4;border-radius:4px;background:%5;} "
             "#httpProjectSettingsDialog QTableWidget "
@@ -259,7 +264,7 @@ HttpConfigurationDialog::HttpConfigurationDialog(HttpProjectStore *store, int ta
             "border:1px solid %4;} #httpProjectSettingsDialog QTabBar::tab:selected "
             "{background:%2;color:%1;border-bottom:2px solid %6;}")
             .arg(dark ? "#e5edee" : "#213336", dark ? "#171c1f" : "#f6f8f8",
-                 dark ? "#9baeb5" : "#5e7379", dark ? "#354249" : "#ccd9de",
+                 dark ? "#b5c4cb" : "#435960", dark ? "#354249" : "#ccd9de",
                  dark ? "#202a2f" : "#ffffff", dark ? "#85dec4" : "#176e58",
                  dark ? "#ffb4a6" : "#9d382c")
             .replace("#httpProjectSettingsDialog", "QDialog[httpConfiguration=true]"));
@@ -602,7 +607,7 @@ HttpConfigurationDialog::HttpConfigurationDialog(HttpProjectStore *store, int ta
     auto *fingerprintPreview = new QPlainTextEdit;
     fingerprintPreview->setObjectName("httpBrowserFingerprintPreview");
     fingerprintPreview->setReadOnly(true);
-    fingerprintPreview->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    fingerprintPreview->setFont(design::font(16, true));
     fingerprintPreview->setMinimumHeight(150);
     fingerprintLayout->addWidget(fingerprintPreview, 1);
     auto updateFingerprint = [fingerprint, fingerprintSummary, fingerprintPreview] {

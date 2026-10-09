@@ -1,0 +1,7 @@
+Test project C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+    Start 7: workflow_integration
+1/1 Test #7: workflow_integration .............   Passed   10.18 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  10.19 sec

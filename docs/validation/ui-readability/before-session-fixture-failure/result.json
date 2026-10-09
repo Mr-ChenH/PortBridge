@@ -1,0 +1,26 @@
+{
+  "state": "failed",
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 74.033
+    },
+    {
+      "name": "focused-ui",
+      "exitCode": 0,
+      "seconds": 8.415
+    },
+    {
+      "name": "focused-workflow",
+      "exitCode": 0,
+      "seconds": 1.306
+    },
+    {
+      "name": "ctest-all",
+      "exitCode": 1,
+      "seconds": 195.234
+    }
+  ],
+  "error": "AssertionError()"
+}

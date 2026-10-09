@@ -3,6 +3,7 @@
 #include "design_widgets.hpp"
 #include "http_assertions.hpp"
 #include "http_assertions_editor.hpp"
+#include "http_auth_presentation.hpp"
 #include "http_project_panel.hpp"
 #include "http_project_store.hpp"
 #include "http_request_resolver.hpp"
@@ -248,6 +249,7 @@ struct ProtocolDebugPage::Impl : QObject {
     QCheckBox *paused;
     QLabel *status, *warning, *historyHint, *pageHint, *empty;
     QLabel *libraryEmpty = nullptr;
+    QLabel *authHint = nullptr;
     QTableView *log;
     Timeline *timeline;
     QListWidget *library;
@@ -320,6 +322,7 @@ struct ProtocolDebugPage::Impl : QObject {
     void captureSecrets();
     QJsonObject parameters(QString *error, bool templateMode = false) const;
     void projectDefinitionsChanged();
+    void updateAuthPresentation();
     void processExtraction();
     QJsonArray extractionRules() const;
     void exportProject();
@@ -493,7 +496,8 @@ void ProtocolDebugPage::Impl::build() {
     authLayout->setSpacing(8);
     auth = new QComboBox;
     auth->setObjectName("protocolAuthKind");
-    auth->addItems({QStringLiteral("无认证"), "Bearer Token", "Basic Auth"});
+    auth->addItems({QStringLiteral("无认证（此请求不生成认证头）"), httpAuthName("bearer"),
+                    httpAuthName("basic")});
     if (http) {
         auth->addItem(QStringLiteral("继承项目认证"));
         auth->setCurrentIndex(3);
@@ -507,7 +511,8 @@ void ProtocolDebugPage::Impl::build() {
     authLayout->addRow("Token", token);
     authLayout->addRow(QStringLiteral("用户名"), username);
     authLayout->addRow(QStringLiteral("密码"), password);
-    authLayout->addRow(text(QStringLiteral("凭据仅用于当前请求；保存与默认导出会遮蔽。")));
+    authHint = text({}, "protocolAuthDescription");
+    authLayout->addRow(authHint);
     requestTabs->addTab(authentication, QStringLiteral("认证"));
     bodyEditor = new QWidget(q);
     auto *bodyLayout = new QVBoxLayout(bodyEditor);
@@ -718,6 +723,7 @@ void ProtocolDebugPage::Impl::build() {
         authLayout->setRowVisible(token, kind == 1);
         authLayout->setRowVisible(username, kind == 2);
         authLayout->setRowVisible(password, kind == 2);
+        updateAuthPresentation();
     };
     authVisibility();
     connect(auth, &QComboBox::currentIndexChanged, q, [this, authVisibility] {
@@ -964,7 +970,21 @@ void ProtocolDebugPage::Impl::projectDefinitionsChanged() {
     if (library)
         refreshLibrary();
     const auto kind = projects->project().value("auth").toObject().value("kind").toString("none");
-    auth->setItemText(3, QStringLiteral("继承项目 · ") + kind);
+    auth->setItemText(3, QStringLiteral("继承项目 · ") + httpAuthName(kind));
+    updateAuthPresentation();
+}
+void ProtocolDebugPage::Impl::updateAuthPresentation() {
+    if (!authHint)
+        return;
+    QString kind = auth->currentIndex() == 1 ? "bearer" : auth->currentIndex() == 2 ? "basic" : "none";
+    QString source = QStringLiteral("此请求自行配置认证；保存与默认导出会遮蔽实际凭据。");
+    if (http && projects && auth->currentIndex() == 3) {
+        kind = projects->project().value("auth").toObject().value("kind").toString("none");
+        source = QStringLiteral("继承项目“%1”的%2。变量使用当前环境“%3”；在项目设置中修改。")
+                     .arg(projects->project().value("name").toString(), httpAuthName(kind),
+                          projects->environment().value("name").toString());
+    }
+    authHint->setText(source + '\n' + httpAuthDescription(kind) + '\n' + httpAuthHeaderPreview(kind));
 }
 void ProtocolDebugPage::Impl::processExtraction() {
     if (!projects || session->active() || (sequence && sequence->running()))
@@ -2134,6 +2154,7 @@ bool ProtocolDebugPage::importHttpProject(const QJsonObject &document, QString *
 ProtocolDebugSession *ProtocolDebugPage::session() const { return d->session; }
 void ProtocolDebugPage::setDarkTheme(bool dark) {
     d->dark = dark;
+    setProperty("darkTheme", dark);
     d->warn(d->warning->text(), d->warningError);
     setStyleSheet(QString("#protocolLibraryPanel {background:%1;border-right:1px "
                           "solid %2;} #protocolTitle "

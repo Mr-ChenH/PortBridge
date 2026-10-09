@@ -3,6 +3,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QString>
+#include <QStringList>
 class QSettings;
 namespace portbridge {
 // Project definitions are persistent; secret and response-derived values are
@@ -31,6 +32,9 @@ class HttpProjectStore {
     bool setProjectVariables(const QJsonArray &variables, QString *error = nullptr);
     bool setEnvironmentVariables(const QJsonArray &variables, QString *error = nullptr);
     bool setProjectAuth(const QJsonObject &auth, QString *error = nullptr);
+    bool saveConfiguration(const QString &projectId, const QString &environmentId, quint64 revision,
+                           const QJsonObject &configuration, const QStringList &clearRuntime,
+                           QString *error = nullptr);
     bool renameFolder(const QString &from, const QString &to, QString *error = nullptr);
     bool removeFolder(const QString &name, QString *error = nullptr);
     bool addFolder(const QString &name, QString *error = nullptr);

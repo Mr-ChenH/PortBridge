@@ -541,6 +541,75 @@ bool HttpProjectStore::setProjectAuth(const QJsonObject &auth, QString *error) {
     p["auth"] = auth;
     return replaceProject(p, error);
 }
+bool HttpProjectStore::saveConfiguration(const QString &projectId, const QString &environmentId,
+                                         quint64 revision, const QJsonObject &configuration,
+                                         const QStringList &clearRuntime, QString *error) {
+    if (projectId != project_ || environmentId != environment_ || revision != revision_)
+        return fail(error, QStringLiteral("项目、环境或运行值已变化，请重新打开配置。原配置已保留。"));
+    if (!configuration.value("projectVariables").isArray() ||
+        !configuration.value("environmentVariables").isArray() ||
+        !configuration.value("auth").isObject())
+        return fail(error, QStringLiteral("项目配置字段无效。"));
+    auto p = project();
+    auto runtime = runtimeVariables();
+    for (const auto &name : clearRuntime)
+        runtime.remove(name);
+    auto normalize = [&](QJsonArray rows) {
+        for (int i = 0; i < rows.size(); ++i) {
+            auto row = rows[i].toObject();
+            const auto name = row.value("name").toString();
+            if (row.value("secret").toBool() || secretName(name)) {
+                row["secret"] = true;
+                if (row.contains("value")) {
+                    const bool derived =
+                        runtime.value(name).toObject().value("responseDerived").toBool();
+                    runtime[name] =
+                        QJsonObject{{"value", row.value("value")},
+                                    {"secret", true},
+                                    {"responseDerived", derived},
+                                    {"updated", QDateTime::currentDateTimeUtc().toString(Qt::ISODate)}};
+                }
+                row.remove("value");
+            }
+            rows[i] = row;
+        }
+        return rows;
+    };
+    const auto projectRows = configuration.value("projectVariables").toArray();
+    const auto environmentRows = configuration.value("environmentVariables").toArray();
+    for (const auto &rows : {projectRows, environmentRows}) {
+        const auto why = validateVariables(rows);
+        if (!why.isEmpty())
+            return fail(error, why);
+    }
+    p["name"] = configuration.value("projectName").toString().trimmed();
+    p["variables"] = normalize(projectRows);
+    p["auth"] = configuration.value("auth");
+    auto environments = p.value("environments").toArray();
+    for (int i = 0; i < environments.size(); ++i) {
+        auto e = environments[i].toObject();
+        if (e.value("id").toString() == environment_) {
+            e["name"] = configuration.value("environmentName").toString().trimmed();
+            e["variables"] = normalize(environmentRows);
+            environments[i] = e;
+        }
+    }
+    p["environments"] = environments;
+    const auto why = runtimeError(runtime);
+    if (!why.isEmpty())
+        return fail(error, why);
+    auto global = runtime_;
+    global[runtimeKey(project_, environment_)] = runtime;
+    QJsonObject total;
+    for (auto it = global.begin(); it != global.end(); ++it)
+        total[it.key()] = it.value();
+    if (!workflowDetail::boundedJson(total, 16 * 1024 * 1024))
+        return fail(error, QStringLiteral("所有环境运行值合计超过16MiB或条目限制。"));
+    if (!replaceProject(p, error))
+        return false;
+    runtime_[runtimeKey(project_, environment_)] = runtime;
+    return true;
+}
 bool HttpProjectStore::renameFolder(const QString &from, const QString &to, QString *error) {
     auto p = project();
     auto folders = p.value("folders").toArray();

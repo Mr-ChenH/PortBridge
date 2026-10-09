@@ -1,6 +1,8 @@
 # PortBridge 0.1.0 软件实施与验收报告
 
-> 最新修订 **ui-latency-fix-1**：RA-UI01/P2在本机声明负载内关闭。GUI不再join后台文件任务线程；采样50ms、指标布局250ms，空/不变字节详情避免重复生成。完整CTest10/10、原生UI42/42、88输入冻结；UDP/TCP各5分钟心跳152/43ms，逐字节采集、实际三屏与主动GUI停顿复验通过。新部署 `dist/PortBridge-ui-latency-fix-1/`，旧版本和失败记录保留。见 [响应修复验收](../reviews/ui-latency-fix.md)、[总机器回执](../validation/ui-latency-fix/receipt.json) 与 [包回执](../validation/ui-latency-fix/package-receipt.json)。
+> 最新修订 **http-configuration-1**：项目、当前环境、项目变量、公共认证和生效变量统一配置；新建环境直接进入配置，定义与运行值分别展示并原子保存。最终CTest10/10、HTTP普通41通过/3受控跳过、原生软件100/125/150%各10通过，91输入冻结。见 [重构验收](../reviews/http-configuration.md)、[真实界面](../validation/http-configuration/gallery.html) 与 [包回执](../validation/http-configuration/package-receipt.json)。
+
+> 上一修订 **ui-latency-fix-1**：RA-UI01/P2在本机声明负载内关闭。GUI不再join后台文件任务线程；采样50ms、指标布局250ms，空/不变字节详情避免重复生成。完整CTest10/10、原生UI42/42、88输入冻结；UDP/TCP各5分钟心跳152/43ms，逐字节采集、实际三屏与主动GUI停顿复验通过。新部署 `dist/PortBridge-ui-latency-fix-1/`，旧版本和失败记录保留。见 [响应修复验收](../reviews/ui-latency-fix.md)、[总机器回执](../validation/ui-latency-fix/receipt.json) 与 [包回执](../validation/ui-latency-fix/package-receipt.json)。
 
 > 上一软件修订为 **http-sequence-fix-1**：已修复顶层JSON数组断言和变量展开后的发送前预算校验，HA01、HA02关闭。最新完整10/10套件通过，HTTP项目普通35通过/2受控截图跳过，原生软件100/125/150%各37通过，87输入冻结；独立部署 `dist/PortBridge-http-sequence-fix-1/` 与ZIP验证通过。见 [修复验收](../reviews/http-sequence-fix.md)、[最终回执](../validation/http-sequence-fix/final/result.json) 和 [包回执](../validation/http-sequence-fix/package-receipt.json)。
 

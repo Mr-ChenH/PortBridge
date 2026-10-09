@@ -1,0 +1,21 @@
+{
+  "state": "passed",
+  "revision": "http-configuration-1",
+  "verification": "final/result.json",
+  "sourceInputs": 91,
+  "application_sha256": "6f22c8690bf24de46a29badc983b4df7d49273f9d026e58c94935527288faf17",
+  "testExecutables": {
+    "test_http_projects.exe": "67c4d910c01fcf63d666d2971307ac3bf6c15b1073ed9f4514398942d102c1d9",
+    "test_network.exe": "6c163a48a5170627da904bfe9f33f4968842115b973df52f0b133536f6cab330",
+    "test_protocol_debug.exe": "e3f2e10c27f16d13249d06a6ab4bc691ed9f1298ce87a906a1839dce9891b4d0",
+    "test_session.exe": "d1614cb59d49ade6013f75df24f6d4c245319959d68075732a4d48d648bd3399",
+    "test_ui.exe": "b2f74e17e3806d518b644bc36b7dfbb0a378e136ff8523dc829ffd1e9cf30944",
+    "test_workflow.exe": "c717d4bc912ae7a42b8f609cf772565bd6c6aba61abd560f8afa5d18850bed27",
+    "test_workflow_e2e.exe": "d17a5ae20ea0ac1c22ababa36f8d5854b349db35cad2c269dac36296ac6af229",
+    "test_workflow_integration.exe": "02ab69f51e599400a44944a25c25da90404a447bf37f62d5e9cb6f60305b2fe0",
+    "test_workflow_protocol.exe": "62f3c5dbe2187d9064598e9933ac1fc2b4e98f43cf4f63d591b99e817420b5d7",
+    "test_workflow_ui.exe": "55e1028b9e37d6ee8971b70b309e8b14a501f9648c85f25e0e1cc54b8d9b68a5"
+  },
+  "review": "Current agent implementation and review; synthetic HTTP fixtures and native Windows software scaling; prior RA-UI01 local load evidence preserved, not rerun",
+  "package": "package-receipt.json"
+}

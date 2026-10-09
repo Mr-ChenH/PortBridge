@@ -1,15 +1,19 @@
 #include "portbridge/session_controller.hpp"
 #include "ui/http_assertions.hpp"
+#include "ui/http_configuration_dialog.hpp"
 #include "ui/http_project_panel.hpp"
 #include "ui/http_project_store.hpp"
 #include "ui/http_request_resolver.hpp"
 #include "ui/http_sequence_runner.hpp"
 #include "ui/main_window.hpp"
 #include "ui/protocol_debug_page.hpp"
+#include <QAction>
 #include <QComboBox>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QDir>
+#include <QFile>
+#include <QInputDialog>
 #include <QLabel>
 #include <QLineEdit>
 #include <QListWidget>
@@ -1164,6 +1168,290 @@ class HttpProjectsTest : public QObject {
         QVERIFY(page.grab().save(target + "/sequence-results-dark.png"));
         QVERIFY(
             !widget<QPlainTextEdit>(page, "httpSequenceResults")->toPlainText().contains(server.token));
+    }
+    void configurationSaveIsAtomicScopedAndKeepsRuntimeSeparate() {
+        QTemporaryDir dir;
+        QSettings settings(dir.filePath("configuration.ini"), QSettings::IniFormat);
+        HttpProjectStore store(&settings);
+        QString error;
+        QVERIFY(store.setProjectVariables({variable("region", "project-default")}));
+        QVERIFY(store.setEnvironmentVariables({variable("region", "environment-default")}));
+        QVERIFY(store.extract({{"status", 200}, {"body", QJsonObject{{"region", "response-private"}}}},
+                              {rule("region", "$.region")}, store.projectId(), store.environmentId(),
+                              &error));
+        auto configuration = QJsonObject{
+            {"projectName", "Shared API"},
+            {"environmentName", "Local"},
+            {"projectVariables", QJsonArray{variable("region", "new-project-default")}},
+            {"environmentVariables", QJsonArray{variable("region", "new-environment-default"),
+                                                variable("base_url", "http://localhost:9000")}},
+            {"auth", QJsonObject{{"kind", "bearer"}, {"token", "{{access_token}}"}}}};
+        const auto beforeProject = store.project(), beforeRuntime = store.runtimeVariables();
+        const auto beforeDisk = settings.value("manual/httpProjectsV2").toByteArray();
+        const auto revision = store.revision();
+        auto invalid = configuration;
+        invalid["environmentVariables"] = QJsonArray{variable("same", 1), variable("same", 2)};
+        QVERIFY(!store.saveConfiguration(store.projectId(), store.environmentId(), revision, invalid,
+                                         {"region"}, &error));
+        QCOMPARE(store.project(), beforeProject);
+        QCOMPARE(store.runtimeVariables(), beforeRuntime);
+        QCOMPARE(store.revision(), revision);
+        QCOMPARE(settings.value("manual/httpProjectsV2").toByteArray(), beforeDisk);
+        QVERIFY2(store.saveConfiguration(store.projectId(), store.environmentId(), revision,
+                                         configuration, {}, &error),
+                 qPrintable(error));
+        QCOMPARE(store.expand("{{region}}"), "response-private");
+        QCOMPARE(
+            store.environment().value("variables").toArray()[0].toObject().value("value").toString(),
+            "new-environment-default");
+        QVERIFY(!settings.value("manual/httpProjectsV2").toByteArray().contains("response-private"));
+        QVERIFY(!store.saveConfiguration(store.projectId(), store.environmentId(), revision,
+                                         configuration, {}, &error));
+        QVERIFY(store.saveConfiguration(store.projectId(), store.environmentId(), store.revision(),
+                                        configuration, {"region"}, &error));
+        QCOMPARE(store.expand("{{region}}"), "new-environment-default");
+        QVERIFY(store.createEnvironment("Other"));
+        QVERIFY(!store.effectiveVariables().contains("base_url"));
+        QCOMPARE(store.expand("{{region}}"), "new-project-default");
+        HttpProjectStore restored(&settings);
+        QCOMPARE(restored.project().value("name").toString(), "Shared API");
+        QVERIFY(restored.runtimeVariables().isEmpty());
+    }
+    void configurationDialogCancelSaveAndSensitiveDefinitions() {
+        HttpProjectStore store(nullptr);
+        QString error;
+        QVERIFY(store.setEnvironmentVariables({variable("base_url", "http://localhost:8000"),
+                                               variable("access_token", "synthetic-private", true)}));
+        QVERIFY(store.setProjectAuth({{"kind", "bearer"}, {"token", "{{access_token}}"}}));
+        const auto p = store.project(), runtime = store.runtimeVariables();
+        const auto revision = store.revision();
+        {
+            HttpConfigurationDialog dialog(&store, 0);
+            dialog.show();
+            auto *table = widget<QTableWidget>(dialog, "httpVariableTable");
+            QCOMPARE(table->rowCount(), 1);
+            QCOMPARE(table->item(0, 0)->text(), "access_token");
+            auto *value = qobject_cast<QLineEdit *>(table->cellWidget(0, 2));
+            QVERIFY(value);
+            QVERIFY(value->text().isEmpty());
+            QCOMPARE(value->echoMode(), QLineEdit::Password);
+            widget<QLineEdit>(dialog, "httpEnvironmentBaseUrl")->setText("http://localhost:9000");
+            widget<QLineEdit>(dialog, "httpSettingsProjectName")->setText("Changed");
+            widget<QTableWidget>(dialog, "httpEffectiveVariables")->setCurrentCell(0, 0);
+            widget<QPushButton>(dialog, "httpRuntimeDelete")->click();
+            dialog.reject();
+        }
+        QCOMPARE(store.project(), p);
+        QCOMPARE(store.runtimeVariables(), runtime);
+        QCOMPARE(store.revision(), revision);
+        HttpConfigurationDialog dialog(&store, 2);
+        dialog.show();
+        auto *kind = widget<QComboBox>(dialog, "httpProjectAuthKind");
+        auto *token = widget<QLineEdit>(dialog, "httpProjectAuthToken");
+        auto *user = widget<QLineEdit>(dialog, "httpProjectAuthUsername");
+        QVERIFY(token->isVisible());
+        QVERIFY(!user->isVisible());
+        kind->setCurrentIndex(2);
+        QVERIFY(user->isVisible());
+        QVERIFY(!token->isVisible());
+        kind->setCurrentIndex(0);
+        QVERIFY(!user->isVisible());
+        QVERIFY(!token->isVisible());
+        kind->setCurrentIndex(1);
+        token->setText("Bearer mistaken-prefix");
+        auto *save = dialog.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Save);
+        save->click();
+        QCOMPARE(dialog.result(), 0);
+        QCOMPARE(store.revision(), revision);
+        QVERIFY(!widget<QLabel>(dialog, "httpSettingsError")->text().isEmpty());
+        token->setText("{{access_token}}");
+        widget<QLineEdit>(dialog, "httpEnvironmentBaseUrl")->setText("http://localhost:9000");
+        save->click();
+        QCOMPARE(dialog.result(), int(QDialog::Accepted));
+        QCOMPARE(store.expand("{{base_url}}"), "http://localhost:9000");
+        QCOMPARE(store.expand("{{access_token}}"), "synthetic-private");
+        QVERIFY(!store.environment().value("variables").toArray().first().toObject().contains("value"));
+    }
+    void configurationWriteFailureKeepsDefinitionsAndRuntime() {
+        QTemporaryDir dir;
+        const auto path = dir.filePath("blocked.ini");
+        QSettings settings(path, QSettings::IniFormat);
+        HttpProjectStore store(&settings);
+        QVERIFY(store.setEnvironmentVariables({variable("access_token", "old-private", true)}));
+        const auto project = store.project(), runtime = store.runtimeVariables();
+        const auto revision = store.revision();
+        const auto diskIntent = settings.value("manual/httpProjectsV2").toByteArray();
+        // Replace only this test's file with a directory to force a real QSettings write failure.
+        QVERIFY(QFile::remove(path));
+        QVERIFY(QDir().mkdir(path));
+        QString error;
+        const QJsonObject configuration{
+            {"projectName", "Changed"},
+            {"environmentName", "Changed"},
+            {"projectVariables", QJsonArray{variable("shared", 1)}},
+            {"environmentVariables", QJsonArray{variable("access_token", "new-private", true)}},
+            {"auth",
+             QJsonObject{{"kind", "basic"}, {"username", "new-user"}, {"password", "new-password"}}}};
+        QVERIFY(!store.saveConfiguration(store.projectId(), store.environmentId(), revision,
+                                         configuration, {"access_token"}, &error));
+        QCOMPARE(store.project(), project);
+        QCOMPARE(store.runtimeVariables(), runtime);
+        QCOMPARE(store.revision(), revision);
+        QCOMPARE(settings.value("manual/httpProjectsV2").toByteArray(), diskIntent);
+        QVERIFY(settings.status() != QSettings::NoError);
+        QVERIFY(error.contains(QStringLiteral("写入失败")));
+    }
+    void newEnvironmentOpensConfigurationAndStaysSilent() {
+        Server server;
+        QTemporaryDir dir;
+        QSettings settings(dir.filePath("new-env.ini"), QSettings::IniFormat);
+        ProtocolDebugPage page(ProtocolDebugSession::Mode::Http, &settings);
+        const auto previous = page.projectStore()->environmentId();
+        int phase = 0;
+        QTimer interact;
+        interact.setInterval(10);
+        connect(&interact, &QTimer::timeout, &page, [&] {
+            auto *modal = QApplication::activeModalWidget();
+            if (auto *prompt = qobject_cast<QInputDialog *>(modal); prompt && phase == 0) {
+                prompt->setTextValue("QA environment");
+                phase = 1;
+                prompt->accept();
+                return;
+            }
+            if (auto *dialog = qobject_cast<QDialog *>(modal);
+                dialog && phase == 1 && dialog->objectName() == "httpProjectSettingsDialog") {
+                phase = 2;
+                interact.stop();
+                widget<QLineEdit>(*dialog, "httpEnvironmentBaseUrl")->setText(server.base());
+                dialog->findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Save)->click();
+                if (dialog->isVisible())
+                    dialog->reject();
+            }
+        });
+        QTimer::singleShot(5000, &page, [] {
+            if (auto *d = qobject_cast<QDialog *>(QApplication::activeModalWidget()))
+                d->reject();
+        });
+        interact.start();
+        auto *action = page.findChild<QAction *>("httpEnvironmentNew");
+        QVERIFY(action);
+        action->trigger();
+        interact.stop();
+        QCOMPARE(phase, 2);
+        QVERIFY(page.projectStore()->environmentId() != previous);
+        QCOMPARE(page.projectStore()->environment().value("name").toString(), "QA environment");
+        QCOMPARE(page.projectStore()->expand("{{base_url}}"), server.base());
+        QCOMPARE(server.received.size(), 0);
+        QVERIFY(!page.session()->active());
+        HttpProjectStore restored(&settings);
+        QCOMPARE(restored.environmentId(), page.projectStore()->environmentId());
+        QCOMPARE(restored.expand("{{base_url}}"), server.base());
+    }
+    void configurationDialogRefusesChangedContext() {
+        HttpProjectStore store(nullptr);
+        HttpConfigurationDialog dialog(&store, 0);
+        const auto oldEnvironment = store.environmentId();
+        QVERIFY(store.createEnvironment("new context"));
+        const auto current = store.project();
+        dialog.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Save)->click();
+        QCOMPARE(dialog.result(), 0);
+        QCOMPARE(store.project(), current);
+        QVERIFY(store.environmentId() != oldEnvironment);
+        QVERIFY(widget<QLabel>(dialog, "httpSettingsError")->text().contains(QStringLiteral("已变化")));
+    }
+    void configurationEnvironmentAndAuthenticationReachRealWire() {
+        Server first, second;
+        QTemporaryDir dir;
+        QSettings settings(dir.filePath("wire.ini"), QSettings::IniFormat);
+        ProtocolDebugPage page(ProtocolDebugSession::Mode::Http, &settings);
+        auto *store = page.projectStore();
+        QString error;
+        auto configure = [&](const QString &url, const QString &token, const QJsonObject &auth) {
+            return store->saveConfiguration(
+                store->projectId(), store->environmentId(), store->revision(),
+                {{"projectName", "API"},
+                 {"environmentName", store->environment().value("name")},
+                 {"projectVariables", QJsonArray{variable("username", "shared-user")}},
+                 {"environmentVariables",
+                  QJsonArray{variable("base_url", url), variable("access_token", token, true),
+                             variable("password", "scoped-password", true)}},
+                 {"auth", auth}},
+                {}, &error);
+        };
+        QVERIFY(configure(first.base(), "first-private",
+                          {{"kind", "bearer"}, {"token", "{{access_token}}"}}));
+        const auto firstId = store->environmentId();
+        auto draft = request("{{base_url}}/business");
+        draft["editor"] = QJsonObject{{"baseUrl", "{{base_url}}/business"}, {"authKind", 3}};
+        QVERIFY(page.loadDraft(draft, &error));
+        QCOMPARE(first.received.size(), 0);
+        QCOMPARE(second.received.size(), 0);
+        page.triggerSend();
+        QTRY_VERIFY_WITH_TIMEOUT(!page.session()->active() && first.received.size() == 1, 5000);
+        QCOMPARE(first.received.last().value("headers").toObject().value("authorization").toString(),
+                 "Bearer first-private");
+        QVERIFY(store->createEnvironment("Other"));
+        QVERIFY(configure(second.base(), "second-private",
+                          {{"kind", "bearer"}, {"token", "{{access_token}}"}}));
+        QVERIFY(page.loadDraft(draft, &error));
+        page.triggerSend();
+        QTRY_VERIFY_WITH_TIMEOUT(!page.session()->active() && second.received.size() == 1, 5000);
+        QCOMPARE(first.received.size(), 1);
+        QCOMPARE(second.received.last().value("headers").toObject().value("authorization").toString(),
+                 "Bearer second-private");
+        QVERIFY(store->selectEnvironment(firstId));
+        QVERIFY(
+            configure(first.base(), "first-private",
+                      {{"kind", "basic"}, {"username", "{{username}}"}, {"password", "{{password}}"}}));
+        QVERIFY(page.loadDraft(draft, &error));
+        page.triggerSend();
+        QTRY_VERIFY_WITH_TIMEOUT(!page.session()->active() && first.received.size() == 2, 5000);
+        QCOMPARE(first.received.last().value("headers").toObject().value("authorization").toString(),
+                 "Basic " + QString::fromLatin1(QByteArray("shared-user:scoped-password").toBase64()));
+        widget<QComboBox>(page, "protocolAuthKind")->setCurrentIndex(0);
+        page.triggerSend();
+        QTRY_VERIFY_WITH_TIMEOUT(!page.session()->active() && first.received.size() == 3, 5000);
+        QVERIFY(!first.received.last().value("headers").toObject().contains("authorization"));
+        const auto disk = settings.value("manual/httpProjectsV2").toByteArray();
+        QVERIFY(!disk.contains("first-private"));
+        QVERIFY(!disk.contains("second-private"));
+        QVERIFY(!disk.contains("scoped-password"));
+        QCOMPARE(widget<QComboBox>(page, "protocolAuthKind")->count(), 4);
+    }
+    void nativeConfigurationScreenshots() {
+        const auto target = qEnvironmentVariable("PORTBRIDGE_HTTP_CONFIGURATION_SCREENSHOT_DIR");
+        if (target.isEmpty())
+            QSKIP("Native configuration screenshots run separately.");
+        QDir().mkpath(target);
+        HttpProjectStore store(nullptr);
+        QWidget parent;
+        parent.resize(1000, 700);
+        QVERIFY(store.renameProject(QStringLiteral("会员服务联调")));
+        QVERIFY(store.renameEnvironment(QStringLiteral("本地开发")));
+        QVERIFY(store.setProjectVariables({variable("api_version", "v1"), variable("page_size", 20)}));
+        QVERIFY(store.setEnvironmentVariables({variable("base_url", "http://localhost:8080"),
+                                               variable("username", "demo"),
+                                               variable("access_token", "synthetic-secret", true)}));
+        QVERIFY(store.setProjectAuth({{"kind", "bearer"}, {"token", "{{access_token}}"}}));
+        for (bool dark : {true, false}) {
+            parent.setProperty("darkTheme", dark);
+            HttpConfigurationDialog dialog(&store, 0, &parent);
+            dialog.show();
+            QTest::qWait(60);
+            auto *tabs = widget<QTabWidget>(dialog, "httpSettingsTabs");
+            for (int tab = 0; tab < 4; ++tab) {
+                tabs->setCurrentIndex(tab);
+                QTest::qWait(40);
+                QVERIFY(dialog.grab().save(
+                    target + QString("/settings-%1-%2.png").arg(dark ? "dark" : "light").arg(tab)));
+                QVERIFY(dialog.rect().contains(dialog.findChild<QDialogButtonBox *>()->geometry()));
+            }
+            tabs->setCurrentIndex(2);
+            widget<QComboBox>(dialog, "httpProjectAuthKind")->setCurrentIndex(2);
+            QTest::qWait(40);
+            QVERIFY(dialog.grab().save(target + QString("/basic-%1.png").arg(dark ? "dark" : "light")));
+            dialog.reject();
+        }
     }
     void nativeProjectScreenshots() {
         const auto target = qEnvironmentVariable("PORTBRIDGE_HTTP_PROJECT_SCREENSHOT_DIR");

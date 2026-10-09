@@ -1,0 +1,20 @@
+********* Start testing of ProtocolDebugTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : ProtocolDebugTest::initTestCase()
+QWARN  : ProtocolDebugTest::httpRequestUpdatesOneStableHistoryRow() This plugin does not support propagateSizeHints()
+FAIL!  : ProtocolDebugTest::httpRequestUpdatesOneStableHistoryRow() Compared values are not the same
+   Actual   (history->model()->rowCount()): 0
+   Expected (1)                           : 1
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_protocol_debug.cpp(432) : failure location
+FAIL!  : ProtocolDebugTest::httpCancellationTimeoutAndCapacityReusePendingRow() Compared values are not the same
+   Actual   (session.entries().size()): 2
+   Expected (1)                       : 1
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_protocol_debug.cpp(478) : failure location
+FAIL!  : ProtocolDebugTest::httpReplacementAndClearKeepHistoryBounded() Compared values are not the same
+   Actual   (entry.direction): "PENDING"
+   Expected ("HTTP")         : HTTP
+C:/Users/threeTeeth/workSpace/github/PortBridge/tests/test_protocol_debug.cpp(523) : failure location
+PASS   : ProtocolDebugTest::cancelIsolatesLateHttpCallbacks()
+PASS   : ProtocolDebugTest::cleanupTestCase()
+Totals: 3 passed, 3 failed, 0 skipped, 0 blacklisted, 6035ms
+********* Finished testing of ProtocolDebugTest *********

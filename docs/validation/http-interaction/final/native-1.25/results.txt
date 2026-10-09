@@ -1,0 +1,12 @@
+********* Start testing of HttpProjectsTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : HttpProjectsTest::initTestCase()
+PASS   : HttpProjectsTest::configurationDialogCancelSaveAndSensitiveDefinitions()
+PASS   : HttpProjectsTest::configurationDialogRefusesChangedContext()
+PASS   : HttpProjectsTest::newEnvironmentOpensConfigurationAndStaysSilent()
+PASS   : HttpProjectsTest::newProjectConfiguresEnvironmentAndRequestUsesAddressTemplate()
+PASS   : HttpProjectsTest::browserFingerprintDialogEditsAndCancelsAtomically()
+PASS   : HttpProjectsTest::nativeConfigurationScreenshots()
+PASS   : HttpProjectsTest::cleanupTestCase()
+Totals: 8 passed, 0 failed, 0 skipped, 0 blacklisted, 4121ms
+********* Finished testing of HttpProjectsTest *********

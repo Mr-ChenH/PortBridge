@@ -130,7 +130,8 @@ ProtocolDebugSession::ProtocolDebugSession(Mode mode, QObject *parent)
                         latestId_ = id;
                         if (error.isEmpty())
                             add("HTTP",
-                                QStringLiteral("HTTP %1 · %2ms · %3B")
+                                QStringLiteral("%1 · HTTP %2 · %3ms · %4B")
+                                    .arg(snapshot_.value("method").toString("GET"))
                                     .arg(result.value("status").toInt())
                                     .arg(result.value("elapsedMs").toDouble())
                                     .arg(result.value("bodyBytes").toDouble()),
@@ -201,7 +202,8 @@ ProtocolDebugSession::ProtocolDebugSession(Mode mode, QObject *parent)
         if (!active())
             return;
         error_ = normalizedError(error);
-        add("ERROR", error_);
+        if (mode_ != Mode::Http || !activeId_.isEmpty())
+            add("ERROR", error_, {}, false, {}, mode_ == Mode::Http ? activeId_ : QString());
         emit changed();
     });
 }
@@ -276,8 +278,11 @@ bool ProtocolDebugSession::start(const QJsonObject &parameters, QString *error) 
     endpoint_ = parameters.value("url").toString();
     error_.clear();
     phase_ = mode_ == Mode::Http ? Phase::Requesting : Phase::Connecting;
-    add("START", mode_ == Mode::Http ? QStringLiteral("已明确发送HTTP请求；等待完整响应。")
-                                     : QStringLiteral("正在建立WebSocket连接。"));
+    if (mode_ == Mode::Http)
+        add("PENDING", QStringLiteral("%1 · 请求中…").arg(normalized.value("method").toString("GET")),
+            {}, false, {}, activeId_);
+    else
+        add("START", QStringLiteral("正在建立WebSocket连接。"));
     emit changed();
     if (mode_ == Mode::Http)
         client_->httpRequest(activeId_, normalized);
@@ -331,6 +336,7 @@ void ProtocolDebugSession::close(int code, const QString &reason) {
 void ProtocolDebugSession::cancel() {
     if (!active())
         return;
+    const auto operation = activeId_;
     ++epoch_;
     awaitLocalClose_ = false;
     client_->cancelAll();
@@ -340,7 +346,8 @@ void ProtocolDebugSession::cancel() {
     sending_.clear();
     sequenceId_.clear();
     phase_ = Phase::Idle;
-    add("CANCEL", QStringLiteral("已取消/释放；不能撤回已经发送的数据。"));
+    if (mode_ != Mode::Http || !operation.isEmpty())
+        add("CANCEL", QStringLiteral("已取消；不能撤回已经发送的数据。"), {}, false, {}, operation);
     emit changed();
 }
 void ProtocolDebugSession::add(QString direction, QString detail, QByteArray bytes, bool binary,
@@ -354,6 +361,19 @@ void ProtocolDebugSession::add(QString direction, QString detail, QByteArray byt
                          binary,
                          std::move(response),
                          0};
+    if (mode_ == Mode::Http && !e.operationId.isEmpty()) {
+        const auto existing =
+            std::find_if(entries_.begin(), entries_.end(), [&](const ProtocolDebugEntry &entry) {
+                return entry.operationId == e.operationId;
+            });
+        if (existing != entries_.end()) {
+            // A request keeps its identity and start time when the result replaces the pending row.
+            e.id = existing->id;
+            e.timestampMs = existing->timestampMs;
+            retainedBytes_ -= existing->cost;
+            entries_.erase(existing);
+        }
+    }
     e.payloadBytes = e.payload.size();
     if (!e.response.isEmpty())
         e.payloadBytes = qsizetype(e.response.value("bodyBytes").toDouble());

@@ -1,0 +1,24 @@
+{
+  "state": "passed",
+  "revision": "http-history-1",
+  "archive": "PortBridge-0.1.0-windows-x64.zip",
+  "sha256": "a7d621929da71b8ccc8daedc7919847cb0deb3918ab3eb4f068e107ea35ae532",
+  "archive_bytes": 120954877,
+  "files_hashed": 2492,
+  "source_inputs_verified": 91,
+  "application_sha256": "4485313a4802dd077c0e4763bd7ffa73da465a081867e62f4952f3766528e4cf",
+  "zip_integrity": true,
+  "all_extracted_hashes_match": true,
+  "application_matches_build": true,
+  "extracted_startup_exit": {
+    "http": 0,
+    "websocket": 0,
+    "workspace": 0,
+    "workflow": 0
+  },
+  "udp_completed_received": 500,
+  "tcp_completed_received": 500,
+  "previous_http_configuration_1_preserved": true,
+  "environment": "Windows system PATH only; QT* removed; extracted cwd",
+  "clean_windows_validated": false
+}

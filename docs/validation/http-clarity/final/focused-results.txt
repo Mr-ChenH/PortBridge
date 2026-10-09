@@ -1,0 +1,24 @@
+********* Start testing of HttpProjectsTest *********
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : HttpProjectsTest::initTestCase()
+QWARN  : HttpProjectsTest::auditRequestScopeEmptyStatesAndAddressStatus() This plugin does not support propagateSizeHints()
+QWARN  : HttpProjectsTest::auditRequestScopeEmptyStatesAndAddressStatus() This plugin does not support propagateSizeHints()
+PASS   : HttpProjectsTest::auditRequestScopeEmptyStatesAndAddressStatus()
+PASS   : HttpProjectsTest::configurationDialogCancelSaveAndSensitiveDefinitions()
+PASS   : HttpProjectsTest::configurationDialogRefusesChangedContext()
+QWARN  : HttpProjectsTest::newEnvironmentOpensConfigurationAndStaysSilent() This plugin does not support propagateSizeHints()
+QWARN  : HttpProjectsTest::newEnvironmentOpensConfigurationAndStaysSilent() This plugin does not support propagateSizeHints()
+PASS   : HttpProjectsTest::newEnvironmentOpensConfigurationAndStaysSilent()
+QWARN  : HttpProjectsTest::newProjectConfiguresEnvironmentAndRequestUsesAddressTemplate() This plugin does not support propagateSizeHints()
+QWARN  : HttpProjectsTest::newProjectConfiguresEnvironmentAndRequestUsesAddressTemplate() This plugin does not support propagateSizeHints()
+QWARN  : HttpProjectsTest::newProjectConfiguresEnvironmentAndRequestUsesAddressTemplate() This plugin does not support propagateSizeHints()
+QWARN  : HttpProjectsTest::newProjectConfiguresEnvironmentAndRequestUsesAddressTemplate() This plugin does not support propagateSizeHints()
+QWARN  : HttpProjectsTest::newProjectConfiguresEnvironmentAndRequestUsesAddressTemplate() This plugin does not support propagateSizeHints()
+QWARN  : HttpProjectsTest::newProjectConfiguresEnvironmentAndRequestUsesAddressTemplate() This plugin does not support propagateSizeHints()
+QWARN  : HttpProjectsTest::newProjectConfiguresEnvironmentAndRequestUsesAddressTemplate() This plugin does not support propagateSizeHints()
+QWARN  : HttpProjectsTest::newProjectConfiguresEnvironmentAndRequestUsesAddressTemplate() This plugin does not support propagateSizeHints()
+PASS   : HttpProjectsTest::newProjectConfiguresEnvironmentAndRequestUsesAddressTemplate()
+PASS   : HttpProjectsTest::browserFingerprintDialogEditsAndCancelsAtomically()
+PASS   : HttpProjectsTest::cleanupTestCase()
+Totals: 8 passed, 0 failed, 0 skipped, 0 blacklisted, 1422ms
+********* Finished testing of HttpProjectsTest *********

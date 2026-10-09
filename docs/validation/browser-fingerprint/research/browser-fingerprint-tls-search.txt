@@ -1,0 +1,265 @@
+--- Result 1 ---
+Title: GitHub - lexiforest/curl_cffi: Python binding for curl-impersonate fork via cffi. A http client that can impersonate browser tls/ja3/http2 fingerprints. · GitHub
+Link: https://github.com/lexiforest/curl_cffi
+Snippet: Python binding for curl-impersonate fork via cffi. <strong>A http client that can impersonate browser tls/ja3/http2 fingerprints</strong>. - lexiforest/curl_cffi
+Content:
+[Documentation](https://curl-cffi.readthedocs.io/)
+
+Python binding for [curl-impersonate fork](https://github.com/lexiforest/curl-impersonate) via [cffi](https://cffi.readthedocs.io/en/latest/). For commercial support, visit [impersonate.pro](https://impersonate.pro/).
+
+`curl_cffi` is the most popular Python binding for `curl`. Unlike other pure python http clients like `httpx` or `requests`, `curl_cffi` can impersonate browsers' TLS/JA3 and HTTP/2 fingerprints. If you are blocked by some website for no obvious reason, you can give `curl_cffi` a try.
+
+For JavaScript bindings, see [impers](https://github.com/lexiforest/impers), for solving JavaScript challenges, see [brimp](https://github.com/lexiforest/brimp).
+
+Python 3.10 is the minimum supported version since v0.14.
+
+## Recent highlights
+
+* 🧭 Our new toy, [brimp](https://github.com/lexiforest/brimp), a lightweight browser, works like curl\_cffi with JavaScript enabled. Try it out today!
+* 🆕 Added support for the new algorithm and extensions in Chrome 150/152.
+
+## Recall.ai - API for meeting recordings
+
+If you’re looking for a meeting recording API, consider checking out [Recall.ai](https://www.recall.ai/?utm_source=github&utm_medium=sponsorship&utm_campaign=lexiforest-curl_cffi), an API that records Zoom, Google Meet, Microsoft Teams, in-person meetings, and more.
+
+## Sponsors
+
+Maintenance of this project is made possible by all the [contributors](https://github.com/lexiforest/curl_cffi/graphs/contributors) and [sponsors](https://github.com/sponsors/lexiforest). If you'd like to sponsor this project and have your avatar or company logo appear below [click here](https://github.com/sponsors/lexiforest). 💖
+
+* * *
+
+### Bypass Cloudflare with API
+
+Yescaptcha is a proxy service that bypasses Cloudflare and uses the API interface to obtain verified cookies (e.g. `cf_clearance`). Click [here](https://yescaptcha.com/i/stfnIO) to register: [https://yescaptcha.com/i/stfnIO](https://yescaptcha.com/i/stfnIO)
+
+* * *
+
+TLS fingerprinting alone isn't enough for modern bot protection. [Hyper Solutions](https://hypersolutions.co/?utm_source=github&utm_medium=readme&utm_campaign=curl_cffi) provides the missing piece - API endpoints that generate valid antibot tokens for:
+
+Akamai • DataDome • Kasada • Incapsula
+
+No browser automation. Just simple API calls that return the exact cookies and headers these systems require.
+
+🚀 [Get Your API Key](https://hypersolutions.co/?utm_source=github&utm_medium=readme&utm_campaign=curl_cffi) | 📖 [Docs](https://docs.justhyped.dev/) | 💬 [Discord](https://discord.gg/akamai)
+
+* * *
+
+[cloro](https://cloro.dev/?utm_source=referral&utm_medium=curl_cffi): SERP and AI search API for Google, ChatGPT, Perplexity, Gemini, Copilot and Grok
+
+* * *
+
+## Impersonate Suite
+
+`curl-cffi` is part of the impersonate suite.
+
+* [curl-impersonate](https://github.com/lexiforest/curl-impersonate). A curl distribution that impersonates browsers.
+* [curl\_cffi](https://github.com/lexiforest/curl_cffi). Python binding to curl-impersonate.
+* [brimp](https://docs.brimp.ai/). Browser-impersonate, a lightweight browser
+* [impers](https://github.com/lexiforest/impers). Node.js binding to curl-impersonate.
+* [impersonate.pro](https://impersonate.pro/). Commercial support, more fingerprints and cloud offering.
+
+## Features
+
+* Supports JA3/TLS and http2 fingerprints impersonation, including recent browsers and custom fingerprints.
+* Much faster than requests/httpx, on par with aiohttp/pycurl, see [benchmarks](https://github.com/lexiforest/curl_cffi/tree/main/benchmark).
+* Mimics the requests API, no need to learn another one.
+* Pre-compiled, so you don't have to compile on your machine.
+* Supports `asyncio` with proxy rotation on each request.
+* Supports http 2.0, which requests does not.
+* Supports http 3.0, with fingerprints and udp proxy.
+* Supports websocket.
+* MIT licensed.
+
+| | requests | aiohttp | httpx | pycurl | curl\_cffi |
+| --- | --- | --- | --- | --- | --- |
+| http/2 | ❌ | ❌ | ✅ | ✅ | ✅ |
+| http/3 | ❌ | ❌ | ❌ | ☑️1 | ✅2 |
+| sync | ✅ | ❌ | ✅ | ✅ | ✅ |
+| async | ❌ | ✅ | ✅ | ❌ | ✅ |
+| websocket | ❌ | ✅ | ❌ | ❌ | ✅ |
+| native retry | ❌ | ❌ | ❌ | ❌ | ✅ |
+| fingerprints | ❌ | ❌ | ❌ | ❌ | ✅ |
+| speed | 🐇 | 🐇🐇 | 🐇 | 🐇🐇 | 🐇🐇 |
+
+Notes:
+
+1. For pycurl, http/3 is usually disabled at compile time by default.
+2. http/3 support since v0.11.4, http/3 proxy and fingerprints since v0.15.0.
+
+## Install
+
+```
+pip install curl_cffi --upgrade
+```
+
+This should work on Linux, macOS and Windows out of the box.
+
+On macOS, you can also install via Homebrew:
+
+```
+brew install lexiforest/tap/curl-cffi
+```
+
+To install beta releases:
+
+```
+pip install curl_cffi --upgrade --pre
+```
+
+To install unstable version from GitHub:
+
+```
+git clone https://github.com/lexiforest/curl_cffi/
+cd curl_cffi
+make preprocess
+pip install.
+```
+
+## Usage
+
+`curl_cffi` comes with a low-level `curl` API and a high-level `requests`\-like API. `curl_cffi` also bundles with a CLI called `curl-cffi`.
+
+### CLI
+
+Si
+
+--- Result 2 ---
+Title: GitHub - lwthiker/curl-impersonate: curl-impersonate: A special build of curl that can impersonate Chrome & Firefox · GitHub
+Link: https://github.com/lwthiker/curl-impersonate
+Snippet: <strong>A special build of curl that can impersonate the four major browsers: Chrome, Edge, Safari &amp; Firefox</strong>. curl-impersonate is able to perform TLS and HTTP handshakes that are identical to that of a real browser.
+Content:
+A special build of [curl](https://github.com/curl/curl) that can impersonate the four major browsers: Chrome, Edge, Safari & Firefox. curl-impersonate is able to perform TLS and HTTP handshakes that are identical to that of a real browser.
+
+curl-impersonate can be used either as a command line tool, similar to the regular curl, or as a library that can be integrated instead of the regular libcurl. See [Usage](#Basic-usage) below.
+
+## Why?
+
+When you use an HTTP client with a TLS website, it first performs a TLS handshake. The first message of that handshake is called Client Hello. The Client Hello message that most HTTP clients and libraries produce differs drastically from that of a real browser.
+
+If the server uses HTTP/2, then in addition to the TLS handshake there is also an HTTP/2 handshake where various settings are exchanged. The settings that most HTTP clients and libraries use differ as well from those of any real browsers.
+
+For these reasons, some web services use the TLS and HTTP handshakes to fingerprint which client is accessing them, and then present different content for different clients. These methods are known as [TLS fingerprinting](https://lwthiker.com/networks/2022/06/17/tls-fingerprinting.html) and [HTTP/2 fingerprinting](https://lwthiker.com/networks/2022/06/17/http2-fingerprinting.html) respectively. Their widespread use has led to the web becoming less open, less private and much more restrictive towards specific web clients
+
+With the modified curl in this repository, the TLS and HTTP handshakes look _exactly_ like those of a real browser.
+
+## How?
+
+To make this work, `curl` was patched significantly to resemble a browser. Specifically, The modifications that were needed to make this work:
+
+* Compiling curl with nss, the TLS library that Firefox uses, instead of OpenSSL. For the Chrome version, compiling with BoringSSL, Google's TLS library.
+* Modifying the way curl configures various TLS extensions and SSL options.
+* Adding support for new TLS extensions.
+* Changing the settings that curl uses for its HTTP/2 connections.
+* Running curl with some non-default flags, for example `--ciphers`, `--curves` and some `-H` headers.
+
+The resulting curl looks, from a network perspective, identical to a real browser.
+
+Read the full technical description in the blog posts: [part a](https://lwthiker.com/reversing/2022/02/17/curl-impersonate-firefox.html), [part b](https://lwthiker.com/reversing/2022/02/20/impersonating-chrome-too.html).
+
+## Supported browsers
+
+The following browsers can be impersonated.
+
+| Browser | Version | Build | OS | Target name | Wrapper script |
+| --- | --- | --- | --- | --- | --- |
+| | 99 | 99.0.4844.51 | Windows 10 | `chrome99` | [curl\_chrome99](https://github.com/lwthiker/curl-impersonate/blob/main/chrome/curl_chrome99) |
+| | 100 | 100.0.4896.75 | Windows 10 | `chrome100` | [curl\_chrome100](https://github.com/lwthiker/curl-impersonate/blob/main/chrome/curl_chrome100) |
+| | 101 | 101.0.4951.67 | Windows 10 | `chrome101` | [curl\_chrome101](https://github.com/lwthiker/curl-impersonate/blob/main/chrome/curl_chrome101) |
+| | 104 | 104.0.5112.81 | Windows 10 | `chrome104` | [curl\_chrome104](https://github.com/lwthiker/curl-impersonate/blob/main/chrome/curl_chrome104) |
+| | 107 | 107.0.5304.107 | Windows 10 | `chrome107` | [curl\_chrome107](https://github.com/lwthiker/curl-impersonate/blob/main/chrome/curl_chrome107) |
+| | 110 | 110.0.5481.177 | Windows 10 | `chrome110` | [curl\_chrome110](https://github.com/lwthiker/curl-impersonate/blob/main/chrome/curl_chrome110) |
+| | 116 | 116.0.5845.180 | Windows 10 | `chrome116` | [curl\_chrome116](https://github.com/lwthiker/curl-impersonate/blob/main/chrome/curl_chrome116) |
+| | 99 | 99.0.4844.73 | Android 12 | `chrome99_android` | [curl\_chrome99\_android](https://github.com/lwthiker/curl-impersonate/blob/main/chrome/curl_chrome99_android) |
+| | 99 | 99.0.1150.30 | Windows 10 | `edge99` | [curl\_edge99](https://github.com/lwthiker/curl-impersonate/blob/main/chrome/curl_edge99) |
+| | 101 | 101.0.1210.47 | Windows 10 | `edge101` | [curl\_edge101](https://github.com/lwthiker/curl-impersonate/blob/main/chrome/curl_edge101) |
+| | 91 ESR | 91.6.0esr | Windows 10 | `ff91esr` | [curl\_ff91esr](https://github.com/lwthiker/curl-impersonate/blob/main/firefox/curl_ff91esr) |
+| | 95 | 95.0.2 | Windows 10 | `ff95` | [curl\_ff95](https://github.com/lwthiker/curl-impersonate/blob/main/firefox/curl_ff95) |
+| | 98 | 98.0 | Windows 10 | `ff98` | [curl\_ff98](https://github.com/lwthiker/curl-impersonate/blob/main/firefox/curl_ff98) |
+| | 100 | 100.0 | Windows 10 | `ff100` | [curl\_ff100](https://github.com/lwthiker/curl-impersonate/blob/main/firefox/curl_ff100) |
+| | 102 | 102.0 | Windows 10 | `ff102` | [curl\_ff102](https://github.com/lwthiker/curl-impersonate/blob/main/firefox/curl_ff102) |
+| | 109 | 109.0 | Windows 10 | `ff109` | [curl\_ff109](https://github.com/lwthiker/curl-impersonate/blob/main/firefox/curl_ff109) |
+| | 117 | 117.0.1 | Windows 
+
+--- Result 3 ---
+Title: Use Curl Impersonate to scrape as Chrome or Firefox
+Link: https://scrapfly.io/blog/posts/curl-impersonate-scrape-chrome-firefox-tls-http2-fingerprint
+Age: August 10, 2026
+Snippet: Curl Impersonate <strong>modifies the regular Curl requests to make the TLS fingerprint identical to normal browsers</strong> by: Changing the TLS library from OpenSSL to NSS and BoringSSL. Modifying the configuration of various TLS extensions and SSL options.
+Content:
+Summarize this article with
+
+cURL is the most popular HTTP client which is also often used in web scraping. However, curl does suffer from one major problem - it can be easily identified and blocked through TLS and HTTP2 analysis and fingerprinting.
+
+TLS fingerprint is a combination of low-level details about the request. It leaks the use of HTTP clients, allowing websites to detect and block requests. But what about mimicking normal browsers' TLS fingerprints to scrape without getting blocked?
+
+In this article, we'll take a deep dive into the Curl Impersoate tool, which prevents TLS and HTTP2 fingerprinting by impersonating normal web browser configurations. We'll start by explaining what the Curl Impersonate is, how it works, how to install and use it. Finally, we'll explore using it with Python to avoid web scraping blocking. Let's dive in!
+
+## Key Takeaways
+
+Master curl impersonate for TLS fingerprinting bypass using Docker containers, Python curl\_cffi integration, and browser signature mimicry to avoid web scraping detection.
+
+* Use curl-impersonate Docker containers to mimic Chrome, Firefox, Edge, and Safari TLS fingerprints for undetectable requests
+* Configure curl\_cffi Python library for seamless curl-impersonate integration with session management and proxy support
+* Implement TLS library switching from OpenSSL to NSS and BoringSSL for authentic browser handshake signatures
+* Apply HTTP/2 multiplexing and TLS extension modifications to match real browser behavior patterns
+* Use specialized tools like ScrapFly for automated curl-impersonate management with anti-blocking features
+* Configure proper error handling and retry logic for reliable TLS fingerprint bypass operations
+
+**Get web scraping tips in your inbox**Trusted by 100K+ developers and 30K+ enterprises. Unsubscribe anytime.
+
+## What is Curl Impersonate?
+
+[Curl Impersonate](https://github.com/lwthiker/curl-impersonate) is a modified version of Curl which is a very popular command line library for sending HTTP requests. Curl is immensely popular and is found in almost all operating systems. So, curl impersonate is a less detectable version of curl that can be used for web scraping.
+
+Curl Impersonate mimics the TLS and HTTP2 configuration of the major web browsers, Chrome, Firefox, Edge and Safari. This allows it to perform the TLS handshake identically to web browsers. Let's have a closer look at what the TLS handshake is and how the Curl Impersonate performs it.
+
+## How Curl Impersonate Works?
+
+When a request is sent to a website with a TLS certificate over `HTTPS`, both the request and web server have to go over a process called the **TLS handshake**. During this handshake process, a few details about HTTP client capabilities are shared with the web server, creating a **TLS fingerprint**.
+
+Since HTTP clients differ in their details and capabilities, this **TLS fingerprint can be different from those of normal web browsers**. Leaking the usage of HTTP clients and allowing websites to detect them.
+
+Curl Impersonate modifies the regular Curl requests to make the TLS fingerprint identical to normal browsers by:
+
+* Changing the TLS library from OpenSSL to NSS and BoringSSL.
+* Modifying the configuration of various TLS extensions and SSL options.
+* Changing the default flags, such as `--ciphers`, `--curves` and some `-H` headers.
+* Supporting new TLS extensions and changing the configuration of HTTP2 connections.
+
+## How to Install Curl Impersonate?
+
+> This guide uses:
+> 
+> * Docker: 20.10+
+> * curl-impersonate: 0.5.4 (Docker tag: 0.5)
+> * Chrome impersonation: Chrome 110
+> * Firefox impersonation: Firefox 109
+
+Curl Impersonate can be installed using either Docker or source code compiling. In this article, we'll install Curl Impersonate using Docker. For other installation methods, refer to the [official installation docs](https://github.com/lwthiker/curl-impersonate/blob/main/INSTALL.md).
+
+**Docker Version Requirement**: This guide requires Docker 20.10 or higher. Check your version:
+
+shell
+
+```
+$ docker --version
+```
+
+The first step is installing Docker. If you don't have Docker installed, refer to the [official installation page](https://docs.docker.com/get-started/get-docker/) for detailed instructions. Next, we need to pull the Curl Impersonate Docker image for either Chrome or Firefox. The Chrome version is used to impersonate Chrome, Edge and Safari browsers, while the Firefox version impersonates the Firefox browser:
+
+shell
+
+```
+# Firefox version (impersonates Firefox 109)
+docker pull lwthiker/curl-impersonate:0.5-ff
+
+# Chrome version (impersonates Chrome 110)
+docker pull lwthiker/curl-impersonate:0.5-chrome
+```
+
+**Version Note**: The `0.5` tag corresponds to curl-impersonate version 0.5.4. The impersonated browser versions are Chrome 110 and Firefox 109, which are included in the Docker image.
+
+Now we have pulled the Curl Impersonate Docker image, let's use it and evaluate its TLS modification capabilities!
+
+## How to Use Curl Imperso
+

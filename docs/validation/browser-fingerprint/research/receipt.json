@@ -1,0 +1,50 @@
+{
+  "state": "retrieved",
+  "method": "brave-search/search.js and content.js",
+  "results": [
+    {
+      "file": "browser-fingerprint-search.txt",
+      "source": "Brave query: MDN User-Agent Client hints Sec-CH-UA Sec-CH-UA-Platform browser fingerprint HTTP TLS curl impersonate",
+      "bytes": 21368,
+      "sha256": "519777f401566e1404c45521330487e8a1546e65673f087ce10303cd9b1c75e5",
+      "commandExitCode": 0
+    },
+    {
+      "file": "browser-fingerprint-ua-search.txt",
+      "source": "Brave query: site.chromium.org updates ua reduction Windows NT 10.0 macOS 10_15_7 user agent",
+      "bytes": 12177,
+      "sha256": "491cc02d9aace1255da784bcca6679ba2fd92a12955599e4eb570d4b7e2f6ac7",
+      "commandExitCode": 0
+    },
+    {
+      "file": "browser-fingerprint-tls-search.txt",
+      "source": "Brave query: site.github.com curl-impersonate TLS HTTP2 fingerprint Firefox Chrome",
+      "bytes": 16449,
+      "sha256": "166140bf5eaba90ad26b683f81a7bdd8a861456bf0cd4fe08ad14d9ce5e49912",
+      "commandExitCode": 0
+    },
+    {
+      "file": "browser-fingerprint-mdn-ch.txt",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Sec-CH-UA",
+      "bytes": 5910,
+      "sha256": "b3a8e0dabb186669325a1df20b2d222dcd0acc20ab327bf52e4a018874e572a1",
+      "commandExitCode": 0
+    },
+    {
+      "file": "browser-fingerprint-mdn-firefox.txt",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/User-Agent/Firefox",
+      "bytes": 8858,
+      "sha256": "76b067dfd28d7e2377a14e3524d51ab8b07d47571570217eb9a910e41a0328d8",
+      "commandExitCode": 0
+    },
+    {
+      "file": "browser-fingerprint-edge.txt",
+      "source": "https://learn.microsoft.com/en-us/microsoft-edge/web-platform/user-agent-guidance",
+      "bytes": 12841,
+      "sha256": "267753f026d765090026c47857c734fddcc1f445ff382d9b0ec185367a2792d0",
+      "commandExitCode": 0
+    }
+  ],
+  "httpStatusNotReportedBySkill": true,
+  "sourcesNotLatestBrowserGuarantee": true
+}

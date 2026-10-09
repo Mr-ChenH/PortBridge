@@ -1,0 +1,61 @@
+{
+  "state": "passed",
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 111.711
+    },
+    {
+      "name": "focused",
+      "exitCode": 0,
+      "seconds": 1.558
+    },
+    {
+      "name": "ctest-http_projects",
+      "exitCode": 0,
+      "seconds": 20.188
+    },
+    {
+      "name": "ctest-protocol_debug",
+      "exitCode": 0,
+      "seconds": 43.428
+    },
+    {
+      "name": "ctest-ui",
+      "exitCode": 0,
+      "seconds": 52.365
+    },
+    {
+      "name": "native-1",
+      "exitCode": 0,
+      "seconds": 8.477
+    },
+    {
+      "name": "native-creation-1",
+      "exitCode": 0,
+      "seconds": 7.746
+    },
+    {
+      "name": "native-1.25",
+      "exitCode": 0,
+      "seconds": 9.134
+    },
+    {
+      "name": "native-creation-1.25",
+      "exitCode": 0,
+      "seconds": 7.332
+    },
+    {
+      "name": "native-1.5",
+      "exitCode": 0,
+      "seconds": 9.38
+    },
+    {
+      "name": "native-creation-1.5",
+      "exitCode": 0,
+      "seconds": 7.944
+    }
+  ],
+  "sourceUnchanged": true
+}

@@ -1,36 +1,37 @@
-#include <QtTest>
-#include "ui/protocol_preview.hpp"
-#include "ui/protocol_debug_page.hpp"
+#include "ui/http_project_store.hpp"
 #include "ui/main_window.hpp"
+#include "ui/protocol_debug_page.hpp"
+#include "ui/protocol_preview.hpp"
 #include "ui/workflow_page.hpp"
-#include <QTcpServer>
-#include <QTcpSocket>
-#include <QUdpSocket>
-#include <QWebSocketServer>
-#include <QWebSocket>
-#include <QTemporaryDir>
-#include <QSettings>
-#include <QStandardPaths>
-#include <QPointer>
-#include <QLineEdit>
-#include <QPlainTextEdit>
-#include <QUrlQuery>
-#include <QListWidget>
-#include <QTableWidget>
-#include <QTableView>
-#include <QTabWidget>
-#include <QPushButton>
 #include <QCheckBox>
+#include <QClipboard>
 #include <QComboBox>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QLabel>
+#include <QLineEdit>
+#include <QListWidget>
+#include <QMessageBox>
+#include <QPlainTextEdit>
+#include <QPointer>
+#include <QPushButton>
+#include <QSaveFile>
+#include <QSettings>
 #include <QSpinBox>
 #include <QSplitter>
-#include <QLabel>
-#include <QMessageBox>
-#include <QClipboard>
-#include <QDialogButtonBox>
-#include <QDialog>
+#include <QStandardPaths>
+#include <QTabWidget>
+#include <QTableView>
+#include <QTableWidget>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <QTemporaryDir>
 #include <QTimer>
-#include <QSaveFile>
+#include <QUdpSocket>
+#include <QUrlQuery>
+#include <QWebSocket>
+#include <QWebSocketServer>
+#include <QtTest>
 
 using namespace portbridge;
 namespace {
@@ -126,10 +127,11 @@ struct WsFixture {
                 texts.append(value);
                 p->sendTextMessage(value);
             });
-            QObject::connect(p, &QWebSocket::binaryMessageReceived, p, [this, p](const QByteArray &value) {
-                binary.append(value);
-                p->sendBinaryMessage(value);
-            });
+            QObject::connect(p, &QWebSocket::binaryMessageReceived, p,
+                             [this, p](const QByteArray &value) {
+                                 binary.append(value);
+                                 p->sendBinaryMessage(value);
+                             });
             QObject::connect(p, &QWebSocket::disconnected, p, &QObject::deleteLater);
             p->sendTextMessage(QStringLiteral("主动推送"));
         });
@@ -211,7 +213,8 @@ class ProtocolDebugTest : public QObject {
                           directory.filePath(QString::fromLatin1(QTest::currentTestFunction())));
     }
     void noFloatingControlsCoverTheEditor() {
-        for (const auto mode : {ProtocolDebugSession::Mode::Http, ProtocolDebugSession::Mode::WebSocket}) {
+        for (const auto mode :
+             {ProtocolDebugSession::Mode::Http, ProtocolDebugSession::Mode::WebSocket}) {
             ProtocolDebugPage page(mode, nullptr);
             page.resize(1180, 900);
             page.show();
@@ -259,7 +262,8 @@ class ProtocolDebugTest : public QObject {
         if (w.property("darkTheme").toBool() != dark)
             widget<QPushButton>(w, "themeButton")->click();
         const int rawCount = widget<QListWidget>(w, "profileList")->count();
-        auto *page = w.findChild<ProtocolDebugPage *>(kind == 4 ? "httpDebugPage" : "webSocketDebugPage");
+        auto *page =
+            w.findChild<ProtocolDebugPage *>(kind == 4 ? "httpDebugPage" : "webSocketDebugPage");
         QVERIFY(page);
         const int saved = widget<QListWidget>(*page, "protocolLibrary")->count();
         QTimer::singleShot(0, [&] {
@@ -273,29 +277,44 @@ class ProtocolDebugTest : public QObject {
             card->click();
             QVERIFY(card->isChecked());
             auto *name = widget<QLineEdit>(*dialog, "profileName");
-            name->setText(kind == 4 ? "HTTP health" : "WS realtime");
             auto *url = widget<QLineEdit>(*dialog, "profileProtocolUrl");
-            QVERIFY(url->isVisible());
-            url->setText("invalid-url");
+            QCOMPARE(url->isVisible(), kind == 5);
             auto *save = dialog->findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Save);
+            name->clear();
             save->click();
             QVERIFY(dialog->isVisible());
             QVERIFY(widget<QLabel>(*dialog, "profileDialogError")->isVisible());
-            url->setText(kind == 4 ? http.url() : ws.url());
+            name->setText(kind == 4 ? "HTTP health" : "WS realtime");
+            if (kind == 5) {
+                url->setText("invalid-url");
+                save->click();
+                QVERIFY(dialog->isVisible());
+                QVERIFY(widget<QLabel>(*dialog, "profileDialogError")->isVisible());
+                url->setText(ws.url());
+            } else {
+                QCOMPARE(widget<QLabel>(*dialog, "profileNameCaption")->text(), QString("请求名称"));
+                auto *scope = widget<QLabel>(*dialog, "profileHttpContext");
+                QVERIFY(scope->isVisible());
+                QVERIFY(
+                    scope->text().contains(page->projectStore()->project().value("name").toString()));
+                QVERIFY(scope->text().contains(
+                    page->projectStore()->environment().value("name").toString()));
+            }
             QTest::qWait(60);
             for (int i = 0; i < 6; ++i) {
                 auto *type =
                     widget<QPushButton>(*dialog, QString("profileType%1").arg(i).toUtf8().constData());
-                QVERIFY(type->height()>=82);
+                QVERIFY(type->height() >= 82);
                 QVERIFY(dialog->rect().contains(QRect(type->mapTo(dialog, QPoint()), type->size())));
             }
             QVERIFY(dialog->rect().contains(QRect(save->mapTo(dialog, QPoint()), save->size())));
             const auto folder = qEnvironmentVariable("PORTBRIDGE_MANUAL_SCREENSHOT_DIR");
             if (!folder.isEmpty()) {
                 QDir().mkpath(folder);
-                dialog->grab().save(folder + QString("/create-%1-%2.png")
-                                                 .arg(kind)
-                                                 .arg(w.property("darkTheme").toBool() ? "dark" : "light"));
+                dialog->grab().save(folder +
+                                    QString("/create-%1-%2.png")
+                                        .arg(kind)
+                                        .arg(w.property("darkTheme").toBool() ? "dark" : "light"));
             }
             save->click();
         });
@@ -306,6 +325,10 @@ class ProtocolDebugTest : public QObject {
         QVERIFY(!page->dirty());
         QVERIFY(!page->session()->active());
         QVERIFY(!raw.connected());
+        if (kind == 4) {
+            QCOMPARE(widget<QLineEdit>(*page, "protocolUrl")->text(), QString("{{base_url}}/"));
+            QCOMPARE(widget<QPushButton>(*page, "protocolSave")->text(), QString("保存请求"));
+        }
         QCOMPARE(http.requests.size(), 0);
         QCOMPARE(ws.accepts, 0);
     }
@@ -363,8 +386,8 @@ class ProtocolDebugTest : public QObject {
         QVERIFY(!s->session()->active());
         QVERIFY(!c.connected());
         QString error;
-        QVERIFY(h->loadDraft({{"schemaVersion", 1}, {"kind", "http"}, {"params", parameters(http.url())}},
-                             &error));
+        QVERIFY(h->loadDraft(
+            {{"schemaVersion", 1}, {"kind", "http"}, {"params", parameters(http.url())}}, &error));
         QTest::qWait(100);
         QCOMPARE(http.requests.size(), 0);
     }
@@ -412,6 +435,175 @@ class ProtocolDebugTest : public QObject {
         QVERIFY(!s.start(p, &error));
         QCOMPARE(called, 0);
         QVERIFY(!s.active());
+    }
+    void httpRequestUpdatesOneStableHistoryRow() {
+        HttpFixture server;
+        ProtocolDebugPage page(ProtocolDebugSession::Mode::Http, nullptr);
+        page.resize(1180, 900);
+        page.show();
+        url(page, server.url("/late"));
+        page.triggerSend();
+        auto *history = widget<QTableView>(page, "protocolHistory");
+        QCOMPARE(page.session()->entries().size(), 1);
+        const auto pending = page.session()->entries().first();
+        QCOMPARE(pending.direction, "PENDING");
+        QVERIFY(!pending.operationId.isEmpty());
+        QTRY_COMPARE_WITH_TIMEOUT(history->model()->rowCount(), 1, 3000);
+        QCOMPARE(history->model()->index(0, 1).data().toString(), QStringLiteral("请求中"));
+        QTRY_VERIFY_WITH_TIMEOUT(!page.session()->active(), 3000);
+        QCOMPARE(page.session()->entries().size(), 1);
+        QCOMPARE(page.session()->entries().first().id, pending.id);
+        QCOMPARE(page.session()->entries().first().timestampMs, pending.timestampMs);
+        QCOMPARE(page.session()->entries().first().operationId, pending.operationId);
+        QCOMPARE(page.session()->latestOperation(), pending.operationId);
+        QCOMPARE(history->model()->rowCount(), 1);
+        QTRY_COMPARE_WITH_TIMEOUT(history->model()->index(0, 1).data().toString(),
+                                  QStringLiteral("已响应"), 3000);
+        QVERIFY(history->model()->index(0, 2).data().toString().contains("HTTP 200"));
+        QVERIFY(widget<QPlainTextEdit>(page, "protocolResponseBody")->toPlainText().contains("/late"));
+        url(page, server.url("/unauthorized"));
+        page.triggerSend();
+        QCOMPARE(page.session()->entries().size(), 2);
+        QCOMPARE(page.session()->entries().first().id, pending.id);
+        QTRY_COMPARE_WITH_TIMEOUT(history->model()->rowCount(), 2, 3000);
+        history->setCurrentIndex(history->model()->index(0, 0));
+        QTRY_VERIFY_WITH_TIMEOUT(!page.session()->active(), 3000);
+        QCOMPARE(history->model()->rowCount(), 2);
+        QCOMPARE(history->currentIndex().row(), 0);
+        QCOMPARE(page.session()->entries().last().response.value("status").toInt(), 401);
+        QTRY_COMPARE_WITH_TIMEOUT(history->model()->index(1, 1).data().toString(),
+                                  QStringLiteral("已响应"), 3000);
+        QVERIFY(history->model()->index(1, 2).data().toString().contains("HTTP 401"));
+        QVERIFY(widget<QPlainTextEdit>(page, "protocolResponseBody")->toPlainText().contains("/late"));
+        history->setCurrentIndex(history->model()->index(1, 0));
+        QVERIFY(widget<QPlainTextEdit>(page, "protocolResponseBody")
+                    ->toPlainText()
+                    .contains("/unauthorized"));
+        QCOMPARE(count(*page.session(), "START"), 0);
+        QCOMPARE(count(*page.session(), "PENDING"), 0);
+    }
+    void httpCancellationTimeoutAndCapacityReusePendingRow() {
+        HttpFixture server;
+        ProtocolDebugSession session(ProtocolDebugSession::Mode::Http);
+        QString error;
+        QVERIFY(!session.start(parameters("invalid"), &error));
+        QVERIFY(session.entries().isEmpty());
+        session.setStartGuard([](QString *) { return false; });
+        QVERIFY(!session.start(parameters(server.url()), &error));
+        QVERIFY(session.entries().isEmpty());
+        QCOMPARE(server.requests.size(), 0);
+        session.setStartGuard({});
+        QVERIFY(session.start(parameters(server.url("/late"))));
+        const auto canceled = session.entries().last().id;
+        QTRY_COMPARE_WITH_TIMEOUT(server.requests.size(), 1, 3000);
+        session.cancel();
+        QCOMPARE(session.entries().size(), 1);
+        QCOMPARE(session.entries().last().id, canceled);
+        QCOMPARE(session.entries().last().direction, "CANCEL");
+        QTest::qWait(600);
+        QCOMPARE(session.entries().size(), 1);
+        QCOMPARE(count(session, "HTTP"), 0);
+        auto timeout = parameters(server.url("/late"));
+        timeout["timeoutMs"] = 100;
+        timeout["connectTimeoutMs"] = 100;
+        QVERIFY(session.start(timeout));
+        const auto failed = session.entries().last().id;
+        QTRY_VERIFY_WITH_TIMEOUT(!session.active(), 3000);
+        QCOMPARE(session.entries().size(), 2);
+        QCOMPARE(session.entries().last().id, failed);
+        QCOMPARE(session.entries().last().direction, "ERROR");
+        QVERIFY(!session.lastError().isEmpty());
+        auto cap = parameters(server.url("/large"));
+        cap["maxResponseBytes"] = 128;
+        QVERIFY(session.start(cap));
+        const auto over = session.entries().last().id;
+        QTRY_VERIFY_WITH_TIMEOUT(!session.active(), 3000);
+        QCOMPARE(session.entries().size(), 3);
+        QCOMPARE(session.entries().last().id, over);
+        QCOMPARE(session.entries().last().direction, "ERROR");
+        QTest::qWait(600);
+        QCOMPARE(session.entries().size(), 3);
+        QCOMPARE(count(session, "PENDING"), 0);
+    }
+    void httpReplacementAndClearKeepHistoryBounded() {
+        HttpFixture server;
+        ProtocolDebugSession session(ProtocolDebugSession::Mode::Http);
+        QVERIFY(session.start(parameters(server.url("/late"))));
+        const auto pending = session.entries().last();
+        session.clearHistory();
+        QCOMPARE(session.retainedBytes(), 0);
+        QTRY_VERIFY_WITH_TIMEOUT(!session.active(), 3000);
+        QCOMPARE(session.entries().size(), 1);
+        QVERIFY(session.entries().first().id != pending.id);
+        QCOMPARE(session.entries().first().operationId, pending.operationId);
+        for (int i = 0; i < 70; ++i) {
+            QVERIFY(session.start(parameters(server.url())));
+            QTRY_VERIFY_WITH_TIMEOUT(!session.active(), 3000);
+            qsizetype cost = 0;
+            for (const auto &entry : session.entries()) {
+                cost += entry.cost;
+                QCOMPARE(entry.direction, "HTTP");
+            }
+            QCOMPARE(session.retainedBytes(), cost);
+            QVERIFY(cost <= 16 * 1024 * 1024);
+            QVERIFY(session.entries().size() <= 64);
+        }
+        QCOMPARE(server.requests.size(), 71);
+        QVERIFY(session.omitted() > 0);
+        QCOMPARE(session.entries().last().operationId, session.latestOperation());
+        session.clearHistory();
+        QVERIFY(session.entries().isEmpty());
+        QCOMPARE(session.retainedBytes(), 0);
+        QCOMPARE(session.omitted(), 0);
+    }
+    void nativeHttpRequestHistoryScreenshots() {
+        const auto target = qEnvironmentVariable("PORTBRIDGE_HTTP_HISTORY_SCREENSHOT_DIR");
+        if (target.isEmpty())
+            QSKIP("Native HTTP history screenshots run separately.");
+        QDir().mkpath(target);
+        HttpFixture server;
+        SessionController raw;
+        MainWindow theme(&raw);
+        ProtocolDebugPage page(ProtocolDebugSession::Mode::Http, nullptr);
+        page.resize(1180, 820);
+        page.show();
+        for (bool dark : {true, false}) {
+            if (theme.property("darkTheme").toBool() != dark)
+                widget<QPushButton>(theme, "themeButton")->click();
+            page.setDarkTheme(dark);
+            page.setStyleSheet(
+                theme.styleSheet() + page.styleSheet() +
+                QString("#httpDebugPage {background:%1;}").arg(dark ? "#101618" : "#f5f7f7"));
+            page.session()->clearHistory();
+            url(page, server.url("/late"));
+            page.triggerSend();
+            QTest::qWait(40);
+            QTRY_COMPARE_WITH_TIMEOUT(widget<QTableView>(page, "protocolHistory")->model()->rowCount(),
+                                      1, 3000);
+            QTRY_COMPARE_WITH_TIMEOUT(
+                widget<QTableView>(page, "protocolHistory")->model()->index(0, 1).data().toString(),
+                QStringLiteral("请求中"), 3000);
+            QVERIFY(page.grab().save(target + (dark ? "/pending-dark.png" : "/pending-light.png")));
+            QTRY_VERIFY_WITH_TIMEOUT(!page.session()->active(), 3000);
+            QTRY_COMPARE_WITH_TIMEOUT(
+                widget<QTableView>(page, "protocolHistory")->model()->index(0, 1).data().toString(),
+                QStringLiteral("已响应"), 3000);
+            QCOMPARE(widget<QTableView>(page, "protocolHistory")->model()->rowCount(), 1);
+            QVERIFY(page.grab().save(target + (dark ? "/response-dark.png" : "/response-light.png")));
+            url(page, server.url("/unauthorized"));
+            page.triggerSend();
+            QTRY_VERIFY_WITH_TIMEOUT(!page.session()->active(), 3000);
+            QTRY_COMPARE_WITH_TIMEOUT(widget<QTableView>(page, "protocolHistory")->model()->rowCount(),
+                                      2, 3000);
+            QTRY_VERIFY_WITH_TIMEOUT(widget<QTableView>(page, "protocolHistory")
+                                         ->model()
+                                         ->index(1, 2)
+                                         .data()
+                                         .toString()
+                                         .contains("HTTP 401"),
+                                     3000);
+            QVERIFY(page.grab().save(target + (dark ? "/non2xx-dark.png" : "/non2xx-light.png")));
+        }
     }
     void cancelIsolatesLateHttpCallbacks() {
         HttpFixture server;
@@ -615,8 +807,8 @@ class ProtocolDebugTest : public QObject {
                                 << QString("object-private-value");
         QTest::newRow("escaped-key") << QString("{\"to\\u006ben\":\"escaped-private-value\"}")
                                      << QString("escaped-private-value");
-        QTest::newRow("long-value") << (QString("{\"token\":\"") + QString(5000, 's') + "\"}")
-                                    << QString(128, 's');
+        QTest::newRow("long-value")
+            << (QString("{\"token\":\"") + QString(5000, 's') + "\"}") << QString(128, 's');
         QTest::newRow("large-body") << (QString("{\"padding\":\"") + QString(300000, 'x') +
                                         "\",\"token\":\"late-private-value\"}")
                                     << QString("late-private-value");
@@ -648,7 +840,8 @@ class ProtocolDebugTest : public QObject {
         for (int at = 0; at < tabs->count(); ++at) {
             tabs->setCurrentIndex(at);
             auto *view = qobject_cast<QPlainTextEdit *>(tabs->currentWidget());
-            if(!view)view=tabs->currentWidget()->findChild<QPlainTextEdit*>();
+            if (!view)
+                view = tabs->currentWidget()->findChild<QPlainTextEdit *>();
             QVERIFY(view);
             QVERIFY(!view->toPlainText().contains(secret));
             QVERIFY(!view->toPlainText().contains("response-private-secret"));
@@ -691,9 +884,12 @@ class ProtocolDebugTest : public QObject {
                 break;
             next->click();
         } while (true);
-        QCOMPARE(actual, QByteArray::fromBase64(
-                             page.session()->latestResponse().value("bodyBase64").toString().toLatin1()));
-        QVERIFY(widget<QPlainTextEdit>(page, "protocolResponseBody")->toPlainText().endsWith("payload-tail"));
+        QCOMPARE(actual,
+                 QByteArray::fromBase64(
+                     page.session()->latestResponse().value("bodyBase64").toString().toLatin1()));
+        QVERIFY(widget<QPlainTextEdit>(page, "protocolResponseBody")
+                    ->toPlainText()
+                    .endsWith("payload-tail"));
     }
     void actualWebSocketTextBinaryEmptyAndClose() {
         WsFixture server;
@@ -775,8 +971,9 @@ class ProtocolDebugTest : public QObject {
         QTRY_VERIFY(count(*page.session(), "RX") >= 2);
         QCOMPARE(widget<QTableView>(page, "protocolHistory")->model()->rowCount(), displayed);
         pause->setChecked(false);
-        QTRY_VERIFY(
-            widget<QPlainTextEdit>(page, "protocolResponseBody")->toPlainText().contains("during-pause"));
+        QTRY_VERIFY(widget<QPlainTextEdit>(page, "protocolResponseBody")
+                        ->toPlainText()
+                        .contains("during-pause"));
         widget<QPlainTextEdit>(page, "protocolMessage")->setPlainText("0G");
         widget<QComboBox>(page, "protocolMessageKind")->setCurrentIndex(1);
         page.triggerSend();
@@ -931,7 +1128,8 @@ class ProtocolDebugTest : public QObject {
         widget<QSpinBox>(page, "protocolCapacity")->setValue(1);
         page.triggerSend();
         QTRY_VERIFY_WITH_TIMEOUT(page.session()->connected(), 3000);
-        QCOMPARE(server.peer->request().rawHeader("Authorization"), QByteArray("Bearer handshake-value"));
+        QCOMPARE(server.peer->request().rawHeader("Authorization"),
+                 QByteArray("Bearer handshake-value"));
         QCOMPARE(server.peer->request().rawHeader("X-Manual"), QByteArray("present"));
         QString error;
         QVERIFY(!page.session()->sendMessage(QByteArray(1025, 'x'), true, &error));

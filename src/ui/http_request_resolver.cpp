@@ -1,4 +1,5 @@
 #include "http_request_resolver.hpp"
+#include "http_browser_fingerprint.hpp"
 #include "protocol_preview.hpp"
 #include <QJsonDocument>
 #include <QRegularExpression>
@@ -59,6 +60,11 @@ QJsonObject resolveHttpRequest(const QJsonObject &request, const HttpProjectStor
             return fail(QStringLiteral("重复请求头：") + key);
         headers[key] = expand(row.value("value").toString());
     }
+    const auto fingerprintHeaders = httpFingerprint::headerTemplates(
+        store.environment().value("browserFingerprint").toObject(), target.scheme() == "https");
+    for (auto it = fingerprintHeaders.begin(); it != fingerprintHeaders.end(); ++it)
+        if (!contains(it.key()))
+            headers[it.key()] = expand(it.value().toString());
     int auth = edit.value("authKind").toInt();
     QString token = edit.value("token").toString(), username = edit.value("username").toString(),
             password = edit.value("password").toString();

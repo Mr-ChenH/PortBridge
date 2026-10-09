@@ -32,6 +32,7 @@ class HttpProjectStore {
     bool setProjectVariables(const QJsonArray &variables, QString *error = nullptr);
     bool setEnvironmentVariables(const QJsonArray &variables, QString *error = nullptr);
     bool setProjectAuth(const QJsonObject &auth, QString *error = nullptr);
+    bool setBrowserFingerprint(const QJsonObject &configuration, QString *error = nullptr);
     bool saveConfiguration(const QString &projectId, const QString &environmentId, quint64 revision,
                            const QJsonObject &configuration, const QStringList &clearRuntime,
                            QString *error = nullptr);

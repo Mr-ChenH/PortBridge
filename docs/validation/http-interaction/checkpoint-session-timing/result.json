@@ -1,0 +1,21 @@
+{
+  "state": "failed",
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 16.28
+    },
+    {
+      "name": "focused",
+      "exitCode": 0,
+      "seconds": 0.711
+    },
+    {
+      "name": "ctest-all",
+      "exitCode": 1,
+      "seconds": 207.178
+    }
+  ],
+  "error": "AssertionError()"
+}

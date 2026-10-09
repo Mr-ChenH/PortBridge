@@ -175,8 +175,10 @@ class Timeline final : public QAbstractTableModel {
     struct Row {
         quint64 id;
         QString time, direction, detail;
+        int status = 0;
     };
     QVector<Row> rows;
+    bool http = false;
     bool dark = true;
     int rowCount(const QModelIndex &parent = {}) const override {
         return parent.isValid() ? 0 : rows.size();
@@ -184,8 +186,9 @@ class Timeline final : public QAbstractTableModel {
     int columnCount(const QModelIndex &parent = {}) const override { return parent.isValid() ? 0 : 3; }
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override {
         if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
-            return QStringList{QStringLiteral("时间"), QStringLiteral("方向"),
-                               QStringLiteral("事件 / 消息")}
+            return QStringList{QStringLiteral("时间"),
+                               http ? QStringLiteral("状态") : QStringLiteral("方向"),
+                               http ? QStringLiteral("请求 / 响应") : QStringLiteral("事件 / 消息")}
                 .value(section);
         return {};
     }
@@ -193,21 +196,40 @@ class Timeline final : public QAbstractTableModel {
         if (!index.isValid() || index.row() >= rows.size())
             return {};
         const auto &row = rows[index.row()];
-        if (role == Qt::DisplayRole)
-            return index.column() == 0 ? row.time : index.column() == 1 ? row.direction : row.detail;
+        if (role == Qt::DisplayRole) {
+            QString state = row.direction;
+            if (http) {
+                if (state == "PENDING")
+                    state = QStringLiteral("请求中");
+                else if (state == "HTTP")
+                    state = QStringLiteral("已响应");
+                else if (state == "ERROR")
+                    state = QStringLiteral("失败");
+                else if (state == "CANCEL")
+                    state = QStringLiteral("已取消");
+            }
+            return index.column() == 0 ? row.time : index.column() == 1 ? state : row.detail;
+        }
         if (role == Qt::ForegroundRole)
-            return QColor(row.direction == "TX"      ? (dark ? "#ffad5c" : "#9a4300")
-                          : row.direction == "RX"    ? (dark ? "#68ed9d" : "#116b35")
+            return QColor(row.direction == "HTTP" && row.status >= 400 ? (dark ? "#ffbd70" : "#925400")
+                          : row.direction == "HTTP"                    ? (dark ? "#68ed9d" : "#116b35")
+                          : row.direction == "PENDING"                 ? (dark ? "#85dec4" : "#176e58")
+                          : row.direction == "TX"                      ? (dark ? "#ffad5c" : "#9a4300")
+                          : row.direction == "RX"                      ? (dark ? "#68ed9d" : "#116b35")
                           : row.direction == "ERROR" ? (dark ? "#ef7e7e" : "#a93731")
                                                      : (dark ? "#8b9a9f" : "#5e7379"));
         return {};
     }
     void refresh(const ProtocolDebugSession &session, const SecretSamples &secrets) {
         beginResetModel();
+        http = session.mode() == ProtocolDebugSession::Mode::Http;
         rows.clear();
-        for (const auto &e : session.entries())
+        for (const auto &e : session.entries()) {
+            const auto response =
+                e.operationId == session.latestOperation() ? session.latestResponse() : e.response;
             rows.append({e.id, QDateTime::fromMSecsSinceEpoch(e.timestampMs).toString("HH:mm:ss.zzz"),
-                         e.direction, redactText(e.detail, secrets)});
+                         e.direction, redactText(e.detail, secrets), response.value("status").toInt()});
+        }
         endResetModel();
     }
 };
@@ -332,7 +354,7 @@ struct ProtocolDebugPage::Impl : QObject {
     bool agreeToReplace() {
         if (!dirty)
             return true;
-        QMessageBox dialog(QMessageBox::Question, QStringLiteral("载入请求方案"),
+        QMessageBox dialog(QMessageBox::Question, QStringLiteral("载入请求配置"),
                            QStringLiteral("载入会放弃当前未保存编辑；不会发送请求或建立连接。"),
                            QMessageBox::Yes | QMessageBox::No, q);
         dialog.setObjectName("protocolDraftReplaceConfirmation");
@@ -358,7 +380,7 @@ void ProtocolDebugPage::Impl::build() {
     auto *side = new QVBoxLayout(libraryPanel);
     side->setContentsMargins(12, 16, 12, 12);
     side->setSpacing(8);
-    auto *title = text(http ? QStringLiteral("HTTP 请求方案") : QStringLiteral("WebSocket 方案"));
+    auto *title = text(http ? QStringLiteral("HTTP 请求") : QStringLiteral("WebSocket 连接"));
     title->setFont(design::font(13, false, true));
     if (!http)
         side->addWidget(title);
@@ -400,13 +422,16 @@ void ProtocolDebugPage::Impl::build() {
         };
     }
     search = line("protocolLibrarySearch", 256);
-    search->setPlaceholderText(QStringLiteral("搜索方案…"));
+    search->setPlaceholderText(http ? QStringLiteral("搜索请求名称或路径…")
+                                    : QStringLiteral("搜索连接…"));
     side->addWidget(search);
     library = new QListWidget;
     library->setObjectName("protocolLibrary");
     library->setWordWrap(false);
     libraryEmpty =
-        text(QStringLiteral("还没有保存方案。\n编辑请求后点击“保存方案”。"), "protocolLibraryEmpty");
+        text(http ? QStringLiteral("当前项目还没有请求。\n新建草稿并保存，或从顶部创建请求。")
+                  : QStringLiteral("还没有保存连接。\n编辑后点击“保存连接”。"),
+             "protocolLibraryEmpty");
     side->addWidget(libraryEmpty);
     side->addWidget(library, 1);
     side->addWidget(text(QStringLiteral("双击载入 · 不自动通信\n默认保存会遮蔽凭据")));
@@ -423,11 +448,25 @@ void ProtocolDebugPage::Impl::build() {
     titleText->setFont(design::font(16, false, true));
     heading->addWidget(titleText);
     heading->addStretch();
-    auto *fresh = btn(QStringLiteral("新建"), "protocolNew");
-    save = btn(QStringLiteral("保存方案"), "protocolSave");
-    auto *import = btn(QStringLiteral("导入"), "protocolImport");
-    auto *exportButton = btn(QStringLiteral("导出"), "protocolExport");
-    auto *remove = btn(QStringLiteral("删除"), "protocolDelete");
+    auto *fresh = btn(QStringLiteral("新建草稿"), "protocolNew");
+    fresh->setToolTip(QStringLiteral("开始未保存的编辑；保存后才加入当前请求或连接列表。"));
+    save = btn(http ? QStringLiteral("保存请求") : QStringLiteral("保存连接"), "protocolSave");
+    save->setToolTip(http ? QStringLiteral("保存当前请求；已载入的请求会原位更新，改名不会另建请求。")
+                          : QStringLiteral("保存当前连接配置；改名会更新同一条连接。"));
+    auto *import =
+        btn(http ? QStringLiteral("导入请求") : QStringLiteral("导入连接"), "protocolImport");
+    auto *exportButton =
+        btn(http ? QStringLiteral("导出请求") : QStringLiteral("导出连接"), "protocolExport");
+    import->setToolTip(
+        http
+            ? QStringLiteral("导入一个请求到编辑器；保存后加入当前项目。整项目导入请使用左侧管理菜单。")
+            : QStringLiteral("导入单条WebSocket连接配置到编辑器。"));
+    exportButton->setToolTip(
+        http ? QStringLiteral("导出当前请求（含未保存编辑）；整项目导出请使用左侧管理菜单。")
+             : QStringLiteral("导出当前连接配置（含未保存编辑）。"));
+    auto *remove =
+        btn(http ? QStringLiteral("删除请求") : QStringLiteral("删除连接"), "protocolDelete");
+    remove->setToolTip(QStringLiteral("删除左侧列表选中的已保存项，不是清空当前编辑器。"));
     for (auto *b : {fresh, save, import, exportButton, remove}) {
         b->setProperty("textAction", true);
         heading->addWidget(b);
@@ -440,7 +479,10 @@ void ProtocolDebugPage::Impl::build() {
     }
     layout->addLayout(heading);
     name = line("protocolName", 128);
-    name->setPlaceholderText(QStringLiteral("方案名称（显式保存后加入左侧方案库）"));
+    name->setPlaceholderText(http ? QStringLiteral("请求名称，例如：用户登录、查询订单")
+                                  : QStringLiteral("连接名称，例如：实时消息"));
+    name->setToolTip(http ? QStringLiteral("名称用于在当前项目中识别接口请求，与服务地址无关。")
+                          : QStringLiteral("名称用于识别保存的WebSocket连接。"));
     layout->addWidget(name);
     if (http) {
         auto *row = new QHBoxLayout;
@@ -460,7 +502,7 @@ void ProtocolDebugPage::Impl::build() {
     method->setVisible(http);
     urlRow->addWidget(method);
     url = line("protocolUrl", 4096);
-    url->setPlaceholderText(http ? "https://api.example.com/endpoint" : "wss://example.com/socket");
+    url->setPlaceholderText(http ? "{{base_url}}/api/...  或完整URL" : "wss://example.com/socket");
     urlRow->addWidget(url, 1);
     primary = btn(http ? QStringLiteral("发送请求") : QStringLiteral("连接"), "protocolPrimary");
     primary->setProperty("primary", true);
@@ -469,6 +511,13 @@ void ProtocolDebugPage::Impl::build() {
                              : QStringLiteral("明确建立或断开WebSocket连接"));
     urlRow->addWidget(primary);
     layout->addLayout(urlRow);
+    auto *addressHelp = text(
+        http ? QStringLiteral("环境配置服务地址；此处填写 {{base_url}}/接口路径，也可使用完整URL。")
+             : QString(),
+        "httpRequestAddressHelp");
+    addressHelp->setProperty("muted", true);
+    addressHelp->setVisible(http);
+    layout->addWidget(addressHelp);
     warning = text({}, "protocolWarning");
     warning->setProperty("warning", true);
     warning->hide();
@@ -821,7 +870,7 @@ void ProtocolDebugPage::Impl::build() {
     connect(search, &QLineEdit::textChanged, q, [this] { refreshLibrary(); });
     connect(library, &QListWidget::itemDoubleClicked, q, [this](QListWidgetItem *item) {
         if (session->active()) {
-            warn(QStringLiteral("当前活动已保留；请先取消请求或断开连接后载入方案。"));
+            warn(QStringLiteral("当前活动已保留；请先取消请求或断开连接后载入配置。"));
             return;
         }
         if (!agreeToReplace())
@@ -842,19 +891,23 @@ void ProtocolDebugPage::Impl::build() {
     });
     connect(fresh, &QPushButton::clicked, q, [this] {
         if (session->active()) {
-            warn(QStringLiteral("活动会话已保留；请先取消请求或断开连接，再载入新方案。"));
+            warn(QStringLiteral("活动会话已保留；请先取消请求或断开连接，再创建请求或连接。"));
             return;
         }
-        if (dirty && QMessageBox::question(
-                         q, QStringLiteral("新建请求"), QStringLiteral("放弃当前未保存编辑？"),
-                         QMessageBox::Yes | QMessageBox::No, QMessageBox::No) != QMessageBox::Yes)
+        if (dirty && QMessageBox::question(q, QStringLiteral("新建草稿"),
+                                           QStringLiteral("放弃当前未保存编辑？新草稿不会自动保存。"),
+                                           QMessageBox::Yes | QMessageBox::No,
+                                           QMessageBox::No) != QMessageBox::Yes)
             return;
         QString error;
         applyDraft({{"schemaVersion", 1},
                     {"kind", http ? "http" : "webSocket"},
                     {"name", ""},
-                    {"params", QJsonObject{{"url", ""}, {"method", "GET"}}},
-                    {"editor", QJsonObject{}}},
+                    {"params", QJsonObject{{"url", http ? "{{base_url}}/" : ""}, {"method", "GET"}}},
+                    {"editor", QJsonObject{}},
+                    {"folder", projectPanel && projectPanel->folderFilter() != "*"
+                                   ? projectPanel->folderFilter()
+                                   : QString()}},
                    &error);
         warn({});
     });
@@ -862,8 +915,8 @@ void ProtocolDebugPage::Impl::build() {
         auto *item = library->currentItem();
         if (!item)
             return;
-        if (QMessageBox::question(q, QStringLiteral("删除请求方案"),
-                                  QStringLiteral("删除选中的已保存方案？活动连接不受影响。"),
+        if (QMessageBox::question(q, QStringLiteral("删除已保存配置"),
+                                  QStringLiteral("删除选中的已保存请求或连接？活动连接不受影响。"),
                                   QMessageBox::Yes | QMessageBox::No,
                                   QMessageBox::No) != QMessageBox::Yes)
             return;
@@ -889,40 +942,40 @@ void ProtocolDebugPage::Impl::build() {
             return;
         }
         const auto path = QFileDialog::getSaveFileName(
-            q, QStringLiteral("导出遮蔽后的请求方案"),
+            q, QStringLiteral("导出遮蔽后的请求配置"),
             http ? "request.pbhttp.json" : "connection.pbws.json", "JSON (*.json)");
         if (path.isEmpty())
             return;
         QSaveFile file(path);
         const auto bytes = QJsonDocument(document).toJson();
         if (!file.open(QIODevice::WriteOnly) || file.write(bytes) != bytes.size() || !file.commit())
-            warn(QStringLiteral("方案导出失败：") + file.errorString());
+            warn(QStringLiteral("配置导出失败：") + file.errorString());
     });
     connect(import, &QPushButton::clicked, q, [this] {
         if (session->active()) {
-            warn(QStringLiteral("请先取消请求或断开连接，再导入方案；当前活动已保留。"));
+            warn(QStringLiteral("请先取消请求或断开连接，再导入配置；当前活动已保留。"));
             return;
         }
         const auto path =
-            QFileDialog::getOpenFileName(q, QStringLiteral("载入请求方案"), {}, "JSON (*.json)");
+            QFileDialog::getOpenFileName(q, QStringLiteral("载入请求配置"), {}, "JSON (*.json)");
         if (path.isEmpty())
             return;
         QFile file(path);
         if (!file.open(QIODevice::ReadOnly) || file.size() > DraftLimit) {
-            warn(QStringLiteral("无法读取方案，或文件超过8MiB。"));
+            warn(QStringLiteral("无法读取配置，或文件超过8MiB。"));
             return;
         }
         QJsonParseError parse;
         const auto doc = QJsonDocument::fromJson(file.readAll(), &parse);
         QString error;
         if (parse.error != QJsonParseError::NoError || !doc.isObject()) {
-            warn(QStringLiteral("方案JSON格式无效。"));
+            warn(QStringLiteral("配置JSON格式无效。"));
             return;
         }
         if (!agreeToReplace())
             return;
         if (!applyDraft(doc.object(), &error))
-            warn(error.isEmpty() ? QStringLiteral("方案JSON格式无效。") : error);
+            warn(error.isEmpty() ? QStringLiteral("配置JSON格式无效。") : error);
     });
 }
 QJsonArray ProtocolDebugPage::Impl::extractionRules() const {
@@ -1334,7 +1387,7 @@ QJsonObject ProtocolDebugPage::Impl::parameters(QString *error, bool templateMod
     if (!templateMode &&
         (QString::fromUtf8(QJsonDocument(p).toJson(QJsonDocument::Compact)).contains(masked) ||
          QUrl::fromPercentEncoding(p.value("url").toString().toUtf8()).contains(masked)))
-        return fail(QStringLiteral("方案中的凭据已被遮蔽，请补填有效值后再发送。"));
+        return fail(QStringLiteral("配置中的凭据已被遮蔽，请补填有效值后再发送。"));
     return p;
 }
 void ProtocolDebugPage::Impl::captureSecrets() {
@@ -1378,6 +1431,14 @@ void ProtocolDebugPage::Impl::primaryAction() {
             session->cancel();
         controls();
         return;
+    }
+    if (projects && url->text().contains("{{base_url}}")) {
+        const auto base = projects->effectiveVariables().value("base_url");
+        if (!base.isString() || base.toString().trimmed().isEmpty()) {
+            warn(QStringLiteral(
+                "当前环境的服务地址未配置或不是文本。请点击“配置环境”，或填写完整请求URL。"));
+            return;
+        }
     }
     QString error;
     const auto p = parameters(&error);
@@ -1478,8 +1539,8 @@ void ProtocolDebugPage::Impl::controls() {
                   .arg(session->receivedBytes())
                   .arg(session->transmittedBytes())
         : phase == ProtocolDebugSession::Phase::Closing ? QStringLiteral("正在关闭WebSocket…")
-        : http                                          ? QStringLiteral("尚未发送 / 已结束")
-                                                        : QStringLiteral("未连接 / 已关闭");
+        : http                                          ? QStringLiteral("未在发送请求")
+                                                        : QStringLiteral("未连接");
     if (http && !session->latestResponse().isEmpty() && !active) {
         const auto r = session->latestResponse();
         value = QStringLiteral("HTTP %1 · %2ms · Body %3B")
@@ -1614,8 +1675,9 @@ void ProtocolDebugPage::Impl::showEntry() {
             bytes = raw.mid(page * PageBytes, PageBytes);
         }
     } else
-        bodyText = item ? redactText(item->detail, secrets)
-                        : QStringLiteral("选择时间线中的响应或消息查看详情。");
+        bodyText = item   ? redactText(item->detail, secrets)
+                   : http ? QStringLiteral("选择请求记录查看响应详情。")
+                          : QStringLiteral("选择时间线中的响应或消息查看详情。");
     const int pages = structured ? 1 : std::max(1, (total + PageBytes - 1) / PageBytes);
     if (page >= pages) {
         page = pages - 1;
@@ -1721,18 +1783,18 @@ bool ProtocolDebugPage::Impl::applyDraft(const QJsonObject &doc, QString *error)
     if (error)
         error->clear();
     if (session->active())
-        return fail(QStringLiteral("当前活动已保留，请先取消请求或断开连接后载入方案。"));
+        return fail(QStringLiteral("当前活动已保留，请先取消请求或断开连接后载入配置。"));
     if (doc.value("schemaVersion").toInt() != 1 ||
         doc.value("kind").toString() != (http ? "http" : "webSocket") ||
         !doc.value("params").isObject() ||
         QJsonDocument(doc).toJson(QJsonDocument::Compact).size() > DraftLimit)
-        return fail(QStringLiteral("请求方案版本、类型或大小不匹配。"));
+        return fail(QStringLiteral("请求/连接配置的版本、类型或大小不匹配。"));
     const auto p = doc.value("params").toObject(), e = doc.value("editor").toObject();
     if (doc.value("prototypeOnly").toBool())
-        return fail(QStringLiteral("模拟原型配置不能作为手动通信方案载入。"));
+        return fail(QStringLiteral("模拟原型配置不能作为正式请求/连接载入。"));
     for (const auto &k : {"query", "headers", "formBody"}) {
         if (e.contains(k) && !e.value(k).isArray())
-            return fail(QStringLiteral("方案键值表格式无效。"));
+            return fail(QStringLiteral("配置键值表格式无效。"));
         const auto rows = e.value(k).toArray();
         if (rows.size() > 64)
             return fail(QStringLiteral("键值表超过64行。"));
@@ -1740,40 +1802,40 @@ bool ProtocolDebugPage::Impl::applyDraft(const QJsonObject &doc, QString *error)
             const auto r = row.toObject();
             if (!row.isObject() || !r.value("key").isString() || !r.value("value").isString() ||
                 r.value("key").toString().size() > 256 || r.value("value").toString().size() > 8192)
-                return fail(QStringLiteral("方案键值字段超过限制或格式无效；未载入。"));
+                return fail(QStringLiteral("配置键值字段超过限制或格式无效；未载入。"));
         }
     }
     for (const auto &key : {"body", "message"})
         if (e.value(key).toString().size() > InputLimit)
-            return fail(QStringLiteral("方案编辑内容超过1Mi字符；未载入。"));
+            return fail(QStringLiteral("编辑内容超过1Mi字符；未载入。"));
     if (p.value("body").isString() && p.value("body").toString().size() > InputLimit)
-        return fail(QStringLiteral("方案请求体超过编辑上限；未载入。"));
+        return fail(QStringLiteral("请求体超过编辑上限；未载入。"));
     const auto incomingUrl = e.value("baseUrl").toString(p.value("url").toString());
     if (incomingUrl.size() > 4096 || e.value("token").toString().size() > 16384 ||
         e.value("password").toString().size() > 16384 || e.value("username").toString().size() > 4096 ||
         p.value("caFile").toString().size() > 4096 || p.value("subprotocol").toString().size() > 256)
-        return fail(QStringLiteral("方案字段超过编辑上限；未载入。"));
+        return fail(QStringLiteral("配置字段超过编辑上限；未载入。"));
     const int incomingCap = p.value(http ? "maxResponseBytes" : "maxMessageBytes").toInt(1024 * 1024),
               incomingTimeout = p.value("timeoutMs").toInt(10000);
     if (incomingCap < 1024 || incomingCap > 8 * 1024 * 1024 || incomingCap % 1024 ||
         incomingTimeout < 1 || incomingTimeout > 60000)
-        return fail(QStringLiteral("方案容量须为1–8192整KiB，超时须为1–60000ms；未载入。"));
+        return fail(QStringLiteral("容量须为1–8192整KiB，超时须为1–60000ms；未载入。"));
     if (p.value("headers").toObject().size() > 64)
         return fail(QStringLiteral("请求头超过64条；未载入。"));
     if (http && !QStringList{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"}.contains(
                     p.value("method").toString("GET")))
-        return fail(QStringLiteral("方案HTTP方法无效；未载入。"));
+        return fail(QStringLiteral("配置中的HTTP方法无效；未载入。"));
     const auto incomingHeaders = p.value("headers").toObject();
     for (auto it = incomingHeaders.constBegin(); it != incomingHeaders.constEnd(); ++it)
         if (!it.value().isString() || it.key().size() > 256 || it.value().toString().size() > 8192)
-            return fail(QStringLiteral("方案请求头格式无效或超过限制；未载入。"));
+            return fail(QStringLiteral("配置请求头格式无效或超过限制；未载入。"));
     if (e.contains("body") && !e.value("body").isString())
-        return fail(QStringLiteral("方案编辑Body须为文本；未载入。"));
+        return fail(QStringLiteral("编辑Body须为文本；未载入。"));
     const auto incomingBody = e.contains("body")   ? e.value("body").toString()
                               : p.contains("body") ? jsonText(p.value("body"))
                                                    : QString();
     if (incomingBody.size() > InputLimit)
-        return fail(QStringLiteral("方案Body超过编辑上限；未载入。"));
+        return fail(QStringLiteral("Body超过编辑上限；未载入。"));
     if (http) {
         if (doc.contains("assertions") && !doc.value("assertions").isArray())
             return fail(QStringLiteral("断言设置须为数组。"));
@@ -1845,7 +1907,7 @@ bool ProtocolDebugPage::Impl::applyDraft(const QJsonObject &doc, QString *error)
     dirty = false;
     loading = false;
     warn(doc.value("credentialsMasked").toBool()
-             ? QStringLiteral("已载入方案，尚未发送；若含[已遮蔽]，请先补填凭据。")
+             ? QStringLiteral("已载入请求配置，尚未发送；若含[已遮蔽]，请先补填凭据。")
              : QString(),
          false);
     return true;
@@ -1867,14 +1929,14 @@ bool ProtocolDebugPage::Impl::saveDraft(QString *error) {
     else {
         if (candidate.size() >= (http ? 512 : 64)) {
             if (error)
-                *error = QStringLiteral("最多保存%1个方案，请先删除旧方案。").arg(http ? 512 : 64);
+                *error = QStringLiteral("最多保存%1个请求或连接，请先删除旧项。").arg(http ? 512 : 64);
             return false;
         }
         candidate.append(doc);
     }
     if (QJsonDocument(candidate).toJson(QJsonDocument::Compact).size() > DraftLimit) {
         if (error)
-            *error = QStringLiteral("方案库超过8MiB；请减少方案或Body大小。");
+            *error = QStringLiteral("保存列表超过8MiB；请减少请求数量或Body大小。");
         return false;
     }
     const auto previous = saved;
@@ -1885,13 +1947,15 @@ bool ProtocolDebugPage::Impl::saveDraft(QString *error) {
     }
     dirty = false;
     refreshLibrary();
-    warn(QStringLiteral("方案已保存（凭据已遮蔽）；当前内存中的认证值未改变。"), false);
+    warn(http ? QStringLiteral("请求已保存到当前项目（凭据已遮蔽）；不会自动发送。")
+              : QStringLiteral("连接已保存（凭据已遮蔽）；不会自动连接。"),
+         false);
     return true;
 }
 bool ProtocolDebugPage::Impl::writeLibrary(QString *error) {
     if (!settings) {
         if (error)
-            *error = QStringLiteral("未提供方案存储位置，不能宣称方案已保存。");
+            *error = QStringLiteral("未提供配置存储位置，不能宣称已保存。");
         return false;
     }
     if (projects)
@@ -1901,7 +1965,7 @@ bool ProtocolDebugPage::Impl::writeLibrary(QString *error) {
     settings->sync();
     if (settings->status() != QSettings::NoError) {
         if (error)
-            *error = QStringLiteral("请求方案写入失败；请检查配置目录权限与可用空间。");
+            *error = QStringLiteral("请求配置写入失败；请检查配置目录权限与可用空间。");
         return false;
     }
     return true;
@@ -1937,8 +2001,11 @@ void ProtocolDebugPage::Impl::loadLibrary() {
 }
 void ProtocolDebugPage::Impl::refreshLibrary() {
     library->clear();
+    int projectCount = 0;
     for (const auto &row : saved) {
         const auto r = row.toObject();
+        if (http && r.value("projectId").toString(defaultProject) == projects->projectId())
+            ++projectCount;
         if (projectPanel && !projectPanel->matches(r, defaultProject))
             continue;
         const auto label = r.value("name").toString();
@@ -1955,9 +2022,12 @@ void ProtocolDebugPage::Impl::refreshLibrary() {
         item->setSizeHint({160, 42});
     }
     libraryEmpty->setVisible(library->count() == 0);
-    libraryEmpty->setText(search->text().isEmpty()
-                              ? QStringLiteral("还没有保存方案。\n编辑请求后点击“保存方案”。")
-                              : QStringLiteral("没有匹配方案，试试其他名称或地址。"));
+    const auto emptyText =
+        !search->text().isEmpty()  ? QStringLiteral("没有匹配请求或连接，试试其他名称或地址。")
+        : http && projectCount > 0 ? QStringLiteral("当前分类没有请求。切换到“全部请求”查看其他接口。")
+        : http ? QStringLiteral("当前项目还没有请求。\n新建草稿并保存，或从顶部创建请求。")
+               : QStringLiteral("还没有保存连接。\n新建草稿后点击“保存连接”。");
+    libraryEmpty->setText(emptyText);
 }
 void ProtocolDebugPage::Impl::openSequence() {
     if (!sequence || session->active())
@@ -2187,15 +2257,19 @@ bool ProtocolDebugPage::createSavedRequest(const QString &name, const QString &u
     if (error)
         error->clear();
     if (name.trimmed().isEmpty() || name.trimmed().size() > 128)
-        return fail(QStringLiteral("方案名称须为1–128个字符。"));
+        return fail(QStringLiteral("请求或连接名称须为1–128个字符。"));
     if (d->session->active())
-        return fail(QStringLiteral("当前协议活动已保留，请先取消请求或断开连接，再创建新方案。"));
-    QJsonObject params{{"url", url.trimmed()},
+        return fail(QStringLiteral("当前协议活动已保留，请先取消请求或断开连接，再创建请求或连接。"));
+    const auto initialUrl =
+        d->http && url.trimmed().isEmpty() ? QStringLiteral("{{base_url}}/") : url.trimmed();
+    QJsonObject params{{"url", initialUrl},
                        {"method", "GET"},
                        {"timeoutMs", 10000},
                        {"connectTimeoutMs", 5000},
                        {d->http ? "maxResponseBytes" : "maxMessageBytes", 1048576}};
-    const auto validation = ProtocolDebugSession::validate(params, d->session->mode());
+    const auto validation = d->http && initialUrl.contains("{{")
+                                ? QString()
+                                : ProtocolDebugSession::validate(params, d->session->mode());
     if (!validation.isEmpty())
         return fail(validation);
     if (!d->agreeToReplace())
@@ -2204,7 +2278,10 @@ bool ProtocolDebugPage::createSavedRequest(const QString &name, const QString &u
                         {"kind", d->http ? "http" : "webSocket"},
                         {"name", name.trimmed()},
                         {"params", params},
-                        {"editor", QJsonObject{}}},
+                        {"editor", QJsonObject{}},
+                        {"folder", d->projectPanel && d->projectPanel->folderFilter() != "*"
+                                       ? d->projectPanel->folderFilter()
+                                       : QString()}},
                        error))
         return false;
     return d->saveDraft(error);

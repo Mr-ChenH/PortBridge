@@ -1,6 +1,14 @@
 # PortBridge 0.1.0 软件实施与验收报告
 
-> 最新修订 **http-configuration-1**：项目、当前环境、项目变量、公共认证和生效变量统一配置；新建环境直接进入配置，定义与运行值分别展示并原子保存。最终CTest10/10、HTTP普通41通过/3受控跳过、原生软件100/125/150%各10通过，91输入冻结。见 [重构验收](../reviews/http-configuration.md)、[真实界面](../validation/http-configuration/gallery.html) 与 [包回执](../validation/http-configuration/package-receipt.json)。
+> 最新修订 **http-clarity-fix-1**：审核并修正10处交互不一致，明确草稿/保存/归属、单请求与整项目范围，修复分类空态与空服务地址状态。相关三套首次完整通过；补空闲状态文案后重新通过HTTP项目49/4受控跳过、协议46/1受控跳过，三档原生设置/工作台各10通过、创建各7通过，源码稳定93输入。见 [审核清单](../reviews/http-clarity.md)、[图集](../validation/http-clarity/gallery.html) 与 [包回执](../validation/http-clarity/package-receipt.json)。
+
+> 上一修订 **http-interaction-1**：HTTP统一项目/环境/请求概念，无地址创建请求并引用环境；新建项目后直接配置环境，设置采用左侧分类/右侧编辑/固定保存区。十个套件各有通过记录：首完整9/10，会话历史时序失败保留，同源码完整会话复跑27/27；HTTP项目48通过/4受控跳过，协议46通过/1受控跳过，三档原生设置各8通过/创建各7通过。93输入冻结。见 [验收](../reviews/http-interaction.md)、[图集](../validation/http-interaction/gallery.html) 与 [包回执](../validation/http-interaction/package-receipt.json)。
+
+> 上一修订 **browser-fingerprint-1**：HTTP环境增加离线随机浏览器请求头配置和派生变量，Chrome/Edge/Firefox桌面预设、HTTPS低熵CH、手填头优先、环境隔离和固定身份。范围限请求头，TLS/网页脚本指纹未改变。完整CTest10/10，HTTP项目47通过/4受控截图跳过，原生软件100/125/150%各9通过，93输入冻结。见 [验收](../reviews/browser-fingerprint.md)、[图集](../validation/browser-fingerprint/gallery.html) 与 [包回执](../validation/browser-fingerprint/package-receipt.json)。
+
+> 上一修订 **http-history-1**：HTTP发送时的请求中记录在响应、错误或取消时原位更新，一次请求一条记录，保留ID/开始时间，非2xx保留真实响应。完整CTest10/10、协议普通46通过/1受控截图跳过、原生软件100/125/150%各7通过，91输入冻结。见 [验收](../reviews/http-history.md)、[图集](../validation/http-history/gallery.html) 与 [包回执](../validation/http-history/package-receipt.json)。
+
+> 上一修订 **http-configuration-1**：项目、当前环境、项目变量、公共认证和生效变量统一配置；新建环境直接进入配置，定义与运行值分别展示并原子保存。最终CTest10/10、HTTP普通41通过/3受控跳过、原生软件100/125/150%各10通过，91输入冻结。见 [重构验收](../reviews/http-configuration.md)、[真实界面](../validation/http-configuration/gallery.html) 与 [包回执](../validation/http-configuration/package-receipt.json)。
 
 > 上一修订 **ui-latency-fix-1**：RA-UI01/P2在本机声明负载内关闭。GUI不再join后台文件任务线程；采样50ms、指标布局250ms，空/不变字节详情避免重复生成。完整CTest10/10、原生UI42/42、88输入冻结；UDP/TCP各5分钟心跳152/43ms，逐字节采集、实际三屏与主动GUI停顿复验通过。新部署 `dist/PortBridge-ui-latency-fix-1/`，旧版本和失败记录保留。见 [响应修复验收](../reviews/ui-latency-fix.md)、[总机器回执](../validation/ui-latency-fix/receipt.json) 与 [包回执](../validation/ui-latency-fix/package-receipt.json)。
 

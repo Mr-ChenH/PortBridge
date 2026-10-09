@@ -1,0 +1,11 @@
+{
+  "state": "failed",
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 1,
+      "seconds": 53.87
+    }
+  ],
+  "error": "AssertionError()"
+}

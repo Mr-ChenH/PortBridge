@@ -1,0 +1,16 @@
+{
+  "state": "failed",
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 51.16
+    },
+    {
+      "name": "focused",
+      "exitCode": 1,
+      "seconds": 0.91
+    }
+  ],
+  "error": "AssertionError()"
+}

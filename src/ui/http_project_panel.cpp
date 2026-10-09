@@ -1,5 +1,6 @@
 #include "http_project_panel.hpp"
 #include "http_auth_presentation.hpp"
+#include "http_browser_fingerprint.hpp"
 #include "http_configuration_dialog.hpp"
 #include <QComboBox>
 #include <QHBoxLayout>
@@ -9,6 +10,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QToolButton>
+#include <QUrl>
 #include <QVBoxLayout>
 namespace portbridge {
 namespace {
@@ -34,7 +36,7 @@ HttpProjectPanel::HttpProjectPanel(HttpProjectStore *store, QWidget *parent)
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(7);
     auto *heading = new QHBoxLayout;
-    heading->addWidget(label(QStringLiteral("项目 / 请求")), 1);
+    heading->addWidget(label(QStringLiteral("HTTP 项目")), 1);
     auto *management = new QToolButton;
     management->setText(QStringLiteral("管理"));
     management->setObjectName("httpProjectManage");
@@ -43,6 +45,9 @@ HttpProjectPanel::HttpProjectPanel(HttpProjectStore *store, QWidget *parent)
     management->setMenu(menu);
     heading->addWidget(management);
     layout->addLayout(heading);
+    auto *purpose = label(QStringLiteral("项目收纳接口请求，共享环境与认证。"), "httpProjectPurpose");
+    purpose->setProperty("muted", true);
+    layout->addWidget(purpose);
     projects_ = new QComboBox;
     projects_->setObjectName("httpProjectChoice");
     layout->addWidget(projects_);
@@ -73,7 +78,7 @@ HttpProjectPanel::HttpProjectPanel(HttpProjectStore *store, QWidget *parent)
     auto gate = [this](bool discard = false) {
         return !beforeContextChange || beforeContextChange(discard);
     };
-    connect(settings, &QPushButton::clicked, this, [this] { editConfiguration(1); });
+    connect(settings, &QPushButton::clicked, this, [this] { editConfiguration(0); });
     connect(configure, &QPushButton::clicked, this, [this] { editConfiguration(0); });
     connect(projects_, &QComboBox::currentIndexChanged, this, [this, gate](int at) {
         if (updating_ || at < 0)
@@ -130,17 +135,29 @@ HttpProjectPanel::HttpProjectPanel(HttpProjectStore *store, QWidget *parent)
         a->setObjectName(id);
         connect(a, &QAction::triggered, this, std::move(fn));
     };
-    action(QStringLiteral("新建项目"), "httpProjectNew", [this, gate, prompt] {
+    action(QStringLiteral("新建项目并配置环境"), "httpProjectNew", [this, gate] {
         if (!gate(true))
             return;
-        const auto name = prompt(QStringLiteral("新建项目"));
-        if (name.isEmpty())
+        bool confirmed = false;
+        const auto name =
+            QInputDialog::getText(
+                this, QStringLiteral("新建HTTP项目"),
+                QStringLiteral("项目收纳一组接口请求，并共享环境、变量和公共认证。\n例如：订单服务、设"
+                               "备管理API。创建后配置环境地址。\n\n项目名称"),
+                QLineEdit::Normal, {}, &confirmed)
+                .trimmed();
+        if (!confirmed || name.isEmpty())
             return;
         QString e;
         const bool ok = store_->createProject(name, &e);
         result(ok, e);
-        if (ok && contextChanged)
-            contextChanged();
+        if (ok) {
+            if (contextChanged)
+                contextChanged();
+            editConfiguration(
+                0, nullptr,
+                QStringLiteral("项目已创建。保存会应用环境配置；取消只放弃本次配置，不删除新项目。"));
+        }
     });
     action(QStringLiteral("重命名项目"), "httpProjectRename", [this] { editConfiguration(1); });
     action(QStringLiteral("删除项目"), "httpProjectRemove", [this, gate] {
@@ -159,7 +176,7 @@ HttpProjectPanel::HttpProjectPanel(HttpProjectStore *store, QWidget *parent)
                 contextChanged();
         }
     });
-    action(QStringLiteral("项目变量与共享默认值"), "httpProjectVariables",
+    action(QStringLiteral("项目名称与共享变量"), "httpProjectVariables",
            [this] { editVariables(true); });
     action(QStringLiteral("公共认证"), "httpProjectAuth", [this] { editAuthentication(); });
     menu->addSeparator();
@@ -175,7 +192,8 @@ HttpProjectPanel::HttpProjectPanel(HttpProjectStore *store, QWidget *parent)
         if (ok) {
             if (contextChanged)
                 contextChanged();
-            editConfiguration(0);
+            editConfiguration(0, nullptr,
+                              QStringLiteral("环境已创建。取消只放弃本次配置，不删除新环境。"));
         }
     });
     action(QStringLiteral("复制当前环境并配置（不复制敏感值）"), "httpEnvironmentCopy",
@@ -193,7 +211,8 @@ HttpProjectPanel::HttpProjectPanel(HttpProjectStore *store, QWidget *parent)
                if (ok) {
                    if (contextChanged)
                        contextChanged();
-                   editConfiguration(0);
+                   editConfiguration(
+                       0, nullptr, QStringLiteral("环境副本已创建。取消只放弃本次修改，不删除副本。"));
                }
            });
     action(QStringLiteral("配置 / 重命名当前环境"), "httpEnvironmentRename",
@@ -210,6 +229,8 @@ HttpProjectPanel::HttpProjectPanel(HttpProjectStore *store, QWidget *parent)
         if (ok && contextChanged)
             contextChanged();
     });
+    action(QStringLiteral("浏览器指纹（当前环境）"), "httpEnvironmentFingerprint",
+           [this] { editConfiguration(4); });
     action(QStringLiteral("查看生效变量 / 清除运行值"), "httpRuntimeClear",
            [this] { editConfiguration(3); });
     menu->addSeparator();
@@ -273,14 +294,34 @@ void HttpProjectPanel::refresh() {
     folders_->setCurrentIndex(at < 0 ? 0 : at);
     const auto values = store_->effectiveVariables();
     const auto runtime = store_->runtimeVariables();
+    QString addressStatus = QStringLiteral("未配置，点击配置环境");
+    const auto base = values.value("base_url");
+    if (!base.isUndefined() && !base.isNull() && !base.isString())
+        addressStatus = QStringLiteral("类型无效，须为文本地址");
+    else if (!base.toString().trimmed().isEmpty()) {
+        QString error;
+        const auto resolved = store_->expandUrl("{{base_url}}", &error);
+        const QUrl target(resolved);
+        addressStatus = error.isEmpty() && target.isValid() && !target.host().isEmpty() &&
+                                (target.scheme() == "http" || target.scheme() == "https")
+                            ? QStringLiteral("已配置 {{base_url}}")
+                            : QStringLiteral("待补齐或修正，点击配置环境");
+    }
     tokenStatus_->setText(
         QStringLiteral("服务地址：%1\n环境定义 %2 · 运行值 %3\n公共认证：%4")
-            .arg(values.contains("base_url") ? QStringLiteral("已定义 {{base_url}}")
-                                             : QStringLiteral("未配置，点击配置环境"))
+            .arg(addressStatus)
             .arg(store_->environment().value("variables").toArray().size())
             .arg(runtime.size())
             .arg(httpAuthName(store_->project().value("auth").toObject().value("kind").toString())
                      .section(QStringLiteral("（"), 0, 0)));
+    const auto fingerprint = store_->environment().value("browserFingerprint").toObject();
+    if (!fingerprint.isEmpty())
+        tokenStatus_->setText(tokenStatus_->text() + QStringLiteral("\n浏览器：%1 %2 · %3")
+                                                         .arg(fingerprint.value("browser").toString())
+                                                         .arg(fingerprint.value("major").toInt())
+                                                         .arg(fingerprint.value("enabled").toBool()
+                                                                  ? QStringLiteral("自动请求头")
+                                                                  : QStringLiteral("仅变量")));
     updating_ = false;
 }
 void HttpProjectPanel::setActive(bool active) { setEnabled(!active); }
@@ -300,12 +341,17 @@ void HttpProjectPanel::result(bool ok, const QString &error) {
     if (definitionsChanged)
         definitionsChanged();
 }
-void HttpProjectPanel::editConfiguration(int tab, const char *name) {
+void HttpProjectPanel::editConfiguration(int tab, const char *name, const QString &notice) {
     if (!isEnabled() || (beforeContextChange && !beforeContextChange(false)))
         return;
     HttpConfigurationDialog dialog(store_, tab, this);
     if (name)
         dialog.setObjectName(name);
+    if (!notice.isEmpty()) {
+        auto *label = dialog.findChild<QLabel *>("httpSettingsCreationNotice");
+        label->setText(notice);
+        label->show();
+    }
     dialog.beforeSave = [this] {
         return isEnabled() && (!beforeContextChange || beforeContextChange(false));
     };

@@ -1,5 +1,6 @@
 #include "portbridge/session_controller.hpp"
 #include "ui/http_assertions.hpp"
+#include "ui/http_browser_fingerprint.hpp"
 #include "ui/http_configuration_dialog.hpp"
 #include "ui/http_project_panel.hpp"
 #include "ui/http_project_store.hpp"
@@ -8,6 +9,7 @@
 #include "ui/main_window.hpp"
 #include "ui/protocol_debug_page.hpp"
 #include <QAction>
+#include <QCheckBox>
 #include <QComboBox>
 #include <QDialog>
 #include <QDialogButtonBox>
@@ -19,8 +21,13 @@
 #include <QListWidget>
 #include <QMessageBox>
 #include <QPlainTextEdit>
+#include <QProcess>
 #include <QPushButton>
+#include <QScrollArea>
 #include <QSettings>
+#include <QSslCertificate>
+#include <QSslKey>
+#include <QSslSocket>
 #include <QStandardPaths>
 #include <QTabWidget>
 #include <QTableView>
@@ -134,6 +141,46 @@ struct Server {
         server.listen(QHostAddress::LocalHost, 0);
     }
     QString base() const { return QString("http://127.0.0.1:%1").arg(server.serverPort()); }
+};
+struct HttpsServer : QTcpServer {
+    QSslCertificate certificate;
+    QSslKey key;
+    QVector<QJsonObject> requests;
+    void incomingConnection(qintptr descriptor) override {
+        auto *socket = new QSslSocket(this);
+        if (!socket->setSocketDescriptor(descriptor)) {
+            delete socket;
+            return;
+        }
+        socket->setLocalCertificate(certificate);
+        socket->setPrivateKey(key);
+        socket->setPeerVerifyMode(QSslSocket::VerifyNone);
+        auto input = std::make_shared<QByteArray>();
+        QObject::connect(socket, &QSslSocket::disconnected, socket, &QObject::deleteLater);
+        QObject::connect(socket, &QSslSocket::readyRead, socket, [this, socket, input] {
+            *input += socket->readAll();
+            const int end = input->indexOf("\r\n\r\n");
+            if (end < 0)
+                return;
+            QJsonObject headers;
+            for (const auto &line : input->left(end).split('\n')) {
+                const auto colon = line.indexOf(':');
+                if (colon > 0)
+                    headers[QString::fromLatin1(line.left(colon).trimmed().toLower())] =
+                        QString::fromUtf8(line.mid(colon + 1).trimmed());
+            }
+            requests.append(headers);
+            socket->disconnect(socket, &QSslSocket::readyRead, nullptr, nullptr);
+            const auto body =
+                QJsonDocument(QJsonObject{{"headers", headers}}).toJson(QJsonDocument::Compact);
+            socket->write("HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Type: "
+                          "application/json\r\nContent-Length: " +
+                          QByteArray::number(body.size()) + "\r\n\r\n" + body);
+            socket->disconnectFromHost();
+        });
+        socket->startServerEncryption();
+    }
+    QString base() const { return QString("https://localhost:%1").arg(serverPort()); }
 };
 } // namespace
 class HttpProjectsTest : public QObject {
@@ -1169,6 +1216,304 @@ class HttpProjectsTest : public QObject {
         QVERIFY(
             !widget<QPlainTextEdit>(page, "httpSequenceResults")->toPlainText().contains(server.token));
     }
+    void browserFingerprintGeneratesStableScopedHeaders() {
+        QTemporaryDir dir;
+        QSettings settings(dir.filePath("fingerprint.ini"), QSettings::IniFormat);
+        HttpProjectStore store(&settings);
+        QString error;
+        const auto first = httpFingerprint::generate("chrome", "Windows", "en-US");
+        const auto second = httpFingerprint::generate("chrome", "Windows", "en-US", first);
+        QVERIFY2(!first.isEmpty(), qPrintable(httpFingerprint::validate(first)));
+        QVERIFY2(httpFingerprint::validate(first).isEmpty(),
+                 qPrintable(httpFingerprint::validate(first)));
+        QVERIFY(first.value("id").toString() != second.value("id").toString());
+        QVERIFY(first.value("major").toInt() != second.value("major").toInt());
+        const auto values = httpFingerprint::variables(first);
+        QCOMPARE(values.value("browser_platform").toString(), "Windows");
+        QVERIFY(values.value("browser_user_agent").toString().contains("Chrome/"));
+        QVERIFY(values.value("browser_fingerprint")
+                    .toObject()
+                    .value("headers")
+                    .toObject()
+                    .contains("User-Agent"));
+        QVERIFY(httpFingerprint::headerTemplates(first, true).contains("Sec-CH-UA"));
+        QVERIFY(!httpFingerprint::headerTemplates(first, false).contains("Sec-CH-UA"));
+        const auto firefox = httpFingerprint::generate("firefox", "Linux", "de-DE");
+        QVERIFY(!httpFingerprint::headerTemplates(firefox, true).contains("Sec-CH-UA"));
+        QVERIFY(store.setEnvironmentVariables({variable("base_url", "http://127.0.0.1:1")}, &error));
+        QVERIFY(store.setBrowserFingerprint(first, &error));
+        QVERIFY(store.effectiveVariables().contains("browser_user_agent"));
+        QVERIFY(store.copyEnvironment("Fingerprint copy", &error));
+        QCOMPARE(store.environment().value("browserFingerprint").toObject().value("browser").toString(),
+                 "chrome");
+        QVERIFY(store.setBrowserFingerprint({}, &error));
+        QVERIFY(!store.effectiveVariables().contains("browser_user_agent"));
+        QVERIFY2(store.selectEnvironment(store.project()
+                                             .value("environments")
+                                             .toArray()
+                                             .first()
+                                             .toObject()
+                                             .value("id")
+                                             .toString(),
+                                         &error),
+                 qPrintable(error));
+        QVERIFY(store.effectiveVariables().contains("browser_user_agent"));
+    }
+    void browserFingerprintAddsHeadersAndManualHeaderWins() {
+        Server server;
+        QTemporaryDir dir;
+        QSettings settings(dir.filePath("fingerprint-wire.ini"), QSettings::IniFormat);
+        ProtocolDebugPage page(ProtocolDebugSession::Mode::Http, &settings);
+        auto *store = page.projectStore();
+        QString error;
+        QVERIFY(store->setEnvironmentVariables({variable("base_url", server.base())}, &error));
+        const auto chrome = httpFingerprint::generate("chrome", "Windows", "en-US");
+        QVERIFY(store->setBrowserFingerprint(chrome, &error));
+        auto draft = request("{{base_url}}/business");
+        QVERIFY(page.loadDraft(draft, &error));
+        page.triggerSend();
+        QTRY_VERIFY_WITH_TIMEOUT(!page.session()->active() && server.received.size() == 1, 5000);
+        const auto first = server.received.last().value("headers").toObject();
+        QVERIFY(first.value("user-agent").toString().contains("Chrome/"));
+        QCOMPARE(first.value("accept-language").toString(), "en-US,en;q=0.9");
+        QVERIFY(!first.contains("sec-ch-ua"));
+        row(widget<QTableWidget>(page, "protocolHeaders"), "User-Agent", "PortBridge-Test/1.0");
+        page.triggerSend();
+        QTRY_VERIFY_WITH_TIMEOUT(!page.session()->active() && server.received.size() == 2, 5000);
+        QCOMPARE(server.received.last().value("headers").toObject().value("user-agent").toString(),
+                 "PortBridge-Test/1.0");
+        QVERIFY(page.exportDraft(&error).value("editor").toObject().value("headers").toArray().size() ==
+                1);
+        QVERIFY(!settings.value("manual/httpProjectsV2").toByteArray().contains("PortBridge-Test"));
+        QVERIFY(store->createEnvironment("Firefox env", &error));
+        const auto firefox = httpFingerprint::generate("firefox", "Linux", "de-DE");
+        QVERIFY(store->setBrowserFingerprint(firefox, &error));
+        QCOMPARE(store->effectiveVariables().value("browser_name").toString(), "firefox");
+        QVERIFY(!store->effectiveVariables().contains("browser_sec_ch_ua"));
+    }
+    void browserFingerprintDialogEditsAndCancelsAtomically() {
+        QTemporaryDir dir;
+        QSettings settings(dir.filePath("fingerprint-dialog.ini"), QSettings::IniFormat);
+        HttpProjectStore store(&settings);
+        QString error;
+        const auto original = httpFingerprint::generate("edge", "Windows", "zh-CN");
+        QVERIFY(store.setBrowserFingerprint(original, &error));
+        const auto before = store.project();
+        const auto revision = store.revision();
+        {
+            HttpConfigurationDialog dialog(&store, 4);
+            dialog.show();
+            QCOMPARE(widget<QCheckBox>(dialog, "httpBrowserFingerprintEnabled")->isChecked(), true);
+            QVERIFY(widget<QLabel>(dialog, "httpBrowserFingerprintSummary")->text().contains("Edge"));
+            widget<QPushButton>(dialog, "httpBrowserFingerprintGenerate")->click();
+            QVERIFY(
+                widget<QLabel>(dialog, "httpBrowserFingerprintSummary")->text().contains("自动请求头"));
+            dialog.reject();
+        }
+        QCOMPARE(store.project(), before);
+        QCOMPARE(store.revision(), revision);
+        {
+            HttpConfigurationDialog dialog(&store, 4);
+            dialog.show();
+            widget<QPushButton>(dialog, "httpBrowserFingerprintClear")->click();
+            QVERIFY(!widget<QCheckBox>(dialog, "httpBrowserFingerprintEnabled")->isChecked());
+            dialog.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Save)->click();
+            QCOMPARE(dialog.result(), int(QDialog::Accepted));
+        }
+        QVERIFY(store.environment().value("browserFingerprint").toObject().isEmpty());
+        QVERIFY(!store.effectiveVariables().contains("browser_user_agent"));
+        {
+            HttpConfigurationDialog dialog(&store, 4);
+            dialog.show();
+            widget<QPushButton>(dialog, "httpBrowserFingerprintGenerate")->click();
+            QVERIFY(widget<QCheckBox>(dialog, "httpBrowserFingerprintEnabled")->isChecked());
+            dialog.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Save)->click();
+            QCOMPARE(dialog.result(), int(QDialog::Accepted));
+        }
+        const auto saved = store.environment().value("browserFingerprint").toObject();
+        QVERIFY(!saved.isEmpty());
+        QVERIFY(httpFingerprint::validate(saved).isEmpty());
+        HttpProjectStore again(&settings);
+        QCOMPARE(again.environment().value("browserFingerprint").toObject(), saved);
+    }
+    void browserFingerprintHttpsClientHintsUseActualWire() {
+        QTemporaryDir dir;
+        const auto ca = dir.filePath("ca.pem"), keyPath = dir.filePath("key.pem");
+        QString openssl = qEnvironmentVariable("PORTBRIDGE_TEST_OPENSSL");
+        if (openssl.isEmpty())
+            openssl = QStandardPaths::findExecutable("openssl");
+#ifdef Q_OS_WIN
+        if (openssl.isEmpty())
+            openssl = qEnvironmentVariable("ProgramFiles") + "/Git/mingw64/bin/openssl.exe";
+#endif
+        QVERIFY2(QFile::exists(openssl), "OpenSSL CLI is required for the isolated HTTPS fixture");
+        QProcess generator;
+        generator.start(openssl, {"req", "-x509", "-newkey", "rsa:2048", "-nodes", "-keyout", keyPath,
+                                  "-out", ca, "-days", "2", "-subj", "/CN=localhost", "-addext",
+                                  "subjectAltName=DNS:localhost", "-addext",
+                                  "basicConstraints=critical,CA:TRUE"});
+        QVERIFY(generator.waitForFinished(10000));
+        QCOMPARE(generator.exitCode(), 0);
+        QFile certFile(ca), keyFile(keyPath);
+        QVERIFY(certFile.open(QIODevice::ReadOnly));
+        QVERIFY(keyFile.open(QIODevice::ReadOnly));
+        HttpsServer server;
+        server.certificate = QSslCertificate(certFile.readAll(), QSsl::Pem);
+        server.key = QSslKey(keyFile.readAll(), QSsl::Rsa, QSsl::Pem);
+        QVERIFY(QSslSocket::supportsSsl());
+        QVERIFY(server.listen(QHostAddress::LocalHost, 0));
+        QSettings settings(dir.filePath("tls.ini"), QSettings::IniFormat);
+        ProtocolDebugPage page(ProtocolDebugSession::Mode::Http, &settings);
+        auto *store = page.projectStore();
+        QString error;
+        QVERIFY(store->setEnvironmentVariables({variable("base_url", server.base())}));
+        auto draft = request("{{base_url}}/headers");
+        auto params = draft.value("params").toObject();
+        params["caFile"] = ca;
+        draft["params"] = params;
+        for (const auto &browser : {"chrome", "edge", "firefox"}) {
+            const auto profile = httpFingerprint::generate(browser, "Windows", "zh-CN");
+            QVERIFY(store->setBrowserFingerprint(profile, &error));
+            QVERIFY(page.loadDraft(draft, &error));
+            const auto count = server.requests.size();
+            page.triggerSend();
+            QTRY_VERIFY_WITH_TIMEOUT(!page.session()->active() && server.requests.size() == count + 1,
+                                     5000);
+            QVERIFY2(page.session()->lastError().isEmpty(), qPrintable(page.session()->lastError()));
+            const auto headers = server.requests.last();
+            const auto values = httpFingerprint::variables(profile);
+            QCOMPARE(headers.value("user-agent"), values.value("browser_user_agent"));
+            QCOMPARE(headers.value("accept-language"), values.value("browser_accept_language"));
+            const auto major = QString::number(profile.value("major").toInt());
+            if (QString(browser) == "firefox") {
+                QVERIFY(headers.value("user-agent").toString().contains("rv:" + major + ".0"));
+                QVERIFY(headers.value("user-agent").toString().endsWith("Firefox/" + major + ".0"));
+                QVERIFY(!headers.contains("sec-ch-ua"));
+            } else {
+                QVERIFY(headers.value("user-agent").toString().contains("Chrome/" + major + ".0.0.0"));
+                QVERIFY(
+                    headers.value("sec-ch-ua").toString().contains("\"Chromium\";v=\"" + major + "\""));
+                QCOMPARE(headers.value("sec-ch-ua"), values.value("browser_sec_ch_ua"));
+                QCOMPARE(headers.value("sec-ch-ua-platform").toString(), "\"Windows\"");
+                QCOMPARE(headers.value("sec-ch-ua-mobile").toString(), "?0");
+            }
+        }
+        const auto last = store->environment().value("browserFingerprint").toObject();
+        auto disabled = last;
+        disabled["enabled"] = false;
+        QVERIFY(store->setBrowserFingerprint(disabled));
+        QVERIFY(store->effectiveVariables().contains("browser_user_agent"));
+        QVERIFY(page.loadDraft(draft, &error));
+        page.triggerSend();
+        QTRY_VERIFY_WITH_TIMEOUT(!page.session()->active() && server.requests.size() == 4, 5000);
+        QVERIFY(!server.requests.last().contains("accept-language"));
+        QVERIFY(!server.requests.last().contains("sec-ch-ua"));
+    }
+    void browserFingerprintValidatesPersistsAndResolvesPrecedence() {
+        QTemporaryDir dir;
+        QSettings settings(dir.filePath("persist.ini"), QSettings::IniFormat);
+        HttpProjectStore store(&settings);
+        QString error;
+        const auto profile = httpFingerprint::generate("edge", "macOS", "ja-JP");
+        QVERIFY(store.setBrowserFingerprint(profile, &error));
+        const auto snapshot = store.project(), runtime = store.runtimeVariables();
+        const auto revision = store.revision();
+        for (const auto &field :
+             {"browser", "platform", "language", "version", "major", "enabled", "headers"}) {
+            auto invalid = profile;
+            invalid[field] = QString("invalid\r\nvalue");
+            QVERIFY(!store.setBrowserFingerprint(invalid, &error));
+            QCOMPARE(store.project(), snapshot);
+            QCOMPARE(store.runtimeVariables(), runtime);
+            QCOMPARE(store.revision(), revision);
+        }
+        auto fractional = profile;
+        fractional["major"] = 143.5;
+        QVERIFY(!store.setBrowserFingerprint(fractional, &error));
+        HttpProjectStore restored(&settings);
+        QCOMPARE(restored.environment().value("browserFingerprint").toObject(), profile);
+        const auto exported = store.exportProject({});
+        HttpProjectStore imported(nullptr);
+        QJsonArray requests;
+        QVERIFY2(imported.importProject(exported, &requests, &error), qPrintable(error));
+        QCOMPARE(imported.environment().value("browserFingerprint").toObject(), profile);
+        auto malformed = exported;
+        auto p = malformed.value("project").toObject();
+        auto envs = p.value("environments").toArray();
+        auto env = envs.first().toObject();
+        auto bad = profile;
+        bad["headers"] = QJsonObject{{"Cookie", "secret"}};
+        env["browserFingerprint"] = bad;
+        envs[0] = env;
+        p["environments"] = envs;
+        malformed["project"] = p;
+        const auto before = imported.projects();
+        QVERIFY(!imported.importProject(malformed, &requests, &error));
+        QCOMPARE(imported.projects(), before);
+        QVERIFY(store.setProjectVariables({variable("browser_user_agent", "project-agent")}));
+        QVERIFY(store.expand("{{browser_user_agent}}") != "project-agent");
+        QVERIFY(store.setEnvironmentVariables({variable("browser_user_agent", "environment-agent")}));
+        QCOMPARE(store.expand("{{browser_user_agent}}"), "environment-agent");
+        QVERIFY(store.extract({{"status", 200}, {"body", QJsonObject{{"ua", "runtime-agent"}}}},
+                              {rule("browser_user_agent", "$.ua")}, store.projectId(),
+                              store.environmentId(), &error));
+        QCOMPARE(store.expand("{{browser_user_agent}}"), "runtime-agent");
+        store.clearRuntime();
+        QCOMPARE(store.expand("{{browser_user_agent}}"), "environment-agent");
+        QVERIFY(
+            store.setEnvironmentVariables({variable("browser_user_agent", "unsafe\r\nInjected: yes")}));
+        QVERIFY(resolveHttpRequest(request("https://localhost/"), store, &error).isEmpty());
+        QVERIFY(!error.isEmpty());
+    }
+    void browserFingerprintSequenceKeepsProfileFixed() {
+        Server server;
+        QTemporaryDir dir;
+        QSettings settings(dir.filePath("sequence.ini"), QSettings::IniFormat);
+        ProtocolDebugPage page(ProtocolDebugSession::Mode::Http, &settings);
+        auto *store = page.projectStore();
+        QString error;
+        const auto profile = httpFingerprint::generate("chrome", "Linux", "en-US");
+        QVERIFY(store->setEnvironmentVariables({variable("base_url", server.base())}));
+        QVERIFY(store->setBrowserFingerprint(profile));
+        auto first = request("{{base_url}}/one");
+        first["id"] = "fp-step-one";
+        first["projectId"] = store->projectId();
+        auto second = request("{{base_url}}/two");
+        second["id"] = "fp-step-two";
+        second["projectId"] = store->projectId();
+        QVERIFY(store->setRequests({first, second}, &error));
+        QVERIFY2(page.startHttpSequence({"fp-step-one", "fp-step-two"}, false, &error),
+                 qPrintable(error));
+        QTRY_VERIFY_WITH_TIMEOUT(!page.sequenceRunner()->running() && server.received.size() == 2,
+                                 5000);
+        QCOMPARE(server.received[0].value("headers").toObject().value("user-agent"),
+                 server.received[1].value("headers").toObject().value("user-agent"));
+        QCOMPARE(store->environment().value("browserFingerprint").toObject(), profile);
+    }
+    void nativeBrowserFingerprintScreenshots() {
+        const auto target = qEnvironmentVariable("PORTBRIDGE_BROWSER_FINGERPRINT_SCREENSHOT_DIR");
+        if (target.isEmpty())
+            QSKIP("Native browser fingerprint screenshots run separately.");
+        QDir().mkpath(target);
+        HttpProjectStore store(nullptr);
+        QWidget parent;
+        parent.resize(1180, 820);
+        for (bool dark : {true, false}) {
+            parent.setProperty("darkTheme", dark);
+            for (const auto &browser : {"chrome", "edge", "firefox"}) {
+                QVERIFY(store.setBrowserFingerprint(
+                    httpFingerprint::generate(browser, "Windows", "zh-CN")));
+                HttpConfigurationDialog dialog(&store, 4, &parent);
+                dialog.show();
+                QTest::qWait(80);
+                QVERIFY(widget<QPushButton>(dialog, "httpBrowserFingerprintGenerate")->isVisible());
+                QVERIFY(dialog.rect().contains(dialog.findChild<QDialogButtonBox *>()->geometry()));
+                QVERIFY(dialog.grab().save(
+                    target + QString("/%1-%2.png").arg(browser, dark ? "dark" : "light")));
+                dialog.reject();
+            }
+        }
+    }
     void configurationSaveIsAtomicScopedAndKeepsRuntimeSeparate() {
         QTemporaryDir dir;
         QSettings settings(dir.filePath("configuration.ini"), QSettings::IniFormat);
@@ -1300,6 +1645,119 @@ class HttpProjectsTest : public QObject {
         QCOMPARE(settings.value("manual/httpProjectsV2").toByteArray(), diskIntent);
         QVERIFY(settings.status() != QSettings::NoError);
         QVERIFY(error.contains(QStringLiteral("写入失败")));
+    }
+    void auditRequestScopeEmptyStatesAndAddressStatus() {
+        Server server;
+        QTemporaryDir dir;
+        QSettings settings(dir.filePath("audit-scope.ini"), QSettings::IniFormat);
+        ProtocolDebugPage page(ProtocolDebugSession::Mode::Http, &settings);
+        page.show();
+        auto *store = page.projectStore();
+        auto *panel = widget<HttpProjectPanel>(page, "httpProjectPanel");
+        QString error;
+        for (const auto &value :
+             {QJsonValue(""), QJsonValue(3), QJsonValue("https://{{missing_host}}")}) {
+            QVERIFY(store->setEnvironmentVariables({variable("base_url", value)}, &error));
+            panel->refresh();
+            QVERIFY(!widget<QLabel>(page, "httpRuntimeStatus")->text().contains("已配置"));
+        }
+        QVERIFY(store->setEnvironmentVariables({variable("base_url", server.base())}, &error));
+        panel->refresh();
+        QVERIFY(widget<QLabel>(page, "httpRuntimeStatus")->text().contains("已配置"));
+        QCOMPARE(server.received.size(), 0);
+        QVERIFY(store->addFolder("认证", &error));
+        QVERIFY(store->addFolder("业务", &error));
+        panel->refresh();
+        auto *filter = widget<QComboBox>(page, "httpFolderFilter");
+        filter->setCurrentIndex(filter->findData("业务"));
+        QVERIFY2(page.createSavedRequest("查询订单", "", &error), qPrintable(error));
+        QCOMPARE(store->requests().last().toObject().value("folder").toString(), "业务");
+        QCOMPARE(widget<QListWidget>(page, "protocolLibrary")->count(), 1);
+        filter->setCurrentIndex(filter->findData("认证"));
+        QCOMPARE(widget<QListWidget>(page, "protocolLibrary")->count(), 0);
+        QVERIFY(widget<QLabel>(page, "protocolLibraryEmpty")->text().contains("当前分类"));
+        filter->setCurrentIndex(filter->findData("*"));
+        QCOMPARE(widget<QListWidget>(page, "protocolLibrary")->count(), 1);
+        widget<QLineEdit>(page, "protocolLibrarySearch")->setText("missing-request");
+        QVERIFY(widget<QLabel>(page, "protocolLibraryEmpty")->text().contains("没有匹配"));
+        widget<QLineEdit>(page, "protocolLibrarySearch")->clear();
+        widget<QPushButton>(page, "protocolNew")->click();
+        QCOMPARE(store->requests().size(), 1);
+        widget<QLineEdit>(page, "protocolName")->setText("未保存的草稿");
+        QVERIFY(page.dirty());
+        QCOMPARE(store->requests().size(), 1);
+        QVERIFY(page.saveDraft(&error));
+        QCOMPARE(store->requests().size(), 2);
+        QVERIFY(store->setEnvironmentVariables({variable("base_url", "")}, &error));
+        page.triggerSend();
+        QVERIFY(!page.session()->active());
+        QVERIFY(widget<QLabel>(page, "protocolWarning")->text().contains("配置环境"));
+        QCOMPARE(server.received.size(), 0);
+    }
+    void newProjectConfiguresEnvironmentAndRequestUsesAddressTemplate() {
+        Server first, second;
+        QTemporaryDir dir;
+        QSettings settings(dir.filePath("project-flow.ini"), QSettings::IniFormat);
+        ProtocolDebugPage page(ProtocolDebugSession::Mode::Http, &settings);
+        page.show();
+        auto *store = page.projectStore();
+        auto *panel = widget<HttpProjectPanel>(page, "httpProjectPanel");
+        const auto previousCount = store->projects().size();
+        int phase = 0;
+        QTimer setup;
+        setup.setInterval(10);
+        connect(&setup, &QTimer::timeout, &page, [&] {
+            auto *active = QApplication::activeModalWidget();
+            if (phase == 0) {
+                auto *prompt = qobject_cast<QInputDialog *>(active);
+                if (!prompt)
+                    return;
+                prompt->setTextValue("订单服务");
+                ++phase;
+                prompt->accept();
+            } else if (phase == 1) {
+                auto *dialog = dynamic_cast<HttpConfigurationDialog *>(active);
+                if (!dialog)
+                    return;
+                QVERIFY(widget<QLabel>(*dialog, "httpSettingsCreationNotice")->isVisible());
+                QVERIFY(widget<QLabel>(*dialog, "httpSettingsCreationNotice")
+                            ->text()
+                            .contains("不删除新项目"));
+                QCOMPARE(widget<QTabWidget>(*dialog, "httpSettingsTabs")->currentIndex(), 0);
+                widget<QLineEdit>(*dialog, "httpSettingsEnvironmentName")->setText("本地开发");
+                widget<QLineEdit>(*dialog, "httpEnvironmentBaseUrl")->setText(first.base());
+                ++phase;
+                setup.stop();
+                dialog->findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Save)->click();
+            }
+        });
+        setup.start();
+        panel->findChild<QAction *>("httpProjectNew")->trigger();
+        QCOMPARE(phase, 2);
+        QCOMPARE(store->projects().size(), previousCount + 1);
+        QCOMPARE(store->project().value("name").toString(), "订单服务");
+        QCOMPARE(store->environment().value("name").toString(), "本地开发");
+        QCOMPARE(first.received.size(), 0);
+        QCOMPARE(second.received.size(), 0);
+        QString error;
+        QVERIFY2(page.createSavedRequest("查询订单", "", &error), qPrintable(error));
+        QCOMPARE(widget<QLineEdit>(page, "protocolUrl")->text(), "{{base_url}}/");
+        widget<QLineEdit>(page, "protocolUrl")->setText("{{base_url}}/health");
+        QVERIFY(page.saveDraft(&error));
+        page.triggerSend();
+        QTRY_VERIFY_WITH_TIMEOUT(!page.session()->active() && first.received.size() == 1, 5000);
+        QVERIFY(store->createEnvironment("测试服务", &error));
+        QVERIFY(store->setEnvironmentVariables({variable("base_url", second.base())}, &error));
+        page.triggerSend();
+        QTRY_VERIFY_WITH_TIMEOUT(!page.session()->active() && second.received.size() == 1, 5000);
+        QCOMPARE(widget<QLineEdit>(page, "protocolUrl")->text(), "{{base_url}}/health");
+        QVERIFY(store->createEnvironment("待配置", &error));
+        page.triggerSend();
+        QTest::qWait(80);
+        QVERIFY(!page.session()->active());
+        QCOMPARE(first.received.size(), 1);
+        QCOMPARE(second.received.size(), 1);
+        QVERIFY(widget<QLabel>(page, "protocolWarning")->isVisible());
     }
     void newEnvironmentOpensConfigurationAndStaysSilent() {
         Server server;
@@ -1433,23 +1891,53 @@ class HttpProjectsTest : public QObject {
                                                variable("username", "demo"),
                                                variable("access_token", "synthetic-secret", true)}));
         QVERIFY(store.setProjectAuth({{"kind", "bearer"}, {"token", "{{access_token}}"}}));
+        QVERIFY(store.setBrowserFingerprint(httpFingerprint::generate("edge", "Windows", "zh-CN")));
         for (bool dark : {true, false}) {
             parent.setProperty("darkTheme", dark);
             HttpConfigurationDialog dialog(&store, 0, &parent);
             dialog.show();
             QTest::qWait(60);
             auto *tabs = widget<QTabWidget>(dialog, "httpSettingsTabs");
-            for (int tab = 0; tab < 4; ++tab) {
-                tabs->setCurrentIndex(tab);
+            auto *navigation = widget<QListWidget>(dialog, "httpSettingsNavigation");
+            const auto verifyFooter = [&] {
+                auto *buttons = dialog.findChild<QDialogButtonBox *>();
+                QVERIFY(dialog.rect().contains(buttons->geometry()));
+                for (auto role : {QDialogButtonBox::Save, QDialogButtonBox::Cancel}) {
+                    auto *button = buttons->button(role);
+                    QVERIFY(button->isVisible());
+                    QVERIFY(dialog.rect().contains(
+                        QRect(button->mapTo(&dialog, QPoint()), button->size())));
+                }
+            };
+            for (int tab = 0; tab < 5; ++tab) {
+                QTest::mouseClick(navigation->viewport(), Qt::LeftButton, Qt::NoModifier,
+                                  navigation->visualItemRect(navigation->item(tab)).center());
+                QCOMPARE(tabs->currentIndex(), tab);
                 QTest::qWait(40);
                 QVERIFY(dialog.grab().save(
                     target + QString("/settings-%1-%2.png").arg(dark ? "dark" : "light").arg(tab)));
-                QVERIFY(dialog.rect().contains(dialog.findChild<QDialogButtonBox *>()->geometry()));
+                verifyFooter();
             }
             tabs->setCurrentIndex(2);
             widget<QComboBox>(dialog, "httpProjectAuthKind")->setCurrentIndex(2);
             QTest::qWait(40);
             QVERIFY(dialog.grab().save(target + QString("/basic-%1.png").arg(dark ? "dark" : "light")));
+            dialog.resize(740, 500);
+            for (int tab : {0, 2, 4}) {
+                tabs->setCurrentIndex(tab);
+                QTest::qWait(40);
+                QCOMPARE(dialog.size(), QSize(740, 500));
+                verifyFooter();
+                auto *scroll = qobject_cast<QScrollArea *>(tabs->currentWidget());
+                QVERIFY(scroll);
+                QVERIFY(scroll->widgetResizable());
+                QVERIFY(dialog.grab().save(
+                    target + QString("/compact-%1-%2.png").arg(dark ? "dark" : "light").arg(tab)));
+            }
+            tabs->setCurrentIndex(0);
+            navigation->setFocus();
+            QTest::keyClick(navigation, Qt::Key_Down);
+            QCOMPARE(tabs->currentIndex(), 1);
             dialog.reject();
         }
     }

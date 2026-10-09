@@ -1,0 +1,36 @@
+{
+  "state": "passed",
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 49.168
+    },
+    {
+      "name": "focused",
+      "exitCode": 0,
+      "seconds": 9.502
+    },
+    {
+      "name": "ctest-all",
+      "exitCode": 0,
+      "seconds": 183.302
+    },
+    {
+      "name": "native-1",
+      "exitCode": 0,
+      "seconds": 12.725
+    },
+    {
+      "name": "native-1.25",
+      "exitCode": 0,
+      "seconds": 13.319
+    },
+    {
+      "name": "native-1.5",
+      "exitCode": 0,
+      "seconds": 13.333
+    }
+  ],
+  "sourceUnchanged": true
+}

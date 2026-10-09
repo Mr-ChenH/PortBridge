@@ -24,7 +24,8 @@ class ConnectionTypeCard final : public QPushButton {
         setToolTip(detail_);
         setCheckable(true);
         setAutoDefault(false);
-        setStyleSheet("QPushButton{min-height:82px;max-height:82px;min-width:240px;padding:0;border:0;}");
+        setStyleSheet(
+            "QPushButton{min-height:82px;max-height:82px;min-width:240px;padding:0;border:0;}");
         setFixedHeight(82);
         setMinimumWidth(240);
         setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -38,9 +39,9 @@ class ConnectionTypeCard final : public QPushButton {
             accent(dark ? "#85dec4" : "#176e58");
         QPainter p(this);
         p.setRenderHint(QPainter::Antialiasing);
-        p.setBrush(QColor(
-            isChecked() ? (dark ? "#21352f" : "#e5f3ed")
-                        : (underMouse() ? (dark ? "#243033" : "#f2f6f6") : (dark ? "#171f22" : "#ffffff"))));
+        p.setBrush(QColor(isChecked() ? (dark ? "#21352f" : "#e5f3ed")
+                                      : (underMouse() ? (dark ? "#243033" : "#f2f6f6")
+                                                      : (dark ? "#171f22" : "#ffffff"))));
         p.setPen(QPen(isChecked() || hasFocus() ? accent : QColor(dark ? "#344348" : "#d5dfe1"),
                       isChecked() || hasFocus() ? 1.5 : 1));
         p.drawRoundedRect(QRectF(rect()).adjusted(1, 1, -1, -1), 7, 7);
@@ -65,41 +66,49 @@ class ConnectionDialog final : public QDialog {
     QComboBox *kind;
     QLabel *error;
     QDialogButtonBox *buttons;
-    ConnectionDialog(QWidget *parent, bool add, int selected, const QString &initialName, bool dark)
+    ConnectionDialog(QWidget *parent, bool add, int selected, const QString &initialName, bool dark,
+                     const QString &httpContext = {})
         : QDialog(parent) {
         setObjectName("profileDialog");
         setProperty("darkTheme", dark);
-        setWindowTitle(add ? QStringLiteral("新建连接方案") : QStringLiteral("编辑连接方案"));
+        setWindowTitle(add ? QStringLiteral("新建调试项") : QStringLiteral("编辑连接方案"));
         setMinimumWidth(560);
         resize(620, add ? 570 : 550);
         const QString ink = dark ? "#e5edee" : "#213336", muted = dark ? "#94a5a8" : "#60767b",
                       border = dark ? "#344348" : "#d5dfe1", accent = dark ? "#85dec4" : "#176e58";
         setStyleSheet(
-            QString("QDialog#profileDialog{background:%1;color:%2;} QDialog#profileDialog "
-                    "QLabel{color:%2;background:transparent;} "
-                    "QLabel#profileDialogSubtitle,QLabel#profileDialogHint{color:%3;} "
-                    "QLabel#profileDialogError{color:%4;} QLineEdit{border:1px solid "
-                    "%5;border-radius:5px;padding:8px 10px;background:%6;color:%2;min-height:18px;} "
-                    "QLineEdit:focus{border:1px solid %7;} QPushButton{padding:7px 16px;border:1px solid "
-                    "%5;border-radius:5px;background:%6;color:%2;} "
-                    "QPushButton#profileDialogSave{background:%7;color:%8;border-color:%7;}")
+            QString(
+                "QDialog#profileDialog{background:%1;color:%2;} QDialog#profileDialog "
+                "QLabel{color:%2;background:transparent;} "
+                "QLabel#profileDialogSubtitle,QLabel#profileDialogHint{color:%3;} "
+                "QLabel#profileDialogError{color:%4;} QLineEdit{border:1px solid "
+                "%5;border-radius:5px;padding:8px 10px;background:%6;color:%2;min-height:18px;} "
+                "QLineEdit:focus{border:1px solid %7;} QPushButton{padding:7px 16px;border:1px solid "
+                "%5;border-radius:5px;background:%6;color:%2;} "
+                "QPushButton#profileDialogSave{background:%7;color:%8;border-color:%7;}")
                 .arg(dark ? "#101719" : "#f4f7f7", ink, muted, dark ? "#ffad5c" : "#a34b0f", border,
                      dark ? "#171f22" : "#ffffff", accent, dark ? "#10221c" : "#ffffff"));
         auto *layout = new QVBoxLayout(this);
         layout->setContentsMargins(24, 22, 24, 22);
         layout->setSpacing(14);
-        auto *title = new QLabel(add ? QStringLiteral("选择连接方式") : QStringLiteral("编辑连接方案"));
+        auto *title = new QLabel(add ? QStringLiteral("选择调试类型") : QStringLiteral("编辑连接方案"));
         title->setFont(design::font(22, false, true));
         layout->addWidget(title);
-        auto *subtitle = new QLabel(add ? QStringLiteral("为设备通信或接口调试创建一个可复用的方案。")
-                                        : QStringLiteral("修改名称和通信方式，再回到工作台配置参数。"));
+        auto *subtitle = new QLabel(
+            add ? QStringLiteral("设备通信保存连接参数；HTTP保存接口请求，服务地址在环境中配置。")
+                : QStringLiteral("修改名称和通信方式，再回到工作台配置参数。"));
         subtitle->setObjectName("profileDialogSubtitle");
         subtitle->setWordWrap(true);
         layout->addWidget(subtitle);
+        auto *scope = new QLabel(httpContext);
+        scope->setObjectName("profileHttpContext");
+        scope->setTextFormat(Qt::PlainText);
+        scope->setWordWrap(true);
+        layout->addWidget(scope);
         kind = new QComboBox(this);
         kind->setObjectName("profileKind");
-        kind->addItems(
-            {QStringLiteral("串口"), QStringLiteral("TCP 客户端"), QStringLiteral("TCP 服务端"), "UDP"});
+        kind->addItems({QStringLiteral("串口"), QStringLiteral("TCP 客户端"),
+                        QStringLiteral("TCP 服务端"), "UDP"});
         if (add)
             kind->addItems({"HTTP", "WebSocket"});
         kind->hide();
@@ -112,9 +121,9 @@ class ConnectionDialog final : public QDialog {
         auto cards = std::make_shared<std::array<ConnectionTypeCard *, 6>>();
         cards->fill(nullptr);
         for (int i = 0; i < kind->count(); ++i) {
-            auto *card =
-                new ConnectionTypeCard(kind->itemText(i), details[i],
-                                       i == 0 ? Icon::Chip : (i == 4 ? Icon::Send : Icon::Network), this);
+            auto *card = new ConnectionTypeCard(
+                kind->itemText(i), details[i],
+                i == 0 ? Icon::Chip : (i == 4 ? Icon::Send : Icon::Network), this);
             card->setObjectName(QString("profileType%1").arg(i));
             (*cards)[i] = card;
             grid->addWidget(card, i / 2, i % 2);
@@ -127,6 +136,7 @@ class ConnectionDialog final : public QDialog {
         auto *nameBlock = new QVBoxLayout;
         nameBlock->setSpacing(6);
         auto *nameCaption = new QLabel(QStringLiteral("方案名称"));
+        nameCaption->setObjectName("profileNameCaption");
         name = new QLineEdit(initialName);
         name->setObjectName("profileName");
         name->setMaxLength(128);
@@ -139,7 +149,7 @@ class ConnectionDialog final : public QDialog {
         auto *urlLayout = new QVBoxLayout(urlBlock);
         urlLayout->setContentsMargins(0, 0, 0, 0);
         urlLayout->setSpacing(6);
-        auto *urlCaption = new QLabel(QStringLiteral("请求地址"));
+        auto *urlCaption = new QLabel(QStringLiteral("连接地址"));
         url = new QLineEdit;
         url->setObjectName("profileProtocolUrl");
         url->setMaxLength(4096);
@@ -163,15 +173,28 @@ class ConnectionDialog final : public QDialog {
         save->setObjectName("profileDialogSave");
         save->setText(add ? QStringLiteral("创建方案") : QStringLiteral("保存修改"));
         layout->addWidget(buttons);
-        auto update = [this, cards, urlBlock, hint, save](int index) {
+        auto update = [this, cards, urlBlock, hint, save, nameCaption, scope](int index) {
             for (int i = 0; i < 6; ++i)
                 if ((*cards)[i])
                     (*cards)[i]->setChecked(i == index);
-            urlBlock->setVisible(index >= 4);
-            url->setPlaceholderText(index == 4 ? "http://127.0.0.1:8080/health" : "ws://127.0.0.1:8081/echo");
-            hint->setText(index >= 4 ? QStringLiteral("创建后加入对应方案库并打开工作台；不自动连接或发送。")
-                                     : QStringLiteral("创建后在工作台配置端口与收发参数；不自动连接。"));
-            save->setText(index >= 4 ? QStringLiteral("创建并打开") : QStringLiteral("保存方案"));
+            urlBlock->setVisible(index == 5);
+            scope->setVisible(index == 4 && !scope->text().isEmpty());
+            nameCaption->setText(index == 4   ? QStringLiteral("请求名称")
+                                 : index == 5 ? QStringLiteral("连接名称")
+                                              : QStringLiteral("方案名称"));
+            name->setPlaceholderText(index == 4
+                                         ? QStringLiteral("例如：用户登录、查询订单；用于识别接口请求")
+                                     : index == 5 ? QStringLiteral("例如：实时消息连接")
+                                                  : QStringLiteral("例如：设备联调"));
+            url->setPlaceholderText("ws://127.0.0.1:8081/echo");
+            hint->setText(
+                index == 4   ? QStringLiteral("请求会保存到当前HTTP项目。创建后填写接口路径，默认使用 "
+                                              "{{base_url}}/；服务地址在当前环境中配置，不会自动发送。")
+                : index == 5 ? QStringLiteral("创建后保存WebSocket连接并打开工作台；不自动连接。")
+                             : QStringLiteral("创建后在工作台配置端口与收发参数；不自动连接。"));
+            save->setText(index == 4   ? QStringLiteral("创建并保存请求")
+                          : index == 5 ? QStringLiteral("创建并打开")
+                                       : QStringLiteral("保存方案"));
             error->clear();
             error->hide();
         };

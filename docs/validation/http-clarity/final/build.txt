@@ -1,0 +1,74 @@
+QtNodes const QVariant extraction patch verified.
+Pinned QtNodes 3.0.16 ready: C:\Users\threeTeeth\workSpace\github\PortBridge\.deps\workflow-research\nodeeditor-7c6341a66a8e46b8988140b9e60d892b6a3560b3
+Pinned protocol sources/static TLS ready: C:\Users\threeTeeth\workSpace\github\PortBridge\.deps\workflow
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Found OpenSSL: C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow/openssl-install/lib64/libcrypto.a (found suitable exact version "3.5.4")
+-- Looking for if_nametoindex
+-- Looking for if_nametoindex - found
+-- Using CMake version 4.1.2
+-- curl version=[8.16.0]
+-- CMake platform flags: WIN32 GCC MINGW
+-- Performing Test HAVE_WIN32_WINNT
+-- Performing Test HAVE_WIN32_WINNT - Success
+-- Found _WIN32_WINNT=0x0a00
+-- Performing Test MINGW64_VERSION
+-- Performing Test MINGW64_VERSION - Success
+-- Found MINGW64_VERSION=11.0
+-- Picky compiler options: -Werror-implicit-function-declaration -W -Wall -pedantic -Wbad-function-cast -Wconversion -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Waddress -Wattributes -Wcast-align -Wcast-qual -Wdeclaration-after-statement -Wdiv-by-zero -Wempty-body -Wendif-labels -Wfloat-equal -Wformat-security -Wignored-qualifiers -Wmissing-field-initializers -Wmissing-noreturn -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wold-style-definition -Wredundant-decls -Wstrict-prototypes -Wtype-limits -Wunreachable-code -Wunused-parameter -Wvla -Wclobbered -Wmissing-parameter-type -Wold-style-declaration -Wpragmas -Wstrict-aliasing=3 -ftree-vrp -Wjump-misses-init -Wno-pedantic-ms-format -Wdouble-promotion -Wformat=2 -Wtrampolines -Warray-bounds=2 -Wduplicated-cond -Wnull-dereference -fdelete-null-pointer-checks -Wshift-negative-value -Wshift-overflow=2 -Wunused-const-variable -Walloc-zero -Wduplicated-branches -Wformat-truncation=2 -Wimplicit-fallthrough -Wrestrict -Warith-conversion -Wenum-conversion -Warray-compare -Wenum-int-mismatch -Wxor-used-as-pow
+-- Found Cares (via pkg-config):  (found version "")
+-- Found OpenSSL: C:/Users/threeTeeth/workSpace/github/PortBridge/.deps/workflow/openssl-install/lib64/libcrypto.a (found version "3.5.4")
+-- Protocols: http https
+-- Features: alt-svc AsynchDNS HSTS HTTPS-proxy IPv6 Largefile NTLM SSL threadsafe TLS-SRP UnixSockets
+-- Enabled SSL backends: OpenSSL v3+
+-- CXX standard of parent project: 17
+-- CXX standard: 17
+-- C++ Requests CMake Options
+-- =======================================================
+--   CPR_GENERATE_COVERAGE: OFF
+--   CPR_CURL_NOSIGNAL: ON
+--   CURL_VERBOSE_LOGGING: OFF
+--   CPR_USE_SYSTEM_GTEST: OFF
+--   CPR_USE_SYSTEM_CURL: OFF
+--   CPR_USE_EXISTING_CURL_TARGET: ON
+--   CPR_CURL_USE_LIBPSL: OFF
+--   CPR_USE_SYSTEM_LIB_PSL: OFF
+--   CPR_ENABLE_CURL_HTTP_ONLY: ON
+--   CPR_ENABLE_SSL: ON
+--   CPR_FORCE_OPENSSL_BACKEND: ON
+--   CPR_FORCE_WINSSL_BACKEND: OFF
+--   CPR_FORCE_DARWINSSL_BACKEND: OFF
+--   CPR_FORCE_MBEDTLS_BACKEND: OFF
+--   CPR_ENABLE_LINTING: OFF
+--   CPR_ENABLE_CPPCHECK: OFF
+--   CPR_BUILD_TESTS: OFF
+--   CPR_BUILD_TESTS_SSL: OFF
+--   CPR_BUILD_TESTS_PROXY: OFF
+--   CPR_BUILD_VERSION_OUTPUT_ONLY: OFF
+--   CPR_SKIP_CA_BUNDLE_SEARCH: OFF
+--   CPR_USE_BOOST_FILESYSTEM: OFF
+--   CPR_DEBUG_SANITIZER_FLAG_THREAD: OFF
+--   CPR_DEBUG_SANITIZER_FLAG_ADDR: OFF
+--   CPR_DEBUG_SANITIZER_FLAG_LEAK: OFF
+--   CPR_DEBUG_SANITIZER_FLAG_UB: OFF
+--   CPR_DEBUG_SANITIZER_FLAG_ALL: OFF
+-- =======================================================
+-- Disabled SSL backend auto detect since either CPR_FORCE_OPENSSL_BACKEND, CPR_FORCE_DARWINSSL_BACKEND, CPR_FORCE_MBEDTLS_BACKEND, or CPR_FORCE_WINSSL_BACKEND is enabled.
+-- Using OpenSSL.
+-- cpr skipping management of curl dependency (CPR_USE_EXISTING_CURL_TARGET is set to ON).
+-- QT_VERSION: 6.8.3, QT_DIR: C:/Qt/6.8.3/mingw_64/lib/cmake/Qt6
+-- Configuring done (6.3s)
+-- Generating done (1.3s)
+-- Build files have been written to: C:/Users/threeTeeth/workSpace/github/PortBridge/build/workflow-product
+[0/2] Re-checking globbed directories...
+[1/12] Automatic MOC for target portbridge_ui
+[2/11] Building CXX object CMakeFiles/portbridge_ui.dir/src/ui/protocol_debug_page.cpp.obj
+[3/11] Linking CXX static library libportbridge_ui.a
+[4/11] Linking CXX executable test_workflow_integration.exe
+[5/11] Linking CXX executable test_ui.exe
+[6/11] Linking CXX executable PortBridge.exe
+[7/11] Linking CXX executable test_workflow_ui.exe
+[8/11] Linking CXX executable test_workflow_e2e.exe
+[9/11] Linking CXX executable test_protocol_debug.exe
+[10/11] Linking CXX executable test_http_projects.exe
+Built: C:\Users\threeTeeth\workSpace\github\PortBridge\build\workflow-product\PortBridge.exe

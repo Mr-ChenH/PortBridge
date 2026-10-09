@@ -1,0 +1,205 @@
+--- Result 1 ---
+Title: User-Agent Reduction
+Link: https://www.chromium.org/updates/ua-reduction/
+Snippet: In Phase 4 we change the &lt;minorVersion&gt; token to “0.0.0”. In Phase 5 we change the &lt;platform&gt; and &lt;oscpu&gt; tokens from their platform-defined values to the relevant &lt;unifiedPlatform&gt; token value (which will never change). Note: There may not be user-visible changes here, unless the user was on a lower version. Also note that the macOS platform version was already capped to 10_15_7 in Chrome 90 for site compatibility reasons.
+Content:
+1. [Updates](#updates)
+2. [Proposed Rollout Plan](#proposed-rollout-plan)
+3. [Reduced User Agent String Reference](#reduced-user-agent-string-reference)
+ 1. [Applicable platforms](#applicable-platforms)
+ 2. [Unified Format](#unified-format)
+ 3. [Desktop](#desktop)
+ 4. [Mobile and Tablet](#mobile-and-tablet)
+4. [Token Reference](#token-reference)
+5. [UA Token to UA-CH Mapping](#ua-token-to-ua-ch-mapping)
+6. [Sample UA Strings: Phase 4](#sample-ua-strings-phase-4)
+7. [Sample UA Strings: Phase 5](#sample-ua-strings-phase-5)
+8. [Sample UA Strings: Phase 6](#sample-ua-strings-phase-6)
+9. [Sample UA Strings: Final Reduced State](#sample-ua-strings-final-reduced-state)
+10. [Reduced navigator.platform values (for all versions)](#reduced-navigatorplatform-values-for-all-versions)
+11. [Reduced navigator.appVersion values](#reduced-navigatorappversion-values)
+12. [Reduced navigator.userAgent values](#reduced-navigatoruseragent-values)
+13. [Alternative: high entropy client hints](#alternative-high-entropy-client-hints)
+14. [FAQ](#faq)
+15. [Resources](#resources)
+ 1. [Education](#education)
+ 2. [Proposed Timeline](#proposed-timeline)
+ 3. [Migration](#migration)
+ 4. [Testing](#testing)
+
+## [Updates](#updates)
+
+May 11th, 2023: the Phase 6 rollout is enabled for 100% of Android clients on M110 and above via Finch.
+
+April 25th, 2023: the Phase 6 rollout is enabled for 50% of Android clients on M110 and above via Finch.
+
+April 4th, 2023: the Phase 6 rollout is enabled for 10% of Android clients on M110 and above via Finch.
+
+March 21st, 2023: the Phase 6 rollout is enabled for 5% of Android clients on M110 and above via Finch.
+
+February 21st, 2023: the Phase 6 rollout is enabled for 1% of Android clients on M110 and above via Finch.
+
+February 7th, 2023: the Phase 5 rollout is enabled for 100% of clients on M107 and above via Finch.
+
+Jan 23rd, 2023: the Phase 5 rollout is enabled for 50% of clients on M107 and above via Finch.
+
+Jan 9th, 2023: the Phase 5 rollout is enabled for 10% of clients on M107 and above via Finch.
+
+Dec 7th, 2022: the Phase 5 rollout is enabled for 5% of clients on M107 and above via Finch.
+
+Nov 3rd, 2022: the Phase 5 rollout is enabled for 1% of clients on M107 and above via Finch.
+
+June 13th, 2022: the Phase 4 rollout is enabled for 100% of clients on M101 and above via Finch.
+
+June 10th, 2022: [Enabled the "ReduceUserAgentMinorVersion" feature by default](https://chromiumdash.appspot.com/commit/3fea2402264010af295c8dd87400368680100228) in the M105 branch.
+
+May 31, 2022: Phase 4 rollout was increased to an even larger percentage of the Chrome 101 population while we evaluate stability.
+
+May 16, 2022: Phase 4 rollout was increased to a larger percentage of the Chrome 101 population while we evaluate stability.
+
+May 6, 2022: ["Phase 4"](https://www.chromium.org/updates/ua-reduction/#sample-ua-strings-phase-4) began rolling out to a small percentage of the Chrome 101 stable population while we evaluate stability.
+
+April 11, 2022: Add a table to map from UA to UA-CH
+
+March 3, 2022: Added frozen Chrome OS platform version to `<unifiedPlatform>` value
+
+February 18, 2022: Added information on the platforms for which User-Agent reduction is applicable, as well as links to resources.
+
+October 12, 2021: Information on using the Origin Trial with third-party embeds was add to the [blog post](https://developer.chrome.com/blog/user-agent-reduction-origin-trial/).
+
+September 16, 2021: Chrome milestones were added to reflect [https://blog.chromium.org/2021/09/user-agent-reduction-origin-trial-and-dates.html](https://blog.chromium.org/2021/09/user-agent-reduction-origin-trial-and-dates.html).
+
+May 24, 2021: The chrome://flags#freeze-user-agent flag was renamed to chrome://flags/#reduce-user-agent in Chrome 93 and the values were updated to align with the plan below (also testable via --enable-features=ReduceUserAgent).
+
+## [Proposed Rollout Plan](#proposed-rollout-plan)
+
+**Reduction Preparation**
+
+Phase 1: Warn about accessing navigator.userAgent, navigator.appVersion, and navigator.platform in DevTools, beginning in M92.
+
+Phase 2: **Chrome 95 to Chrome 100** Launch an Origin Trial for sites to opt into the final reduced UA string for testing and feedback, for at least 6 months.
+
+**Reduction Rollout**
+
+Phase 3: **Chrome 100** Launch a reverse Origin Trial, for instances where a site may need more time for migration, for at least 6 months.
+
+Phase 4: **Chrome 101** Ship reduced Chrome MINOR.BUILD.PATCH version numbers (“0.0.0”). Once rolled-out, the reduced UA string would apply to all page loads on desktop and mobile OSes that do not opt into the reverse Origin Trial.
+
+Phase 5: **Chrome 107** Begin roll-out of reduced Desktop UA string and related JS APIs (navigator.userAgent, navigator.appVersion, navigator.platform). Once rolled-out, the reduced UA string would apply to all page loads on desktop OSes that do not opt into the reverse Origin Trial.
+
+Phase 6: **Chrome 110** Begin roll-out of reduced Android Mobile (and T
+
+--- Result 2 ---
+Title: What are the latest user agents for Chrome?
+Link: https://www.whatismybrowser.com/guides/the-latest-user-agent/chrome
+Age: July 6, 2019
+Snippet: We used to provide a number of different variations of the Chrome user agent for each platform, however with Chromium&#x27;s move towards &quot;frozen&quot; user agents, they&#x27;ve continued to reduce the amount of information in user agents, so there&#x27;s fewer variants to provide version information for. The information on this page is of a more technical nature, and might not be what you&#x27;re after. You only need the info here if you really know what you&#x27;re doing. February 2023: Read Google&#x27;s Prepare for Chrome&#x27;s user‑agent reduction page for more information about the reduced information in Chrome user agents.
+Content:
+Updated at: Oct 9, 2026
+
+Google [Chrome](https://www.google.com/chrome/) runs on a variety of operating systems and platforms, so while the version number tends to be fairly similar across platforms, the actual structure of the user agent has some variations.
+
+We used to provide a number of different variations of the Chrome user agent for each platform, however with Chromium's move towards "frozen" user agents, they've continued to reduce the amount of information in user agents, so there's fewer variants to provide version information for.
+
+February 2023: Read Google's [Prepare for Chrome's user‑agent reduction](https://developer.chrome.com/blog/user-agent-reduction-android-model-and-version/) page for more information about the reduced information in Chrome user agents.
+
+We have a historical archive of [Chrome user agents](https://explore.whatismybrowser.com/useragents/explore/software_name/chrome/) which might be useful for you, if you need older user agents.
+
+Explore our huge [user agent listing](https://explore.whatismybrowser.com/useragents/explore/), [download our user agents database](https://developers.whatismybrowser.com/useragents/database/), (or you can [search it](https://developers.whatismybrowser.com/api/features/database-search)) if you're curious about other user agents.
+
+## Get latest user agents for Chrome via API
+
+Our [Web Browser/Operating System Version Numbers API](https://developers.whatismybrowser.com/api/docs/v2/integration-guide/#software-version-numbers) endpoint will provide you with the latest user agents for all sorts of popular web browsers and operating systems.
+
+## Latest Chrome on Windows 10 User Agents
+
+| Platform | Latest Chrome User Agents |
+| --- | --- |
+| Chrome (Standard) | 
+* Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+
+ |
+
+## Latest Chrome on Windows 11 User Agents
+
+Chrome on Windows 11 sends its user agent as if it were still running on Windows 10. 
+To [detect Chrome on Windows 11 you need to also look at the Client Hints headers](https://developers.whatismybrowser.com/learn/browser-detection/client-hints/detect-windows-11-client-hints).
+
+## Latest Chrome on macOS User Agents
+
+| Platform | Latest Chrome User Agents |
+| --- | --- |
+| Chrome (Standard) | 
+* Mozilla/5.0 (Macintosh; Intel Mac OS X 10\_15\_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+
+ |
+
+## Latest Chrome on Linux User Agents
+
+| Platform | Latest Chrome User Agents |
+| --- | --- |
+| Chrome (Standard) | 
+* Mozilla/5.0 (X11; Linux x86\_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+
+ |
+
+## Latest Chrome on iOS Android User Agents
+
+| Platform | Latest Chrome User Agents |
+| --- | --- |
+| Chrome on **Iphone** | 
+* Mozilla/5.0 (iPhone; CPU iPhone OS 18\_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/155.0.8059.37 Mobile/15E148 Safari/604.1
+
+ |
+| Chrome on **Ipad** | 
+
+* Mozilla/5.0 (iPad; CPU OS 18\_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/155.0.8059.37 Mobile/15E148 Safari/604.1
+
+ |
+| Chrome on **Ipod** | 
+
+* Mozilla/5.0 (iPod; CPU iPhone OS 18\_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/155.0.8059.37 Mobile/15E148 Safari/604.1
+
+ |
+
+## Latest Chrome on Android User Agents
+
+| Platform | Latest Chrome User Agents |
+| --- | --- |
+| Chrome (Standard) | 
+* Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.8059.40 Mobile Safari/537.36
+
+ |
+
+### Experiment with different user agents
+
+You can use our [User Agent Parser](https://explore.whatismybrowser.com/useragents/parse/) page to try out different user agent varieties, or to test if your user agent switcher is working properly.
+
+## Database of user agents
+
+If you're interested in our database of many millions of user agents, please check out our API which provides access to our [user agent database](https://developers.whatismybrowser.com/useragents/database/). You can perform very detailed and specific queries on it to find user agents that match your exact criteria - version numbers, hardware types, platforms and so on.
+
+## [Update my web browser](https://www.whatismybrowser.com/guides/how-to-update-your-browser/)
+
+* ### [Do I need to update my browser?](https://www.whatismybrowser.com/)
+ 
+ Find out if your browser is out of date 
+ [Is my browser out of date?](https://www.whatismybrowser.com/)
+ 
+* ### [Why should I update my browser?](https://www.whatismybrowser.com/guides/how-to-update-your-browser/faq/why-should-i-update-my-web-browser)
+ 
+ There are very good reasons to, find out here! 
+ [Why update your browser?](https://www.whatismybrowser.com/guides/how-to-update-your-browser/faq/why-should-i-update-my-web-browser)
+ 
+* ### [Is it free to update Chrome?](https://www.whatismybrowser.com/guides/how-to-update-your-browser/faq/is-it-free-to-update-chrome)
+ 
+ Find out about the cost of updating Chrome... 
+ [Does Chrome cost anything?](https://ww
+
+--- Result 3 ---
+Title: site/updates/ua-reduction/index.md
+Link: https://chromium.journaldev.googlesource.com/website/+/6f7a687d3cca0d52de7bdeee1a01955091517f75/site/updates/ua-reduction/index.md
+Snippet: The Chrome Desktop User Agent string currently uses the following format: ... In Phase 4 we change the &lt;minorVersion&gt; token to “0.0.0”. In Phase 5 we change the &lt;platform&gt; and &lt;oscpu&gt; tokens from their platform-defined values to the relevant &lt;unifiedPlatform&gt; token value (which will never change). Note: There may not be user-visible changes here, unless the user was on a lower version. Also note that the macOS platform version was already capped to 10_15_7 in Chrome 90 for site compatibility reasons.
+Content:
+(Error: fetch failed)
+

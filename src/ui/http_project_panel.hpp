@@ -27,7 +27,7 @@ class HttpProjectPanel final : public QWidget {
     QComboBox *projects_, *environments_, *folders_;
     QLabel *tokenStatus_;
     bool updating_ = false;
-    void editConfiguration(int tab, const char *name = nullptr);
+    void editConfiguration(int tab, const char *name = nullptr, const QString &notice = {});
     void result(bool ok, const QString &error);
 };
 } // namespace portbridge

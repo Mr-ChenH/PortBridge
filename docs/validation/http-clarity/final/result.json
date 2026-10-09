@@ -1,0 +1,62 @@
+{
+  "state": "passed",
+  "results": [
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 50.21
+    },
+    {
+      "name": "focused",
+      "exitCode": 0,
+      "seconds": 1.618
+    },
+    {
+      "name": "ctest-http_projects",
+      "exitCode": 0,
+      "seconds": 12.127
+    },
+    {
+      "name": "ctest-protocol_debug",
+      "exitCode": 0,
+      "seconds": 35.182
+    },
+    {
+      "name": "native-1",
+      "exitCode": 0,
+      "seconds": 8.044
+    },
+    {
+      "name": "native-creation-1",
+      "exitCode": 0,
+      "seconds": 4.88
+    },
+    {
+      "name": "native-1.25",
+      "exitCode": 0,
+      "seconds": 7.639
+    },
+    {
+      "name": "native-creation-1.25",
+      "exitCode": 0,
+      "seconds": 5.867
+    },
+    {
+      "name": "native-1.5",
+      "exitCode": 0,
+      "seconds": 19.923
+    },
+    {
+      "name": "native-creation-1.5",
+      "exitCode": 0,
+      "seconds": 10.101
+    },
+    {
+      "name": "ctest-ui",
+      "exitCode": 0,
+      "ctestSeconds": 46.45
+    }
+  ],
+  "sourceUnchanged": true,
+  "affectedSuitesPassed": 3
+}

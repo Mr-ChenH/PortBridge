@@ -1,0 +1,42 @@
+{
+  "state": "passed",
+  "regression": "Nine suites passed in full run; unchanged session suite replayed after two recorded historical timing failures. Original failure retained.",
+  "results": [
+    {
+      "name": "session-replay",
+      "exitCode": 0,
+      "seconds": 39.703
+    },
+    {
+      "name": "native-1",
+      "exitCode": 0,
+      "seconds": 3.975
+    },
+    {
+      "name": "native-creation-1",
+      "exitCode": 0,
+      "seconds": 5.672
+    },
+    {
+      "name": "native-1.25",
+      "exitCode": 0,
+      "seconds": 4.244
+    },
+    {
+      "name": "native-creation-1.25",
+      "exitCode": 0,
+      "seconds": 6.524
+    },
+    {
+      "name": "native-1.5",
+      "exitCode": 0,
+      "seconds": 6.605
+    },
+    {
+      "name": "native-creation-1.5",
+      "exitCode": 0,
+      "seconds": 7.793
+    }
+  ],
+  "sourceUnchanged": true
+}

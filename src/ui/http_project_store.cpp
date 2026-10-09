@@ -1,5 +1,6 @@
 #include "http_project_store.hpp"
 #include "http_assertions.hpp"
+#include "http_browser_fingerprint.hpp"
 #include "http_template_preview.hpp"
 #include "workflow/workflow_private.hpp"
 #include <QDateTime>
@@ -71,6 +72,9 @@ QString checkProject(const QJsonObject &p) {
             !e.value("variables").isArray() || ids.contains(e.value("id").toString()) ||
             e.value("name").toString().trimmed().isEmpty() || e.value("name").toString().size() > 128)
             return QStringLiteral("环境名称或ID无效。");
+        const auto fingerprintError = httpFingerprint::validate(e.value("browserFingerprint"));
+        if (!fingerprintError.isEmpty())
+            return fingerprintError;
         ids.insert(e.value("id").toString());
         const auto error = HttpProjectStore::validateVariables(e.value("variables").toArray());
         if (!error.isEmpty())
@@ -541,6 +545,25 @@ bool HttpProjectStore::setProjectAuth(const QJsonObject &auth, QString *error) {
     p["auth"] = auth;
     return replaceProject(p, error);
 }
+bool HttpProjectStore::setBrowserFingerprint(const QJsonObject &configuration, QString *error) {
+    const auto why = httpFingerprint::validate(configuration);
+    if (!why.isEmpty())
+        return fail(error, why);
+    auto p = project();
+    auto environments = p.value("environments").toArray();
+    for (int i = 0; i < environments.size(); ++i) {
+        auto e = environments[i].toObject();
+        if (e.value("id").toString() == environment_) {
+            if (configuration.isEmpty())
+                e.remove("browserFingerprint");
+            else
+                e["browserFingerprint"] = configuration;
+            environments[i] = e;
+        }
+    }
+    p["environments"] = environments;
+    return replaceProject(p, error);
+}
 bool HttpProjectStore::saveConfiguration(const QString &projectId, const QString &environmentId,
                                          quint64 revision, const QJsonObject &configuration,
                                          const QStringList &clearRuntime, QString *error) {
@@ -591,6 +614,16 @@ bool HttpProjectStore::saveConfiguration(const QString &projectId, const QString
         if (e.value("id").toString() == environment_) {
             e["name"] = configuration.value("environmentName").toString().trimmed();
             e["variables"] = normalize(environmentRows);
+            if (configuration.contains("browserFingerprint")) {
+                const auto fingerprint = configuration.value("browserFingerprint");
+                const auto why = httpFingerprint::validate(fingerprint);
+                if (!why.isEmpty())
+                    return fail(error, why);
+                if (fingerprint.toObject().isEmpty())
+                    e.remove("browserFingerprint");
+                else
+                    e["browserFingerprint"] = fingerprint;
+            }
             environments[i] = e;
         }
     }
@@ -675,6 +708,10 @@ QJsonObject HttpProjectStore::effectiveVariables() const {
         if (row.contains("value"))
             values[row.value("name").toString()] = row.value("value");
     }
+    const auto fingerprintValues =
+        httpFingerprint::variables(environment().value("browserFingerprint").toObject());
+    for (auto it = fingerprintValues.begin(); it != fingerprintValues.end(); ++it)
+        values[it.key()] = it.value();
     for (const auto &r : environment().value("variables").toArray()) {
         const auto row = r.toObject();
         if (row.contains("value"))

@@ -1,6 +1,7 @@
 #include "ui/main_window.hpp"
 #include <QCloseEvent>
 #include "ui/protocol_debug_page.hpp"
+#include "ui/http_project_store.hpp"
 #include "ui/workflow_page.hpp"
 #include "ui/record_model.hpp"
 #include "ui/byte_text_preview.hpp"
@@ -638,7 +639,7 @@ QWidget* MainWindow::Impl::buildManualWorkspace() {
     auto* modes=named(new QWidget,"workspaceProtocolBar");modes->setFixedHeight(36);auto* row=new QHBoxLayout(modes);row->setContentsMargins(16,4,16,4);row->setSpacing(6);
     const QString names[]={QStringLiteral("通信调试"),QStringLiteral("HTTP"),QStringLiteral("WebSocket")};const char* ids[]={"rawWorkspaceMode","httpWorkspaceMode","webSocketWorkspaceMode"};
     for(int i=0;i<3;++i){auto* b=button(names[i],ids[i]);b->setCheckable(true);b->setChecked(i==0);b->setProperty("segment",true);b->setFixedHeight(28);row->addWidget(b);workspaceModeButtons[i]=b;QObject::connect(b,&QPushButton::clicked,q,[this,i]{workspaceMode=i;workspaceModes->setCurrentIndex(i);for(int j=0;j<3;++j)workspaceModeButtons[j]->setChecked(j==i);navigate(0);updateState();});}
-    row->addStretch();auto* create=button(QStringLiteral("新建连接"),"createConnection");create->setProperty("textAction",true);create->setFixedHeight(28);row->addWidget(create);QObject::connect(create,&QPushButton::clicked,q,[this]{editProfile(true);});auto* note=label(QStringLiteral("编辑不通信 · 仅显式发送 / 连接"));note->setProperty("muted",true);row->addWidget(note);layout->addWidget(modes);
+    row->addStretch();auto* create=button(QStringLiteral("新建调试项"),"createConnection");create->setProperty("textAction",true);create->setFixedHeight(28);row->addWidget(create);QObject::connect(create,&QPushButton::clicked,q,[this]{editProfile(true);});auto* note=label(QStringLiteral("编辑不通信 · 仅显式发送 / 连接"));note->setProperty("muted",true);row->addWidget(note);layout->addWidget(modes);
     workspaceModes=named(new QStackedWidget,"workspaceProtocolPages");workspaceModes->addWidget(buildWorkspace());httpPage=new ProtocolDebugPage(ProtocolDebugSession::Mode::Http,&settings,q);webSocketPage=new ProtocolDebugPage(ProtocolDebugSession::Mode::WebSocket,&settings,q);workspaceModes->addWidget(httpPage);workspaceModes->addWidget(webSocketPage);layout->addWidget(workspaceModes,1);
     for(auto* page:{httpPage,webSocketPage}){auto* session=page->session();session->setStartGuard([this,session](QString* error){return prepareManualProtocol(session,error);});QObject::connect(session,&ProtocolDebugSession::changed,q,[this]{stateDirty=true;});}
     return root;
@@ -968,13 +969,15 @@ void MainWindow::Impl::selectProfile(int index) {
 }
 void MainWindow::Impl::editProfile(bool add) {
     if(!add&&protectWorkflowProfiles())return;
-    design::ConnectionDialog dialog(q,add,add?3:int(profiles[profileIndex].kind),add?QString():fromStd(profiles[profileIndex].name),dark);
+    const auto* httpStore=httpPage->projectStore();
+    const auto httpContext=QStringLiteral("保存到项目：%1\n当前环境：%2（仅提供发送时的地址和变量）").arg(httpStore->project().value("name").toString(),httpStore->environment().value("name").toString());
+    design::ConnectionDialog dialog(q,add,add?(workspaceMode==1?4:workspaceMode==2?5:3):int(profiles[profileIndex].kind),add?QString():fromStd(profiles[profileIndex].name),dark,httpContext);
     auto* name=dialog.name;auto* kind=dialog.kind;
     QObject::connect(dialog.buttons,&QDialogButtonBox::accepted,&dialog,[&]{
-        if(name->text().trimmed().isEmpty()){dialog.showError(QStringLiteral("请填写方案名称。"));name->setFocus();return;}
+        if(name->text().trimmed().isEmpty()){dialog.showError(kind->currentIndex()==4?QStringLiteral("请填写请求名称，例如用户登录。"):kind->currentIndex()==5?QStringLiteral("请填写连接名称。"):QStringLiteral("请填写方案名称。"));name->setFocus();return;}
         if(kind->currentIndex()>=4){
             auto* page=kind->currentIndex()==4?httpPage:webSocketPage;QString error;
-            if(!page->createSavedRequest(name->text(),dialog.url->text(),&error)){dialog.showError(error);return;}
+            if(!page->createSavedRequest(name->text(),kind->currentIndex()==4?QString():dialog.url->text(),&error)){dialog.showError(error);return;}
         }
         dialog.accept();
     });
@@ -1371,7 +1374,7 @@ void MainWindow::closeEvent(QCloseEvent* event) {
     const bool untouchedExample=d->workflowPage&&d->workflowPage->document().toJson()==d->initialWorkflowDocument&&!d->workflowPage->runner()->active();
     if(d->workflowPage&&!untouchedExample&&!d->workflowPage->confirmLeave()){event->ignore();return;}
     if((d->httpPage&&d->httpPage->session()->active())||(d->webSocketPage&&d->webSocketPage->session()->active())||d->httpPage->dirty()||d->webSocketPage->dirty()){
-        QMessageBox confirm(this);confirm.setObjectName("manualProtocolExitConfirmation");confirm.setWindowTitle(QStringLiteral("退出协议调试"));confirm.setText(QStringLiteral("退出会取消HTTP请求、释放WebSocket连接，并放弃未保存的协议编辑。已保存方案保留；不会自动保存凭据。"));
+        QMessageBox confirm(this);confirm.setObjectName("manualProtocolExitConfirmation");confirm.setWindowTitle(QStringLiteral("退出协议调试"));confirm.setText(QStringLiteral("退出会取消HTTP请求、释放WebSocket连接，并放弃未保存的协议编辑。已保存的请求与连接配置保留；不会自动保存凭据。"));
         auto* leave=confirm.addButton(QStringLiteral("退出并释放活动"),QMessageBox::AcceptRole);auto* keep=confirm.addButton(QStringLiteral("保留当前窗口"),QMessageBox::RejectRole);confirm.setDefaultButton(keep);confirm.exec();if(confirm.clickedButton()!=leave){event->ignore();return;}
     }
     if(d->httpPage)d->httpPage->session()->cancel();
